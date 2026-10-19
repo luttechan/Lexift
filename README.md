@@ -61,7 +61,6 @@ Python 3.10 이상을 설치한 후 `install.bat`을 한 번 실행하여 필요
 - Pixel-based slot scrolling
 - Scroll-safe input selectors
 - Organized module folder
-
 - Check for updates
 - Verified downloads and installation
 - Automatic restart and recovery
