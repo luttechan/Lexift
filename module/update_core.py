@@ -1,17 +1,13 @@
 """GitHub release lookup and strictly validated portable update packages."""
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import re
 import shutil
 import stat
 import threading
-import urllib.error
 import urllib.parse
-import urllib.request
-import zipfile
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
@@ -71,13 +67,14 @@ def safe_url(url: str) -> str:
     return url
 
 
-class SafeRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        safe_url(newurl)
-        return super().redirect_request(req, fp, code, msg, headers, newurl)
-
-
 def open_url(url: str):
+    # TLS/HTTP machinery is needed only in the isolated network job, not while
+    # painting the dashboard or handling a keyboard shortcut.
+    import urllib.request
+    class SafeRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            safe_url(newurl)
+            return super().redirect_request(req, fp, code, msg, headers, newurl)
     request = urllib.request.Request(safe_url(url), headers={
         "User-Agent": "KanaShift-Updater", "Accept": "application/vnd.github+json"})
     return urllib.request.build_opener(SafeRedirect()).open(request, timeout=15)
@@ -136,6 +133,7 @@ def parse_release(data: object) -> Release:
 
 
 def latest_release() -> Release:
+    import urllib.error
     try:
         with open_url(API_URL) as response:
             raw = response.read(2 * 1024 * 1024 + 1)
@@ -152,6 +150,7 @@ def cancelled(cancel: threading.Event):
 
 
 def download(release: Release, dest: Path, cancel: threading.Event, progress=lambda value: None):
+    import hashlib
     if not re.fullmatch(r"sha256:[0-9a-fA-F]{64}", release.digest):
         raise UpdateError("GitHub SHA-256 digest is missing; automatic installation is unavailable")
     digest = hashlib.sha256()
@@ -196,6 +195,7 @@ def runtime_file(value: str) -> bool:
 
 
 def file_hash(path: Path) -> str:
+    import hashlib
     digest = hashlib.sha256()
     with path.open("rb") as stream:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
@@ -250,6 +250,7 @@ def validate_payload(root: Path, version: str) -> dict:
 
 
 def extract_package(archive: Path, dest: Path, version: str, cancel: threading.Event):
+    import zipfile
     dest.mkdir(exist_ok=False)
     try:
         with zipfile.ZipFile(archive) as package:

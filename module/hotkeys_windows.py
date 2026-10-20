@@ -6,6 +6,7 @@ import threading
 from ctypes import wintypes
 from dataclasses import dataclass
 from typing import Callable
+from i18n import tr
 
 VK_CAPITAL = 0x14
 VK_Q = 0x51
@@ -51,7 +52,7 @@ class HotkeyBinding:
 
     @property
     def title(self) -> str:
-        return f"{MODE_LABELS[self.mode]} + {self.key.upper()}"
+        return f"{tr(MODE_LABELS[self.mode])} + {self.key.upper()}"
 
     @property
     def modifiers(self) -> int:

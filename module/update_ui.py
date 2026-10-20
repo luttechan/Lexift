@@ -16,7 +16,7 @@ from PySide6.QtCore import QObject, Qt, QTimer, Signal, Slot, QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QDialog, QLabel, QProgressBar, QPushButton, QVBoxLayout
 
-from i18n import tr, text_font_family
+from i18n import tr, text_font_family, error_text, language, source_key
 from update_core import UpdateCancelled, UpdateError, version_number, updater_path
 from update_network import isolated_check as latest_release, isolated_download
 from update_apply import cache_root, plain_tree
@@ -34,6 +34,7 @@ class UpdateProgress(QDialog):
                           'QProgressBar::chunk { background:#667D9C; }'
                           f'QWidget {{ font-family:"{text_font_family(text)}"; }}')
         self.can_cancel = True
+        self.text_key = source_key(text)
         self.setMinimumWidth(380)
         layout = QVBoxLayout(self)
         self.label = QLabel(text)
@@ -48,7 +49,15 @@ class UpdateProgress(QDialog):
         layout.addWidget(self.cancel_button)
 
     def setLabelText(self, text):
+        self.text_key = source_key(text)
         self.label.setText(text)
+
+    def retranslate(self):
+        self.setWindowTitle(tr('업데이트 확인'))
+        self.label.setText(tr(self.text_key))
+        self.cancel_button.setText(tr('취소'))
+        self.setStyleSheet(self.styleSheet().split('QWidget {')[0] +
+                          f'QWidget {{ font-family:"{text_font_family(self.label.text())}"; }}')
 
     def setValue(self, value):
         self.bar.setValue(value)
@@ -71,6 +80,9 @@ class UpdateProgress(QDialog):
 class UpdateResult(QDialog):
     def __init__(self, current, remote, status, action_text=None, action=None, parent=None):
         super().__init__(parent)
+        self.current, self.remote = current, remote
+        self.status_key, self.action_key = source_key(status), source_key(action_text or '')
+        self.error_key = None
         self.setObjectName('updateResult')
         self.setWindowTitle(tr('업데이트 확인'))
         self.setMinimumWidth(390)
@@ -93,10 +105,21 @@ class UpdateResult(QDialog):
             self.install_button = QPushButton(action_text)
             self.install_button.clicked.connect(action)
             layout.addWidget(self.install_button)
-        close = QPushButton(tr('닫기'))
+        close = self.close_button = QPushButton(tr('닫기'))
         close.setDefault(True)
         close.clicked.connect(self.accept)
         layout.addWidget(close)
+
+    def retranslate(self):
+        self.setWindowTitle(tr('업데이트 확인'))
+        self.versions.setText(f"{tr('현재 버전')} : {self.current}\n{tr('배포 버전')} : {self.remote}")
+        self.status.setText(tr('업데이트 실패') + '\n' + tr(self.error_key)
+                            if self.error_key is not None else tr(self.status_key))
+        self.close_button.setText(tr('닫기'))
+        if self.install_button is not None:
+            self.install_button.setText(tr(self.action_key))
+        self.setStyleSheet(self.styleSheet().split('QWidget {')[0] +
+                          f'QWidget {{ font-family:"{text_font_family(self.status.text())}"; }}')
 
 
 class UpdateManager(QObject):
@@ -247,6 +270,10 @@ class UpdateManager(QObject):
             return
         try:
             self.job_dir = job_dir
+            path = job_dir / 'job.json'
+            job = json.loads(path.read_text(encoding='utf-8'))
+            job['ui_language'] = language()
+            path.write_text(json.dumps(job), encoding='utf-8')
             self.helper = subprocess.Popen([str(job_dir / "KanaShiftUpdater.exe"), "--job", str(job_dir / "job.json")],
                 cwd=job_dir, close_fds=True, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
             self._handoff_deadline = time.monotonic() + 60
@@ -282,7 +309,16 @@ class UpdateManager(QObject):
             return
         logging.warning("Update check/install failed: %s", error)
         if not self.automatic:
-            self._result('—', tr('업데이트 실패') + '\n' + str(error))
+            self._result('—', tr('업데이트 실패') + '\n' + error_text(error, 'update'))
+            # Keep a translation key, never an exception traceback with worker
+            # frames and download buffers alive for the lifetime of the dialog.
+            self.result_dialog.error_key = source_key(error_text(error, 'update'))
+
+    def retranslate(self):
+        if self.dialog is not None:
+            self.dialog.retranslate()
+        if self.result_dialog is not None:
+            self.result_dialog.retranslate()
 
     def cancel(self):
         self.cancel_event.set()

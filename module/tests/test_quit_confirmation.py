@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from PySide6.QtGui import QCloseEvent
-from PySide6.QtWidgets import QMessageBox
+from localized_dialogs import QMessageBox
 import app
 from i18n import LANGUAGES, set_language, tr
 
@@ -55,12 +55,11 @@ class QuitConfirmationTests(unittest.TestCase):
         self.controller._window = None
         with patch.object(app.sys, 'platform', 'win32'), \
              patch.object(app, 'MainWindow', side_effect=AssertionError('unnecessary pages')), \
-             patch.object(app.ctypes.windll.user32, 'MessageBoxW', return_value=7) as native, \
+             patch.object(app, 'confirm_quit', return_value=False) as native, \
              patch.object(QMessageBox, 'question') as qt_dialog:
             self.controller.request_quit()
         native.assert_called_once()
-        self.assertEqual(native.call_args.args[1], '정말로 종료하시겠습니까?')
-        self.assertTrue(native.call_args.args[3] & 0x100)  # No is the default.
+        self.assertIsNone(native.call_args.args[0])
         qt_dialog.assert_not_called()
         self.controller.stop.assert_not_called()
         self.assertIsNone(self.controller._window)
@@ -68,14 +67,14 @@ class QuitConfirmationTests(unittest.TestCase):
     def test_native_yes_confirms_quit(self):
         self.controller._window = None
         with patch.object(app.sys, 'platform', 'win32'), \
-             patch.object(app.ctypes.windll.user32, 'MessageBoxW', return_value=6):
+             patch.object(app, 'confirm_quit', return_value=True):
             self.controller.request_quit()
         self.controller.stop.assert_called_once()
 
     def test_warm_window_uses_owned_native_dialog_without_qt_font_work(self):
         self.controller.window.winId.return_value = 12345
         with patch.object(app.sys, 'platform', 'win32'), \
-             patch.object(app.ctypes.windll.user32, 'MessageBoxW', return_value=7) as native, \
+             patch.object(app, 'confirm_quit', return_value=False) as native, \
              patch.object(QMessageBox, 'question', side_effect=AssertionError('Qt dialog initialization')):
             self.controller.request_quit()
         self.assertEqual(native.call_args.args[0].value, 12345)

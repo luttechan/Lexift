@@ -12,12 +12,16 @@ from pathlib import Path
 
 # Suppress only the non-fatal ICC-profile description warning.
 os.environ.setdefault("QT_LOGGING_RULES", "qt.gui.icc.warning=false")
+# DirectWrite's system font collection can map thousands of unrelated font
+# files on font-heavy Windows installations. KanaShift uses static UI fonts.
+if sys.platform == "win32":
+    os.environ.setdefault("QT_QPA_PLATFORM", "windows:fontengine=gdi")
 
-from PySide6.QtCore import QObject, Qt, QSettings, QTimer, Signal, QSize, QUrl
+from PySide6.QtCore import QObject, Qt, QSettings, QTimer, Signal, QSize, QUrl, QEventLoop
 from PySide6.QtGui import QColor, QCursor, QDesktopServices, QFont, QFontDatabase, QFontMetrics, QIcon, QPainter, QPen, QPixmap
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QFrame, QGridLayout,
-    QHBoxLayout, QLabel, QLayout, QLineEdit, QMenu, QMessageBox, QPushButton,
+    QHBoxLayout, QLabel, QLayout, QLineEdit, QMenu, QPushButton,
     QScrollArea, QSizePolicy, QStackedWidget, QSystemTrayIcon, QVBoxLayout,
     QWidget,
 )
@@ -25,8 +29,9 @@ from PySide6.QtWidgets import (
 from hotkeys_windows import HotkeyBinding, MODES, MODE_LABELS, KEY_LABELS
 from isolated_hotkeys import CapsQHook, OverlayNavigationHook, service as keyboard_service
 from credits_static import get_special_thanks
-from i18n import LANGUAGES, SUPPORTED, set_language, language, tr, tr_count, tr_hint, tr_notify, text_font_family
-from native_language_dialog import choose_ui_language, NativeDialogUnavailable
+from i18n import LANGUAGES, SUPPORTED, set_language, language, tr, tr_count, tr_hint, tr_notify, text_font_family, error_text, load_saved_language
+from localized_dialogs import QMessageBox
+from native_language_dialog import choose_ui_language, confirm_quit, NativeDialogUnavailable
 from cursor_indicator import CursorIndicator
 from update_ui import UpdateManager
 from update_apply import mark_ready
@@ -43,12 +48,14 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "0.7.7"
+VERSION = "0.7.8"
 ORGANIZATION = "LuteTools"
 PRODUCT = "KanaShift"
 SELECTION_KEYS = "1234567890ABCDE"
 
-# Consistent widget styling: Qt renders all text; no custom drawn or scaled glyphs.
+# Malgun Gothic has Regular/Bold faces. Intermediate weights trigger expensive
+# GDI style searches on font-heavy systems. Use the two supported weights.
+# Qt renders all text; no custom drawn or scaled glyphs.
 QSS = """
 QWidget { color:#EBEBEF; font-family:"Malgun Gothic"; font-size:13px; background:transparent; }
 QWidget#window { background:#0D0E11; }
@@ -56,9 +63,9 @@ QFrame#side { background:#111216; border-right:1px solid #282A30; }
 QLabel#brand { font-weight:700; font-size:19px; color:#FFFFFF; }
 QLabel#logoCaption, QLabel#muted, QLabel#subtitle { color:#8A8D98; }
 QLabel#pageTitle { color:#F6F6F8; font-size:27px; font-weight:700; }
-QLabel#section { color:#E3E3E8; font-size:15px; font-weight:600; }
+QLabel#section { color:#E3E3E8; font-size:15px; font-weight:700; }
 QLabel#small { color:#9699A3; font-size:11px; }
-QLabel#metric { color:#F2F2F7; font-size:21px; font-weight:600; }
+QLabel#metric { color:#F2F2F7; font-size:21px; font-weight:700; }
 QFrame#panel { background:#17191E; border:1px solid #2A2D35; border-radius:14px; }
 QFrame#surface { background:#13151A; border:1px solid #282B32; border-radius:12px; }
 QFrame#slotRow { background:#17191E; border:1px solid #2B2E35; border-radius:13px; }
@@ -66,9 +73,9 @@ QFrame#hud { background:#14161B; border:1px solid #393D46; border-radius:20px; }
 QFrame#tile { background:#1C1F25; border:1px solid #32353F; border-radius:13px; }
 QFrame#tile:hover { background:#252932; border-color:#575D6B; }
 QFrame#tile[selected="true"] { background:#29303D; border:1px solid #9BAEC8; }
-QLabel#badge { background:#292F39; border-radius:7px; padding:5px 9px; color:#B8C7D8; font-size:11px; font-weight:600; }
+QLabel#badge { background:#292F39; border-radius:7px; padding:5px 9px; color:#B8C7D8; font-size:11px; font-weight:700; }
 QLabel#tileCode { color:#B2C5E1; font-size:13px; font-weight:700; }
-QLabel#tileName { color:#F3F4F7; font-size:16px; font-weight:600; }
+QLabel#tileName { color:#F3F4F7; font-size:16px; font-weight:700; }
 QLabel#tileDetail { color:#999DA9; font-size:11px; }
 QLabel#hintKey { background:#292D35; color:#C1C4CC; border:1px solid #3D4149; border-radius:6px; padding:4px 8px; }
 QPushButton { background:#24272E; color:#E7E9EE; border:1px solid #383D46; border-radius:9px; padding:9px 13px; min-height:20px; }
@@ -77,9 +84,9 @@ QPushButton:pressed { background:#393F49; }
 QPushButton:disabled { color:#777B86; background:#1B1D22; border-color:#2B2F35; }
 QPushButton#primary { background:#DFE5EF; color:#10141B; font-weight:700; border:1px solid #DFE5EF; }
 QPushButton#primary:hover { background:#FFFFFF; border-color:#FFFFFF; }
-QPushButton#nav { background:transparent; border:0; color:#B8BBC6; text-align:left; min-height:25px; padding:10px 14px; font-weight:500; }
+QPushButton#nav { background:transparent; border:0; color:#B8BBC6; text-align:left; min-height:25px; padding:10px 14px; font-weight:400; }
 QPushButton#nav:hover { background:#1C1F25; color:#F0F0F3; }
-QPushButton#nav[active="true"] { background:#262B33; color:#FFFFFF; border-left:2px solid #A9BACF; border-top-left-radius:0; border-bottom-left-radius:0; font-weight:500; }
+QPushButton#nav[active="true"] { background:#262B33; color:#FFFFFF; border-left:2px solid #A9BACF; border-top-left-radius:0; border-bottom-left-radius:0; font-weight:400; }
 QPushButton#ghost { background:transparent; border:1px solid #363A43; }
 QPushButton#danger { background:transparent; border:1px solid #4E3536; color:#E0A4A7; }
 QPushButton#toggle:checked { background:#29303D; border-color:#9BAEC8; }
@@ -206,7 +213,9 @@ def clear_layout(layout: QVBoxLayout | QGridLayout) -> None:
             item.widget().hide()
             item.widget().deleteLater()
         elif item.layout():
-            clear_layout(item.layout())
+            child = item.layout()
+            clear_layout(child)
+            child.deleteLater()
 
 
 def short_code(profile: dict[str, str], layout: LayoutInfo | None) -> str:
@@ -244,7 +253,7 @@ class LoadingWindow(QWidget):
         content.setContentsMargins(25, 21, 25, 21)
         content.setSpacing(8)
         content.addWidget(label("KanaShift", "section"))
-        content.addWidget(label("Loading...", "muted"))
+        content.addWidget(label(tr("불러오는 중..."), "muted"))
         outer.addWidget(box)
 
     def showEvent(self, event):
@@ -659,10 +668,14 @@ class SlotEditor(QWidget):
             layout.currentIndexChanged.connect(lambda _, idx=i, w=layout: self._select_layout(idx, w.currentData()))
             top.addWidget(layout, 1)
             up = button("↑", lambda _, idx=i: self.move_slot(idx, -1), "ghost")
+            up.setToolTip(tr("위로 이동"))
+            up.setAccessibleName(tr("위로 이동"))
             up.setFixedWidth(37)
             up.setEnabled(i > 0)
             top.addWidget(up)
             down = button("↓", lambda _, idx=i: self.move_slot(idx, 1), "ghost")
+            down.setToolTip(tr("아래로 이동"))
+            down.setAccessibleName(tr("아래로 이동"))
             down.setFixedWidth(37)
             down.setEnabled(i < len(self.slots)-1)
             top.addWidget(down)
@@ -824,7 +837,7 @@ class MainWindow(QWidget):
             self.nav_buttons.append(item)
             nav.addWidget(item)
         nav.addStretch(1)
-        nav.addWidget(label(f"VERSION {VERSION}", "small"))
+        nav.addWidget(label(tr("버전 {version}").format(version=VERSION), "small"))
         nav.addWidget(button(tr("종료"), lambda _=False: self.quit_requested.emit(), "ghost"))
         root.addWidget(sidebar)
         right = QWidget()
@@ -1024,7 +1037,7 @@ class MainWindow(QWidget):
             binding = HotkeyBinding(self.shortcut_modifier.currentData(),
                                     self.shortcut_key.currentData())
         except ValueError as error:
-            QMessageBox.warning(self, tr("단축키"), str(error))
+            QMessageBox.warning(self, tr("단축키"), error_text(error, "shortcut"))
             return
         # Ctrl+Alt is also used by AltGr on several European layouts.
         if binding.mode == "ctrl_alt":
@@ -1052,7 +1065,7 @@ class MainWindow(QWidget):
             self.auto_start.blockSignals(True)
             self.auto_start.setChecked(not enabled)
             self.auto_start.blockSignals(False)
-            QMessageBox.warning(self, tr("자동 실행 설정"), f"{tr('Windows 자동 실행 설정을 변경하지 못했습니다.')}\n{error}")
+            QMessageBox.warning(self, tr("자동 실행 설정"), tr('Windows 자동 실행 설정을 변경하지 못했습니다.'))
 
     def _save_preferences(self, *_):
         self.store.setValue("general/show_dashboard", self.show_at_start.isChecked())
@@ -1072,12 +1085,12 @@ class MainWindow(QWidget):
         p.setContentsMargins(26, 25, 26, 25)
         p.setSpacing(14)
         p.addWidget(label("KanaShift", "metric"))
-        p.addWidget(label(f"Version {VERSION}  ·  Windows 10/11", "muted"))
+        p.addWidget(label(tr("버전 {version}").format(version=VERSION) + "  ·  Windows 10/11", "muted"))
         p.addSpacing(8)
-        p.addWidget(label("Developed by Lutté Laurent", "section"))
-        p.addWidget(label("Copyright © 2026 Lutté Laurent", "muted"))
+        p.addWidget(label(tr("개발: {name}").format(name="Lutté Laurent"), "section"))
+        p.addWidget(label(tr("저작권 © {year} {name}").format(year=2026, name="Lutté Laurent"), "muted"))
         p.addSpacing(10)
-        p.addWidget(label("MIT License", "section"))
+        p.addWidget(label(tr("MIT 라이선스"), "section"))
         p.addWidget(label(tr("이 프로그램은 MIT 라이선스로 배포됩니다."), "muted"))
         p.addWidget(button(tr("오류 로그 열기"), self._open_log, "ghost"))
         p.addWidget(button(tr("업데이트 확인"), lambda: self.update_requested.emit(), "ghost"))
@@ -1087,7 +1100,7 @@ class MainWindow(QWidget):
         special_layout = QVBoxLayout(special_panel)
         special_layout.setContentsMargins(26, 22, 26, 22)
         special_layout.setSpacing(12)
-        special_layout.addWidget(label("Special Thanks", "section"))
+        special_layout.addWidget(label(tr("감사한 분들"), "section"))
         self.special_host = QWidget()
         self.special_list = QVBoxLayout(self.special_host)
         self.special_list.setContentsMargins(0, 0, 0, 0)
@@ -1113,11 +1126,16 @@ class MainWindow(QWidget):
             link.setStyleSheet("text-align:left; padding:12px 16px;")
             links.addWidget(link)
         v.addWidget(links_panel)
+        # Diagnostics have no imports, worker or sampling on the startup path.
+        from runtime_stats import RuntimeStatsPanel
+        self.runtime_stats = RuntimeStatsPanel()
+        v.addWidget(self.runtime_stats)
         v.addStretch(1)
         # Preserve the v0.6 informational panels and styling.
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setWidget(page)
+        self.runtime_stats.watch_viewport(scroll)
         return scroll
 
     def _reload_special_thanks(self):
@@ -1128,7 +1146,10 @@ class MainWindow(QWidget):
             return
         for language, names in items:
             row = QHBoxLayout()
-            row.addWidget(label(language, "muted"))
+            credit_language = {"Korean":"한국어", "English":"영어", "Japanese":"일본어",
+                               "Russian":"러시아어", "French":"프랑스어", "Spanish":"스페인어",
+                               "German":"독일어", "Chinese":"중국어"}.get(language, language)
+            row.addWidget(label(tr(credit_language), "muted"))
             row.addStretch(1)
             name = label(names, "section", wrap=True)
             if language == "Japanese":
@@ -1158,6 +1179,7 @@ class MainWindow(QWidget):
             self._ready_pages.add(index)
             if index == 2:
                 self.update_shortcut_ui(self.current_binding())
+
         self._current_page = index
         self.pages.setCurrentIndex(index)
         for i, item in enumerate(self.nav_buttons):
@@ -1391,6 +1413,7 @@ class KanaShiftController(QObject):
                 ('입력기 선택','메인 창','설정','프로그램 정보','종료')):
             action.setText(tr(source))
         self.update_action.setText(tr("업데이트 확인"))
+        self.updater.retranslate()
         self._sync_enabled_ui()
         previous.hide()
         if was_visible:
@@ -1404,14 +1427,13 @@ class KanaShiftController(QObject):
             self.show_window(1)
             return
         show_dashboard = show_main or (not background and self.store.value("general/show_dashboard", True, type=bool))
-        # Resolve fonts before installing hooks when a main window is requested.
+        # Paint the complete main window before the worker's IPC handshake.
         if show_dashboard:
-            self.window
+            self.show_window(0)
+            self.qt.processEvents(QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents)
         self._start_hook()
         # A manually launched app must never appear to be "not running".
         # Only --background (used for Windows auto-start) may stay in the tray.
-        if show_dashboard:
-            self.show_window(0)
         if not self._update_timer_started:
             self._update_timer_started = True
             QTimer.singleShot(8000, lambda: self.updater.check(automatic=True))
@@ -1427,7 +1449,7 @@ class KanaShiftController(QObject):
             except Exception as error:
                 self.overlay.set_preserve_target_focus(False)
                 logging.exception("Overlay navigation hook failed")
-                QMessageBox.warning(self.window, tr("오버레이 키보드"), f"{tr('전역 방향키 연결에 실패했습니다.')}\n{error}")
+                QMessageBox.warning(self.window, tr("오버레이 키보드"), tr('전역 방향키 연결에 실패했습니다.'))
         try:
             self.hook.start()
             self._running = True
@@ -1435,7 +1457,7 @@ class KanaShiftController(QObject):
                 QTimer.singleShot(100, self._notify_active)
         except Exception as error:
             self.window.status.setText(tr("단축키 연결 실패"))
-            QMessageBox.warning(self.window, tr("단축키 오류"), str(error))
+            QMessageBox.warning(self.window, tr("단축키 오류"), error_text(error, "shortcut"))
             self.show_window(2)
 
     def _notify_active(self):
@@ -1465,7 +1487,7 @@ class KanaShiftController(QObject):
             except Exception:
                 logging.exception("Failed to restore previous hotkey")
             self.window.update_shortcut_ui(old)
-            QMessageBox.warning(self.window, tr("단축키 변경 실패"), str(error))
+            QMessageBox.warning(self.window, tr("단축키 변경 실패"), error_text(error, "shortcut"))
             return
         self.binding = binding
         self.hook = next_hook
@@ -1717,6 +1739,7 @@ class KanaShiftController(QObject):
     def _error(self, message):
         self._cancel_switch()
         logging.warning(message)
+        message = error_text(Exception(message), "input")
         self.tray.showMessage("KanaShift", message, QSystemTrayIcon.MessageIcon.Warning, 4500)
 
     def request_quit(self):
@@ -1742,9 +1765,12 @@ class KanaShiftController(QObject):
             if sys.platform == "win32":
                 # Avoid Qt dialog/font/style initialization on every exit path.
                 owner = ctypes.c_void_p(int(window.winId())) if window is not None and window.isVisible() else None
-                confirmed = ctypes.windll.user32.MessageBoxW(
-                    owner, tr("정말로 종료하시겠습니까?"), tr("종료"),
-                    0x00000004 | 0x00000020 | 0x00000100 | 0x00010000) == 6
+                try:
+                    confirmed = confirm_quit(owner)
+                except NativeDialogUnavailable:
+                    confirmed = QMessageBox.question(window, tr("종료"), tr("정말로 종료하시겠습니까?"),
+                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                        QMessageBox.StandardButton.No) == QMessageBox.StandardButton.Yes
             else:
                 confirmed = QMessageBox.question(
                     window if window is not None and window.isVisible() else None,
@@ -1839,6 +1865,7 @@ def main() -> int:
         print("KanaShift is available on Windows 10/11 only.", file=sys.stderr)
         return 1
     setup_logging()
+    load_saved_language()
     # Guard a second copy: two low-level keyboard hooks would conflict.
     kernel = ctypes.WinDLL("kernel32", use_last_error=True)
     kernel.CreateMutexW.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_wchar_p]
@@ -1905,7 +1932,7 @@ def main() -> int:
             managers["main"] = KanaShiftController(qt)
         except Exception as error:
             logging.exception("Startup failed")
-            QMessageBox.critical(None, tr("KanaShift 시작 오류"), str(error))
+            QMessageBox.critical(None, tr("KanaShift 시작 오류"), error_text(error))
             qt.quit()
             return
         managers["main"].start(show_main=show_main, background=background)

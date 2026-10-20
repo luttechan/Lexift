@@ -1,6 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0" || exit /b 1
+set "PATH=%SystemRoot%\System32;%SystemRoot%;%~dp0.venv\Scripts;%PATH%"
 if not exist ".venv\Scripts\python.exe" goto install_first
 "%~dp0.venv\Scripts\python.exe" -m pip install pyinstaller
 if errorlevel 1 goto fail

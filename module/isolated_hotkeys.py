@@ -230,6 +230,11 @@ class HookService:
 _shared = None
 
 
+def existing_worker_process():
+    """Observe the already-owned worker without starting it or sending IPC."""
+    return _shared.process if _shared is not None else None
+
+
 def service():
     global _shared
     if _shared is None:

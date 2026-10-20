@@ -12,6 +12,7 @@ import uuid
 from pathlib import Path
 
 from update_core import MANAGED, UpdateError, validate_payload, runtime_entries
+from i18n import tr, set_language, SUPPORTED, load_saved_language, error_text
 
 
 class RecoveryError(UpdateError):
@@ -117,7 +118,9 @@ def replace_runtime(payload: Path, target: Path, version: str, verify_start=lamb
             for name in reversed(moved):
                 os.replace(backup / name, target / name)
         except Exception as recovery:
-            raise RecoveryError(f"Update and restoration failed. Retained backup: {backup}\n{error}\n{recovery}") from recovery
+            failure = RecoveryError(f"Update and restoration failed. Retained backup: {backup}\n{error}\n{recovery}")
+            failure.backup = backup
+            raise failure from recovery
         plain_tree(transaction)
         shutil.rmtree(transaction)
         raise
@@ -147,6 +150,8 @@ def mark_ready(version: str):
 
 def run_job(path: Path):
     job = load_job(path)
+    if job.get('ui_language') in SUPPORTED:
+        set_language(job['ui_language'])
     kernel, handle = parent_handle(int(job["parent_pid"]))
     try:
         # Signal only after opening the exact parent process object, preventing
@@ -201,6 +206,7 @@ def run_job(path: Path):
 
 
 def main() -> int:
+    load_saved_language()
     try:
         if len(sys.argv) != 3 or sys.argv[1] != "--job":
             raise UpdateError("This program is started by KanaShift's update menu.")
@@ -215,9 +221,11 @@ def main() -> int:
             except OSError:
                 pass
         if sys.platform == "win32":
+            message = (tr('업데이트와 복구에 실패했습니다. 다음 백업 폴더를 보존하세요:\n{path}').format(path=error.backup)
+                       if isinstance(error, RecoveryError) else error_text(error, 'update'))
             ctypes.windll.user32.MessageBoxW(None,
-                "KanaShift update failed.\n\n" + str(error),
-                "KanaShift Update", 0x10)
+                tr('업데이트 실패') + '\n\n' + message,
+                "KanaShift", 0x10)
         return 1
 
 

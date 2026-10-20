@@ -7,6 +7,7 @@ LANGUAGES = (
 )
 SUPPORTED = {code for code, _ in LANGUAGES}
 _current = 'ko'
+_current_index = -1
 
 # Stable Korean source keys. Languages per row: English, Japanese, Chinese simplified,
 # Chinese traditional, French, Spanish, Russian, German.
@@ -131,18 +132,119 @@ _ROWS.update({
 '다운로드 페이지 열기': ('Open download page','ダウンロードページを開く','打开下载页面','開啟下載頁面','Ouvrir la page de téléchargement','Abrir página de descarga','Открыть страницу загрузки','Downloadseite öffnen'),
 '닫기': ('Close','閉じる','关闭','關閉','Fermer','Cerrar','Закрыть','Schließen'),
 })
+_ROWS.update({
+'개발자 커피 사주기': ('Buy the developer a coffee','開発者にコーヒーをごちそうする','请开发者喝杯咖啡','請開發者喝杯咖啡','Offrir un café au développeur','Invitar al desarrollador a un café','Угостить разработчика кофе','Dem Entwickler einen Kaffee spendieren'),
+'Github.io': ('Github.io','Github.io','Github.io','Github.io','Github.io','Github.io','Github.io','Github.io'),
+'불러오는 중...': ('Loading...','読み込み中...','正在加载...','載入中...','Chargement...','Cargando...','Загрузка...','Wird geladen...'),
+'버전 {version}': ('Version {version}','バージョン {version}','版本 {version}','版本 {version}','Version {version}','Versión {version}','Версия {version}','Version {version}'),
+'개발: {name}': ('Developed by {name}','開発: {name}','开发者：{name}','開發者：{name}','Développé par {name}','Desarrollado por {name}','Разработчик: {name}','Entwickelt von {name}'),
+'저작권 © {year} {name}': ('Copyright © {year} {name}','著作権 © {year} {name}','版权所有 © {year} {name}','著作權 © {year} {name}','Droits d’auteur © {year} {name}','Derechos de autor © {year} {name}','Авторские права © {year} {name}','Urheberrecht © {year} {name}'),
+'MIT 라이선스': ('MIT License','MIT ライセンス','MIT 许可证','MIT 授權條款','Licence MIT','Licencia MIT','Лицензия MIT','MIT-Lizenz'),
+'감사한 분들': ('Special Thanks','ご協力いただいた皆様','特别感谢','特別感謝','Remerciements','Agradecimientos','Особая благодарность','Besonderer Dank'),
+'위로 이동': ('Move up','上へ移動','上移','上移','Monter','Subir','Переместить вверх','Nach oben'),
+'아래로 이동': ('Move down','下へ移動','下移','下移','Descendre','Bajar','Переместить вниз','Nach unten'),
+'확인': ('OK','OK','确定','確定','OK','Aceptar','ОК','OK'),
+'예': ('Yes','はい','是','是','Oui','Sí','Да','Ja'),
+'아니요': ('No','いいえ','否','否','Non','No','Нет','Nein'),
+'일본어': ('Japanese','日本語','日语','日語','Japonais','Japonés','Японский','Japanisch'),
+'러시아어': ('Russian','ロシア語','俄语','俄語','Russe','Ruso','Русский','Russisch'),
+'스페인어': ('Spanish','スペイン語','西班牙语','西班牙語','Espagnol','Español','Испанский','Spanisch'),
+'프랑스어': ('French','フランス語','法语','法語','Français','Francés','Французский','Französisch'),
+'독일어': ('German','ドイツ語','德语','德語','Allemand','Alemán','Немецкий','Deutsch'),
+'오류 로그: {path}': ('Error log: {path}','エラーログ: {path}','错误日志：{path}','錯誤記錄：{path}','Journal d’erreurs : {path}','Registro de errores: {path}','Журнал ошибок: {path}','Fehlerprotokoll: {path}'),
+'자세한 오류는 로그를 확인하세요.': ('See the log for details.','詳細はログをご確認ください。','详细信息请查看日志。','詳細資訊請查看記錄。','Consultez le journal pour plus de détails.','Consulta el registro para más detalles.','Подробности — в журнале ошибок.','Einzelheiten stehen im Fehlerprotokoll.'),
+'프로그램을 시작하지 못했습니다. debug.bat으로 오류를 확인하세요.': ('Could not start KanaShift. Run debug.bat for details.','KanaShift を起動できません。debug.bat で詳細をご確認ください。','无法启动 KanaShift。请运行 debug.bat 查看详情。','無法啟動 KanaShift。請執行 debug.bat 查看詳情。','Impossible de démarrer KanaShift. Lancez debug.bat pour les détails.','No se pudo iniciar KanaShift. Ejecuta debug.bat para ver los detalles.','Не удалось запустить KanaShift. Запустите debug.bat для диагностики.','KanaShift konnte nicht gestartet werden. Für Details debug.bat ausführen.'),
+'업데이트를 완료하지 못했습니다. 다시 시도하거나 배포 페이지에서 다운로드하세요.': ('Could not complete the update. Try again or download it from the release page.','更新を完了できません。再試行するか、リリースページからダウンロードしてください。','无法完成更新。请重试或从发布页面下载。','無法完成更新。請重試或從發布頁面下載。','Mise à jour impossible. Réessayez ou téléchargez-la depuis la page de publication.','No se pudo completar la actualización. Reintenta o descárgala desde la página de versiones.','Не удалось завершить обновление. Повторите попытку или скачайте его со страницы релиза.','Update fehlgeschlagen. Erneut versuchen oder von der Release-Seite herunterladen.'),
+'업데이트 파일을 확인하지 못했습니다. 공식 배포 파일인지 확인하세요.': ('Could not verify the update. Use the official release package.','更新ファイルを検証できません。公式の配布ファイルをご利用ください。','无法验证更新文件。请使用官方发布包。','無法驗證更新檔案。請使用官方發布套件。','Vérification impossible. Utilisez le paquet officiel.','No se pudo verificar la actualización. Usa el paquete oficial.','Не удалось проверить обновление. Используйте официальный архив.','Update konnte nicht geprüft werden. Das offizielle Release-Paket verwenden.'),
+'업데이트 서버에 연결하지 못했습니다. 인터넷 연결을 확인하세요.': ('Could not reach the update server. Check your internet connection.','更新サーバーに接続できません。インターネット接続をご確認ください。','无法连接更新服务器。请检查网络连接。','無法連線至更新伺服器。請檢查網路連線。','Serveur de mise à jour inaccessible. Vérifiez votre connexion internet.','No se pudo conectar al servidor. Comprueba tu conexión a internet.','Нет связи с сервером обновлений. Проверьте подключение к интернету.','Update-Server nicht erreichbar. Internetverbindung prüfen.'),
+'파일을 변경할 권한이 없습니다. 폴더 권한과 실행 중인 프로그램을 확인하세요.': ('Cannot change the files. Check folder permissions and running applications.','ファイルを変更できません。フォルダーの権限と実行中のアプリをご確認ください。','无法修改文件。请检查文件夹权限及正在运行的程序。','無法修改檔案。請檢查資料夾權限及執行中的程式。','Modification impossible. Vérifiez les droits du dossier et les applications ouvertes.','No se pueden modificar los archivos. Revisa los permisos y las aplicaciones abiertas.','Не удалось изменить файлы. Проверьте права доступа и запущенные приложения.','Dateien können nicht geändert werden. Ordnerrechte und laufende Programme prüfen.'),
+'단축키를 연결하지 못했습니다. 다른 프로그램의 단축키와 겹치는지 확인하세요.': ('Could not register the shortcut. Check for conflicts with other applications.','ショートカットを登録できません。他のアプリとの競合をご確認ください。','无法注册快捷键。请检查是否与其他程序冲突。','無法註冊快捷鍵。請檢查是否與其他程式衝突。','Raccourci indisponible. Vérifiez les conflits avec les autres applications.','No se pudo registrar el atajo. Comprueba si otra aplicación lo está usando.','Не удалось зарегистрировать сочетание. Проверьте конфликты с другими программами.','Tastenkürzel konnte nicht registriert werden. Konflikte mit anderen Programmen prüfen.'),
+'입력기를 전환하지 못했습니다. Windows 입력기 설정과 대상 창을 확인하세요.': ('Could not switch input. Check Windows input settings and the target window.','入力を切り替えられません。Windows の入力設定と入力先の画面をご確認ください。','无法切换输入法。请检查 Windows 输入设置及目标窗口。','無法切換輸入法。請檢查 Windows 輸入設定及目標視窗。','Changement de saisie impossible. Vérifiez les paramètres Windows et la fenêtre cible.','No se pudo cambiar la entrada. Revisa la configuración de Windows y la ventana de destino.','Не удалось сменить раскладку. Проверьте настройки Windows и нужное окно.','Eingabewechsel fehlgeschlagen. Windows-Eingabeeinstellungen und Zielfenster prüfen.'),
+'업데이트와 복구에 실패했습니다. 다음 백업 폴더를 보존하세요:\n{path}': ('Update and recovery failed. Keep this backup folder:\n{path}','更新と復元に失敗しました。このバックアップを保管してください:\n{path}','更新和恢复失败。请保留此备份文件夹：\n{path}','更新與復原失敗。請保留此備份資料夾：\n{path}','Échec de la mise à jour et de la restauration. Conservez cette sauvegarde :\n{path}','Fallaron la actualización y la recuperación. Conserva esta copia:\n{path}','Обновление и восстановление не удались. Сохраните резервную копию:\n{path}','Update und Wiederherstellung fehlgeschlagen. Diesen Sicherungsordner aufbewahren:\n{path}'),
+})
+_ROWS.update({
+'실행 정보': ('Runtime information','動作情報','运行信息','執行資訊','Informations d’exécution','Información de ejecución','Сведения о работе','Laufzeitinformationen'),
+'RAM · 본체': ('RAM · application','RAM・本体','RAM · 主程序','RAM · 主程式','RAM · application','RAM · aplicación','ОЗУ · приложение','RAM · Anwendung'),
+'RAM · 단축키 보조': ('RAM · shortcut worker','RAM・ショートカット補助','RAM · 快捷键辅助','RAM · 快捷鍵輔助','RAM · raccourcis','RAM · proceso de atajos','ОЗУ · процесс сочетаний','RAM · Tastenkürzelprozess'),
+'전용 메모리 · 본체': ('Private memory · application','プライベートメモリ・本体','专用内存 · 主程序','私人記憶體 · 主程式','Mémoire privée · application','Memoria privada · aplicación','Частная память · приложение','Privater Speicher · Anwendung'),
+'가동 시간': ('Uptime','稼働時間','运行时间','執行時間','Durée d’exécution','Tiempo en ejecución','Время работы','Laufzeit'),
+'실행 환경': ('Environment','実行環境','运行环境','執行環境','Environnement','Entorno','Среда','Umgebung'),
+'런타임': ('Runtime','ランタイム','运行时','執行階段','Moteur d’exécution','Entorno de ejecución','Среда выполнения','Laufzeitumgebung'),
+'EXE 배포본': ('Packaged EXE','EXE 配布版','EXE 发行版','EXE 發行版','Version EXE','Versión EXE','Версия EXE','EXE-Version'),
+'Python 소스': ('Python source','Python ソース','Python 源码','Python 原始碼','Sources Python','Código Python','Исходный код Python','Python-Quellcode'),
+'2초 간격 · 화면에 보일 때만 갱신': ('Every 2 seconds · only while visible','2秒間隔・画面に表示中のみ更新','每2秒刷新 · 仅在可见时更新','每2秒更新 · 僅在可見時更新','Toutes les 2 secondes · uniquement à l’écran','Cada 2 segundos · solo mientras se ve','Раз в 2 секунды · только на экране','Alle 2 Sekunden · nur im sichtbaren Bereich'),
+'현재 물리 메모리 사용량입니다. 공유 메모리가 포함됩니다.': ('Current resident memory, including shared pages.','現在の物理メモリ使用量です。共有メモリを含みます。','当前物理内存使用量，包含共享内存。','目前實體記憶體使用量，包含共用記憶體。','Mémoire physique utilisée, pages partagées comprises.','Memoria física actual, incluidas las páginas compartidas.','Текущая физическая память, включая общие страницы.','Aktuell belegter physischer Speicher einschließlich gemeinsam genutzter Seiten.'),
+'단축키 보조 프로세스만 표시합니다. 실행 중이 아니면 —로 표시됩니다.': ('Shortcut worker only. A dash means it is not running.','ショートカット補助プロセスのみ表示します。未実行時は — になります。','仅显示快捷键辅助进程。未运行时显示 —。','僅顯示快捷鍵輔助處理程序。未執行時顯示 —。','Processus des raccourcis uniquement. Un tiret indique qu’il est arrêté.','Solo el proceso de atajos. Un guion indica que no está activo.','Только процесс сочетаний. Прочерк означает, что он не запущен.','Nur der Tastenkürzelprozess. Ein Strich bedeutet, dass er nicht läuft.'),
+'프로세스 전용 커밋 메모리입니다. 물리 RAM 사용량과 다를 수 있습니다.': ('Private committed memory. This may differ from resident RAM.','プロセス専用のコミットメモリです。物理RAM使用量とは異なる場合があります。','进程专用提交内存，可能与物理RAM使用量不同。','處理程序的私人認可記憶體，可能與實體RAM使用量不同。','Mémoire privée engagée, distincte de la RAM physique.','Memoria privada comprometida; puede diferir de la RAM física.','Частная выделенная память; может отличаться от физической ОЗУ.','Privater zugesicherter Speicher; kann vom physischen RAM-Verbrauch abweichen.'),
+})
+_ROWS.update({
+'등록된 입력기 {n}개 · {shortcut}': ('{n} inputs · {shortcut}','入力方式 {n} 件 · {shortcut}','{n} 个输入法 · {shortcut}','{n} 個輸入法 · {shortcut}','{n} saisies · {shortcut}','{n} entradas · {shortcut}','{n} раскладок · {shortcut}','{n} Eingaben · {shortcut}'),
+'등록된 입력기 1개 · {shortcut}': ('1 input · {shortcut}','入力方式 1 件 · {shortcut}','1 个输入法 · {shortcut}','1 個輸入法 · {shortcut}','1 saisie · {shortcut}','1 entrada · {shortcut}','1 раскладка · {shortcut}','1 Eingabe · {shortcut}'),
+'입력할 창으로 돌아가 {shortcut}를 누르세요.': ('Return to the target app and press {shortcut}.','入力先のアプリに戻り {shortcut} を押してください。','返回输入窗口并按 {shortcut}。','返回輸入視窗並按 {shortcut}。','Revenez à l’application cible et appuyez sur {shortcut}.','Vuelve a la aplicación y pulsa {shortcut}.','Вернитесь в нужное окно и нажмите {shortcut}.','Zum Eingabefenster wechseln und {shortcut} drücken.'),
+'{shortcut}로 입력기를 전환하세요.': ('Press {shortcut} to switch inputs.','{shortcut} で入力方式を切り替えます。','按 {shortcut} 切换输入法。','按 {shortcut} 切換輸入法。','Appuyez sur {shortcut} pour changer de saisie.','Pulsa {shortcut} para cambiar la entrada.','Нажмите {shortcut}, чтобы сменить раскладку.','Mit {shortcut} die Eingabe wechseln.'),
+})
 CODES = ('en','ja','zh_CN','zh_TW','fr','es','ru','de')
-CATALOG = {code: {k: row[i] for k, row in _ROWS.items()} for i, code in enumerate(CODES)}
+
+
+class _CatalogView:
+    """Read-only column of the shared table, without copying a language dict."""
+    __slots__ = ('_index',)
+
+    def __init__(self, index):
+        self._index = index
+
+    def __getitem__(self, key):
+        return _ROWS[key][self._index]
+
+    def __contains__(self, key):
+        return key in _ROWS
+
+    def __iter__(self):
+        return iter(_ROWS)
+
+    def __len__(self):
+        return len(_ROWS)
+
+    def get(self, key, default=None):
+        row = _ROWS.get(key)
+        return row[self._index] if row is not None else default
+
+    def keys(self):
+        return _ROWS.keys()
+
+    def values(self):
+        return (row[self._index] for row in _ROWS.values())
+
+    def items(self):
+        return ((key, row[self._index]) for key, row in _ROWS.items())
+
+
+CATALOG = {code: _CatalogView(index) for index, code in enumerate(CODES)}
 # Developer credit data is part of the application package, not a user-editable config.
 def set_language(code: str) -> str:
-    global _current
+    global _current, _current_index
     if code not in SUPPORTED:
         raise ValueError(f'Unsupported UI language: {code}')
     _current = code
+    _current_index = CODES.index(code) if code != 'ko' else -1
     return code
 
 def language() -> str:
     return _current
+
+
+def load_saved_language() -> str:
+    """Read the existing Qt preference without importing Qt or changing settings."""
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                            r'Software\LuteTools\KanaShift\general') as key:
+            code = winreg.QueryValueEx(key, 'ui_language')[0]
+        if code in SUPPORTED:
+            return set_language(code)
+    except (OSError, ImportError):
+        pass
+    return language()
 
 
 def text_font_family(text: str) -> str:
@@ -155,47 +257,64 @@ def text_font_family(text: str) -> str:
     return "Malgun Gothic"
 
 def tr(key: str) -> str:
-    if _current == 'ko':
+    if _current_index < 0:
         return key
-    return CATALOG.get(_current, {}).get(key, CATALOG['en'].get(key, key))
+    row = _ROWS.get(key)
+    return row[_current_index] if row is not None else key
+
+
+def source_key(text: str) -> str:
+    if text in _ROWS:
+        return text
+    # This infrequent dialog lookup intentionally has no growing reverse cache.
+    for index in range(len(CODES)):
+        for key, row in _ROWS.items():
+            if row[index] == text:
+                return key
+    return text
 
 def tr_mode(mode_label: str) -> str:
     return tr(mode_label)
 
+
+def error_text(error: Exception, context: str = 'general') -> str:
+    """Keep technical diagnostics in logs and localize the visible explanation."""
+    import urllib.error
+    message = str(error)
+    if message in CATALOG['en'] or message in CATALOG.get(language(), {}).values():
+        return tr(message)
+    if isinstance(error, PermissionError):
+        key = '파일을 변경할 권한이 없습니다. 폴더 권한과 실행 중인 프로그램을 확인하세요.'
+    elif context == 'update':
+        if isinstance(error, (ConnectionError, TimeoutError, urllib.error.URLError)) or any(
+                word in message.lower() for word in ('offline', 'network', 'connection', 'http', 'urlopen', 'timed out', 'resolve')):
+            key = '업데이트 서버에 연결하지 못했습니다. 인터넷 연결을 확인하세요.'
+        elif any(word in message.lower() for word in ('hash', 'digest', 'manifest', 'archive', 'zip', 'package', 'reparse')):
+            key = '업데이트 파일을 확인하지 못했습니다. 공식 배포 파일인지 확인하세요.'
+        else:
+            key = '업데이트를 완료하지 못했습니다. 다시 시도하거나 배포 페이지에서 다운로드하세요.'
+    elif context == 'shortcut':
+        key = '단축키를 연결하지 못했습니다. 다른 프로그램의 단축키와 겹치는지 확인하세요.'
+    elif context == 'input':
+        key = '입력기를 전환하지 못했습니다. Windows 입력기 설정과 대상 창을 확인하세요.'
+    else:
+        key = '프로그램을 시작하지 못했습니다. debug.bat으로 오류를 확인하세요.'
+    return tr(key)
+
 def tr_count(n: int, shortcut: str) -> str:
-    templates = {
-        'ko':'등록된 입력기 {n}개 · {shortcut}',
-        'en':'{n} inputs · {shortcut}', 'ja':'入力方式 {n} 件 · {shortcut}',
-        'zh_CN':'{n} 个输入法 · {shortcut}', 'zh_TW':'{n} 個輸入法 · {shortcut}',
-        'fr':'{n} saisies · {shortcut}', 'es':'{n} entradas · {shortcut}',
-        'ru':'{n} раскладок · {shortcut}', 'de':'{n} Eingaben · {shortcut}',
-    }
-    return templates[_current].format(n=n, shortcut=shortcut)
+    if _current == 'ru':
+        ending = 'раскладка' if n % 10 == 1 and n % 100 != 11 else (
+            'раскладки' if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14) else 'раскладок')
+        return f'{n} {ending} · {shortcut}'
+    if n == 1:
+        return tr('등록된 입력기 1개 · {shortcut}').format(shortcut=shortcut)
+    return tr('등록된 입력기 {n}개 · {shortcut}').format(n=n, shortcut=shortcut)
 
 def tr_hint(shortcut: str) -> str:
-    templates = {
-        'ko':'입력할 창으로 돌아가 {shortcut}를 누르세요.',
-        'en':'Return to the target app and press {shortcut}.',
-        'ja':'入力先のアプリに戻り {shortcut} を押してください。',
-        'zh_CN':'返回输入窗口并按 {shortcut}。', 'zh_TW':'返回輸入視窗並按 {shortcut}。',
-        'fr':'Revenez à l’application cible et appuyez sur {shortcut}.',
-        'es':'Vuelve a la aplicación y pulsa {shortcut}.',
-        'ru':'Вернитесь в нужное окно и нажмите {shortcut}.',
-        'de':'Zum Eingabefenster wechseln und {shortcut} drücken.',
-    }
-    return templates[_current].format(shortcut=shortcut)
+    return tr('입력할 창으로 돌아가 {shortcut}를 누르세요.').format(shortcut=shortcut)
 
 def tr_notify(shortcut: str) -> str:
-    templates = {
-        'ko':'{shortcut}로 입력기를 전환하세요.', 'en':'Press {shortcut} to switch inputs.',
-        'ja':'{shortcut} で入力方式を切り替えます。',
-        'zh_CN':'按 {shortcut} 切换输入法。', 'zh_TW':'按 {shortcut} 切換輸入法。',
-        'fr':'Appuyez sur {shortcut} pour changer de saisie.',
-        'es':'Pulsa {shortcut} para cambiar la entrada.',
-        'ru':'Нажмите {shortcut}, чтобы сменить раскладку.',
-        'de':'Mit {shortcut} die Eingabe wechseln.',
-    }
-    return templates[_current].format(shortcut=shortcut)
+    return tr('{shortcut}로 입력기를 전환하세요.').format(shortcut=shortcut)
 
 _EXTRA_ROWS = {
 '이전 입력 창으로 돌아갈 수 없습니다. 다시 단축키를 눌러주세요.':
@@ -215,5 +334,5 @@ _EXTRA_ROWS = {
 'KanaShift가 이미 실행 중입니다.\n작업표시줄 알림 영역의 K 아이콘을 확인하세요.':
 ('KanaShift is already running.\nCheck the K icon in the system tray.','KanaShift はすでに実行中です。\n通知領域の K アイコンをご確認ください。','KanaShift 已在运行。\n请查看系统托盘中的 K 图标。','KanaShift 已在執行。\n請查看系統匣中的 K 圖示。','KanaShift est déjà actif.\nCherchez l’icône K dans la zone de notification.','KanaShift ya está activo.\nBusca el icono K en la bandeja del sistema.','KanaShift уже запущен.\nНайдите значок K в области уведомлений.','KanaShift läuft bereits.\nPrüfen Sie das K-Symbol im Infobereich.'),
 }
-for _i, _code in enumerate(CODES):
-    CATALOG[_code].update({key: row[_i] for key, row in _EXTRA_ROWS.items()})
+_ROWS.update(_EXTRA_ROWS)
+del _EXTRA_ROWS

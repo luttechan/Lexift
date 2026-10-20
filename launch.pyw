@@ -11,7 +11,7 @@ if not getattr(sys, 'frozen', False):
     sys.path.insert(0, str(Path(__file__).resolve().parent / 'module'))
 
 
-def _report_startup_error(details: str) -> None:
+def _report_startup_error(details: str, show_dialog: bool = True) -> None:
     folder = Path(os.environ.get("LOCALAPPDATA") or Path.home()) / "KanaShift"
     log_path = folder / "startup-error.log"
     try:
@@ -20,12 +20,19 @@ def _report_startup_error(details: str) -> None:
             stream.write(f"\n[{datetime.now().isoformat(timespec='seconds')}]\n{details}\n")
     except Exception:
         pass
-    summary = details.strip().splitlines()[-1] if details.strip() else "알 수 없는 오류"
-    message = ("KanaShift를 시작할 수 없습니다.\n\n"
-               f"{summary[:500]}\n\n오류 로그: {log_path}\n"
-               "debug.bat을 실행하면 자세한 오류를 볼 수 있습니다.")
+    if not show_dialog:
+        return
     try:
-        ctypes.windll.user32.MessageBoxW(None, message, "KanaShift 실행 오류", 0x10)
+        from i18n import tr, load_saved_language
+        load_saved_language()
+        message = (tr('프로그램을 시작하지 못했습니다. debug.bat으로 오류를 확인하세요.')
+                   + '\n\n' + tr('오류 로그: {path}').format(path=log_path))
+        title = tr('KanaShift 시작 오류')
+    except Exception:
+        message = f'Could not start KanaShift. Run debug.bat for details.\n\nError log: {log_path}'
+        title = 'KanaShift startup error'
+    try:
+        ctypes.windll.user32.MessageBoxW(None, message, title, 0x10)
     except Exception:
         print(message, file=sys.stderr)
 
@@ -38,11 +45,21 @@ def main() -> int:
         if len(sys.argv) == 3 and sys.argv[1] == '--network-job':
             from update_network import run_network_job
             return run_network_job(sys.argv[2])
+        if sys.argv[1:] == ['--verify-runtime']:
+            from PySide6.QtWidgets import QApplication
+            from app import choose_font
+            qt = QApplication([sys.argv[0]])
+            choose_font(qt)
+            return 0
         from app import main as app_main
         return app_main()
     except BaseException:
+        if sys.argv[1:] == ['--verify-runtime']:
+            _report_startup_error(traceback.format_exc(), show_dialog=False)
+            return 1
         if ((len(sys.argv) == 4 and sys.argv[1] == '--hook-worker') or
-                (len(sys.argv) == 3 and sys.argv[1] == '--network-job')):
+                (len(sys.argv) == 3 and sys.argv[1] == '--network-job') or
+                sys.argv[1:] == ['--verify-runtime']):
             # The parent owns error reporting and cancellation. A hidden child
             # must not wait forever for its own modal startup-error dialog.
             return 1

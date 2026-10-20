@@ -16,7 +16,7 @@ class ScriptFontTests(unittest.TestCase):
     def tearDown(self):
         set_language('ko')
 
-    def test_os_language_names_keep_korean_font_in_japanese_ui(self):
+    def test_os_language_names_follow_japanese_ui_and_its_font(self):
         set_language('ja')
         layout = replace(create_layout(0x0419),name='러시아어(러시아)',is_ime=True)
         slots = [dict(hkl=layout.hkl,mode='ime_native',name='custom')]
@@ -25,8 +25,9 @@ class ScriptFontTests(unittest.TestCase):
         try:
             modes = next(combo for combo in editor.findChildren(QComboBox) if combo.findData('ime_native')>=0)
             native_index = modes.findData('ime_native')
-            self.assertEqual(modes.itemData(native_index,Qt.ItemDataRole.FontRole).family(),'Malgun Gothic')
-            self.assertEqual(modes.property('kanashiftTextFamily'),'Malgun Gothic')
+            self.assertEqual(modes.itemText(native_index),'ロシア語')
+            self.assertEqual(modes.itemData(native_index,Qt.ItemDataRole.FontRole).family(),'Yu Gothic UI')
+            self.assertEqual(modes.property('kanashiftTextFamily'),'Yu Gothic UI')
             modes.setCurrentIndex(modes.findData('ime_latin'))
             self.assertEqual(modes.property('kanashiftTextFamily'),'Yu Gothic UI')
             self.assertEqual(editor.slots[0]['mode'],'ime_latin')

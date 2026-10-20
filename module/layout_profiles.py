@@ -6,6 +6,7 @@ import locale
 import sys
 from functools import lru_cache
 from ctypes import wintypes
+from i18n import tr
 
 LANG_KO = 0x0412
 MAX_SLOTS = 15
@@ -26,7 +27,13 @@ class LayoutInfo:
 
     @property
     def display(self) -> str:
-        return f"{self.name}  ·  {self.tag}  ({self.hkl[-8:]})"
+        return f"{localized_name(self)}  ·  {self.tag}  ({self.hkl[-8:]})"
+
+
+def localized_name(layout: LayoutInfo) -> str:
+    key = {0x12:'한국어', 0x11:'일본어', 0x04:'중국어', 0x09:'영어',
+           0x19:'러시아어', 0x0A:'스페인어', 0x0C:'프랑스어', 0x07:'독일어'}.get(layout.langid & 0x03FF)
+    return tr(key) if key else layout.name
 
 
 def hkl_string(value: int) -> str:
@@ -71,7 +78,7 @@ def mode_options(layout: str | LayoutInfo) -> list[tuple[str, str]]:
                 ("ime_latin", "영어"),
                 ("default", "현재 설정 유지")]
     if is_ime:
-        return [("ime_native", "중국어" if family.startswith("chinese") else layout.name),
+        return [("ime_native", "중국어" if family.startswith("chinese") else localized_name(layout)),
                 ("ime_latin", "영어"), ("default", "현재 설정 유지")]
     return [("default", "키보드 / 입력기 전환")]
 
@@ -83,9 +90,9 @@ def preferred_mode(layout: LayoutInfo) -> str:
 
 def default_name(layout: LayoutInfo, mode: str) -> str:
     names = {"ko_hangul": "한국어", "ko_latin": "English", "ime_latin": "English",
-             "ja_hiragana": "日本語", "ja_katakana_full": "カタカナ · 전각",
-             "ja_katakana_half": "ｶﾀｶﾅ · 반각", "ja_katakana_ask": "カタカナ"}
-    return names.get(mode, layout.name)
+             "ja_hiragana": "日本語", "ja_katakana_full": "カタカナ · 全角",
+             "ja_katakana_half": "ｶﾀｶﾅ · 半角", "ja_katakana_ask": "カタカナ"}
+    return names.get(mode, localized_name(layout))
 
 
 @lru_cache(maxsize=256)

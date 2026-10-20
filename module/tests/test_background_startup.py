@@ -15,6 +15,25 @@ class BackgroundStartupTests(unittest.TestCase):
     def setUpClass(cls):
         cls.qt = QApplication.instance() or QApplication([])
 
+    def test_manual_main_window_is_painted_before_worker_handshake(self):
+        from PySide6.QtCore import QEventLoop
+        controller=app.KanaShiftController.__new__(app.KanaShiftController)
+        controller.first_run=False
+        controller._update_timer_started=True
+        controller.store=Mock()
+        controller.qt=Mock()
+        order=[]
+        controller.show_window=Mock(side_effect=lambda *_:order.append('window'))
+        controller.qt.processEvents.side_effect=lambda *_:order.append('paint')
+        controller._start_hook=Mock(side_effect=lambda:order.append('hooks'))
+        controller.start(show_main=True)
+        self.assertEqual(order,['window','paint','hooks'])
+        controller.qt.processEvents.assert_called_once_with(QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents)
+
+    def test_ui_uses_existing_malgun_regular_and_bold_faces(self):
+        import re
+        self.assertEqual(set(re.findall(r'font-weight:(\d+)',app.QSS)),{'400','700'})
+
     def test_login_startup_does_not_construct_main_window_or_settings(self):
         with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
             layout = create_layout(0x0412)

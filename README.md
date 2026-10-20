@@ -46,6 +46,17 @@ Python 3.10 이상을 설치한 후 `install.bat`을 한 번 실행하여 필요
 
 ## Version History
 
+### 0.7.8
+
+- Faster startup
+- Live RAM usage and runtime information
+- Collapsible runtime information
+- Lower translation overhead
+- Complete interface translations
+- Localized dialogs and error messages
+- Lower font memory usage
+- Layout cleanup and final QA
+
 ### 0.7.7
 
 - ON/OFF toggle
@@ -61,6 +72,7 @@ Python 3.10 이상을 설치한 후 `install.bat`을 한 번 실행하여 필요
 - Pixel-based slot scrolling
 - Scroll-safe input selectors
 - Organized module folder
+
 - Check for updates
 - Verified downloads and installation
 - Automatic restart and recovery

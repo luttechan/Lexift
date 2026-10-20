@@ -10,3 +10,8 @@ build-cache/
 *.spec
 *.log
 .vscode/*.code-workspace
+
+# Local notes and validation reports are not part of the source release.
+*.md
+!README.md
+!LICENSE.md

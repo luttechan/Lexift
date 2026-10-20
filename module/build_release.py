@@ -17,6 +17,11 @@ def source_version():
 
 
 if __name__ == "__main__":
+    # Exercise the actual frozen Python, Qt DLLs, platform plugin and UI font.
+    # Loading archived Python code in the build interpreter cannot verify ABI.
+    subprocess.run([str(Path("dist/KanaShift/KanaShift.exe").resolve()), "--verify-runtime"],
+                   check=True, timeout=30,
+                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     subprocess.run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--noupx", "--onefile",
                     "--windowed", "--name", "KanaShiftUpdater", "--distpath", "module/helper-dist",
                     "--workpath", "module/build/updater", "--specpath", "module/build", "module/update_apply.py"], check=True)

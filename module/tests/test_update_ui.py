@@ -126,5 +126,5 @@ class UpdateUITests(unittest.TestCase):
             self.manager.automatic=True;self.manager._failed(UpdateError('offline'))
             self.assertIsNone(self.manager.result_dialog)
             self.manager.automatic=False;self.manager._failed(UpdateError('offline'))
-        self.assertIn('offline', self.manager.result_dialog.status.text())
+        self.assertIn('인터넷 연결', self.manager.result_dialog.status.text())
         self.assertNotIn('최신 버전입니다.', self.manager.result_dialog.status.text())
