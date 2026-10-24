@@ -46,6 +46,7 @@ class HotkeyBinding:
     key: str = "Q"
 
     def __post_init__(self):
+        object.__setattr__(self, 'key', self.key.upper().strip())
         if self.mode not in MODES:
             raise ValueError(f"지원하지 않는 조합: {self.mode}")
         key_vk(self.key)
@@ -168,8 +169,12 @@ def _send_caps_tap() -> None:
 
 class CapsQHook:
     """Compatibility name: supports any HotkeyBinding, not just Caps+Q."""
-    def __init__(self, on_hotkey: Callable[[int], None], binding: HotkeyBinding | None = None):
+    def __init__(self, on_hotkey: Callable[[int], None], binding: HotkeyBinding | None = None, on_ime=None, secondary_key='A', on_chinese=None, tertiary_key='C'):
         self.on_hotkey = on_hotkey
+        self.on_ime = on_ime
+        self.secondary_key = secondary_key
+        self.on_chinese = on_chinese
+        self.tertiary_key = tertiary_key
         self.binding = binding or HotkeyBinding()
         self.state = CapsQState(key_vk(self.binding.key))
         self.thread: threading.Thread | None = None
@@ -184,7 +189,7 @@ class CapsQHook:
             raise RuntimeError("Windows에서만 사용할 수 있습니다.")
         self._ready.clear()
         self.error = None
-        self.thread = threading.Thread(target=self._loop, daemon=True, name="KanaShift-Hotkey")
+        self.thread = threading.Thread(target=self._loop, daemon=True, name="Lexift-Hotkey")
         self.thread.start()
         if not self._ready.wait(4):
             raise RuntimeError("단축키 등록 시간이 초과되었습니다.")
@@ -225,39 +230,31 @@ class CapsQHook:
             user32.UnregisterHotKey(None, HOTKEY_ID)
 
     def _loop_caps(self):
-        @LOW_LEVEL_PROC
-        def callback(code, wparam, lparam):
-            if code < 0 or wparam not in (WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN, WM_SYSKEYUP):
-                return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-            event = ctypes.cast(lparam, ctypes.POINTER(KBDLLHOOKSTRUCT)).contents
-            if event.flags & LLKHF_INJECTED:
-                return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-            down = wparam in (WM_KEYDOWN, WM_SYSKEYDOWN)
-            swallow, fire, tap = self.state.handle(event.vkCode, down)
-            if tap:
-                _send_caps_tap()
-            if fire:
-                self._fire()
-            if swallow:
-                return 1
-            return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-
-        self._callback = callback
-        module = kernel32.GetModuleHandleW(None)
-        self._hook = user32.SetWindowsHookExW(WH_KEYBOARD_LL, callback, module, 0)
-        if not self._hook:
-            self.error = f"키보드 후크 등록 실패 (Win32 {ctypes.get_last_error()})"
+        from native_hooks import start, COMMAND_MESSAGE
+        try:
+            native = start(0, self.thread_id, key_vk(self.binding.key))
+            native.ks_set_secondary(key_vk(self.secondary_key) if self.on_ime else 0)
+            native.ks_set_tertiary(key_vk(self.tertiary_key) if self.on_chinese else 0)
+        except (OSError, RuntimeError) as error:
+            self.error = f"키보드 후크 등록 실패 ({error})"
             self._ready.set()
             return
         self._ready.set()
         msg = wintypes.MSG()
         try:
             while user32.GetMessageW(ctypes.byref(msg), None, 0, 0) > 0:
-                user32.TranslateMessage(ctypes.byref(msg))
-                user32.DispatchMessageW(ctypes.byref(msg))
+                if msg.message == COMMAND_MESSAGE:
+                    if msg.wParam == 2 and self.on_chinese:
+                        self.on_chinese(0)
+                    elif msg.wParam == 1 and self.on_ime:
+                        self.on_ime(0)
+                    else:
+                        self._fire()
+                else:
+                    user32.TranslateMessage(ctypes.byref(msg))
+                    user32.DispatchMessageW(ctypes.byref(msg))
         finally:
-            user32.UnhookWindowsHookEx(self._hook)
-            self._hook = None
+            native.ks_stop(0)
 
     def stop(self) -> None:
         if self.thread_id and self.thread and self.thread.is_alive():
@@ -265,6 +262,38 @@ class CapsQHook:
             if threading.current_thread() is not self.thread:
                 self.thread.join(timeout=2)
         self.thread_id = 0
+
+
+class HotkeyGroup:
+    """Own exactly one Caps hook and independent RegisterHotKey threads.
+
+    Roll back the entire group if any of the three registrations fails.
+    """
+    def __init__(self, entries):
+        bindings=[binding for binding, callback in entries]
+        if len(set(bindings)) != len(bindings):
+            raise RuntimeError('단축키가 겹칩니다. 서로 다른 조합을 선택하세요.')
+        caps=[entry for entry in entries if entry[0].mode=='caps']
+        self.hooks=[CapsQHook(callback,binding) for binding,callback in entries if binding.mode!='caps']
+        if caps:
+            kwargs={}
+            if len(caps)>1:
+                kwargs.update(on_ime=caps[1][1],secondary_key=caps[1][0].key)
+            if len(caps)>2:
+                kwargs.update(on_chinese=caps[2][1],tertiary_key=caps[2][0].key)
+            self.hooks.append(CapsQHook(caps[0][1],caps[0][0],**kwargs))
+
+    def start(self):
+        try:
+            for hook in self.hooks:
+                hook.start()
+        except Exception:
+            self.stop()
+            raise
+
+    def stop(self):
+        for hook in reversed(self.hooks):
+            hook.stop()
 
 
 # Independent HUD navigation hook. It handles selector keys even when Windows
@@ -304,6 +333,8 @@ class OverlayNavigationHook:
         self.on_key = on_key
         self.state = OverlayKeyState()
         self.active = threading.Event()
+        self.mode = 0
+        self.target = 0
         self.thread: threading.Thread | None = None
         self.thread_id = 0
         self._hook = None
@@ -311,11 +342,17 @@ class OverlayNavigationHook:
         self._ready = threading.Event()
         self.error: str | None = None
 
-    def set_active(self, active: bool) -> None:
+    def set_active(self, active: bool, target=0) -> None:
+        self.mode = int(active)
+        self.target = int(target or 0)
         if active:
             self.active.set()
         else:
             self.active.clear()
+        native = getattr(self, '_native', None)
+        if native is not None:
+            native.ks_set_nav_target(self.target)
+            native.ks_set_active(self.mode)
 
     def start(self) -> None:
         if sys.platform != "win32":
@@ -324,7 +361,7 @@ class OverlayNavigationHook:
             return
         self.error = None
         self._ready.clear()
-        self.thread = threading.Thread(target=self._loop, daemon=True, name="KanaShift-Overlay-Keys")
+        self.thread = threading.Thread(target=self._loop, daemon=True, name="Lexift-Overlay-Keys")
         self.thread.start()
         if not self._ready.wait(4):
             raise RuntimeError("오버레이 키보드 연결 시간이 초과되었습니다.")
@@ -333,51 +370,32 @@ class OverlayNavigationHook:
 
     def _loop(self) -> None:
         self.thread_id = kernel32.GetCurrentThreadId()
-
-        @LOW_LEVEL_PROC
-        def callback(code, wparam, lparam):
-            if code < 0 or wparam not in (WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN, WM_SYSKEYUP):
-                return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-            event = ctypes.cast(lparam, ctypes.POINTER(KBDLLHOOKSTRUCT)).contents
-            if event.flags & LLKHF_INJECTED:
-                return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-            # Fast path: virtually no work on ordinary keys while the HUD is hidden.
-            active = self.active.is_set()
-            if not active and event.vkCode not in self.state.held:
-                return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-            if event.vkCode not in OVERLAY_KEYS and event.vkCode not in self.state.held:
-                return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-            down = wparam in (WM_KEYDOWN, WM_SYSKEYDOWN)
-            # Do not intercept Ctrl/Alt/Win system shortcuts from other apps.
-            modified = any(user32.GetAsyncKeyState(vk) & 0x8000
-                           for vk in (0x11, 0x12, 0x5B, 0x5C)) if active else False
-            swallow, fire = self.state.handle(event.vkCode, down, active, modified)
-            if fire:
-                try:
-                    self.on_key(int(event.vkCode))
-                except Exception:
-                    # Hook callbacks must never propagate exceptions to Windows.
-                    pass
-            if swallow:
-                return 1
-            return user32.CallNextHookEx(self._hook, code, wparam, lparam)
-
-        self._callback = callback
-        self._hook = user32.SetWindowsHookExW(WH_KEYBOARD_LL, callback, kernel32.GetModuleHandleW(None), 0)
-        if not self._hook:
-            self.error = f"오버레이 키보드 후크 연결 실패 (Win32 {ctypes.get_last_error()})"
+        from native_hooks import start, COMMAND_MESSAGE
+        try:
+            native = start(1, self.thread_id)
+            self._native = native
+            native.ks_set_nav_target(self.target)
+            native.ks_set_active(self.mode)
+        except (OSError, RuntimeError) as error:
+            self.error = f"오버레이 키보드 후크 연결 실패 ({error})"
             self._ready.set()
             return
         self._ready.set()
         msg = wintypes.MSG()
         try:
             while user32.GetMessageW(ctypes.byref(msg), None, 0, 0) > 0:
-                user32.TranslateMessage(ctypes.byref(msg))
-                user32.DispatchMessageW(ctypes.byref(msg))
+                if msg.message == COMMAND_MESSAGE:
+                    try:
+                        self.on_key(int(msg.wParam))
+                    except Exception:
+                        pass
+                else:
+                    user32.TranslateMessage(ctypes.byref(msg))
+                    user32.DispatchMessageW(ctypes.byref(msg))
         finally:
             self.active.clear()
-            user32.UnhookWindowsHookEx(self._hook)
-            self._hook = None
+            native.ks_stop(1)
+            self._native = None
 
     def stop(self) -> None:
         self.active.clear()

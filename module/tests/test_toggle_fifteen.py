@@ -30,9 +30,11 @@ class ToggleTests(unittest.TestCase):
         self.stack.enter_context(patch.object(app, 'available_layouts', return_value=[self.layout]))
         self.stack.enter_context(patch.object(app, 'CapsQHook'))
         self.stack.enter_context(patch.object(app, 'OverlayNavigationHook'))
+        self.stack.enter_context(patch.object(app.LexiftController,'_warm_keyboard',return_value=False))
+        self.stack.enter_context(patch.object(app.LexiftController,'_sound'))
         self.stack.enter_context(patch.object(app.QTimer, 'singleShot'))
         self.keyboard = self.stack.enter_context(patch.object(app, 'keyboard_service')).return_value
-        self.controller = app.KanaShiftController(self.qt)
+        self.controller = app.LexiftController(self.qt)
         self.controller.start(background=True)
         self.controller.tray.showMessage = Mock()
 

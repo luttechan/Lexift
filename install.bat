@@ -10,7 +10,7 @@ if errorlevel 1 goto fail
 "%~dp0.venv\Scripts\python.exe" -m pip install -r module/requirements.txt
 if errorlevel 1 goto fail
 echo.
-echo KanaShift dependencies installed.
+echo Lexift dependencies installed.
 pause
 exit /b 0
 :no_python

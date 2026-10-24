@@ -20,7 +20,7 @@ class RecoveryError(UpdateError):
 
 
 def cache_root() -> Path:
-    return Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "KanaShift" / "updates"
+    return Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "Lexift" / "updates"
 
 
 def plain_tree(root: Path):
@@ -43,13 +43,13 @@ def load_job(path: Path) -> dict:
     if path.stat().st_size > 32768:
         raise UpdateError("Update job is too large")
     job = json.loads(path.read_text(encoding="utf-8"))
-    if job.get("product") != "KanaShift" or job.get("nonce") != path.parent.name:
+    if job.get("product") != "Lexift" or job.get("nonce") != path.parent.name:
         raise UpdateError("Invalid update job")
     target = Path(job["target"])
     payload = Path(job["payload"])
     if (not target.is_absolute() or target == target.parent
-            or payload != path.parent / "unpacked" / "KanaShift"
-            or not (target / "KanaShift.exe").is_file()
+            or payload != path.parent / "unpacked" / "Lexift"
+            or not (target / "Lexift.exe").is_file()
             or not any((target / name).is_dir() for name in ("_internal", "module"))):
         raise UpdateError("Invalid installed runtime or staging directory")
     plain_tree(target / "_internal")
@@ -73,7 +73,7 @@ def parent_handle(pid: int):
     kernel.CloseHandle.argtypes = [ctypes.c_void_p]
     handle = kernel.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE, no terminate access.
     if not handle:
-        raise UpdateError("Cannot wait for the running KanaShift process")
+        raise UpdateError("Cannot wait for the running Lexift process")
     return kernel, handle
 
 
@@ -158,7 +158,7 @@ def run_job(path: Path):
         # PID reuse from ever attaching this update to a different process.
         (path.parent / "helper-ready").write_text(job["nonce"], encoding="ascii")
         if kernel.WaitForSingleObject(handle, 60000) != 0:
-            raise UpdateError("KanaShift did not exit; update cancelled")
+            raise UpdateError("Lexift did not exit; update cancelled")
     finally:
         kernel.CloseHandle(handle)
     target = Path(job["target"])
@@ -167,7 +167,7 @@ def run_job(path: Path):
     def restart_and_verify():
         nonlocal child
         try:
-            child = subprocess.Popen([str(target / "KanaShift.exe"), "--show", "--update-job", str(path)], cwd=target)
+            child = subprocess.Popen([str(target / "Lexift.exe"), "--show", "--update-job", str(path)], cwd=target)
             deadline = time.monotonic() + 60
             ready = path.parent / "ready"
             while time.monotonic() < deadline:
@@ -192,7 +192,7 @@ def run_job(path: Path):
         if child is not None and child.poll() is None:
             child.terminate()
             child.wait(timeout=15)
-        subprocess.Popen([str(target / "KanaShift.exe"), "--show"], cwd=target)
+        subprocess.Popen([str(target / "Lexift.exe"), "--show"], cwd=target)
         raise
     else:
         (path.parent / "completed").write_text(job["nonce"], encoding="ascii")
@@ -209,7 +209,7 @@ def main() -> int:
     load_saved_language()
     try:
         if len(sys.argv) != 3 or sys.argv[1] != "--job":
-            raise UpdateError("This program is started by KanaShift's update menu.")
+            raise UpdateError("This program is started by Lexift's update menu.")
         run_job(Path(sys.argv[2]).absolute())
         return 0
     except Exception as error:
@@ -225,7 +225,7 @@ def main() -> int:
                        if isinstance(error, RecoveryError) else error_text(error, 'update'))
             ctypes.windll.user32.MessageBoxW(None,
                 tr('업데이트 실패') + '\n\n' + message,
-                "KanaShift", 0x10)
+                "Lexift", 0x10)
         return 1
 
 

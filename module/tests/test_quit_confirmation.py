@@ -15,7 +15,7 @@ class QuitConfirmationTests(unittest.TestCase):
         platform = patch.object(app.sys, 'platform', 'linux')
         platform.start()
         self.addCleanup(platform.stop)
-        self.controller = app.KanaShiftController.__new__(app.KanaShiftController)
+        self.controller = app.LexiftController.__new__(app.LexiftController)
         self.controller._stopping = False
         self.controller._confirming_quit = False
         self.controller._job = 3

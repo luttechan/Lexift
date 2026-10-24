@@ -181,7 +181,7 @@ class UpdateManager(QObject):
                 self.checked.emit(release)
             except Exception as error:
                 self.failed.emit(error)
-        threading.Thread(target=work, daemon=True, name="KanaShift-ReleaseCheck").start()
+        threading.Thread(target=work, daemon=True, name="Lexift-ReleaseCheck").start()
 
     @Slot(object)
     def _checked(self, release):
@@ -218,6 +218,8 @@ class UpdateManager(QObject):
             self.result_dialog.hide()
             self.result_dialog.deleteLater()
         self.result_dialog = UpdateResult(self.version, remote, status, action_text, action)
+        from notification_sound import notify_event
+        notify_event()
         self.result_dialog.show()
 
     def _download(self, release):
@@ -244,8 +246,8 @@ class UpdateManager(QObject):
                 if self.cancel_event.is_set():
                     raise UpdateCancelled("Cancelled")
                 # The helper runs outside the directory whose DLLs it replaces.
-                shutil.copy2(updater_path(target), job_dir / "KanaShiftUpdater.exe")
-                job = dict(product="KanaShift", nonce=job_dir.name, version=release.version,
+                shutil.copy2(updater_path(target), job_dir / "LexiftUpdater.exe")
+                job = dict(product="Lexift", nonce=job_dir.name, version=release.version,
                            target=str(target), payload=str(payload), parent_pid=os.getpid())
                 (job_dir / "job.json").write_text(json.dumps(job), encoding="utf-8")
                 self.prepared.emit(job_dir)
@@ -253,7 +255,7 @@ class UpdateManager(QObject):
                 if job_dir is not None:
                     shutil.rmtree(job_dir, ignore_errors=True)
                 self.failed.emit(error)
-        threading.Thread(target=work, daemon=True, name="KanaShift-UpdateDownload").start()
+        threading.Thread(target=work, daemon=True, name="Lexift-UpdateDownload").start()
 
     @Slot(int)
     def _progress(self, value):
@@ -274,7 +276,7 @@ class UpdateManager(QObject):
             job = json.loads(path.read_text(encoding='utf-8'))
             job['ui_language'] = language()
             path.write_text(json.dumps(job), encoding='utf-8')
-            self.helper = subprocess.Popen([str(job_dir / "KanaShiftUpdater.exe"), "--job", str(job_dir / "job.json")],
+            self.helper = subprocess.Popen([str(job_dir / "LexiftUpdater.exe"), "--job", str(job_dir / "job.json")],
                 cwd=job_dir, close_fds=True, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
             self._handoff_deadline = time.monotonic() + 60
             self.dialog.setLabelText(tr("파일 교체를 준비하는 중..."))

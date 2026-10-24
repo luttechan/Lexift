@@ -36,11 +36,15 @@ class StartupPageTests(unittest.TestCase):
         self.layouts.stop()
         self.temp.cleanup()
 
-    def test_startup_skips_unused_pages(self):
-        self.assertEqual(self.window._ready_pages, {0, 1})
-        self.assertFalse(hasattr(self.window, 'shortcut_modifier'))
-        self.assertFalse(hasattr(self.window, 'special_list'))
-        self.assertEqual(self.window.pages.count(), 4)
+    def test_all_settings_exist_before_the_first_menu_click(self):
+        self.assertEqual(self.window._ready_pages, {0, 1, 2, 3, 4})
+        with patch.object(self.window, '_make_preferences', side_effect=AssertionError('menu rebuilt')), \
+             patch.object(self.window, '_make_about', side_effect=AssertionError('menu rebuilt')), \
+             patch.object(self.window, '_make_dictionary', side_effect=AssertionError('menu rebuilt')):
+            for index in (2, 3, 4, 2, 1, 3, 0, 4):
+                self.window.navigate(index)
+                self.assertEqual(self.window.pages.currentIndex(), index)
+        self.assertEqual(self.window.pages.count(), 5)
 
     def test_settings_created_on_first_visit_with_saved_shortcut(self):
         self.window.navigate(2)
@@ -91,6 +95,7 @@ class StartupPageTests(unittest.TestCase):
     def test_japanese_credit_uses_matching_font_without_changing_text(self):
         from PySide6.QtWidgets import QLabel
         with patch.object(app, 'get_special_thanks', return_value=(('Japanese', '澤井亮介'),)):
+            self.window._reload_special_thanks()
             self.window.navigate(3)
         names = [w for w in self.window.special_host.findChildren(QLabel)
                  if w.text() == '澤井亮介']

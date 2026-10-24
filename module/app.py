@@ -13,12 +13,12 @@ from pathlib import Path
 # Suppress only the non-fatal ICC-profile description warning.
 os.environ.setdefault("QT_LOGGING_RULES", "qt.gui.icc.warning=false")
 # DirectWrite's system font collection can map thousands of unrelated font
-# files on font-heavy Windows installations. KanaShift uses static UI fonts.
+# files on font-heavy Windows installations. Lexift uses static UI fonts.
 if sys.platform == "win32":
     os.environ.setdefault("QT_QPA_PLATFORM", "windows:fontengine=gdi")
 
-from PySide6.QtCore import QObject, Qt, QSettings, QTimer, Signal, QSize, QUrl, QEventLoop
-from PySide6.QtGui import QColor, QCursor, QDesktopServices, QFont, QFontDatabase, QFontMetrics, QIcon, QPainter, QPen, QPixmap
+from PySide6.QtCore import QObject, Qt, QSettings, QTimer, Signal, QSize, QUrl, QEventLoop, QPoint
+from PySide6.QtGui import QColor, QCursor, QDesktopServices, QFont, QFontDatabase, QFontMetrics, QIcon, QImage, QPainter, QPen, QPixmap, QPixmapCache, QRegion
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QLayout, QLineEdit, QMenu, QPushButton,
@@ -39,7 +39,7 @@ from ime_windows import (
     IMEError, current_hkl, cycle_windows_language, foreground_target,
     get_target_window, japanese_fallback_key, japanese_matches, japanese_set,
     korean_is_hangul, korean_set, korean_toggle_key, request_hkl, target_is_foreground,
-    ime_native_status, ime_set_native, ime_toggle_native,
+    ime_native_status, ime_set_native, ime_toggle_native, current_language, LANG_KO,
 )
 from grid_navigation import move_selection
 from layout_profiles import (
@@ -48,9 +48,9 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "0.7.8"
+VERSION = "1.0.0"
 ORGANIZATION = "LuteTools"
-PRODUCT = "KanaShift"
+PRODUCT = "Lexift"
 SELECTION_KEYS = "1234567890ABCDE"
 
 # Malgun Gothic has Regular/Bold faces. Intermediate weights trigger expensive
@@ -60,6 +60,7 @@ QSS = """
 QWidget { color:#EBEBEF; font-family:"Malgun Gothic"; font-size:13px; background:transparent; }
 QWidget#window { background:#0D0E11; }
 QFrame#side { background:#111216; border-right:1px solid #282A30; }
+QFrame#brandMark { background:transparent; border:0; }
 QLabel#brand { font-weight:700; font-size:19px; color:#FFFFFF; }
 QLabel#logoCaption, QLabel#muted, QLabel#subtitle { color:#8A8D98; }
 QLabel#pageTitle { color:#F6F6F8; font-size:27px; font-weight:700; }
@@ -135,7 +136,11 @@ RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 def startup_enabled() -> bool:
     try:
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER, RUN_KEY, 0, winreg.KEY_READ) as key:
-            return bool(winreg.QueryValueEx(key, PRODUCT)[0])
+            for name in (PRODUCT,'KanaShift'):
+                try:
+                    if winreg.QueryValueEx(key,name)[0]:return True
+                except FileNotFoundError:pass
+            return False
     except OSError:
         return False
 
@@ -144,10 +149,9 @@ def set_startup_enabled(enabled: bool) -> None:
     """Manage per-user startup only. No administrator permission required."""
     with winreg.OpenKey(winreg.HKEY_CURRENT_USER, RUN_KEY, 0, winreg.KEY_SET_VALUE) as key:
         if not enabled:
-            try:
-                winreg.DeleteValue(key, PRODUCT)
-            except FileNotFoundError:
-                pass
+            for name in (PRODUCT,'KanaShift'):
+                try:winreg.DeleteValue(key,name)
+                except FileNotFoundError:pass
             return
         if getattr(sys, "frozen", False):
             command = f'"{sys.executable}" --background'
@@ -159,6 +163,8 @@ def set_startup_enabled(enabled: bool) -> None:
             entry = Path(__file__).resolve().parent.parent / "launch.pyw"
             command = f'"{interpreter}" "{entry}" --background'
         winreg.SetValueEx(key, PRODUCT, 0, winreg.REG_SZ, command)
+        try:winreg.DeleteValue(key,'KanaShift')
+        except FileNotFoundError:pass
 
 
 def icon() -> QIcon:
@@ -171,8 +177,7 @@ def icon() -> QIcon:
     painter.drawRoundedRect(2, 2, 60, 60, 14, 14)
     painter.setPen(QPen(QColor("#161A20"), 5, Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap))
     painter.drawLine(22, 16, 22, 48)
-    painter.drawLine(22, 33, 43, 17)
-    painter.drawLine(22, 33, 44, 48)
+    painter.drawLine(22, 48, 44, 48)
     painter.end()
     return QIcon(pix)
 
@@ -204,6 +209,38 @@ def button(text: str, action=None, kind: str = "") -> QPushButton:
     if action:
         b.clicked.connect(action)
     return b
+
+
+def brand_mark(width=176, height=58, *, dark=True):
+    """Adapt the original wordmark to the interface without changing the file."""
+    panel = QFrame()
+    panel.setObjectName('brandMark')
+    panel.setFixedSize(width,height)
+    panel.setAccessibleName('Lexift')
+    layout = QVBoxLayout(panel)
+    layout.setContentsMargins(0,0,0,0)
+    mark = QLabel()
+    mark.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    key = f'Lexift/wordmark/{width}/{height}/{"dark" if dark else "light"}'
+    pixmap = QPixmapCache.find(key)
+    if pixmap is None:
+        path = Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parent)) / 'Style/Lexift_black.png'
+        original = QImage(str(path))
+        if dark:
+            # Invert RGB only: transparent margins and antialiasing stay intact.
+            original.invertPixels(QImage.InvertMode.InvertRgb)
+        pixmap = QPixmap.fromImage(original).scaled(width,height,
+                    Qt.AspectRatioMode.KeepAspectRatio,Qt.TransformationMode.SmoothTransformation)
+        if not pixmap.isNull():
+            QPixmapCache.insert(key,pixmap)
+    if pixmap is not None and not pixmap.isNull():
+        mark.setPixmap(pixmap)
+    else:
+        mark.setText('Lexift')
+        mark.setStyleSheet(f'color:{"#EBEBEF" if dark else "#10141B"};font-size:22px;font-weight:700;')
+    mark.setAccessibleName('Lexift')
+    layout.addWidget(mark)
+    return panel
 
 
 def clear_layout(layout: QVBoxLayout | QGridLayout) -> None:
@@ -252,7 +289,7 @@ class LoadingWindow(QWidget):
         content = QVBoxLayout(box)
         content.setContentsMargins(25, 21, 25, 21)
         content.setSpacing(8)
-        content.addWidget(label("KanaShift", "section"))
+        content.addWidget(label("Lexift", "section"))
         content.addWidget(label(tr("불러오는 중..."), "muted"))
         outer.addWidget(box)
 
@@ -802,16 +839,22 @@ class MainWindow(QWidget):
     quit_requested = Signal()
     tray_hide_requested = Signal()
     settings_changed = Signal()
+    ime_shortcut_changed = Signal(object)
+    ime_toggle_requested = Signal()
+    chinese_shortcut_changed = Signal(object)
+    chinese_toggle_requested = Signal()
     shortcut_changed = Signal(object)
     language_requested = Signal(str)
     update_requested = Signal()
     enabled_requested = Signal(bool)
+    feature_requested = Signal(str,bool)
+    dictionary_saved = Signal(list)
 
     def __init__(self, store: QSettings, slots: list[dict[str, str]], first_run: bool):
         super().__init__()
         self.store = store
         self.setObjectName("window")
-        self.setWindowTitle(f"KanaShift  ·  v{VERSION}")
+        self.setWindowTitle(f"Lexift  ·  v{VERSION}")
         self.setWindowIcon(icon())
         self.resize(1020, 690)
         self.setMinimumSize(850, 560)
@@ -826,11 +869,11 @@ class MainWindow(QWidget):
         nav = QVBoxLayout(sidebar)
         nav.setContentsMargins(18, 23, 18, 20)
         nav.setSpacing(6)
-        nav.addWidget(label("KanaShift", "brand"))
+        nav.addWidget(brand_mark())
         nav.addWidget(label(tr("Input switcher"), "logoCaption"))
         nav.addSpacing(26)
         self.nav_buttons: list[QPushButton] = []
-        for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보")):
+        for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보"),tr('사용자 사전')):
             ix = len(self.nav_buttons)
             item = button(text, lambda _=False, n=ix: self.navigate(n), "nav")
             item.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -854,7 +897,17 @@ class MainWindow(QWidget):
         self._ready_pages = {0, 1}
         self.pages.addWidget(QWidget())
         self.pages.addWidget(QWidget())
+        self.pages.addWidget(QWidget())
+        # A menu click only switches an existing page. These small, fixed-size
+        # editors are built once; no registry/model/widget setup on first visit.
+        for index in (2, 3, 4):
+            self._ensure_page(index)
         self.navigate(1 if first_run else 0)
+        self._prepared_pages = set()
+        self._preferences_timer=QTimer(self)
+        self._preferences_timer.setSingleShot(True)
+        self._preferences_timer.timeout.connect(self._prepare_next_page)
+        self._preferences_timer.start(0)
 
     def _wrap_page(self, title: str, subtitle: str, content: QWidget) -> QWidget:
         page = QWidget()
@@ -862,7 +915,7 @@ class MainWindow(QWidget):
         v.setContentsMargins(0, 0, 0, 0)
         v.setSpacing(20)
         v.addWidget(label(title, "pageTitle"))
-        v.addWidget(label(subtitle, "subtitle"))
+        v.addWidget(label(subtitle, "subtitle",wrap=True))
         v.addSpacing(3)
         v.addWidget(content, 1)
         return page
@@ -872,7 +925,7 @@ class MainWindow(QWidget):
         v = QVBoxLayout(page)
         v.setContentsMargins(0, 0, 0, 0)
         v.setSpacing(17)
-        v.addWidget(label("KanaShift", "pageTitle"))
+        v.addWidget(brand_mark(222,74))
         v.addWidget(label(tr("입력기 선택"), "subtitle"))
         v.addSpacing(3)
         hero = QFrame()
@@ -934,7 +987,7 @@ class MainWindow(QWidget):
         self.enabled_button.blockSignals(False)
         self.selector_button.setEnabled(enabled)
         if not enabled:
-            self.status.setText(tr("KanaShift 비활성화"))
+            self.status.setText(tr("Lexift 비활성화"))
         else:
             self.status.setText(tr_count(len(self.slot_editor.slots), self.current_binding().title))
 
@@ -945,6 +998,7 @@ class MainWindow(QWidget):
         v.setSpacing(19)
         v.addWidget(label(tr("일반 설정"), "pageTitle"))
         v.addWidget(label(tr("시작 옵션과 단축키"), "subtitle"))
+        v.addWidget(label(tr('다른 프로그램의 입력창에서 한글 발음을 일본어·중국어 후보로 변환합니다.'), 'muted',wrap=True))
         panel = QFrame()
         panel.setObjectName("panel")
         content = QVBoxLayout(panel)
@@ -961,6 +1015,10 @@ class MainWindow(QWidget):
         self.start_notice.setChecked(self.store.value("general/start_notice", True, type=bool))
         self.start_notice.toggled.connect(self._save_preferences)
         content.addWidget(self.start_notice)
+        self.sound_notice=QCheckBox(tr('알림음 재생'))
+        self.sound_notice.setChecked(self.store.value('general/sound',True,type=bool))
+        self.sound_notice.toggled.connect(lambda value:self.store.setValue('general/sound',value))
+        content.addWidget(self.sound_notice)
         self.auto_start = QCheckBox(tr("Windows 로그인 시 자동 실행"))
         apply_text_font(self.auto_start, self.auto_start.text())
         self.auto_start.setChecked(startup_enabled())
@@ -972,9 +1030,12 @@ class MainWindow(QWidget):
         vv = QVBoxLayout(panel2)
         vv.setContentsMargins(23, 22, 23, 22)
         vv.setSpacing(10)
-        vv.addWidget(label(tr("단축키"), "section"))
+        vv.addWidget(label(tr('언어 스위칭'), "section"))
+        self.feature_checks={}
+        vv.addWidget(label(tr('입력기 선택'),'section'))
         shortcut_row = QHBoxLayout()
         shortcut_row.setSpacing(10)
+        shortcut_row.addWidget(self._feature_check('selector'))
         self.shortcut_modifier = QComboBox()
         for mode in MODES:
             self.shortcut_modifier.addItem(tr(MODE_LABELS[mode]), mode)
@@ -983,10 +1044,52 @@ class MainWindow(QWidget):
             self.shortcut_key.addItem(key, key)
         shortcut_row.addWidget(self.shortcut_modifier, 2)
         shortcut_row.addWidget(self.shortcut_key, 1)
-        shortcut_row.addWidget(button(tr("적용"), self._apply_shortcut, "primary"))
+        self.selector_apply = button(tr("적용"), self._apply_shortcut, "primary")
+        shortcut_row.addWidget(self.selector_apply)
         vv.addLayout(shortcut_row)
-        self.update_shortcut_ui(self.current_binding())
         v.addWidget(panel2)
+        conversion_panel=QFrame();conversion_panel.setObjectName('panel')
+        vv=QVBoxLayout(conversion_panel);vv.setContentsMargins(23,22,23,22);vv.setSpacing(10)
+        vv.addWidget(label(tr('한글 환경 언어 변환'),'section'))
+        if language() in ('en','ja'):
+            vv.addWidget(label(tr('한국어 발음 입력용 기능입니다. 환경에 따라 지원하지 않을 수 있습니다. 한국어 IME의 한글 모드에서 사용하세요.'),'muted',wrap=True))
+        vv.addWidget(label(tr('한–일 변환'), 'section'))
+        ime_row = QHBoxLayout()
+        ime_row.addWidget(self._feature_check('ja'))
+        self.ime_modifier = QComboBox()
+        for mode in MODES:
+            self.ime_modifier.addItem(tr(MODE_LABELS[mode]), mode)
+        self.ime_key = QComboBox()
+        for key in KEY_LABELS:
+            self.ime_key.addItem(key, key)
+        ime_row.addWidget(self.ime_modifier, 2)
+        ime_row.addWidget(self.ime_key, 1)
+        self.ime_apply = button(tr('적용'), self._apply_ime_shortcut, 'primary')
+        ime_row.addWidget(self.ime_apply)
+        vv.addLayout(ime_row)
+        vv.addWidget(label(tr('한–중 변환'), 'section'))
+        chinese_row = QHBoxLayout()
+        chinese_row.addWidget(self._feature_check('zh'))
+        self.chinese_modifier = QComboBox()
+        for mode in MODES:
+            self.chinese_modifier.addItem(tr(MODE_LABELS[mode]), mode)
+        self.chinese_key = QComboBox()
+        for key in KEY_LABELS:
+            self.chinese_key.addItem(key, key)
+        chinese_row.addWidget(self.chinese_modifier, 2)
+        chinese_row.addWidget(self.chinese_key, 1)
+        self.chinese_apply = button(tr('적용'), self._apply_chinese_shortcut, 'primary')
+        chinese_row.addWidget(self.chinese_apply)
+        vv.addLayout(chinese_row)
+        vv.addWidget(label(tr('한국어 IME의 한글 상태에서만 한–일·한–중 변환을 켤 수 있습니다.'), 'muted',wrap=True))
+        self.shortcut_conflict = label('', 'hint')
+        vv.addWidget(self.shortcut_conflict)
+        for combo in (self.shortcut_modifier, self.shortcut_key, self.ime_modifier, self.ime_key, self.chinese_modifier, self.chinese_key):
+            combo.currentIndexChanged.connect(self._validate_shortcuts)
+        self.update_shortcut_ui(self.current_binding())
+        self.update_ime_shortcut_ui(self.current_ime_binding())
+        self.update_chinese_shortcut_ui(self.current_chinese_binding())
+        v.addWidget(conversion_panel)
         language_panel = QFrame()
         language_panel.setObjectName("panel")
         lang_layout = QVBoxLayout(language_panel)
@@ -1018,7 +1121,82 @@ class MainWindow(QWidget):
         v.addWidget(language_panel)
         v.addWidget(button(tr("업데이트 확인"), lambda: self.update_requested.emit(), "ghost"))
         v.addStretch(1)
-        return page
+        scroll=QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setWidget(page)
+        return scroll
+
+    def _feature_check(self,name):
+        check=QCheckBox(tr('사용'))
+        check.setChecked(self.store.value('features/'+name,True,type=bool))
+        check.toggled.connect(lambda value,name=name:self.feature_requested.emit(name,value))
+        self.feature_checks[name]=check
+        return check
+
+    def set_feature_states(self,states):
+        if 2 in self._ready_pages:
+            for name,value in states.items():
+                check=self.feature_checks[name];check.blockSignals(True)
+                check.setChecked(value);check.blockSignals(False)
+        self.selector_button.setEnabled(self.enabled_button.isChecked() and states.get('selector',True))
+
+    def _make_dictionary(self):
+        from custom_dictionary import CustomDictionary
+        from dictionary_ui import DictionaryEditor
+        dictionary=CustomDictionary(self.store)
+        self.dictionary_editor=DictionaryEditor(None if dictionary.load_error else dictionary.entries)
+        self.dictionary_editor.saved.connect(self.dictionary_saved.emit)
+        return self._wrap_page(tr('사용자 사전'),tr('원하는 이름이나 단어가 후보에 없을 때 등록하세요. 예: 스미네 → 澄音 (한–일).'),self.dictionary_editor)
+
+    def current_ime_binding(self):
+        try:
+            return HotkeyBinding(self.store.value('ime_hotkey/mode', 'caps', str),
+                                 self.store.value('ime_hotkey/key', 'A', str))
+        except ValueError:
+            return HotkeyBinding('caps', 'A')
+
+    def current_chinese_binding(self):
+        try:
+            return HotkeyBinding(self.store.value('chinese_hotkey/mode', 'caps', str),
+                                 self.store.value('chinese_hotkey/key', 'C', str))
+        except ValueError:
+            return HotkeyBinding('caps','C')
+
+    def update_chinese_shortcut_ui(self, binding):
+        if 2 in self._ready_pages:
+            self.chinese_modifier.setCurrentIndex(self.chinese_modifier.findData(binding.mode))
+            self.chinese_key.setCurrentIndex(self.chinese_key.findData(binding.key))
+            self._validate_shortcuts()
+
+    def _apply_chinese_shortcut(self):
+        binding=HotkeyBinding(self.chinese_modifier.currentData(),self.chinese_key.currentData())
+        if not self._validate_shortcuts() or binding in (self.current_binding(),self.current_ime_binding()):
+            QMessageBox.warning(self,tr('단축키'),tr('이미 사용 중인 단축키입니다.'))
+            return
+        self.chinese_shortcut_changed.emit(binding)
+
+    def _validate_shortcuts(self, *_):
+        values=[(modifier.currentData(),key.currentData()) for modifier,key in
+                ((self.shortcut_modifier,self.shortcut_key),(self.ime_modifier,self.ime_key),
+                 (self.chinese_modifier,self.chinese_key))]
+        conflict=len(set(values))!=len(values)
+        self.shortcut_conflict.setText(tr('단축키가 겹칩니다. 서로 다른 조합을 선택하세요.') if conflict else '')
+        for apply in (self.selector_apply,self.ime_apply,self.chinese_apply):
+            apply.setEnabled(not conflict)
+        return not conflict
+
+    def _apply_ime_shortcut(self):
+        binding = HotkeyBinding(self.ime_modifier.currentData(), self.ime_key.currentData())
+        if not self._validate_shortcuts() or binding in (self.current_binding(), self.current_chinese_binding()):
+            QMessageBox.warning(self, tr('단축키'), tr('다른 기능의 단축키와 겹쳐 저장할 수 없습니다.'))
+            return
+        self.ime_shortcut_changed.emit(binding)
+
+    def update_ime_shortcut_ui(self, binding):
+        if 2 in self._ready_pages:
+            self.ime_modifier.setCurrentIndex(self.ime_modifier.findData(binding.mode))
+            self.ime_key.setCurrentIndex(self.ime_key.findData(binding.key))
+            self._validate_shortcuts()
 
     def _request_language(self, _index: int) -> None:
         code = self.language_combo.currentData()
@@ -1038,6 +1216,9 @@ class MainWindow(QWidget):
                                     self.shortcut_key.currentData())
         except ValueError as error:
             QMessageBox.warning(self, tr("단축키"), error_text(error, "shortcut"))
+            return
+        if not self._validate_shortcuts() or binding in (self.current_ime_binding(), self.current_chinese_binding()):
+            QMessageBox.warning(self, tr('단축키'), '다른 기능의 단축키와 겹쳐 저장할 수 없습니다.')
             return
         # Ctrl+Alt is also used by AltGr on several European layouts.
         if binding.mode == "ctrl_alt":
@@ -1084,7 +1265,7 @@ class MainWindow(QWidget):
         p = QVBoxLayout(panel)
         p.setContentsMargins(26, 25, 26, 25)
         p.setSpacing(14)
-        p.addWidget(label("KanaShift", "metric"))
+        p.addWidget(brand_mark(240,80))
         p.addWidget(label(tr("버전 {version}").format(version=VERSION) + "  ·  Windows 10/11", "muted"))
         p.addSpacing(8)
         p.addWidget(label(tr("개발: {name}").format(name="Lutté Laurent"), "section"))
@@ -1161,17 +1342,52 @@ class MainWindow(QWidget):
             self.special_list.addLayout(row)
 
     def _open_log(self):
-        location = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / PRODUCT / "kanashift.log"
+        location = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / PRODUCT / "lexift.log"
         if location.exists():
             os.startfile(str(location))
         else:
             QMessageBox.information(self, tr("오류 로그"), tr("아직 생성된 로그가 없습니다."))
 
-    def navigate(self, index: int):
-        if index == self._current_page and self.nav_buttons[index].property("active") is True:
+    def _prepare_preferences(self):
+        self._ensure_page(2)
+        self._prepare_page_layout(2)
+
+    def _prepare_page_layout(self, index):
+        # Resolve style/word wrapping while idle. Render only the fixed viewport,
+        # never the full (potentially long) scroll contents or every table row.
+        # The temporary image is discarded, leaving Qt's reusable glyph cache.
+        page = self.pages.widget(index)
+        if page.isVisible():
+            self._prepared_pages.add(index)
             return
-        if index in (2, 3) and index not in self._ready_pages:
-            page = self._make_preferences() if index == 2 else self._make_about()
+        self.layout().activate()
+        page.resize(self.pages.contentsRect().size())
+        widgets = [page, *page.findChildren(QWidget)]
+        for widget in widgets:
+            widget.ensurePolished()
+            if widget.layout() is not None:
+                widget.layout().activate()
+        if isinstance(page, QScrollArea) and page.widget() is not None:
+            content = page.widget()
+            content.resize(page.viewport().width(), content.sizeHint().height())
+            content.layout().activate()
+        if not page.size().isEmpty():
+            size = QSize(min(page.width(),1280), min(page.height(),900))
+            preview = QImage(size, QImage.Format.Format_ARGB32_Premultiplied)
+            page.render(preview, QPoint(), QRegion(0,0,size.width(),size.height()))
+        self._prepared_pages.add(index)
+
+    def _prepare_next_page(self):
+        for index in (2, 3, 4):
+            if index not in self._prepared_pages:
+                self._prepare_page_layout(index)
+                if len(self._prepared_pages) < 3:
+                    self._preferences_timer.start(0)
+                return
+
+    def _ensure_page(self, index):
+        if index in (2, 3,4) and index not in self._ready_pages:
+            page = {2:self._make_preferences,3:self._make_about,4:self._make_dictionary}[index]()
             placeholder = self.pages.widget(index)
             self.pages.removeWidget(placeholder)
             placeholder.deleteLater()
@@ -1179,6 +1395,14 @@ class MainWindow(QWidget):
             self._ready_pages.add(index)
             if index == 2:
                 self.update_shortcut_ui(self.current_binding())
+                self.update_ime_shortcut_ui(self.current_ime_binding())
+                self.update_chinese_shortcut_ui(self.current_chinese_binding())
+
+
+    def navigate(self, index: int):
+        if index == self._current_page and self.nav_buttons[index].property("active") is True:
+            return
+        self._ensure_page(index)
 
         self._current_page = index
         self.pages.setCurrentIndex(index)
@@ -1203,7 +1427,10 @@ class MainWindow(QWidget):
 
 
 class Dispatcher(QObject):
+    hooks_ready = Signal(str)
     hotkey = Signal(int)
+    ime_requested = Signal(int)
+    chinese_requested = Signal(int)
     navigation = Signal(int)
 
 
@@ -1232,16 +1459,24 @@ class QuitConfirmation(QDialog):
         self.adjustSize()
 
 
-class KanaShiftController(QObject):
+class LexiftController(QObject):
     def __init__(self, qt: QApplication):
         super().__init__()
         self.qt = qt
         self.store = QSettings(ORGANIZATION, PRODUCT)
+        from preferences import migrate_preferences
+        migrate_preferences(self.store)
         self._job = 0
         self._last_hotkey = 0.0
         self._last_target = 0
         self._running = False
+        self._hook_warming=False
+        self._hook_notify=False
         self._enabled = True
+        self.features={name:self.store.value('features/'+name,True,type=bool) for name in ('selector','ja','zh')}
+        from custom_dictionary import CustomDictionary
+        self.custom_dictionary=CustomDictionary(self.store)
+        self._sounds=None
         self._stopping = False
         self._confirming_quit = False
         self._quit_dialog = None
@@ -1250,6 +1485,27 @@ class KanaShiftController(QObject):
                                          self.store.value("hotkey/key", "Q", str))
         except ValueError:
             self.binding = HotkeyBinding()
+        try:
+            self.ime_binding = HotkeyBinding(self.store.value('ime_hotkey/mode', 'caps', str),
+                                             self.store.value('ime_hotkey/key', 'A', str))
+        except ValueError:
+            self.ime_binding = HotkeyBinding('caps', 'A')
+        if self.ime_binding == self.binding:
+            self.ime_binding = HotkeyBinding('caps', 'A' if self.binding.key != 'A' else 'J')
+            self.store.setValue('ime_hotkey/mode', self.ime_binding.mode)
+            self.store.setValue('ime_hotkey/key', self.ime_binding.key)
+        try:
+            self.chinese_binding=HotkeyBinding(self.store.value('chinese_hotkey/mode','caps',str),
+                                               self.store.value('chinese_hotkey/key','C',str))
+        except ValueError:
+            self.chinese_binding=HotkeyBinding('caps','C')
+        if self.chinese_binding in (self.binding,self.ime_binding):
+            self.chinese_binding=next(HotkeyBinding('caps',key) for key in KEY_LABELS
+                                      if HotkeyBinding('caps',key) not in (self.binding,self.ime_binding))
+        self.store.setValue('chinese_hotkey/mode',self.chinese_binding.mode)
+        self.store.setValue('chinese_hotkey/key',self.chinese_binding.key)
+        self._last_ime_toggle = 0.0
+        self._ime_toast = None
         layouts = available_layouts()
         raw = self.store.value("profiles/slots_json", "", str)
         try:
@@ -1266,10 +1522,13 @@ class KanaShiftController(QObject):
         self.overlay.picked.connect(self.apply_slot)
         self._window = None
         self.overlay.set_shortcut(self.binding)
-        self.tray = QSystemTrayIcon(icon(), qt)
-        self.tray.setToolTip(f"KanaShift · {self.binding.title}")
+        from notifications import NotificationTray
+        from notification_sound import set_notifier
+        set_notifier(self._sound)
+        self.tray = NotificationTray(icon(), qt)
+        self.tray.setToolTip(f"Lexift · {self.binding.title}")
         self.tray_menu = QMenu()
-        self.toggle_action = self.tray_menu.addAction(tr("KanaShift 작동 중"))
+        self.toggle_action = self.tray_menu.addAction(tr("Lexift 작동 중"))
         self.toggle_action.setCheckable(True)
         self.toggle_action.setChecked(True)
         self.toggle_action.toggled.connect(self.set_enabled)
@@ -1291,11 +1550,25 @@ class KanaShiftController(QObject):
         self.tray.messageClicked.connect(self.show_window)
         self.tray.show()
         self.dispatch = Dispatcher()
+        self.dispatch.hooks_ready.connect(self._keyboard_ready)
+        from korean_activation import KoreanInputActivator
+        self._korean_activation=KoreanInputActivator(self)
+        self._korean_activation.finished.connect(self._korean_activation_finished)
         self.dispatch.hotkey.connect(self._hotkey)
-        self.dispatch.navigation.connect(self.overlay.navigate_virtual_key)
-        self.hook = CapsQHook(lambda hwnd: self.dispatch.hotkey.emit(hwnd or get_target_window()), self.binding)
+        self.dispatch.ime_requested.connect(self._show_ime_panel)
+        self.dispatch.chinese_requested.connect(lambda hwnd:self._show_ime_panel(hwnd,'zh'))
+        self.dispatch.navigation.connect(self._navigate_input)
+        self.hook = self._make_keyboard_hook(self.binding)
         self.navigation_hook = OverlayNavigationHook(lambda key: self.dispatch.navigation.emit(key))
-        self.overlay.visibility_changed.connect(self.navigation_hook.set_active)
+        self.overlay.visibility_changed.connect(self._navigation_visibility)
+        from ime_inline import inline_mode
+        inline_mode().dictionary=self.custom_dictionary
+        inline_mode().visibility_changed.connect(self._navigation_visibility)
+        inline_mode().failed.connect(self._conversion_failed)
+        self._engine_prepare_timer=QTimer(self)
+        self._engine_prepare_timer.setSingleShot(True)
+        self._engine_prepare_timer.timeout.connect(self._prepare_engines)
+        self._engine_prepare_timer.start(500)
         self._navigation_started = False
         self.qt.aboutToQuit.connect(self._shutdown_keyboard)
         self.updater = UpdateManager(self, VERSION)
@@ -1318,9 +1591,15 @@ class KanaShiftController(QObject):
         self.window.quit_requested.connect(self.request_quit)
         self.window.tray_hide_requested.connect(self.notify_running_in_tray)
         self.window.shortcut_changed.connect(self.change_shortcut)
+        self.window.ime_shortcut_changed.connect(self.change_ime_shortcut)
+        self.window.ime_toggle_requested.connect(self._show_ime_panel)
+        self.window.chinese_shortcut_changed.connect(self.change_chinese_shortcut)
+        self.window.chinese_toggle_requested.connect(lambda:self._show_ime_panel(0,'zh'))
         self.window.language_requested.connect(self.change_language)
         self.window.update_requested.connect(self.check_updates)
         self.window.enabled_requested.connect(self.set_enabled)
+        self.window.feature_requested.connect(self.set_feature_enabled)
+        self.window.dictionary_saved.connect(self.save_dictionary)
         self.window.refresh_dashboard(self.slots)
         self.overlay.set_shortcut(self.binding)
         self.window.update_shortcut_ui(self.binding)
@@ -1340,12 +1619,79 @@ class KanaShiftController(QObject):
         enabled = self._enabled
         self.toggle_action.blockSignals(True)
         self.toggle_action.setChecked(enabled)
-        self.toggle_action.setText(tr("KanaShift 작동 중") if enabled else tr("KanaShift 비활성화"))
+        self.toggle_action.setText(tr("Lexift 작동 중") if enabled else tr("Lexift 비활성화"))
         self.toggle_action.blockSignals(False)
-        self.tray_actions[0].setEnabled(enabled)
-        self.tray.setToolTip(f"KanaShift · {'ON' if enabled else 'OFF'} · {self.binding.title}")
+        self.tray_actions[0].setEnabled(enabled and self.features['selector'])
+        self.tray.setToolTip(f"Lexift · {'ON' if enabled else 'OFF'} · {self.binding.title}")
         if self._window is not None:
             self._window.set_runtime_enabled(enabled)
+            self._window.set_feature_states(self.features)
+
+    def _sound(self):
+        if not self.store.value('general/sound',True,type=bool):return
+        if self._sounds is None:
+            from notification_sound import NotificationSound
+            self._sounds=NotificationSound()
+        self._sounds.play()
+
+    def _conversion_failed(self,message):
+        translated=tr(message)
+        if translated==message and language()!='ko':
+            translated=tr('발음 변환을 중단했습니다. 한글 입력 상태와 입력기 설치를 확인하세요.')
+        self.tray.showMessage('Lexift · '+tr('발음 변환 OFF'),translated,QSystemTrayIcon.MessageIcon.Warning,4000)
+
+    def _prepare_engines(self):
+        if self._stopping or not self._enabled:return
+        from ime_inline import inline_mode
+        mode=inline_mode()
+        for name in ('ja','zh'):
+            if self.features[name] and name not in mode.engines:
+                mode.prepare(name)
+                self._engine_prepare_timer.start(150)
+                return
+
+    def set_feature_enabled(self,name,enabled):
+        if name not in self.features or self._stopping:return
+        enabled=bool(enabled)
+        if self.features[name]==enabled:return
+        previous=self.features[name];running=self._running
+        if running:self.hook.stop();self._running=False
+        self.features[name]=enabled
+        replacement=self._make_keyboard_hook(self.binding)
+        try:
+            if self._enabled and not self.first_run and any(self.features.values()) and self._navigation_started:
+                replacement.start()
+        except Exception as error:
+            replacement.stop();self.features[name]=previous
+            self.hook=self._make_keyboard_hook(self.binding)
+            try:
+                if running:self.hook.start();self._running=True
+            except Exception:logging.exception('Could not restore enabled features')
+            self._sync_enabled_ui()
+            QMessageBox.warning(self._window,tr('단축키 변경 실패'),error_text(error,'shortcut'));return
+        self.hook=replacement
+        self._running=self._enabled and not self.first_run and any(self.features.values()) and self._navigation_started
+        if name=='selector' and not enabled:
+            self._cancel_switch();self.overlay._selection_revision+=1;self.overlay.hide()
+        if name in ('ja','zh') and not enabled:
+            from ime_inline import inline_mode
+            inline_mode().release(name)
+        if not any(self.features.values()):
+            self._shutdown_keyboard()
+        elif self._enabled and not self.first_run and not self._navigation_started:
+            self._running=False;self._start_hook(notify=False)
+        if enabled and self._enabled:self._engine_prepare_timer.start(150)
+        self.store.setValue('features/'+name,enabled);self.store.sync()
+        self._sync_enabled_ui()
+
+    def save_dictionary(self,entries):
+        try:self.custom_dictionary.replace(entries)
+        except (ValueError,OSError) as error:
+            self.window.dictionary_editor.status.setText(tr(str(error)));return
+        self.window.dictionary_editor.status.setText(tr('사전을 저장했습니다.'))
+        from ime_inline import inline_mode
+        mode=inline_mode()
+        if mode.enabled:mode._search()
 
     def set_enabled(self, enabled):
         enabled = bool(enabled)
@@ -1359,7 +1705,7 @@ class KanaShiftController(QObject):
         if enabled:
             if not self.first_run:
                 self._start_hook(notify=False)
-                if not self._running:
+                if not self._running and not self._hook_warming:
                     self._enabled = False
                     keyboard_service().close()
                     self._navigation_started = False
@@ -1367,10 +1713,13 @@ class KanaShiftController(QObject):
             # Closing the owned connection removes both hooks in the worker.
             # Never wait for two acknowledgements on a menu/button click.
             self._shutdown_keyboard()
+            from ime_inline import inline_mode
+            inline_mode().close()
         self._sync_enabled_ui()
-        text = (tr("KanaShift 작동 중\n(단축키 : {shortcut})").format(shortcut=self.binding.title)
-                if self._enabled else tr("KanaShift 비활성화"))
-        self.tray.showMessage("KanaShift", text, QSystemTrayIcon.MessageIcon.Information, 2500)
+        text = (tr("Lexift 작동 중\n(단축키 : {shortcut})").format(shortcut=self.binding.title)
+                if self._enabled else tr("Lexift 비활성화"))
+        self.tray.showMessage("Lexift", text, QSystemTrayIcon.MessageIcon.Information, 2500)
+        if self._enabled:self._engine_prepare_timer.start(150)
 
     def check_updates(self):
         self._cancel_switch()
@@ -1387,6 +1736,8 @@ class KanaShiftController(QObject):
         was_visible = previous.isVisible()
         geometry = previous.geometry()
         edits = [dict(s) for s in previous.slot_editor.slots]
+        dictionary_edits=([dict(row) for row in previous.dictionary_editor.model.rows]
+                          if 4 in previous._ready_pages else None)
         # Preserve edits in progress when changing the display language.
         set_language(code)
         # Construct the editor with its unsaved edits once, rather than build
@@ -1397,13 +1748,23 @@ class KanaShiftController(QObject):
         replacement.quit_requested.connect(self.request_quit)
         replacement.tray_hide_requested.connect(self.notify_running_in_tray)
         replacement.shortcut_changed.connect(self.change_shortcut)
+        replacement.ime_shortcut_changed.connect(self.change_ime_shortcut)
+        replacement.ime_toggle_requested.connect(self._show_ime_panel)
+        replacement.chinese_shortcut_changed.connect(self.change_chinese_shortcut)
+        replacement.chinese_toggle_requested.connect(lambda:self._show_ime_panel(0,'zh'))
         replacement.language_requested.connect(self.change_language)
         replacement.update_requested.connect(self.check_updates)
         replacement.enabled_requested.connect(self.set_enabled)
+        replacement.feature_requested.connect(self.set_feature_enabled)
+        replacement.dictionary_saved.connect(self.save_dictionary)
         replacement.refresh_dashboard(self.slots)
         replacement.update_shortcut_ui(self.binding)
         replacement.setGeometry(geometry)
         replacement.navigate(page)
+        if dictionary_edits is not None:
+            replacement._ensure_page(4)
+            model=replacement.dictionary_editor.model
+            model.beginResetModel();model.rows=dictionary_edits;model.endResetModel()
         self.window = replacement
         self._prepare_quit_dialog()
         self.store.setValue('general/ui_language', code)
@@ -1439,8 +1800,9 @@ class KanaShiftController(QObject):
             QTimer.singleShot(8000, lambda: self.updater.check(automatic=True))
 
     def _start_hook(self, *, notify=True):
-        if self._running or not getattr(self, "_enabled", True):
+        if self._running or not getattr(self, "_enabled", True) or not any(getattr(self,'features',{'selector':True}).values()):
             return
+        if self._warm_keyboard(notify):return
         if not self._navigation_started:
             try:
                 self.navigation_hook.start()
@@ -1453,6 +1815,7 @@ class KanaShiftController(QObject):
         try:
             self.hook.start()
             self._running = True
+            mark_ready(VERSION)
             if notify and self.store.value("general/start_notice", True, type=bool):
                 QTimer.singleShot(100, self._notify_active)
         except Exception as error:
@@ -1460,13 +1823,46 @@ class KanaShiftController(QObject):
             QMessageBox.warning(self.window, tr("단축키 오류"), error_text(error, "shortcut"))
             self.show_window(2)
 
+    def _warm_keyboard(self,notify):
+        worker=keyboard_service()
+        if (worker.process is not None and worker.process.poll() is None and worker.connection
+                and worker._bad_connection is not worker.connection):return False
+        self._hook_notify=getattr(self,'_hook_notify',False) or notify
+        if self._hook_warming:return True
+        self._hook_warming=True
+        import threading
+        def prepare():
+            error=''
+            try:worker.ensure_started()
+            except Exception as problem:error=str(problem)
+            if self._stopping:
+                worker.close(wait=False);return
+            try:self.dispatch.hooks_ready.emit(error)
+            except RuntimeError:worker.close(wait=False)
+        self._hook_warm_thread=threading.Thread(target=prepare,daemon=True,name='Lexift-KeyboardStartup')
+        self._hook_warm_thread.start();return True
+
+    def _keyboard_ready(self,error):
+        self._hook_warming=False
+        notify=self._hook_notify;self._hook_notify=False
+        if self._stopping or not self._enabled or not any(self.features.values()):
+            keyboard_service().close(wait=False);return
+        if error:
+            self.tray.showMessage('Lexift',error_text(RuntimeError(error),'shortcut'),QSystemTrayIcon.MessageIcon.Warning,4000)
+            return
+        self._start_hook(notify=notify)
+
     def _notify_active(self):
         if self._running and self._enabled and not self._stopping:
-            self.tray.showMessage("KanaShift",
-                tr("KanaShift 작동 중\n(단축키 : {shortcut})").format(shortcut=self.binding.title),
+            self.tray.showMessage("Lexift",
+                tr("Lexift 작동 중\n(단축키 : {shortcut})").format(shortcut=self.binding.title),
                 QSystemTrayIcon.MessageIcon.Information, 3500)
 
     def change_shortcut(self, binding: HotkeyBinding):
+        if binding in (self.ime_binding,getattr(self,'chinese_binding',None)):
+            self.window.update_shortcut_ui(self.binding)
+            QMessageBox.warning(self.window, 'Lexift', '다른 기능의 단축키와 겹쳐 저장할 수 없습니다.')
+            return
         if binding == self.binding:
             return
         old = self.binding
@@ -1474,12 +1870,12 @@ class KanaShiftController(QObject):
         if running:
             self.hook.stop()
             self._running = False
-        next_hook = CapsQHook(lambda hwnd: self.dispatch.hotkey.emit(hwnd or get_target_window()), binding)
+        next_hook = self._make_keyboard_hook(binding)
         try:
             if running:
                 next_hook.start()
         except Exception as error:
-            self.hook = CapsQHook(lambda hwnd: self.dispatch.hotkey.emit(hwnd or get_target_window()), old)
+            self.hook = self._make_keyboard_hook(old)
             try:
                 if running:
                     self.hook.start()
@@ -1499,6 +1895,80 @@ class KanaShiftController(QObject):
         self.window.update_shortcut_ui(binding)
         self._sync_enabled_ui()
 
+    def change_ime_shortcut(self, binding):
+        if binding in (self.binding,getattr(self,'chinese_binding',None)):
+            self.window.update_ime_shortcut_ui(self.ime_binding)
+            QMessageBox.warning(self.window, 'Lexift', '다른 기능의 단축키와 겹쳐 저장할 수 없습니다.')
+            return
+        if binding == self.ime_binding:
+            return
+        old = self.ime_binding
+        running = self._running
+        if running:
+            self.hook.stop()
+            self._running = False
+        self.ime_binding = binding
+        replacement = self._make_keyboard_hook(self.binding)
+        try:
+            if running:
+                replacement.start()
+        except Exception as error:
+            replacement.stop()
+            self.ime_binding = old
+            self.hook = self._make_keyboard_hook(self.binding)
+            try:
+                if running:
+                    self.hook.start()
+                    self._running = True
+            except Exception:
+                logging.exception('Failed to restore keyboard shortcuts')
+            self.window.update_ime_shortcut_ui(old)
+            QMessageBox.warning(self.window, tr('단축키 변경 실패'), str(error))
+            return
+        self.hook = replacement
+        self._running = running
+        self.store.setValue('ime_hotkey/mode', binding.mode)
+        self.store.setValue('ime_hotkey/key', binding.key)
+        self.store.sync()
+        self.window.update_ime_shortcut_ui(binding)
+
+    def change_chinese_shortcut(self, binding):
+        if binding in (self.binding,self.ime_binding):
+            self.window.update_chinese_shortcut_ui(self.chinese_binding)
+            QMessageBox.warning(self.window, 'Lexift', '다른 기능의 단축키와 겹쳐 저장할 수 없습니다.')
+            return
+        if binding == self.chinese_binding:
+            return
+        old = self.chinese_binding
+        running = self._running
+        if running:
+            self.hook.stop()
+            self._running = False
+        self.chinese_binding = binding
+        replacement = self._make_keyboard_hook(self.binding)
+        try:
+            if running:
+                replacement.start()
+        except Exception as error:
+            replacement.stop()
+            self.chinese_binding = old
+            self.hook = self._make_keyboard_hook(self.binding)
+            try:
+                if running:
+                    self.hook.start()
+                    self._running = True
+            except Exception:
+                logging.exception('Failed to restore keyboard shortcuts')
+            self.window.update_chinese_shortcut_ui(old)
+            QMessageBox.warning(self.window, tr('단축키 변경 실패'), str(error))
+            return
+        self.hook = replacement
+        self._running = running
+        self.store.setValue('chinese_hotkey/mode', binding.mode)
+        self.store.setValue('chinese_hotkey/key', binding.key)
+        self.store.sync()
+        self.window.update_chinese_shortcut_ui(binding)
+
     def save_slots(self, slots):
         slots = sanitized_slots(slots)
         if not slots:
@@ -1514,7 +1984,7 @@ class KanaShiftController(QObject):
             self._start_hook()
             self.show_window(0)
         else:
-            self.tray.showMessage("KanaShift", tr("입력기 설정을 저장했습니다."),
+            self.tray.showMessage("Lexift", tr("입력기 설정을 저장했습니다."),
                                   QSystemTrayIcon.MessageIcon.Information, 2000)
 
     def show_window(self, page=0):
@@ -1530,6 +2000,7 @@ class KanaShiftController(QObject):
         self.window.activateWindow()
 
     def show_overlay(self):
+        if not getattr(self,'features',{}).get('selector',True):return
         if not getattr(self, "_enabled", True) or getattr(self, "_confirming_quit", False):
             return
         if self.first_run:
@@ -1544,9 +2015,64 @@ class KanaShiftController(QObject):
             self._window.hide()
         self.overlay.open(self.slots, target)
 
+    def _make_keyboard_hook(self, binding):
+        features=getattr(self,'features',{'selector':True,'ja':True,'zh':True})
+        return CapsQHook((lambda hwnd:self.dispatch.hotkey.emit(hwnd or get_target_window())) if features['selector'] else None,binding,
+                         on_ime=(lambda hwnd:self.dispatch.ime_requested.emit(hwnd)) if features['ja'] else None,ime_binding=self.ime_binding,
+                         on_chinese=(lambda hwnd:self.dispatch.chinese_requested.emit(hwnd)) if features['zh'] else None,chinese_binding=self.chinese_binding)
+
+    def _show_ime_panel(self, hwnd=0, language='ja'):
+        if not getattr(self, '_enabled', True) or self._stopping or getattr(self, '_confirming_quit', False):
+            return
+        if not getattr(self,'features',{}).get(language,True):return
+        from ime_inline import inline_mode
+        mode=inline_mode()
+        turning_off=mode.enabled and mode.language==language
+        target=hwnd or get_target_window()
+        # OFF must always remain available; enabling must never alter the IME.
+        if not turning_off and (not target or not target_is_foreground(target)
+                or current_language(target)!=LANG_KO or korean_is_hangul(target,timeout_ms=15) is not True):
+            return
+        now = time.monotonic()
+        if now - self._last_ime_toggle < .28:
+            return
+        self._last_ime_toggle = now
+        self._cancel_switch()
+        self.overlay._selection_revision += 1
+        self.overlay.hide()
+        try:
+            enabled = mode.toggle(language)
+            self._korean_activation.cancel()
+            if self._ime_toast is None:
+                self._ime_toast = QLabel()
+                self._ime_toast.setWindowFlags(Qt.WindowType.ToolTip | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.WindowDoesNotAcceptFocus)
+                self._ime_toast.setAttribute(Qt.WidgetAttribute.WA_ShowWithoutActivating)
+                self._ime_toast.setStyleSheet('background:#182234;color:#ffffff;border-radius:12px;padding:14px 26px;font-size:16px;')
+                self._ime_toast_timer = QTimer(self)
+                self._ime_toast_timer.setSingleShot(True)
+                self._ime_toast_timer.timeout.connect(self._ime_toast.hide)
+            title=tr('한–중 변환' if language=='zh' else '한–일 변환')
+            self._ime_toast.setText(title+('  ON' if enabled else '  OFF'))
+            self._ime_toast.adjustSize()
+            screen = QApplication.screenAt(QCursor.pos()) or QApplication.primaryScreen()
+            area = screen.availableGeometry()
+            self._ime_toast.move(area.center().x() - self._ime_toast.width() // 2, area.bottom() - 100)
+            self._ime_toast.show()
+            self._ime_toast_timer.start(1500)
+            self._sound()
+        except (OSError, RuntimeError) as error:
+            QMessageBox.warning(self._window, 'Lexift', error_text(error))
+
+    def _korean_activation_finished(self, ok):
+        if not ok:
+            from ime_inline import inline_mode
+            if inline_mode().enabled:
+                self.tray.showMessage('Lexift','한글 입력 전환을 확인하지 못했습니다. 대상 입력창의 한/영 상태를 확인해 주세요.',QSystemTrayIcon.MessageIcon.Warning,3000)
+
     def _hotkey(self, hwnd):
         if not getattr(self, "_enabled", True) or self._stopping or getattr(self, "_confirming_quit", False):
             return
+        if not getattr(self,'features',{}).get('selector',True):return
         now = time.monotonic()
         if now - self._last_hotkey < .28:
             return
@@ -1562,9 +2088,9 @@ class KanaShiftController(QObject):
         if self._stopping or not self.tray.isVisible():
             return
         self.tray.showMessage(
-            "KanaShift",
-            (tr("KanaShift 작동 중\n(단축키 : {shortcut})").format(shortcut=self.binding.title)
-             if self._enabled else tr("KanaShift 비활성화")),
+            "Lexift",
+            (tr("Lexift 작동 중\n(단축키 : {shortcut})").format(shortcut=self.binding.title)
+             if self._enabled else tr("Lexift 비활성화")),
             QSystemTrayIcon.MessageIcon.Information,
             3500,
         )
@@ -1574,6 +2100,7 @@ class KanaShiftController(QObject):
             self.show_window(0)
 
     def apply_slot(self, slot):
+        if not getattr(self,'features',{}).get('selector',True):return
         if not getattr(self, "_enabled", True) or getattr(self, "_confirming_quit", False):
             return
         self.cursor_indicator.dismiss()
@@ -1712,8 +2239,28 @@ class KanaShiftController(QObject):
         self.cursor_indicator.dismiss()
 
     def _selector_visibility(self, visible):
+        from ime_inline import inline_mode
+        inline_mode().set_paused(visible)
         if visible:
             self._cancel_switch()
+
+    def _navigation_visibility(self, _visible=False):
+        from ime_inline import inline_mode
+        if self.overlay.isVisible():
+            self.navigation_hook.set_active(1)
+        elif inline_mode().pending_commit:
+            self.navigation_hook.set_active(3,inline_mode().pending_commit.get('hwnd',0))
+        elif inline_mode().visible():
+            self.navigation_hook.set_active(2,inline_mode().snapshot.get('hwnd',0))
+        else:
+            self.navigation_hook.set_active(0)
+
+    def _navigate_input(self, key):
+        if self.overlay.isVisible():
+            self.overlay.navigate_virtual_key(key)
+        else:
+            from ime_inline import inline_mode
+            inline_mode().navigate(key)
 
     def _switch_active(self, job, hwnd):
         if job != self._job or self._stopping or not getattr(self, "_enabled", True):
@@ -1740,7 +2287,7 @@ class KanaShiftController(QObject):
         self._cancel_switch()
         logging.warning(message)
         message = error_text(Exception(message), "input")
-        self.tray.showMessage("KanaShift", message, QSystemTrayIcon.MessageIcon.Warning, 4500)
+        self.tray.showMessage("Lexift", message, QSystemTrayIcon.MessageIcon.Warning, 4500)
 
     def request_quit(self):
         if self._stopping or self._confirming_quit:
@@ -1784,6 +2331,11 @@ class KanaShiftController(QObject):
             self._confirming_quit = False
 
     def _shutdown_keyboard(self):
+        if hasattr(self,'_engine_prepare_timer'):self._engine_prepare_timer.stop()
+        if getattr(self,'_korean_activation',None):
+            self._korean_activation.cancel()
+        from ime_inline import inline_mode
+        inline_mode().shutdown()
         worker = keyboard_service()
         worker.caps = None
         worker.navigation = None
@@ -1797,6 +2349,9 @@ class KanaShiftController(QObject):
         if self._stopping:
             return
         self._stopping = True
+        if getattr(self,'_sounds',None):self._sounds.close()
+        from ime_inline import inline_mode
+        inline_mode().close()
         if hasattr(self, "updater"):
             self.updater.cancel()
         self.cursor_indicator.dismiss()
@@ -1806,6 +2361,8 @@ class KanaShiftController(QObject):
         if self._window is not None:
             self._window.hide()
         self.tray.hide()
+        self.tray.hide_notification()
+        if getattr(self,'_ime_toast',None):self._ime_toast.hide()
         self._shutdown_keyboard()
         self.store.sync()
         self.qt.quit()
@@ -1815,7 +2372,7 @@ class LanguagePicker(QDialog):
     """First-launch language choice, independent of input slot setup."""
     def __init__(self, initial: str):
         super().__init__()
-        self.setWindowTitle('KanaShift')
+        self.setWindowTitle('Lexift')
         # Fallback only: the preferred first-run prompt is the native Windows dialog.
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)
         self.setWindowModality(Qt.WindowModality.ApplicationModal)
@@ -1849,12 +2406,12 @@ class LanguagePicker(QDialog):
         return self.selector.currentData()
 
 def setup_logging():
-    path = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "KanaShift"
+    path = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "Lexift"
     path.mkdir(parents=True, exist_ok=True)
     root = logging.getLogger()
     root.setLevel(logging.INFO)
     if not root.handlers:
-        handler = RotatingFileHandler(path / "kanashift.log", maxBytes=1024*1024,
+        handler = RotatingFileHandler(path / "lexift.log", maxBytes=1024*1024,
                                       backupCount=2, encoding="utf-8")
         handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
         root.addHandler(handler)
@@ -1862,7 +2419,7 @@ def setup_logging():
 
 def main() -> int:
     if sys.platform != "win32":
-        print("KanaShift is available on Windows 10/11 only.", file=sys.stderr)
+        print("Lexift is available on Windows 10/11 only.", file=sys.stderr)
         return 1
     setup_logging()
     load_saved_language()
@@ -1875,13 +2432,13 @@ def main() -> int:
     ctypes.set_last_error(0)
     mutex = kernel.CreateMutexW(None, False, "Local\\KanaShift-LutteLaurent")
     if not mutex:
-        raise OSError(ctypes.get_last_error(), "KanaShift mutex creation failed")
+        raise OSError(ctypes.get_last_error(), "Lexift mutex creation failed")
     if ctypes.get_last_error() == 183:  # ERROR_ALREADY_EXISTS
-        logging.info("Second KanaShift instance was not started")
+        logging.info("Second Lexift instance was not started")
         if "--show" in sys.argv or "--background" not in sys.argv:
             ctypes.windll.user32.MessageBoxW(
-                None, tr("KanaShift가 이미 실행 중입니다.\n작업표시줄 알림 영역의 K 아이콘을 확인하세요."),
-                "KanaShift", 0x40)
+                None, tr("Lexift가 이미 실행 중입니다.\n작업표시줄 알림 영역의 K 아이콘을 확인하세요."),
+                "Lexift", 0x40)
         kernel.CloseHandle(mutex)
         return 0
     show_main = "--show" in sys.argv
@@ -1895,6 +2452,9 @@ def main() -> int:
     choose_font(qt)
     qt.setStyleSheet(QSS)
     prefs = QSettings(ORGANIZATION, PRODUCT)
+    from preferences import migrate_preferences
+    migrate_preferences(prefs)
+    if startup_enabled():set_startup_enabled(True)
     preferred = prefs.value('general/ui_language', '', str)
     if preferred in SUPPORTED:
         set_language(preferred)
@@ -1929,14 +2489,14 @@ def main() -> int:
 
     def begin():
         try:
-            managers["main"] = KanaShiftController(qt)
+            managers["main"] = LexiftController(qt)
         except Exception as error:
             logging.exception("Startup failed")
-            QMessageBox.critical(None, tr("KanaShift 시작 오류"), error_text(error))
+            QMessageBox.critical(None, tr("Lexift 시작 오류"), error_text(error))
             qt.quit()
             return
         managers["main"].start(show_main=show_main, background=background)
-        if managers["main"]._running or managers["main"].first_run:
+        if managers["main"]._running or managers["main"].first_run or not any(managers['main'].features.values()):
             mark_ready(VERSION)
 
     # Build only the requested main window; background startup skips font layout.

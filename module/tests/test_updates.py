@@ -17,8 +17,8 @@ from package_release import package
 
 def payload(root, version='0.7.8', marker=b'new'):
     root.mkdir(parents=True)
-    (root/'KanaShift.exe').write_bytes(b'MZ'+marker)
-    (root/'KanaShiftUpdater.exe').write_bytes(b'MZhelper'+marker)
+    (root/'Lexift.exe').write_bytes(b'MZ'+marker)
+    (root/'LexiftUpdater.exe').write_bytes(b'MZhelper'+marker)
     (root/'_internal').mkdir()
     (root/'_internal'/'new.dll').write_bytes(marker)
     core.make_manifest(root, version)
@@ -26,11 +26,11 @@ def payload(root, version='0.7.8', marker=b'new'):
 
 
 def release_data(tag='v0.7.8'):
-    name='KanaShift-0.7.8-Windows-x64.zip'
+    name='Lexift-0.7.8-Windows-x64.zip'
     return dict(tag_name=tag, draft=False, prerelease=False,
-                html_url=f'https://github.com/luttechan/KanaShift/releases/tag/{tag}',
+                html_url=f'https://github.com/luttechan/Lexift/releases/tag/{tag}',
                 assets=[dict(name=name, size=100, digest='sha256:'+'a'*64,
-                             browser_download_url=f'https://github.com/luttechan/KanaShift/releases/download/{tag}/{name}')])
+                             browser_download_url=f'https://github.com/luttechan/Lexift/releases/download/{tag}/{name}')])
 
 
 class ReleaseTests(unittest.TestCase):
@@ -39,7 +39,7 @@ class ReleaseTests(unittest.TestCase):
         self.assertGreater(core.version_number('v1.0.0'),core.version_number('v0.99.99'))
 
     def test_only_new_tag_convention(self):
-        for tag in ('KanaShift_076','KanaShift_v076','0.7.8','v0.7.8-beta','v0.7'):
+        for tag in ('Lexift_076','Lexift_v076','0.7.8','v0.7.8-beta','v0.7'):
             with self.assertRaises(core.UpdateError): core.parse_release(release_data(tag))
         self.assertEqual(core.parse_release(release_data()).version,'0.7.8')
 
@@ -53,8 +53,8 @@ class ReleaseTests(unittest.TestCase):
         self.assertFalse(core.parse_release(data).asset_url)
 
     def test_cross_repository_and_tag_assets_rejected(self):
-        for value in ('https://github.com/other/KanaShift/releases/download/v0.7.8/a.zip',
-                      'https://github.com/luttechan/KanaShift/releases/download/v0.7.9/KanaShift-0.7.8-Windows-x64.zip'):
+        for value in ('https://github.com/other/Lexift/releases/download/v0.7.8/a.zip',
+                      'https://github.com/luttechan/Lexift/releases/download/v0.7.9/Lexift-0.7.8-Windows-x64.zip'):
             data=release_data();data['assets'][0]['browser_download_url']=value
             with self.assertRaises(core.UpdateError): core.parse_release(data)
 
@@ -77,7 +77,7 @@ class PackageTests(unittest.TestCase):
         source=payload(self.root/'source')
         archive=package(source,self.root/'release','0.7.8')
         result=core.extract_package(archive,self.root/'extract','0.7.8',threading.Event())
-        self.assertEqual((result/'KanaShift.exe').read_bytes(),b'MZnew')
+        self.assertEqual((result/'Lexift.exe').read_bytes(),b'MZnew')
         self.assertTrue(archive.with_suffix('.zip.sha256').exists())
 
     def test_wrong_version_never_accepted(self):
@@ -99,7 +99,7 @@ class PackageTests(unittest.TestCase):
 
     def test_hostile_zip_never_writes_outside_staging(self):
         archive=self.root/'bad.zip'
-        with zipfile.ZipFile(archive,'w') as out: out.writestr('KanaShift/../../outside',b'evil')
+        with zipfile.ZipFile(archive,'w') as out: out.writestr('Lexift/../../outside',b'evil')
         with self.assertRaises(core.UpdateError):
             core.extract_package(archive,self.root/'extract','0.7.8',threading.Event())
         self.assertFalse((self.root/'outside').exists())
@@ -107,13 +107,13 @@ class PackageTests(unittest.TestCase):
 
     def test_archive_symlink_rejected(self):
         archive=self.root/'bad.zip'
-        info=zipfile.ZipInfo('KanaShift/_internal/link');info.external_attr=(stat.S_IFLNK|0o777)<<16
+        info=zipfile.ZipInfo('Lexift/_internal/link');info.external_attr=(stat.S_IFLNK|0o777)<<16
         with zipfile.ZipFile(archive,'w') as out: out.writestr(info,'../../outside')
         with self.assertRaises(core.UpdateError): core.extract_package(archive,self.root/'extract','0.7.8',threading.Event())
 
     def test_archive_limits(self):
         archive=self.root/'big.zip'
-        with zipfile.ZipFile(archive,'w') as out: out.writestr('KanaShift/_internal/a',b'12345')
+        with zipfile.ZipFile(archive,'w') as out: out.writestr('Lexift/_internal/a',b'12345')
         with patch.object(core,'MAX_EXPANDED',4):
             with self.assertRaises(core.UpdateError): core.extract_package(archive,self.root/'extract','0.7.8',threading.Event())
 
@@ -125,8 +125,8 @@ class PackageTests(unittest.TestCase):
 
     def test_verified_download_and_checksum_failure(self):
         data=b'example zip'; digest=hashlib.sha256(data).hexdigest()
-        release=core.Release('0.7.8','https://github.com/luttechan/KanaShift/releases/latest',
-                             'https://github.com/luttechan/KanaShift/releases/download/v0.7.8/test.zip','test.zip',len(data),'sha256:'+digest)
+        release=core.Release('0.7.8','https://github.com/luttechan/Lexift/releases/latest',
+                             'https://github.com/luttechan/Lexift/releases/download/v0.7.8/test.zip','test.zip',len(data),'sha256:'+digest)
         with patch.object(core,'open_url',return_value=io.BytesIO(data)):
             core.download(release,self.root/'good.zip',threading.Event())
         self.assertEqual((self.root/'good.zip').read_bytes(),data)
@@ -152,7 +152,7 @@ class ReplacementTests(unittest.TestCase):
         verified=Mock()
         replace_runtime(self.new,self.target,'0.7.8',verified)
         verified.assert_called_once()
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZnew')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZnew')
         self.assertFalse((self.target/'_internal'/'obsolete.dll').exists())
         self.assertEqual((self.target/'personal-notes.txt').read_text(),'keep me')
         self.assertFalse(list(self.target.glob('.kanashift-update-*')))
@@ -160,7 +160,7 @@ class ReplacementTests(unittest.TestCase):
     def test_startup_failure_restores_old_runtime(self):
         def fail(): raise RuntimeError('new startup failed')
         with self.assertRaises(RuntimeError): replace_runtime(self.new,self.target,'0.7.8',fail)
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZold')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZold')
         self.assertTrue((self.target/'_internal'/'obsolete.dll').exists())
         self.assertEqual((self.target/'personal-notes.txt').read_text(),'keep me')
 
@@ -172,10 +172,10 @@ class ReplacementTests(unittest.TestCase):
             return original(src,dst)
         with patch('update_apply.os.replace',side_effect=replace):
             with self.assertRaises(OSError): replace_runtime(self.new,self.target,'0.7.8')
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZold')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZold')
         self.assertTrue((self.target/'_internal'/'obsolete.dll').exists())
 
     def test_verification_failure_never_changes_installed_files(self):
-        (self.new/'KanaShift.exe').write_bytes(b'MZtampered')
+        (self.new/'Lexift.exe').write_bytes(b'MZtampered')
         with self.assertRaises(core.UpdateError): replace_runtime(self.new,self.target,'0.7.8')
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZold')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZold')

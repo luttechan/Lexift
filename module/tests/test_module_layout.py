@@ -11,8 +11,8 @@ from .test_updates import payload
 
 def modern_payload(root, version='0.7.8'):
     (root/'module').mkdir(parents=True)
-    (root/'KanaShift.exe').write_bytes(b'MZmodern')
-    (root/'module'/'KanaShiftUpdater.exe').write_bytes(b'MZhelper')
+    (root/'Lexift.exe').write_bytes(b'MZmodern')
+    (root/'module'/'LexiftUpdater.exe').write_bytes(b'MZhelper')
     (root/'module'/'python.dll').write_bytes(b'runtime')
     core.make_manifest(root,version)
     return root
@@ -28,14 +28,14 @@ class ModuleLayoutTests(unittest.TestCase):
 
     def test_portable_root_contains_only_main_exe_and_module(self):
         source = modern_payload(self.root/'source')
-        self.assertEqual({p.name for p in source.iterdir()},{'KanaShift.exe','module'})
+        self.assertEqual({p.name for p in source.iterdir()},{'Lexift.exe','module'})
         archive = package(source,self.root/'release','0.7.8')
         with zipfile.ZipFile(archive) as zipped:
-            self.assertIn('KanaShift/module/update-manifest.json',zipped.namelist())
-            self.assertNotIn('KanaShift/update-manifest.json',zipped.namelist())
+            self.assertIn('Lexift/module/update-manifest.json',zipped.namelist())
+            self.assertNotIn('Lexift/update-manifest.json',zipped.namelist())
         result = core.extract_package(archive,self.root/'unpacked','0.7.8',threading.Event())
         core.validate_payload(result,'0.7.8')
-        self.assertEqual(core.updater_path(result),result/'module'/'KanaShiftUpdater.exe')
+        self.assertEqual(core.updater_path(result),result/'module'/'LexiftUpdater.exe')
 
     def test_legacy_installation_migrates_without_obsolete_runtime_entries(self):
         target = payload(self.root/'target','0.7.7',b'old')
@@ -43,7 +43,7 @@ class ModuleLayoutTests(unittest.TestCase):
         source = modern_payload(self.root/'source')
         replace_runtime(source,target,'0.7.8')
         self.assertFalse((target/'_internal').exists())
-        self.assertFalse((target/'KanaShiftUpdater.exe').exists())
+        self.assertFalse((target/'LexiftUpdater.exe').exists())
         self.assertFalse((target/'update-manifest.json').exists())
         self.assertEqual((target/'preferences.ini').read_text(),'keep')
         self.assertEqual(core.runtime_entries(target),core.MODULE_ENTRIES)
@@ -56,7 +56,7 @@ class ModuleLayoutTests(unittest.TestCase):
             raise RuntimeError('new app did not start')
         with self.assertRaisesRegex(RuntimeError,'did not start'):
             replace_runtime(source,target,'0.7.8',reject_start)
-        self.assertEqual((target/'KanaShift.exe').read_bytes(),b'MZold')
+        self.assertEqual((target/'Lexift.exe').read_bytes(),b'MZold')
         self.assertFalse((target/'module').exists())
         core.validate_payload(target,'0.7.7')
 

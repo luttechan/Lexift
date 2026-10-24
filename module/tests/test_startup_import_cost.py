@@ -9,7 +9,7 @@ import update_core
 class StartupImportTests(unittest.TestCase):
     def test_app_boot_does_not_load_http_or_tls(self):
         environment=os.environ.copy()
-        environment['PYTHONPATH']=str(Path(__file__).resolve().parents[1])
+        environment['PYTHONPATH']=os.pathsep.join([str(Path(__file__).resolve().parents[1]),environment.get('PYTHONPATH','')])
         # PySide itself imports zipfile; only the isolated HTTP/TLS stack is
         # expected to be absent from the interactive process at boot.
         code="import sys,app; assert not ({'urllib.request','ssl'} & sys.modules.keys())"

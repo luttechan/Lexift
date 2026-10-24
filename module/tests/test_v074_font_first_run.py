@@ -1,4 +1,4 @@
-"""KanaShift 0.7.4 regression checks: universal font and native first-run picker."""
+"""Lexift 0.7.4 regression checks: universal font and native first-run picker."""
 from pathlib import Path
 import sys
 import unittest
@@ -34,9 +34,9 @@ class V074Tests(unittest.TestCase):
         start = SOURCE.index('def main() -> int:')
         startup = SOURCE[start:]
         self.assertLess(startup.index('choose_ui_language(LANGUAGES'),
-                        startup.index('managers["main"] = KanaShiftController(qt)'))
+                        startup.index('managers["main"] = LexiftController(qt)'))
         self.assertLess(startup.index("prefs.setValue('general/ui_language', chosen)"),
-                        startup.index('managers["main"] = KanaShiftController(qt)'))
+                        startup.index('managers["main"] = LexiftController(qt)'))
         self.assertIn('setWindowFlags(self.windowFlags() | Qt.WindowType.WindowStaysOnTopHint)', SOURCE)
 
     def test_runtime_language_switch_preserved(self):

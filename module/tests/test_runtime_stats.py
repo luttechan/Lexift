@@ -113,7 +113,8 @@ class PanelTests(unittest.TestCase):
         layout = create_layout(0x0412)
         with patch.object(app, 'available_layouts', return_value=[layout]):
             self.window = app.MainWindow(store, [dict(hkl=layout.hkl, mode='ko_hangul', name='custom')], False)
-        self.assertFalse(hasattr(self.window, 'runtime_stats'))
+        self.assertIsNone(self.window.runtime_stats._sampler.thread)
+        self.assertFalse(self.window.runtime_stats._sampling)
         self.window.resize(1020, 560)
         self.window.navigate(3)
         self.panel = self.window.runtime_stats

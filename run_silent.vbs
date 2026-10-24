@@ -6,7 +6,7 @@ base = fso.GetParentFolderName(WScript.ScriptFullName)
 pyexe = base & "\.venv\Scripts\pythonw.exe"
 entry = base & "\launch.pyw"
 If Not fso.FileExists(pyexe) Then
-  MsgBox "Run install.bat before launching KanaShift.", 16, "KanaShift"
+  MsgBox "Run install.bat before launching Lexift.", 16, "Lexift"
   WScript.Quit 1
 End If
 sh.CurrentDirectory = base

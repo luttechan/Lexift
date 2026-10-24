@@ -39,7 +39,7 @@ class QuitDisplayTests(unittest.TestCase):
         store.setValue('profiles/slots_json', json.dumps([dict(hkl=layout.hkl, mode='ko_hangul', name='Korean')]))
         self.stack.enter_context(patch.object(app, 'QSettings', return_value=store))
         self.stack.enter_context(patch.object(app, 'available_layouts', return_value=[layout]))
-        self.controller = app.KanaShiftController(self.qt)
+        self.controller = app.LexiftController(self.qt)
         self.controller._create_window()
         self.controller.stop = Mock()
         self.controller.window.show()

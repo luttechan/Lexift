@@ -17,7 +17,7 @@ class BackgroundStartupTests(unittest.TestCase):
 
     def test_manual_main_window_is_painted_before_worker_handshake(self):
         from PySide6.QtCore import QEventLoop
-        controller=app.KanaShiftController.__new__(app.KanaShiftController)
+        controller=app.LexiftController.__new__(app.LexiftController)
         controller.first_run=False
         controller._update_timer_started=True
         controller.store=Mock()
@@ -44,9 +44,10 @@ class BackgroundStartupTests(unittest.TestCase):
             stack.enter_context(patch.object(app, 'available_layouts', return_value=[layout]))
             stack.enter_context(patch.object(app, 'CapsQHook'))
             stack.enter_context(patch.object(app, 'OverlayNavigationHook'))
+            stack.enter_context(patch.object(app.LexiftController,'_warm_keyboard',return_value=False))
             stack.enter_context(patch.object(app.QTimer, 'singleShot'))
             main = stack.enter_context(patch.object(app, 'MainWindow', side_effect=AssertionError('eager GUI')))
-            controller = app.KanaShiftController(self.qt)
+            controller = app.LexiftController(self.qt)
             controller.start(background=True)
             self.assertTrue(controller._running)
             self.assertIsNone(controller._window)
@@ -63,6 +64,7 @@ class BackgroundStartupTests(unittest.TestCase):
         registry.__enter__ = Mock(return_value=registry)
         registry.__exit__ = Mock(return_value=False)
         with patch.object(app.winreg, 'OpenKey', return_value=registry), \
+             patch.object(app.winreg, 'DeleteValue'), \
              patch.object(app.winreg, 'SetValueEx') as save, \
              patch.object(app.sys, 'frozen', False, create=True):
             app.set_startup_enabled(True)

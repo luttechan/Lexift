@@ -11,13 +11,13 @@ import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
-REPOSITORY = "luttechan/KanaShift"
+REPOSITORY = "luttechan/Lexift"
 API_URL = f"https://api.github.com/repos/{REPOSITORY}/releases/latest"
 RELEASE_URL = f"https://github.com/{REPOSITORY}/releases/latest"
 MAX_DOWNLOAD = 512 * 1024 * 1024
 MAX_EXPANDED = 2 * 1024 * 1024 * 1024
-LEGACY_ENTRIES = ("KanaShift.exe", "KanaShiftUpdater.exe", "_internal", "update-manifest.json")
-MODULE_ENTRIES = ("KanaShift.exe", "module")
+LEGACY_ENTRIES = ("Lexift.exe", "LexiftUpdater.exe", "_internal", "update-manifest.json")
+MODULE_ENTRIES = ("Lexift.exe", "module")
 MANAGED = (*LEGACY_ENTRIES, "module")
 
 
@@ -31,8 +31,8 @@ def runtime_entries(root: Path) -> tuple[str, ...]:
 
 
 def updater_path(root: Path) -> Path:
-    modern = root / "module" / "KanaShiftUpdater.exe"
-    return modern if modern.is_file() else root / "KanaShiftUpdater.exe"
+    modern = root / "module" / "LexiftUpdater.exe"
+    return modern if modern.is_file() else root / "LexiftUpdater.exe"
 ALLOWED_HOSTS = {"github.com", "api.github.com", "release-assets.githubusercontent.com",
                  "objects.githubusercontent.com", "github-releases.githubusercontent.com"}
 
@@ -76,7 +76,7 @@ def open_url(url: str):
             safe_url(newurl)
             return super().redirect_request(req, fp, code, msg, headers, newurl)
     request = urllib.request.Request(safe_url(url), headers={
-        "User-Agent": "KanaShift-Updater", "Accept": "application/vnd.github+json"})
+        "User-Agent": "Lexift-Updater", "Accept": "application/vnd.github+json"})
     return urllib.request.build_opener(SafeRedirect()).open(request, timeout=15)
 
 
@@ -107,8 +107,8 @@ def parse_release(data: object) -> Release:
         if not isinstance(asset, dict):
             continue
         name = asset.get("name", "")
-        modern = f"KanaShift-{version}-Windows-x64.zip"
-        compact = "KanaShift_v" + "".join(version.split(".")) + ".zip"
+        modern = f"Lexift-{version}-Windows-x64.zip"
+        compact = "Lexift_v" + "".join(version.split(".")) + ".zip"
         if name not in (modern, compact) or asset.get("state", "uploaded") != "uploaded":
             continue
         url = asset.get("browser_download_url", "")
@@ -191,7 +191,7 @@ def safe_relative(value: str) -> PurePosixPath:
 
 def runtime_file(value: str) -> bool:
     path = safe_relative(value)
-    return value in ("KanaShift.exe", "KanaShiftUpdater.exe") or (path.parts[0] in ("_internal", "module") and len(path.parts) > 1)
+    return value in ("Lexift.exe", "LexiftUpdater.exe") or (path.parts[0] in ("_internal", "module") and len(path.parts) > 1)
 
 
 def file_hash(path: Path) -> str:
@@ -208,20 +208,20 @@ def validate_payload(root: Path, version: str) -> dict:
     if manifest.is_symlink() or manifest.stat().st_size > 2 * 1024 * 1024:
         raise UpdateError("Invalid update manifest")
     data = json.loads(manifest.read_text(encoding="utf-8"))
-    if (not isinstance(data, dict) or data.get("format") != 1 or data.get("product") != "KanaShift"
+    if (not isinstance(data, dict) or data.get("format") != 1 or data.get("product") != "Lexift"
             or data.get("version") != version or data.get("architecture") != "x64"):
         raise UpdateError("Update package version or architecture mismatch")
     files = data.get("files")
     if not isinstance(files, dict) or not 3 <= len(files) <= 5000:
         raise UpdateError("Invalid update file list")
     modern = manifest.parent != root
-    helper = "module/KanaShiftUpdater.exe" if modern else "KanaShiftUpdater.exe"
+    helper = "module/LexiftUpdater.exe" if modern else "LexiftUpdater.exe"
     runtime = "module/" if modern else "_internal/"
     if (not all(isinstance(p, str) for p in files)
-            or not {"KanaShift.exe", helper} <= files.keys()
+            or not {"Lexift.exe", helper} <= files.keys()
             or not any(p.startswith(runtime) and p != helper for p in files)):
         raise UpdateError("Incomplete runtime package")
-    mixed = (any(p.startswith("_internal/") or p == "KanaShiftUpdater.exe" for p in files)
+    mixed = (any(p.startswith("_internal/") or p == "LexiftUpdater.exe" for p in files)
              if modern else any(p.startswith("module/") for p in files))
     if mixed:
         raise UpdateError("Mixed runtime layouts")
@@ -242,7 +242,7 @@ def validate_payload(root: Path, version: str) -> dict:
         if file_hash(path) != expected:
             raise UpdateError("Package file checksum mismatch: " + name)
     # A ZIP containing source code named .exe is not an executable runtime.
-    for name in ("KanaShift.exe", helper):
+    for name in ("Lexift.exe", helper):
         with (root / name).open("rb") as stream:
             if stream.read(2) != b"MZ":
                 raise UpdateError("Invalid Windows executable")
@@ -262,7 +262,7 @@ def extract_package(archive: Path, dest: Path, version: str, cancel: threading.E
                 cancelled(cancel)
                 name = info.filename.rstrip("/") if info.is_dir() else info.filename
                 path = safe_relative(name)
-                if path.parts[0] != "KanaShift" or len(path.parts) < 2 and not info.is_dir():
+                if path.parts[0] != "Lexift" or len(path.parts) < 2 and not info.is_dir():
                     raise UpdateError("Unsupported package layout; a portable update ZIP is required")
                 if info.filename.casefold() in paths or info.flag_bits & 1:
                     raise UpdateError("Duplicate or encrypted archive entry")
@@ -289,7 +289,7 @@ def extract_package(archive: Path, dest: Path, version: str, cancel: threading.E
                             raise UpdateError("Invalid expanded file size")
                         stream.write(block)
             cancelled(cancel)
-        payload = dest / "KanaShift"
+        payload = dest / "Lexift"
         validate_payload(payload, version)
         return payload
     except Exception:
@@ -299,7 +299,7 @@ def extract_package(archive: Path, dest: Path, version: str, cancel: threading.E
 
 def make_manifest(root: Path, version: str):
     version = version_text(version)
-    manifest = (root / "module" / "update-manifest.json" if (root / "module" / "KanaShiftUpdater.exe").is_file()
+    manifest = (root / "module" / "update-manifest.json" if (root / "module" / "LexiftUpdater.exe").is_file()
                 else root / "update-manifest.json")
     files = {}
     for path in sorted(root.rglob("*")):
@@ -308,6 +308,6 @@ def make_manifest(root: Path, version: str):
             if not runtime_file(relative) or path.is_symlink():
                 raise UpdateError("Unexpected build file: " + relative)
             files[relative] = file_hash(path)
-    data = dict(format=1, product="KanaShift", version=version, architecture="x64", files=files)
+    data = dict(format=1, product="Lexift", version=version, architecture="x64", files=files)
     manifest.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     validate_payload(root, version)

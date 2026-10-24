@@ -79,7 +79,7 @@ class CursorTests(unittest.TestCase):
 
 class SwitchTests(unittest.TestCase):
     def setUp(self):
-        self.controller = a.KanaShiftController.__new__(a.KanaShiftController)
+        self.controller = a.LexiftController.__new__(a.LexiftController)
         self.controller._job = 7
         self.controller._stopping = False
         self.controller.overlay = Mock()

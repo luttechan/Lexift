@@ -84,7 +84,7 @@ class Sampler:
             self.latest = None
             self.pending = False
             if active and self.thread is None:
-                self.thread = threading.Thread(target=self._run, name='KanaShift-Diagnostics', daemon=True)
+                self.thread = threading.Thread(target=self._run, name='Lexift-Diagnostics', daemon=True)
                 self.thread.start()
             self.condition.notify_all()
             return self.generation

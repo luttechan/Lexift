@@ -67,8 +67,9 @@ class ExplorerFocusTests(unittest.TestCase):
         self.assertTrue(self.overlay.windowFlags() & Qt.WindowType.WindowDoesNotAcceptFocus)
 
     def controller(self):
-        controller = app.KanaShiftController.__new__(app.KanaShiftController)
+        controller = app.LexiftController.__new__(app.LexiftController)
         controller._running = False
+        controller._warm_keyboard=Mock(return_value=False)
         controller._navigation_started = False
         controller.overlay = self.overlay
         controller.navigation_hook = Mock()

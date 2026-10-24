@@ -67,7 +67,7 @@ _ROWS = {
 '실행할 때 메인 창 표시': ('Show main window on launch','起動時にメイン画面を表示','启动时显示主窗口','啟動時顯示主視窗','Afficher la fenêtre au démarrage','Mostrar ventana al iniciar','Показывать окно при запуске','Hauptfenster beim Start anzeigen'),
 '시작 알림 표시': ('Show startup notification','起動通知を表示','显示启动通知','顯示啟動通知','Notification au démarrage','Aviso al iniciar','Уведомление при запуске','Startbenachrichtigung anzeigen'),
 'Windows 로그인 시 자동 실행': ('Run at Windows sign-in','Windows ログイン時に起動','登录 Windows 时启动','登入 Windows 時啟動','Lancer avec Windows','Iniciar con Windows','Запускать с Windows','Mit Windows starten'),
-'창을 닫으면 KanaShift가 종료됩니다.': ('Closing the window quits KanaShift.','ウィンドウを閉じると終了します。','关闭窗口将退出 KanaShift。','關閉視窗將結束 KanaShift。','Fermer la fenêtre quitte KanaShift.','Cerrar la ventana sale de KanaShift.','Закрытие окна завершает KanaShift.','Das Schließen beendet KanaShift.'),
+'창을 닫으면 Lexift가 종료됩니다.': ('Closing the window quits Lexift.','ウィンドウを閉じると終了します。','关闭窗口将退出 Lexift。','關閉視窗將結束 Lexift。','Fermer la fenêtre quitte Lexift.','Cerrar la ventana sale de Lexift.','Закрытие окна завершает Lexift.','Das Schließen beendet Lexift.'),
 '단축키': ('Shortcut','ショートカット','快捷键','快捷鍵','Raccourci','Atajo','Горячая клавиша','Tastenkürzel'),
 '적용': ('Apply','適用','应用','套用','Appliquer','Aplicar','Применить','Übernehmen'),
 'CapsLock 단독 입력은 원래 기능을 유지합니다.': ('CapsLock alone still works normally.','CapsLock 単独では通常どおり動作します。','单独按 CapsLock 仍可正常使用。','單獨按 CapsLock 仍可正常使用。','CapsLock seul conserve sa fonction.','CapsLock solo funciona normalmente.','Отдельный CapsLock работает как обычно.','CapsLock allein funktioniert weiterhin normal.'),
@@ -85,8 +85,8 @@ _ROWS = {
 '설정': ('Settings','設定','设置','設定','Paramètres','Ajustes','Настройки','Einstellungen'),
 '오버레이 키보드': ('Overlay keyboard','オーバーレイ操作','悬浮界面键盘','浮動視窗鍵盤','Clavier du sélecteur','Teclado superpuesto','Клавиатура меню','Overlay-Tastatur'),
 '전역 방향키 연결에 실패했습니다.': ('Could not register overlay navigation.','選択画面のキー操作を登録できませんでした。','无法注册方向键控制。','無法註冊方向鍵控制。','Impossible d’activer les touches de navigation.','No se pudo activar la navegación.','Не удалось включить навигацию.','Overlay-Steuerung konnte nicht aktiviert werden.'),
-'알림 영역에서 계속 실행됩니다.': ('KanaShift is still running in the system tray.','通知領域で引き続き実行します。','KanaShift 将继续在系统托盘中运行。','KanaShift 將繼續在系統匣中執行。','KanaShift reste actif dans la zone de notification.','KanaShift sigue activo en la bandeja del sistema.','KanaShift продолжает работать в области уведомлений.','KanaShift läuft im Infobereich weiter.'),
-'KanaShift 실행 중': ('KanaShift is running','KanaShift 実行中','KanaShift 正在运行','KanaShift 執行中','KanaShift est actif','KanaShift en ejecución','KanaShift запущен','KanaShift läuft'),
+'알림 영역에서 계속 실행됩니다.': ('Lexift is still running in the system tray.','通知領域で引き続き実行します。','Lexift 将继续在系统托盘中运行。','Lexift 將繼續在系統匣中執行。','Lexift reste actif dans la zone de notification.','Lexift sigue activo en la bandeja del sistema.','Lexift продолжает работать в области уведомлений.','Lexift läuft im Infobereich weiter.'),
+'Lexift 실행 중': ('Lexift is running','Lexift 実行中','Lexift 正在运行','Lexift 執行中','Lexift est actif','Lexift en ejecución','Lexift запущен','Lexift läuft'),
 '단축키 연결 실패': ('Shortcut unavailable','ショートカットを登録できません','快捷键不可用','快捷鍵無法使用','Raccourci indisponible','Atajo no disponible','Сочетание недоступно','Tastenkürzel nicht verfügbar'),
 '단축키 오류': ('Shortcut error','ショートカットエラー','快捷键错误','快捷鍵錯誤','Erreur de raccourci','Error de atajo','Ошибка сочетания','Tastenkürzelfehler'),
 '단축키 변경 실패': ('Could not change shortcut','ショートカットを変更できません','无法更改快捷键','無法變更快捷鍵','Impossible de changer le raccourci','No se pudo cambiar el atajo','Не удалось изменить сочетание','Tastenkürzel konnte nicht geändert werden'),
@@ -94,7 +94,7 @@ _ROWS = {
 '입력기 전환': ('Switch input','入力を切り替える','切换输入法','切換輸入法','Changer de saisie','Cambiar entrada','Сменить раскладку','Eingabe wechseln'),
 '입력할 창으로 돌아가': ('Return to the app you want to type in and press','入力先の画面に戻り、押してください：','请回到输入窗口并按','請返回輸入視窗並按','Revenez à l’application cible et appuyez sur','Vuelve a la aplicación y pulsa','Вернитесь в нужное окно и нажмите','Zum Eingabefenster wechseln und drücken:'),
 '현재 Windows에서 사용할 수 있는 입력기가 없습니다.': ('No Windows input methods are available.','利用可能な Windows 入力方式がありません。','未找到可用的 Windows 输入法。','找不到可用的 Windows 輸入法。','Aucune méthode de saisie Windows disponible.','No hay métodos de entrada disponibles.','Нет доступных раскладок Windows.','Keine Windows-Eingaben verfügbar.'),
-'KanaShift 시작 오류': ('KanaShift startup error','KanaShift 起動エラー','KanaShift 启动错误','KanaShift 啟動錯誤','Erreur de démarrage KanaShift','Error al iniciar KanaShift','Ошибка запуска KanaShift','KanaShift-Startfehler'),
+'Lexift 시작 오류': ('Lexift startup error','Lexift 起動エラー','Lexift 启动错误','Lexift 啟動錯誤','Erreur de démarrage Lexift','Error al iniciar Lexift','Ошибка запуска Lexift','Lexift-Startfehler'),
 '언어': ('Language','言語','语言','語言','Langue','Idioma','Язык','Sprache'),
 '표시 언어': ('Display language','表示言語','界面语言','介面語言','Langue de l’interface','Idioma de la interfaz','Язык интерфейса','Anzeigesprache'),
 '시작': ('Start','開始','开始','開始','Continuer','Continuar','Продолжить','Weiter'),
@@ -118,9 +118,9 @@ _ROWS.update({
 '원어 (IME)': ('Native input (IME)','母語入力（IME）','本地语言（输入法）','原語輸入（輸入法）','Saisie native (IME)','Entrada nativa (IME)','Родной язык (IME)','Landessprache (IME)'),
 '영문 (IME)': ('English (IME)','英字（IME）','英文（输入法）','英文（輸入法）','Anglais (IME)','Inglés (IME)','Английский (IME)','Englisch (IME)'),
 'IME 입력 모드를 확인하지 못했습니다. 입력기 설정을 확인하세요.': ('Could not verify the IME input mode. Check your IME settings.','IME 入力モードを確認できませんでした。設定を確認してください。','无法确认输入法模式，请检查输入法设置。','無法確認輸入法模式，請檢查輸入法設定。','Impossible de vérifier le mode IME. Vérifiez ses paramètres.','No se pudo verificar el modo IME. Revisa su configuración.','Не удалось проверить режим IME. Проверьте настройки.','IME-Modus konnte nicht bestätigt werden. Einstellungen prüfen.'),
-'KanaShift 작동 중': ('KanaShift is active','KanaShift 動作中','KanaShift 运行中','KanaShift 執行中','KanaShift actif','KanaShift activo','KanaShift работает','KanaShift aktiv'),
-'KanaShift 비활성화': ('KanaShift is disabled','KanaShift 無効','KanaShift 已停用','KanaShift 已停用','KanaShift désactivé','KanaShift desactivado','KanaShift отключён','KanaShift deaktiviert'),
-'KanaShift 작동 중\n(단축키 : {shortcut})': ('KanaShift is active\n(shortcut: {shortcut})','KanaShift 動作中\n（ショートカット：{shortcut}）','KanaShift 运行中\n（快捷键：{shortcut}）','KanaShift 執行中\n（快捷鍵：{shortcut}）','KanaShift actif\n(raccourci : {shortcut})','KanaShift activo\n(atajo: {shortcut})','KanaShift работает\n(сочетание: {shortcut})','KanaShift aktiv\n(Tastenkürzel: {shortcut})'),
+'Lexift 작동 중': ('Lexift is active','Lexift 動作中','Lexift 运行中','Lexift 執行中','Lexift actif','Lexift activo','Lexift работает','Lexift aktiv'),
+'Lexift 비활성화': ('Lexift is disabled','Lexift 無効','Lexift 已停用','Lexift 已停用','Lexift désactivé','Lexift desactivado','Lexift отключён','Lexift deaktiviert'),
+'Lexift 작동 중\n(단축키 : {shortcut})': ('Lexift is active\n(shortcut: {shortcut})','Lexift 動作中\n（ショートカット：{shortcut}）','Lexift 运行中\n（快捷键：{shortcut}）','Lexift 執行中\n（快捷鍵：{shortcut}）','Lexift actif\n(raccourci : {shortcut})','Lexift activo\n(atajo: {shortcut})','Lexift работает\n(сочетание: {shortcut})','Lexift aktiv\n(Tastenkürzel: {shortcut})'),
 '최대 15개까지 등록할 수 있습니다.': ('Up to 15 slots.','最大15個まで設定できます。','最多可设置15个槽位。','最多可設定15個欄位。','15 emplacements maximum.','Hasta 15 perfiles.','До 15 слотов.','Bis zu 15 Plätze.'),
 '1–9, 0, A–E 또는 방향키로 선택': ('Select with 1–9, 0, A–E or arrow keys','1–9、0、A–E または矢印キーで選択','使用1–9、0、A–E或方向键选择','使用1–9、0、A–E或方向鍵選擇','Sélection : 1–9, 0, A–E ou flèches','Seleccionar: 1–9, 0, A–E o flechas','Выбор: 1–9, 0, A–E или стрелки','Auswahl: 1–9, 0, A–E oder Pfeiltasten'),
 '현재 버전': ('Current version','現在のバージョン','当前版本','目前版本','Version actuelle','Versión actual','Текущая версия','Aktuelle Version'),
@@ -153,7 +153,7 @@ _ROWS.update({
 '독일어': ('German','ドイツ語','德语','德語','Allemand','Alemán','Немецкий','Deutsch'),
 '오류 로그: {path}': ('Error log: {path}','エラーログ: {path}','错误日志：{path}','錯誤記錄：{path}','Journal d’erreurs : {path}','Registro de errores: {path}','Журнал ошибок: {path}','Fehlerprotokoll: {path}'),
 '자세한 오류는 로그를 확인하세요.': ('See the log for details.','詳細はログをご確認ください。','详细信息请查看日志。','詳細資訊請查看記錄。','Consultez le journal pour plus de détails.','Consulta el registro para más detalles.','Подробности — в журнале ошибок.','Einzelheiten stehen im Fehlerprotokoll.'),
-'프로그램을 시작하지 못했습니다. debug.bat으로 오류를 확인하세요.': ('Could not start KanaShift. Run debug.bat for details.','KanaShift を起動できません。debug.bat で詳細をご確認ください。','无法启动 KanaShift。请运行 debug.bat 查看详情。','無法啟動 KanaShift。請執行 debug.bat 查看詳情。','Impossible de démarrer KanaShift. Lancez debug.bat pour les détails.','No se pudo iniciar KanaShift. Ejecuta debug.bat para ver los detalles.','Не удалось запустить KanaShift. Запустите debug.bat для диагностики.','KanaShift konnte nicht gestartet werden. Für Details debug.bat ausführen.'),
+'프로그램을 시작하지 못했습니다. debug.bat으로 오류를 확인하세요.': ('Could not start Lexift. Run debug.bat for details.','Lexift を起動できません。debug.bat で詳細をご確認ください。','无法启动 Lexift。请运行 debug.bat 查看详情。','無法啟動 Lexift。請執行 debug.bat 查看詳情。','Impossible de démarrer Lexift. Lancez debug.bat pour les détails.','No se pudo iniciar Lexift. Ejecuta debug.bat para ver los detalles.','Не удалось запустить Lexift. Запустите debug.bat для диагностики.','Lexift konnte nicht gestartet werden. Für Details debug.bat ausführen.'),
 '업데이트를 완료하지 못했습니다. 다시 시도하거나 배포 페이지에서 다운로드하세요.': ('Could not complete the update. Try again or download it from the release page.','更新を完了できません。再試行するか、リリースページからダウンロードしてください。','无法完成更新。请重试或从发布页面下载。','無法完成更新。請重試或從發布頁面下載。','Mise à jour impossible. Réessayez ou téléchargez-la depuis la page de publication.','No se pudo completar la actualización. Reintenta o descárgala desde la página de versiones.','Не удалось завершить обновление. Повторите попытку или скачайте его со страницы релиза.','Update fehlgeschlagen. Erneut versuchen oder von der Release-Seite herunterladen.'),
 '업데이트 파일을 확인하지 못했습니다. 공식 배포 파일인지 확인하세요.': ('Could not verify the update. Use the official release package.','更新ファイルを検証できません。公式の配布ファイルをご利用ください。','无法验证更新文件。请使用官方发布包。','無法驗證更新檔案。請使用官方發布套件。','Vérification impossible. Utilisez le paquet officiel.','No se pudo verificar la actualización. Usa el paquete oficial.','Не удалось проверить обновление. Используйте официальный архив.','Update konnte nicht geprüft werden. Das offizielle Release-Paket verwenden.'),
 '업데이트 서버에 연결하지 못했습니다. 인터넷 연결을 확인하세요.': ('Could not reach the update server. Check your internet connection.','更新サーバーに接続できません。インターネット接続をご確認ください。','无法连接更新服务器。请检查网络连接。','無法連線至更新伺服器。請檢查網路連線。','Serveur de mise à jour inaccessible. Vérifiez votre connexion internet.','No se pudo conectar al servidor. Comprueba tu conexión a internet.','Нет связи с сервером обновлений. Проверьте подключение к интернету.','Update-Server nicht erreichbar. Internetverbindung prüfen.'),
@@ -183,6 +183,8 @@ _ROWS.update({
 '입력할 창으로 돌아가 {shortcut}를 누르세요.': ('Return to the target app and press {shortcut}.','入力先のアプリに戻り {shortcut} を押してください。','返回输入窗口并按 {shortcut}。','返回輸入視窗並按 {shortcut}。','Revenez à l’application cible et appuyez sur {shortcut}.','Vuelve a la aplicación y pulsa {shortcut}.','Вернитесь в нужное окно и нажмите {shortcut}.','Zum Eingabefenster wechseln und {shortcut} drücken.'),
 '{shortcut}로 입력기를 전환하세요.': ('Press {shortcut} to switch inputs.','{shortcut} で入力方式を切り替えます。','按 {shortcut} 切换输入法。','按 {shortcut} 切換輸入法。','Appuyez sur {shortcut} pour changer de saisie.','Pulsa {shortcut} para cambiar la entrada.','Нажмите {shortcut}, чтобы сменить раскладку.','Mit {shortcut} die Eingabe wechseln.'),
 })
+from feature_i18n import ROWS as FEATURE_ROWS
+_ROWS.update(FEATURE_ROWS)
 CODES = ('en','ja','zh_CN','zh_TW','fr','es','ru','de')
 
 
@@ -238,7 +240,7 @@ def load_saved_language() -> str:
     try:
         import winreg
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
-                            r'Software\LuteTools\KanaShift\general') as key:
+                            r'Software\LuteTools\Lexift\general') as key:
             code = winreg.QueryValueEx(key, 'ui_language')[0]
         if code in SUPPORTED:
             return set_language(code)
@@ -331,8 +333,8 @@ _EXTRA_ROWS = {
 ('Could not verify Japanese IME mode.','日本語 IME モードを確認できません。','无法确认日语输入法模式。','無法確認日語輸入法模式。','Impossible de vérifier le mode IME japonais.','No se pudo verificar el modo IME japonés.','Не удалось проверить режим японского IME.','Japanischer IME-Modus nicht überprüfbar.'),
 '일본어 IME 전환키를 전달하지 못했습니다.':
 ('Could not send Japanese IME shortcut.','日本語 IME の切替キーを送れません。','无法发送日语输入法快捷键。','無法傳送日語輸入法快速鍵。','Impossible d’envoyer la touche IME japonaise.','No se pudo enviar el atajo IME japonés.','Не удалось отправить команду японскому IME.','Japanischer IME-Befehl konnte nicht gesendet werden.'),
-'KanaShift가 이미 실행 중입니다.\n작업표시줄 알림 영역의 K 아이콘을 확인하세요.':
-('KanaShift is already running.\nCheck the K icon in the system tray.','KanaShift はすでに実行中です。\n通知領域の K アイコンをご確認ください。','KanaShift 已在运行。\n请查看系统托盘中的 K 图标。','KanaShift 已在執行。\n請查看系統匣中的 K 圖示。','KanaShift est déjà actif.\nCherchez l’icône K dans la zone de notification.','KanaShift ya está activo.\nBusca el icono K en la bandeja del sistema.','KanaShift уже запущен.\nНайдите значок K в области уведомлений.','KanaShift läuft bereits.\nPrüfen Sie das K-Symbol im Infobereich.'),
+'Lexift가 이미 실행 중입니다.\n작업표시줄 알림 영역의 K 아이콘을 확인하세요.':
+('Lexift is already running.\nCheck the K icon in the system tray.','Lexift はすでに実行中です。\n通知領域の K アイコンをご確認ください。','Lexift 已在运行。\n请查看系统托盘中的 K 图标。','Lexift 已在執行。\n請查看系統匣中的 K 圖示。','Lexift est déjà actif.\nCherchez l’icône K dans la zone de notification.','Lexift ya está activo.\nBusca el icono K en la bandeja del sistema.','Lexift уже запущен.\nНайдите значок K в области уведомлений.','Lexift läuft bereits.\nPrüfen Sie das K-Symbol im Infobereich.'),
 }
 _ROWS.update(_EXTRA_ROWS)
 del _EXTRA_ROWS

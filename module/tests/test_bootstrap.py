@@ -18,12 +18,29 @@ def get_launcher():
 
 
 class StartupTests(TestCase):
+    def test_ime_diagnostic_bypasses_normal_application_and_returns_its_status(self):
+        bootstrap=get_launcher()
+        verify=mock.Mock(return_value=7)
+        with mock.patch.object(sys,'argv',['Lexift.exe','--verify-ime','result.json']), \
+             mock.patch.dict(sys.modules,{'app':None,'ime_diagnostics':types.SimpleNamespace(verify=verify)}):
+            self.assertEqual(bootstrap.main(),7)
+        verify.assert_called_once_with('result.json')
+
+    def test_ime_diagnostic_failure_never_opens_modal_dialog(self):
+        bootstrap=get_launcher()
+        verify=mock.Mock(side_effect=RuntimeError('Diagnostic failed'))
+        with mock.patch.object(sys,'argv',['Lexift.exe','--verify-ime','result.json']), \
+             mock.patch.dict(sys.modules,{'ime_diagnostics':types.SimpleNamespace(verify=verify)}), \
+             mock.patch.object(bootstrap,'_report_startup_error') as report:
+            self.assertEqual(bootstrap.main(),1)
+        self.assertFalse(report.call_args.kwargs['show_dialog'])
+
     def test_worker_failures_exit_without_hidden_modal_error_dialogs(self):
         bootstrap = get_launcher()
         for args,module,name in ((['--hook-worker','1234','token'],'isolated_hotkeys','run_worker'),
                                  (['--network-job','network.json'],'update_network','run_network_job')):
             worker=types.SimpleNamespace(**{name:mock.Mock(side_effect=RuntimeError('worker failed'))})
-            with mock.patch.object(sys,'argv',['KanaShift.exe',*args]), \
+            with mock.patch.object(sys,'argv',['Lexift.exe',*args]), \
                  mock.patch.dict(sys.modules,{module:worker}), \
                  mock.patch.object(bootstrap,'_report_startup_error') as dialog:
                 self.assertEqual(bootstrap.main(),1)
@@ -32,7 +49,7 @@ class StartupTests(TestCase):
     def test_hook_worker_bypasses_app_import_and_returns_worker_status(self):
         bootstrap = get_launcher()
         worker = mock.Mock(return_value=0)
-        with mock.patch.object(sys, 'argv', ['KanaShift.exe', '--hook-worker', '1234', 'token']), \
+        with mock.patch.object(sys, 'argv', ['Lexift.exe', '--hook-worker', '1234', 'token']), \
              mock.patch.dict(sys.modules, {'app': None, 'isolated_hotkeys': types.SimpleNamespace(run_worker=worker)}), \
              mock.patch.object(bootstrap, '_report_startup_error') as report:
             self.assertEqual(bootstrap.main(), 0)
@@ -63,8 +80,9 @@ class StartupTests(TestCase):
 
     def test_build_uses_launcher(self):
         commands = (ROOT.parent / "build_windows.bat").read_text(encoding="utf-8").splitlines()
-        self.assertTrue(any('-m PyInstaller ' in line and line.endswith('launch.pyw')
-                            and '--name KanaShift' in line for line in commands))
+        self.assertTrue(any('-m PyInstaller ' in line and 'module/Lexift.spec' in line for line in commands))
+        spec=(ROOT/'Lexift.spec').read_text(encoding='utf-8')
+        self.assertIn("project_folder / 'launch.pyw'",spec)
 
     def test_bat_files_windows_line_endings(self):
         for name in ("run.bat", "debug.bat", "build_windows.bat", "install.bat"):

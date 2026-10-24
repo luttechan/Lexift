@@ -29,9 +29,14 @@ class QMessageBox(QtMessageBox):
         dialog.setStandardButtons(buttons)
         if default != cls.StandardButton.NoButton:
             dialog.setDefaultButton(default)
-        dialog.exec()
-        clicked = dialog.clickedButton()
-        return dialog.standardButton(clicked) if clicked else cls.StandardButton.NoButton
+        from notification_sound import notify_event
+        notify_event()
+        try:
+            dialog.exec()
+            clicked = dialog.clickedButton()
+            return dialog.standardButton(clicked) if clicked else cls.StandardButton.NoButton
+        finally:
+            dialog.deleteLater()
 
     @classmethod
     def information(cls, parent, title, text, buttons=QtMessageBox.StandardButton.Ok,

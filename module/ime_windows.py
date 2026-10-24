@@ -290,8 +290,8 @@ def _send_keys(*keys: int) -> bool:
     return user32.SendInput(len(inputs), array, ctypes.sizeof(INPUT)) == len(inputs)
 
 
-def korean_is_hangul(hwnd: int) -> bool | None:
-    conversion, opened = _mode(hwnd)
+def korean_is_hangul(hwnd: int, *, timeout_ms: int = IME_TIMEOUT_MS) -> bool | None:
+    conversion, opened = _mode(hwnd,timeout_ms=timeout_ms)
     if opened is False:
         return False
     if conversion is not None:

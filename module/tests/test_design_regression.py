@@ -1,4 +1,4 @@
-"""Static safeguards for accidentally replacing the KanaShift v0.6 design."""
+"""Static safeguards for accidentally replacing the Lexift v0.6 design."""
 from pathlib import Path
 import unittest
 
@@ -8,7 +8,7 @@ APP = (Path(__file__).resolve().parents[1] / 'app.py').read_text(encoding='utf-8
 class OriginalDesignTests(unittest.TestCase):
     def test_original_sidebar(self):
         self.assertIn('sidebar.setFixedWidth(226)', APP)
-        self.assertIn('for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보"))', APP)
+        self.assertIn('for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보"),tr(\'사용자 사전\'))', APP)
 
     def test_original_dashboard_and_cards(self):
         self.assertIn('def _make_dashboard(self)', APP)

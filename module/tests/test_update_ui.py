@@ -27,7 +27,7 @@ class UpdateUITests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.controller=Controller(QSettings(str(Path(self.temp.name)/'s.ini'),QSettings.Format.IniFormat))
         self.manager=UpdateManager(self.controller,'0.7.7')
-        self.release=Release('0.7.8','https://github.com/luttechan/KanaShift/releases/tag/v0.7.8')
+        self.release=Release('0.7.8','https://github.com/luttechan/Lexift/releases/tag/v0.7.8')
 
     def tearDown(self):
         self.manager._close_dialog();self.controller.window.hide()

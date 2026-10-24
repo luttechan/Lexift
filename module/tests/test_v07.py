@@ -43,7 +43,7 @@ class Version07Tests(unittest.TestCase):
         src = (ROOT / "app.py").read_text(encoding="utf-8")
         for needle in ('self.resize(1020, 690)', 'sidebar.setFixedWidth(226)',
                        'QWidget#window { background:#0D0E11; }',
-                       'for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보"))'):
+                       'for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보"),tr(\'사용자 사전\'))'):
             self.assertIn(needle, src)
 
     def test_main_event_and_console(self):

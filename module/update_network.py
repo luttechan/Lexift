@@ -82,7 +82,7 @@ def isolated_check(cancel):
 
 def isolated_download(release, job_dir, cancel, progress):
     isolated_request(job_dir, 'download', cancel, progress, release)
-    return job_dir / 'unpacked' / 'KanaShift'
+    return job_dir / 'unpacked' / 'Lexift'
 
 
 def run_network_job(request):
@@ -122,7 +122,9 @@ def run_network_job(request):
         write_json(request.parent / 'result.json', result)
         return 0
     except Exception as error:
-        write_json(request.parent / 'result.json', {'error': str(error)[:8000]})
+        import traceback
+        write_json(request.parent / 'result.json', {'error': str(error)[:8000],
+            'error_type':type(error).__name__,'traceback':traceback.format_exc()[-16000:]})
         return 1
 
 

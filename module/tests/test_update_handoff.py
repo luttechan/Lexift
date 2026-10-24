@@ -17,8 +17,8 @@ class HandoffTests(unittest.TestCase):
         self.cache=self.base/'cache';self.cache.mkdir()
         self.job=self.cache/uuid.uuid4().hex;self.job.mkdir()
         self.target=payload(self.base/'installed','0.7.7',b'old')
-        self.new=payload(self.job/'unpacked'/'KanaShift','0.7.8')
-        self.data=dict(product='KanaShift',nonce=self.job.name,target=str(self.target),
+        self.new=payload(self.job/'unpacked'/'Lexift','0.7.8')
+        self.data=dict(product='Lexift',nonce=self.job.name,target=str(self.target),
                        payload=str(self.new),version='0.7.8',parent_pid=123)
         self.path=self.job/'job.json';self.path.write_text(json.dumps(self.data))
         self.cache_patch=patch.object(apply,'cache_root',return_value=self.cache)
@@ -32,8 +32,8 @@ class HandoffTests(unittest.TestCase):
 
     def test_wrong_embedded_app_version_cannot_acknowledge(self):
         with patch.object(apply.sys,'frozen',True,create=True), \
-             patch.object(apply.sys,'executable',str(self.target/'KanaShift.exe')), \
-             patch.object(apply.sys,'argv',['KanaShift.exe','--update-job',str(self.path)]):
+             patch.object(apply.sys,'executable',str(self.target/'Lexift.exe')), \
+             patch.object(apply.sys,'argv',['Lexift.exe','--update-job',str(self.path)]):
             apply.mark_ready('0.7.7')
             self.assertFalse((self.job/'ready').exists())
             apply.mark_ready('0.7.8')
@@ -45,13 +45,13 @@ class HandoffTests(unittest.TestCase):
              patch.object(apply.subprocess,'Popen') as spawn:
             with self.assertRaises(UpdateError): apply.run_job(self.path)
         spawn.assert_not_called()
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZold')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZold')
 
     def test_external_handoff_wait_replace_ack_and_cleanup(self):
         child=Mock();child.poll.return_value=None
         def spawn(args,**kwargs):
             self.assertIn('--update-job',args)
-            self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZnew')
+            self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZnew')
             (self.job/'ready').write_text(self.job.name)
             return child
         with patch.object(apply,'parent_handle',return_value=(self.kernel,1)), \
@@ -60,7 +60,7 @@ class HandoffTests(unittest.TestCase):
         self.kernel.WaitForSingleObject.assert_called_once_with(1,60000)
         self.assertTrue((self.job/'completed').exists())
         self.assertFalse((self.job/'unpacked').exists())
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZnew')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZnew')
 
     def test_failed_new_process_restores_and_restarts_old_app(self):
         child=Mock();child.poll.return_value=7
@@ -69,6 +69,6 @@ class HandoffTests(unittest.TestCase):
             with self.assertRaises(UpdateError): apply.run_job(self.path)
         self.assertEqual(spawn.call_count,2)
         self.assertNotIn('--update-job',spawn.call_args.args[0])
-        self.assertEqual((self.target/'KanaShift.exe').read_bytes(),b'MZold')
+        self.assertEqual((self.target/'Lexift.exe').read_bytes(),b'MZold')
         self.assertFalse((self.job/'completed').exists())
 

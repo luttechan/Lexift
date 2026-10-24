@@ -114,7 +114,7 @@ class GenericNativeModeTests(unittest.TestCase):
 
 class ModeVerificationTests(unittest.TestCase):
     def setUp(self):
-        self.c=app.KanaShiftController.__new__(app.KanaShiftController)
+        self.c=app.LexiftController.__new__(app.LexiftController)
         self.c._job=7;self.c._stopping=False;self.c._enabled=True
         self.c.overlay=Mock();self.c.overlay.isVisible.return_value=False
         self.c.cursor_indicator=Mock();self.c.tray=Mock()
