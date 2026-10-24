@@ -18,7 +18,8 @@ Download the ZIP file, extract it, and run **Lexift.exe**.
 
 ## 한국어 설명
 
-Lexift는 단축키로 입력 언어를 전환하고, 한글로 입력한 발음을 일본어나 중국어로 변환할 수 있는 Windows용 입력 유틸리티입니다.
+Lexift는 단축키로 입력 언어를 전환하고 
+한글로 입력한 발음을 일본어나 중국어로 변환할 수 있는 Windows용 입력 유틸리티입니다.
 
 - **CapsLock + Q** — 입력 언어 선택
 - **CapsLock + A** — 한글 → 일본어: `와타시 → 私`
