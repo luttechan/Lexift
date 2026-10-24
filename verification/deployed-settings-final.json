@@ -1,0 +1,460 @@
+{
+  "version": "1.0.0",
+  "passed": true,
+  "languages": [
+    {
+      "language": "ko",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 79.854,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 22.452
+        },
+        {
+          "page": 1,
+          "ms": 25.947
+        },
+        {
+          "page": 3,
+          "ms": 11.472
+        },
+        {
+          "page": 4,
+          "ms": 17.13
+        },
+        {
+          "page": 0,
+          "ms": 9.934
+        },
+        {
+          "page": 2,
+          "ms": 14.458
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 40.131,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 14.929
+        },
+        {
+          "page": 1,
+          "ms": 11.326
+        },
+        {
+          "page": 3,
+          "ms": 7.168
+        },
+        {
+          "page": 4,
+          "ms": 8.144
+        },
+        {
+          "page": 0,
+          "ms": 4.563
+        },
+        {
+          "page": 2,
+          "ms": 9.138
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 56.031,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 17.853
+        },
+        {
+          "page": 1,
+          "ms": 23.823
+        },
+        {
+          "page": 3,
+          "ms": 6.642
+        },
+        {
+          "page": 4,
+          "ms": 7.77
+        },
+        {
+          "page": 0,
+          "ms": 4.286
+        },
+        {
+          "page": 2,
+          "ms": 8.34
+        }
+      ]
+    },
+    {
+      "language": "zh_CN",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 52.539,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 17.274
+        },
+        {
+          "page": 1,
+          "ms": 22.606
+        },
+        {
+          "page": 3,
+          "ms": 7.401
+        },
+        {
+          "page": 4,
+          "ms": 10.891
+        },
+        {
+          "page": 0,
+          "ms": 4.645
+        },
+        {
+          "page": 2,
+          "ms": 8.312
+        }
+      ]
+    },
+    {
+      "language": "zh_TW",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 64.077,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 19.74
+        },
+        {
+          "page": 1,
+          "ms": 23.772
+        },
+        {
+          "page": 3,
+          "ms": 7.365
+        },
+        {
+          "page": 4,
+          "ms": 9.657
+        },
+        {
+          "page": 0,
+          "ms": 5.782
+        },
+        {
+          "page": 2,
+          "ms": 11.427
+        }
+      ]
+    },
+    {
+      "language": "fr",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 16.146,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 21.812
+        },
+        {
+          "page": 1,
+          "ms": 12.321
+        },
+        {
+          "page": 3,
+          "ms": 7.874
+        },
+        {
+          "page": 4,
+          "ms": 10.014
+        },
+        {
+          "page": 0,
+          "ms": 7.033
+        },
+        {
+          "page": 2,
+          "ms": 11.247
+        }
+      ]
+    },
+    {
+      "language": "es",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 15.522,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 17.324
+        },
+        {
+          "page": 1,
+          "ms": 9.225
+        },
+        {
+          "page": 3,
+          "ms": 6.579
+        },
+        {
+          "page": 4,
+          "ms": 9.4
+        },
+        {
+          "page": 0,
+          "ms": 5.104
+        },
+        {
+          "page": 2,
+          "ms": 11.523
+        }
+      ]
+    },
+    {
+      "language": "ru",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 35.924,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 20.161
+        },
+        {
+          "page": 1,
+          "ms": 10.617
+        },
+        {
+          "page": 3,
+          "ms": 7.156
+        },
+        {
+          "page": 4,
+          "ms": 10.365
+        },
+        {
+          "page": 0,
+          "ms": 4.488
+        },
+        {
+          "page": 2,
+          "ms": 10.464
+        }
+      ]
+    },
+    {
+      "language": "de",
+      "checks": {
+        "preparation_keeps_settings": true,
+        "preparation_keeps_selection": true,
+        "no_background_statistics": true,
+        "all_pages_ready": true,
+        "three_packaged_logos": true,
+        "conversion_heading": true,
+        "translated_heading": true,
+        "saved_preferences_loaded": true,
+        "save_general/show_dashboard": true,
+        "save_general/start_notice": true,
+        "save_general/sound": true,
+        "feature_flags_loaded": true,
+        "feature_change_signal": true,
+        "duplicate_shortcuts_blocked": true,
+        "valid_shortcuts_allowed": true,
+        "all_display_languages": true,
+        "dictionary_loaded": true,
+        "dictionary_saved": true
+      },
+      "prepare_ms": 17.605,
+      "navigation": [
+        {
+          "page": 2,
+          "ms": 16.568
+        },
+        {
+          "page": 1,
+          "ms": 8.929
+        },
+        {
+          "page": 3,
+          "ms": 6.453
+        },
+        {
+          "page": 4,
+          "ms": 8.77
+        },
+        {
+          "page": 0,
+          "ms": 4.795
+        },
+        {
+          "page": 2,
+          "ms": 9.403
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "settings_matrix": true,
+    "nine_languages": true
+  }
+}

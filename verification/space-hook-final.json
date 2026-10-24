@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "regression_tests": 347,
+  "native_space_cases": [
+    "IME process-key scan 0x39 maps to Space for both press and release",
+    "new text clears stale Space hold after missing release",
+    "injected release clears hold without firing command",
+    "held Space repeat does not fire twice",
+    "wrong window, modifiers, non-Space process keys pass through"
+  ],
+  "notepad_replacement": {
+    "event": "replace",
+    "serial": 15,
+    "success": true
+  },
+  "physical_user_keyboard_verified": false
+}

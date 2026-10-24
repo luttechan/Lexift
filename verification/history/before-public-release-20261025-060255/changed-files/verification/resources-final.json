@@ -1,0 +1,266 @@
+{
+  "passed": true,
+  "pages": [
+    {
+      "language": "ko",
+      "page": 0,
+      "ms": 4.18
+    },
+    {
+      "language": "ko",
+      "page": 1,
+      "ms": 2.39
+    },
+    {
+      "language": "ko",
+      "page": 2,
+      "ms": 47.01
+    },
+    {
+      "language": "ko",
+      "page": 3,
+      "ms": 30.54
+    },
+    {
+      "language": "ko",
+      "page": 4,
+      "ms": 97.73
+    },
+    {
+      "language": "ko",
+      "page": 0,
+      "ms": 0.55
+    },
+    {
+      "language": "ko",
+      "page": 2,
+      "ms": 0.43
+    },
+    {
+      "language": "ko",
+      "page": 3,
+      "ms": 0.26
+    },
+    {
+      "language": "ko",
+      "page": 4,
+      "ms": 0.21
+    },
+    {
+      "language": "en",
+      "page": 0,
+      "ms": 1.42
+    },
+    {
+      "language": "en",
+      "page": 1,
+      "ms": 1.04
+    },
+    {
+      "language": "en",
+      "page": 2,
+      "ms": 39.74
+    },
+    {
+      "language": "en",
+      "page": 3,
+      "ms": 13.1
+    },
+    {
+      "language": "en",
+      "page": 4,
+      "ms": 94.63
+    },
+    {
+      "language": "en",
+      "page": 0,
+      "ms": 0.41
+    },
+    {
+      "language": "en",
+      "page": 2,
+      "ms": 0.34
+    },
+    {
+      "language": "en",
+      "page": 3,
+      "ms": 0.25
+    },
+    {
+      "language": "en",
+      "page": 4,
+      "ms": 0.2
+    },
+    {
+      "language": "ja",
+      "page": 0,
+      "ms": 1.52
+    },
+    {
+      "language": "ja",
+      "page": 1,
+      "ms": 2.11
+    },
+    {
+      "language": "ja",
+      "page": 2,
+      "ms": 45.63
+    },
+    {
+      "language": "ja",
+      "page": 3,
+      "ms": 15.85
+    },
+    {
+      "language": "ja",
+      "page": 4,
+      "ms": 84.95
+    },
+    {
+      "language": "ja",
+      "page": 0,
+      "ms": 0.63
+    },
+    {
+      "language": "ja",
+      "page": 2,
+      "ms": 0.28
+    },
+    {
+      "language": "ja",
+      "page": 3,
+      "ms": 0.24
+    },
+    {
+      "language": "ja",
+      "page": 4,
+      "ms": 0.29
+    }
+  ],
+  "lifecycle": [
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "ja",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    },
+    {
+      "language": "zh",
+      "remaining_clients": 0,
+      "remaining_threads": 0
+    }
+  ],
+  "memory": [
+    {
+      "iteration": 10,
+      "private_bytes": 40022016,
+      "gdi": 0,
+      "user": 3
+    },
+    {
+      "iteration": 30,
+      "private_bytes": 39784448,
+      "gdi": 0,
+      "user": 3
+    },
+    {
+      "iteration": 60,
+      "private_bytes": 39116800,
+      "gdi": 0,
+      "user": 3
+    }
+  ],
+  "construct_ms": 23.49,
+  "private_growth_after_warmup": -905216,
+  "gdi_growth_after_warmup": 0,
+  "user_growth_after_warmup": 0
+}

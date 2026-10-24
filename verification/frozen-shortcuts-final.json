@@ -1,0 +1,30 @@
+{
+  "commands": [
+    {
+      "operation": "navigation-start",
+      "passed": true
+    },
+    {
+      "operation": "caps-start",
+      "passed": true
+    },
+    {
+      "operation": "active",
+      "passed": true
+    },
+    {
+      "operation": "active",
+      "passed": true
+    },
+    {
+      "operation": "caps-stop",
+      "passed": true
+    },
+    {
+      "operation": "navigation-stop",
+      "passed": true
+    }
+  ],
+  "exit_code": 0,
+  "physical_keys_tested": false
+}

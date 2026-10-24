@@ -1,0 +1,81 @@
+229 INFO: PyInstaller: 6.22.0, contrib hooks: 2026.9
+229 INFO: Python: 3.12.14
+311 INFO: Platform: Windows-11-10.0.26220-SP0
+311 INFO: Python environment: C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python
+363 INFO: UPX is available and will be used if enabled on build targets.
+367 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\KanaShift '
+ 'v.0.8',
+ 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps',
+ 'C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python312.zip',
+ 'C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\DLLs',
+ 'C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib',
+ 'C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python',
+ 'C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\site-packages',
+ 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\KanaShift '
+ 'v.0.8',
+ 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\KanaShift '
+ 'v.0.8\\module']
+1161 INFO: Appending 'binaries' from .spec
+1162 INFO: Appending 'datas' from .spec
+1164 INFO: checking Analysis
+1213 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\chinese_reading.py changed
+1213 INFO: Looking for Python shared library...
+1213 INFO: Using Python shared library: C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python312.dll
+1213 INFO: Running Analysis Analysis-00.toc
+1213 INFO: Target bytecode optimization level: 0
+1214 INFO: Initializing module dependency graph...
+1215 INFO: Initializing module graph hook caches...
+1241 INFO: Analyzing modules for base_library.zip ...
+3110 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+4494 INFO: Processing standard module hook 'hook-math.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+6220 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+7447 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+8147 INFO: Caching module dependency graph...
+8194 INFO: Analyzing C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\launch.pyw
+8232 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+8310 INFO: Processing standard module hook 'hook-PySide6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+8609 INFO: Processing standard module hook 'hook-shiboken6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+8782 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+11975 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+16733 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+26497 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+68696 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+69186 INFO: Processing module hooks (post-graph stage)...
+69197 INFO: Performing binary vs. data reclassification (138 entries)
+69278 INFO: Looking for ctypes DLLs
+69355 INFO: Analyzing run-time hooks ...
+69356 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\rthooks'
+69358 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\rthooks'
+69362 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\pre_find_module_path'
+69364 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+69376 INFO: Creating base_library.zip...
+69404 INFO: Looking for dynamic libraries
+69818 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\shiboken6']
+69818 INFO: Extra DLL search directories (PATH): ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PySide6']
+71584 INFO: Warnings written to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\build\KanaShift\warn-KanaShift.txt
+71603 INFO: Graph cross-reference written to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\build\KanaShift\xref-KanaShift.html
+71622 INFO: checking PYZ
+71626 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\chinese_diagnostics.py changed
+71626 INFO: Building PYZ (ZlibArchive) C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\build\KanaShift\PYZ-00.pyz
+71823 INFO: Building PYZ (ZlibArchive) C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\build\KanaShift\PYZ-00.pyz completed successfully.
+71827 INFO: checking PKG
+71829 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\build\KanaShift\PYZ-00.pyz changed
+71829 INFO: Building PKG (CArchive) KanaShift.pkg
+71848 INFO: Building PKG (CArchive) KanaShift.pkg completed successfully.
+71849 INFO: Bootloader C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\.builddeps\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+71849 INFO: checking EXE
+71850 INFO: Rebuilding EXE-00.toc because pkg is more recent
+71850 INFO: Building EXE from EXE-00.toc
+71851 INFO: Copying bootloader EXE to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\build\KanaShift\KanaShift.exe
+71861 INFO: Copying icon to EXE
+71869 INFO: Copying 0 resources to EXE
+71869 INFO: Embedding manifest in EXE
+71895 INFO: Appending PKG archive to EXE
+71900 INFO: Fixing EXE headers
+71989 INFO: Building EXE from EXE-00.toc completed successfully.
+71991 INFO: checking COLLECT
+72007 INFO: Removing dir C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\dist\KanaShift
+72152 INFO: Building COLLECT COLLECT-00.toc
+73340 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+73346 INFO: Build complete! The results are available in: C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\dist

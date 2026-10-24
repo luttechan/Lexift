@@ -1,0 +1,50 @@
+[
+  {
+    "operation": "construct",
+    "ms": 2075.81
+  },
+  {
+    "operation": "idle prepare 0",
+    "ms": 33.11
+  },
+  {
+    "operation": "idle prepare 1",
+    "ms": 44.71
+  },
+  {
+    "operation": "page 0",
+    "ms": 1.52
+  },
+  {
+    "operation": "page 2",
+    "ms": 0.27
+  },
+  {
+    "operation": "page 3",
+    "ms": 0.07
+  },
+  {
+    "operation": "page 0",
+    "ms": 0.09
+  },
+  {
+    "operation": "page 2",
+    "ms": 0.05
+  },
+  {
+    "operation": "page 3",
+    "ms": 0.06
+  },
+  {
+    "operation": "page 1",
+    "ms": 2.38
+  },
+  {
+    "operation": "page 2",
+    "ms": 0.09
+  },
+  {
+    "operation": "page 0",
+    "ms": 0.12
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "enabled": false,
+  "snapshot": {},
+  "visible": false,
+  "replace": null,
+  "query": null,
+  "history": [
+    {
+      "event": "input",
+      "serial": 1,
+      "hwnd": 2556442,
+      "source": "",
+      "x": 0,
+      "y": 0,
+      "reason": 9,
+      "backend": "uia-text"
+    },
+    {
+      "event": "input",
+      "serial": 2,
+      "hwnd": 2556442,
+      "source": "셰셰",
+      "x": 2112,
+      "y": 389,
+      "reason": 0,
+      "backend": "uia-text"
+    },
+    {
+      "event": "input",
+      "serial": 3,
+      "hwnd": 2556442,
+      "source": "",
+      "x": 0,
+      "y": 0,
+      "reason": 9,
+      "backend": "uia-text"
+    },
+    {}
+  ]
+}

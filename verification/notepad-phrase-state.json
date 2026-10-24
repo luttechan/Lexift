@@ -1,0 +1,1694 @@
+{
+  "current": {
+    "snapshot": {
+      "reason": 9,
+      "backend": "uia-text"
+    },
+    "visible": false,
+    "replace": {
+      "event": "replace",
+      "serial": 15,
+      "success": true
+    },
+    "candidates": [
+      "ごちそうさま",
+      "ご馳走様",
+      "御馳走様",
+      "ごちそう様",
+      "御馳走さま",
+      "ご馳走さま",
+      "御ちそう様",
+      "御ちそうさま",
+      "ゴチソウサマ",
+      "ごちそーさま"
+    ],
+    "query": {
+      "data": {
+        "candidates": [
+          "ごちそうさん",
+          "ご馳走さん",
+          "御馳走さん",
+          "御ちそうさん",
+          "ゴチソウサン"
+        ],
+        "composition_set": true,
+        "conversion_requested": true,
+        "document_focus": true,
+        "id": 12,
+        "kana": "ごちそうさん",
+        "kana_variants": [
+          "ごちそうさん",
+          "ごちそーさん"
+        ],
+        "source": "고치소-삼"
+      }
+    },
+    "korean_activated": true
+  },
+  "history": [
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 1,
+        "hwnd": 68946,
+        "source": "고치소-사마",
+        "kana": "ごちそうさま",
+        "kana_variants": [
+          "ごちそうさま",
+          "ごちそーさま"
+        ],
+        "x": 922,
+        "y": 1057,
+        "reason": 0,
+        "backend": "win32-edit-field"
+      },
+      "visible": true,
+      "replace": null,
+      "candidates": [
+        "ごちそうさま",
+        "ごちそーさま"
+      ],
+      "query": null
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 1,
+        "hwnd": 68946,
+        "source": "고치소-사마",
+        "kana": "ごちそうさま",
+        "kana_variants": [
+          "ごちそうさま",
+          "ごちそーさま"
+        ],
+        "x": 922,
+        "y": 1057,
+        "reason": 0,
+        "backend": "win32-edit-field"
+      },
+      "visible": true,
+      "replace": null,
+      "candidates": [
+        "ごちそうさま",
+        "ご馳走様",
+        "御馳走様",
+        "ごちそう様",
+        "御馳走さま",
+        "ご馳走さま",
+        "御ちそう様",
+        "御ちそうさま",
+        "ゴチソウサマ",
+        "ごちそーさま"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそうさま",
+            "ご馳走様",
+            "御馳走様",
+            "ごちそう様",
+            "御馳走さま",
+            "ご馳走さま",
+            "御ちそう様",
+            "御ちそうさま",
+            "ゴチソウサマ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 2,
+          "kana": "ごちそうさま",
+          "kana_variants": [
+            "ごちそうさま",
+            "ごちそーさま"
+          ],
+          "source": "고치소-사마"
+        }
+      }
+    },
+    {
+      "snapshot": {
+        "reason": 9,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそうさま",
+        "ご馳走様",
+        "御馳走様",
+        "ごちそう様",
+        "御馳走さま",
+        "ご馳走さま",
+        "御ちそう様",
+        "御ちそうさま",
+        "ゴチソウサマ",
+        "ごちそーさま"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそうさま",
+            "ご馳走様",
+            "御馳走様",
+            "ごちそう様",
+            "御馳走さま",
+            "ご馳走さま",
+            "御ちそう様",
+            "御ちそうさま",
+            "ゴチソウサマ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 2,
+          "kana": "ごちそうさま",
+          "kana_variants": [
+            "ごちそうさま",
+            "ごちそーさま"
+          ],
+          "source": "고치소-사마"
+        }
+      }
+    },
+    {
+      "snapshot": {
+        "reason": 9,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそうさま",
+        "ご馳走様",
+        "御馳走様",
+        "ごちそう様",
+        "御馳走さま",
+        "ご馳走さま",
+        "御ちそう様",
+        "御ちそうさま",
+        "ゴチソウサマ",
+        "ごちそーさま"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそうさま",
+            "ご馳走様",
+            "御馳走様",
+            "ごちそう様",
+            "御馳走さま",
+            "ご馳走さま",
+            "御ちそう様",
+            "御ちそうさま",
+            "ゴチソウサマ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 2,
+          "kana": "ごちそうさま",
+          "kana_variants": [
+            "ごちそうさま",
+            "ごちそーさま"
+          ],
+          "source": "고치소-사마"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそうさま",
+        "ご馳走様",
+        "御馳走様",
+        "ごちそう様",
+        "御馳走さま",
+        "ご馳走さま",
+        "御ちそう様",
+        "御ちそうさま",
+        "ゴチソウサマ",
+        "ごちそーさま"
+      ],
+      "query": {
+        "data": {
+          "candidates": [],
+          "error": "조합 중인 자음을 완성한 뒤 변환해 주세요.",
+          "id": 3,
+          "kana": "",
+          "source": "ㄱ"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 4,
+        "hwnd": 68946,
+        "source": "고",
+        "kana": "ご",
+        "kana_variants": [
+          "ご"
+        ],
+        "x": 972,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ご"
+      ],
+      "query": {
+        "data": {
+          "candidates": [],
+          "error": "조합 중인 자음을 완성한 뒤 변환해 주세요.",
+          "id": 3,
+          "kana": "",
+          "source": "ㄱ"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 4,
+        "hwnd": 68946,
+        "source": "고",
+        "kana": "ご",
+        "kana_variants": [
+          "ご"
+        ],
+        "x": 972,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "呉",
+        "五",
+        "ご",
+        "語",
+        "御",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "呉",
+            "五",
+            "ご",
+            "語",
+            "御",
+            "後",
+            "碁",
+            "誤",
+            "伍",
+            "期",
+            "ゴ",
+            "互",
+            "胡",
+            "⑤",
+            "娯",
+            "吾",
+            "梧",
+            "后",
+            "護",
+            "悟",
+            "午",
+            "檎",
+            "瑚",
+            "Ⅴ",
+            "ⅴ",
+            "冴",
+            "宕",
+            "醐",
+            "5",
+            "5⃣",
+            "🈝",
+            "⁵",
+            "₅",
+            "⑸",
+            "⒌",
+            "❺",
+            "➄",
+            "➎",
+            "㈤",
+            "㊄",
+            "５"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 4,
+          "kana": "ご",
+          "kana_variants": [
+            "ご"
+          ],
+          "source": "고"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "呉",
+        "五",
+        "ご",
+        "語",
+        "御",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "呉",
+            "五",
+            "ご",
+            "語",
+            "御",
+            "後",
+            "碁",
+            "誤",
+            "伍",
+            "期",
+            "ゴ",
+            "互",
+            "胡",
+            "⑤",
+            "娯",
+            "吾",
+            "梧",
+            "后",
+            "護",
+            "悟",
+            "午",
+            "檎",
+            "瑚",
+            "Ⅴ",
+            "ⅴ",
+            "冴",
+            "宕",
+            "醐",
+            "5",
+            "5⃣",
+            "🈝",
+            "⁵",
+            "₅",
+            "⑸",
+            "⒌",
+            "❺",
+            "➄",
+            "➎",
+            "㈤",
+            "㊄",
+            "５"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 4,
+          "kana": "ご",
+          "kana_variants": [
+            "ご"
+          ],
+          "source": "고"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "呉",
+        "五",
+        "ご",
+        "語",
+        "御",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "呉っ",
+            "呉ッ",
+            "語っ",
+            "語ッ",
+            "後っ",
+            "碁っ",
+            "誤っ",
+            "後ッ",
+            "伍っ",
+            "期っ",
+            "碁ッ",
+            "誤ッ",
+            "⑤っ",
+            "伍ッ",
+            "期ッ",
+            "⑤ッ",
+            "Ⅴっ",
+            "ⅴっ",
+            "Ⅴッ",
+            "ⅴッ",
+            "五っ",
+            "互っ",
+            "護っ",
+            "5っ",
+            "5⃣っ",
+            "🈝っ",
+            "五ッ",
+            "互ッ",
+            "護ッ",
+            "5ッ",
+            "5⃣ッ",
+            "🈝ッ",
+            "５っ",
+            "５ッ",
+            "ごっ",
+            "ゴッ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 5,
+          "kana": "ごっ",
+          "kana_variants": [
+            "ごっ"
+          ],
+          "source": "곷"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 6,
+        "hwnd": 68946,
+        "source": "고치",
+        "kana": "ごち",
+        "kana_variants": [
+          "ごち"
+        ],
+        "x": 1006,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごち"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "呉っ",
+            "呉ッ",
+            "語っ",
+            "語ッ",
+            "後っ",
+            "碁っ",
+            "誤っ",
+            "後ッ",
+            "伍っ",
+            "期っ",
+            "碁ッ",
+            "誤ッ",
+            "⑤っ",
+            "伍ッ",
+            "期ッ",
+            "⑤ッ",
+            "Ⅴっ",
+            "ⅴっ",
+            "Ⅴッ",
+            "ⅴッ",
+            "五っ",
+            "互っ",
+            "護っ",
+            "5っ",
+            "5⃣っ",
+            "🈝っ",
+            "五ッ",
+            "互ッ",
+            "護ッ",
+            "5ッ",
+            "5⃣ッ",
+            "🈝ッ",
+            "５っ",
+            "５ッ",
+            "ごっ",
+            "ゴッ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 5,
+          "kana": "ごっ",
+          "kana_variants": [
+            "ごっ"
+          ],
+          "source": "곷"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 6,
+        "hwnd": 68946,
+        "source": "고치",
+        "kana": "ごち",
+        "kana_variants": [
+          "ごち"
+        ],
+        "x": 1006,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ご",
+        "五知",
+        "ゴチ",
+        "ごち",
+        "呉地",
+        "呉",
+        "五",
+        "語",
+        "御",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ご",
+            "五知",
+            "ゴチ",
+            "ごち",
+            "呉地",
+            "呉",
+            "五",
+            "語",
+            "御",
+            "後",
+            "碁",
+            "誤",
+            "伍",
+            "期",
+            "ゴ",
+            "互",
+            "胡",
+            "⑤",
+            "娯",
+            "吾",
+            "梧",
+            "后",
+            "護",
+            "悟",
+            "午",
+            "檎",
+            "瑚",
+            "Ⅴ",
+            "ⅴ",
+            "冴",
+            "宕",
+            "醐",
+            "5",
+            "5⃣",
+            "🈝",
+            "⁵",
+            "₅",
+            "⑸",
+            "⒌",
+            "❺",
+            "➄",
+            "➎",
+            "㈤",
+            "㊄",
+            "５"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 6,
+          "kana": "ごち",
+          "kana_variants": [
+            "ごち"
+          ],
+          "source": "고치"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ご",
+        "五知",
+        "ゴチ",
+        "ごち",
+        "呉地",
+        "呉",
+        "五",
+        "語",
+        "御",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ご",
+            "五知",
+            "ゴチ",
+            "ごち",
+            "呉地",
+            "呉",
+            "五",
+            "語",
+            "御",
+            "後",
+            "碁",
+            "誤",
+            "伍",
+            "期",
+            "ゴ",
+            "互",
+            "胡",
+            "⑤",
+            "娯",
+            "吾",
+            "梧",
+            "后",
+            "護",
+            "悟",
+            "午",
+            "檎",
+            "瑚",
+            "Ⅴ",
+            "ⅴ",
+            "冴",
+            "宕",
+            "醐",
+            "5",
+            "5⃣",
+            "🈝",
+            "⁵",
+            "₅",
+            "⑸",
+            "⒌",
+            "❺",
+            "➄",
+            "➎",
+            "㈤",
+            "㊄",
+            "５"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 6,
+          "kana": "ごち",
+          "kana_variants": [
+            "ごち"
+          ],
+          "source": "고치"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ご",
+        "五知",
+        "ゴチ",
+        "ごち",
+        "呉地",
+        "呉",
+        "五",
+        "語",
+        "御",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちっ",
+            "ゴチっ",
+            "ごちッ",
+            "ゴチッ",
+            "五智っ",
+            "五知っ",
+            "呉地っ",
+            "五智ッ",
+            "五知ッ",
+            "呉地ッ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 7,
+          "kana": "ごちっ",
+          "kana_variants": [
+            "ごちっ"
+          ],
+          "source": "고칫"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 9,
+        "hwnd": 68946,
+        "source": "고치소",
+        "kana": "ごちそ",
+        "kana_variants": [
+          "ごちそ"
+        ],
+        "x": 1040,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそ"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちっ",
+            "ゴチっ",
+            "ごちッ",
+            "ゴチッ",
+            "五智っ",
+            "五知っ",
+            "呉地っ",
+            "五智ッ",
+            "五知ッ",
+            "呉地ッ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 7,
+          "kana": "ごちっ",
+          "kana_variants": [
+            "ごちっ"
+          ],
+          "source": "고칫"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 9,
+        "hwnd": 68946,
+        "source": "고치소",
+        "kana": "ごちそ",
+        "kana_variants": [
+          "ごちそ"
+        ],
+        "x": 1040,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "呉",
+        "ご",
+        "ゴチソ",
+        "ごちそ",
+        "御",
+        "語",
+        "五",
+        "後",
+        "碁",
+        "誤",
+        "伍",
+        "期",
+        "ゴ",
+        "互",
+        "胡",
+        "⑤",
+        "娯",
+        "吾",
+        "梧",
+        "后",
+        "護",
+        "悟",
+        "午",
+        "檎",
+        "瑚",
+        "Ⅴ",
+        "ⅴ",
+        "冴",
+        "宕",
+        "醐",
+        "5",
+        "5⃣",
+        "🈝",
+        "⁵",
+        "₅",
+        "⑸",
+        "⒌",
+        "❺",
+        "➄",
+        "➎",
+        "㈤",
+        "㊄",
+        "５"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "呉",
+            "ご",
+            "ゴチソ",
+            "ごちそ",
+            "御",
+            "語",
+            "五",
+            "後",
+            "碁",
+            "誤",
+            "伍",
+            "期",
+            "ゴ",
+            "互",
+            "胡",
+            "⑤",
+            "娯",
+            "吾",
+            "梧",
+            "后",
+            "護",
+            "悟",
+            "午",
+            "檎",
+            "瑚",
+            "Ⅴ",
+            "ⅴ",
+            "冴",
+            "宕",
+            "醐",
+            "5",
+            "5⃣",
+            "🈝",
+            "⁵",
+            "₅",
+            "⑸",
+            "⒌",
+            "❺",
+            "➄",
+            "➎",
+            "㈤",
+            "㊄",
+            "５"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 8,
+          "kana": "ごちそ",
+          "kana_variants": [
+            "ごちそ"
+          ],
+          "source": "고치소"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 11,
+        "hwnd": 68946,
+        "source": "고치소-",
+        "kana": "ごちそう",
+        "kana_variants": [
+          "ごちそう",
+          "ごちそー"
+        ],
+        "x": 1054,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそう",
+        "ごちそー"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "呉",
+            "ご",
+            "ゴチソ",
+            "ごちそ",
+            "御",
+            "語",
+            "五",
+            "後",
+            "碁",
+            "誤",
+            "伍",
+            "期",
+            "ゴ",
+            "互",
+            "胡",
+            "⑤",
+            "娯",
+            "吾",
+            "梧",
+            "后",
+            "護",
+            "悟",
+            "午",
+            "檎",
+            "瑚",
+            "Ⅴ",
+            "ⅴ",
+            "冴",
+            "宕",
+            "醐",
+            "5",
+            "5⃣",
+            "🈝",
+            "⁵",
+            "₅",
+            "⑸",
+            "⒌",
+            "❺",
+            "➄",
+            "➎",
+            "㈤",
+            "㊄",
+            "５"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 8,
+          "kana": "ごちそ",
+          "kana_variants": [
+            "ごちそ"
+          ],
+          "source": "고치소"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 11,
+        "hwnd": 68946,
+        "source": "고치소-",
+        "kana": "ごちそう",
+        "kana_variants": [
+          "ごちそう",
+          "ごちそー"
+        ],
+        "x": 1054,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそう",
+        "ご馳走",
+        "御馳走",
+        "御ちそう",
+        "ゴチソウ",
+        "ごちそー"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそう",
+            "ご馳走",
+            "御馳走",
+            "御ちそう",
+            "ゴチソウ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 9,
+          "kana": "ごちそう",
+          "kana_variants": [
+            "ごちそう",
+            "ごちそー"
+          ],
+          "source": "고치소-"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそう",
+        "ご馳走",
+        "御馳走",
+        "御ちそう",
+        "ゴチソウ",
+        "ごちそー"
+      ],
+      "query": {
+        "data": {
+          "candidates": [],
+          "error": "조합 중인 자음을 완성한 뒤 변환해 주세요.",
+          "id": 10,
+          "kana": "",
+          "source": "고치소-ㅅ"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 13,
+        "hwnd": 68946,
+        "source": "고치소-사",
+        "kana": "ごちそうさ",
+        "kana_variants": [
+          "ごちそうさ",
+          "ごちそーさ"
+        ],
+        "x": 1088,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそうさ",
+        "ごちそーさ"
+      ],
+      "query": {
+        "data": {
+          "candidates": [],
+          "error": "조합 중인 자음을 완성한 뒤 변환해 주세요.",
+          "id": 10,
+          "kana": "",
+          "source": "고치소-ㅅ"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 13,
+        "hwnd": 68946,
+        "source": "고치소-사",
+        "kana": "ごちそうさ",
+        "kana_variants": [
+          "ごちそうさ",
+          "ごちそーさ"
+        ],
+        "x": 1088,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそう",
+        "ごちそうさ",
+        "ゴチソウサ",
+        "ご馳走さ",
+        "御馳走さ",
+        "ご馳走",
+        "御馳走",
+        "御ちそう",
+        "ゴチソウ",
+        "ごちそーさ"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそう",
+            "ごちそうさ",
+            "ゴチソウサ",
+            "ご馳走さ",
+            "御馳走さ",
+            "ご馳走",
+            "御馳走",
+            "御ちそう",
+            "ゴチソウ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 11,
+          "kana": "ごちそうさ",
+          "kana_variants": [
+            "ごちそうさ",
+            "ごちそーさ"
+          ],
+          "source": "고치소-사"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそう",
+        "ごちそうさ",
+        "ゴチソウサ",
+        "ご馳走さ",
+        "御馳走さ",
+        "ご馳走",
+        "御馳走",
+        "御ちそう",
+        "ゴチソウ",
+        "ごちそーさ"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそう",
+            "ごちそうさ",
+            "ゴチソウサ",
+            "ご馳走さ",
+            "御馳走さ",
+            "ご馳走",
+            "御馳走",
+            "御ちそう",
+            "ゴチソウ"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 11,
+          "kana": "ごちそうさ",
+          "kana_variants": [
+            "ごちそうさ",
+            "ごちそーさ"
+          ],
+          "source": "고치소-사"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそう",
+        "ごちそうさ",
+        "ゴチソウサ",
+        "ご馳走さ",
+        "御馳走さ",
+        "ご馳走",
+        "御馳走",
+        "御ちそう",
+        "ゴチソウ",
+        "ごちそーさ"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそうさん",
+            "ご馳走さん",
+            "御馳走さん",
+            "御ちそうさん",
+            "ゴチソウサン"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 12,
+          "kana": "ごちそうさん",
+          "kana_variants": [
+            "ごちそうさん",
+            "ごちそーさん"
+          ],
+          "source": "고치소-삼"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "event": "input",
+        "serial": 15,
+        "hwnd": 68946,
+        "source": "고치소-사마",
+        "kana": "ごちそうさま",
+        "kana_variants": [
+          "ごちそうさま",
+          "ごちそーさま"
+        ],
+        "x": 1122,
+        "y": 274,
+        "reason": 0,
+        "backend": "uia-text"
+      },
+      "visible": true,
+      "replace": {
+        "event": "replace",
+        "serial": 1,
+        "success": true
+      },
+      "candidates": [
+        "ごちそうさま",
+        "ご馳走様",
+        "御馳走様",
+        "ごちそう様",
+        "御馳走さま",
+        "ご馳走さま",
+        "御ちそう様",
+        "御ちそうさま",
+        "ゴチソウサマ",
+        "ごちそーさま"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそうさん",
+            "ご馳走さん",
+            "御馳走さん",
+            "御ちそうさん",
+            "ゴチソウサン"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 12,
+          "kana": "ごちそうさん",
+          "kana_variants": [
+            "ごちそうさん",
+            "ごちそーさん"
+          ],
+          "source": "고치소-삼"
+        }
+      },
+      "korean_activated": true
+    },
+    {
+      "snapshot": {
+        "reason": 9,
+        "backend": "uia-text"
+      },
+      "visible": false,
+      "replace": {
+        "event": "replace",
+        "serial": 15,
+        "success": true
+      },
+      "candidates": [
+        "ごちそうさま",
+        "ご馳走様",
+        "御馳走様",
+        "ごちそう様",
+        "御馳走さま",
+        "ご馳走さま",
+        "御ちそう様",
+        "御ちそうさま",
+        "ゴチソウサマ",
+        "ごちそーさま"
+      ],
+      "query": {
+        "data": {
+          "candidates": [
+            "ごちそうさん",
+            "ご馳走さん",
+            "御馳走さん",
+            "御ちそうさん",
+            "ゴチソウサン"
+          ],
+          "composition_set": true,
+          "conversion_requested": true,
+          "document_focus": true,
+          "id": 12,
+          "kana": "ごちそうさん",
+          "kana_variants": [
+            "ごちそうさん",
+            "ごちそーさん"
+          ],
+          "source": "고치소-삼"
+        }
+      },
+      "korean_activated": true
+    }
+  ]
+}

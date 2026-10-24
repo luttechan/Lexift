@@ -1,0 +1,251 @@
+{
+  "stage": "complete",
+  "samples": [
+    {
+      "language": "ja",
+      "source": "와타시",
+      "elapsed_ms": 40.34,
+      "full_candidates_ms": 134.49,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "니혼고",
+      "elapsed_ms": 14.95,
+      "full_candidates_ms": 166.98,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "갓코우",
+      "elapsed_ms": 15.95,
+      "full_candidates_ms": 109.73,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "쿄우",
+      "elapsed_ms": 16.13,
+      "full_candidates_ms": 131.28,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "코-히-",
+      "elapsed_ms": 22.69,
+      "full_candidates_ms": 139.48,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "와타시",
+      "elapsed_ms": 14.88,
+      "full_candidates_ms": 14.88,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "니혼고",
+      "elapsed_ms": 15.19,
+      "full_candidates_ms": 15.19,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "갓코우",
+      "elapsed_ms": 16.48,
+      "full_candidates_ms": 16.48,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "쿄우",
+      "elapsed_ms": 14.59,
+      "full_candidates_ms": 14.59,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "ja",
+      "source": "코-히-",
+      "elapsed_ms": 11.38,
+      "full_candidates_ms": 11.38,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "니하오",
+      "elapsed_ms": 55.9,
+      "full_candidates_ms": 55.9,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "셰셰",
+      "elapsed_ms": 33.21,
+      "full_candidates_ms": 33.21,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "워아이니",
+      "elapsed_ms": 49.61,
+      "full_candidates_ms": 49.61,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "베이징",
+      "elapsed_ms": 40.59,
+      "full_candidates_ms": 40.59,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "짜이젠",
+      "elapsed_ms": 19.76,
+      "full_candidates_ms": 19.76,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "니하오",
+      "elapsed_ms": 9.88,
+      "full_candidates_ms": 9.88,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "셰셰",
+      "elapsed_ms": 14.58,
+      "full_candidates_ms": 14.58,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "워아이니",
+      "elapsed_ms": 11.27,
+      "full_candidates_ms": 11.27,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "베이징",
+      "elapsed_ms": 11.29,
+      "full_candidates_ms": 11.29,
+      "passed": true,
+      "backend": "win32-edit"
+    },
+    {
+      "language": "zh",
+      "source": "짜이젠",
+      "elapsed_ms": 11.2,
+      "full_candidates_ms": 11.2,
+      "passed": true,
+      "backend": "win32-edit"
+    }
+  ],
+  "first_paint": true,
+  "own_edit_only": true,
+  "observations": {
+    "queried_ms": 6.25,
+    "visible": true,
+    "foreground_is_own": true,
+    "focus_is_own_edit": true,
+    "reason": 0,
+    "backend": "win32-edit",
+    "enabled": true,
+    "first_paint_ms": 11.2
+  },
+  "failures": [],
+  "korean_activation": [
+    {
+      "latin_mode_confirmed": true
+    },
+    {
+      "from": "Korean IME Latin mode",
+      "passed": true
+    }
+  ],
+  "caret_fallback_and_space": {
+    "backend": "win32-edit-field",
+    "visible": true,
+    "x": 657,
+    "y": 535,
+    "passed": true,
+    "space_replaced_only_word": true
+  },
+  "long_sentence_space": [
+    {
+      "source": "모요-데스",
+      "expected": "模様です",
+      "geometry_changed": false,
+      "requested_serial": 5,
+      "latest_serial": 5,
+      "passed": true,
+      "actual": "앞 문장 模様です 뒤 문장"
+    },
+    {
+      "source": "모요-데스",
+      "expected": "模様です",
+      "geometry_changed": true,
+      "requested_serial": 7,
+      "latest_serial": 8,
+      "passed": true,
+      "actual": "앞 문장 模様です 뒤 문장"
+    },
+    {
+      "source": "센세-데스",
+      "expected": "先生です",
+      "geometry_changed": false,
+      "requested_serial": 10,
+      "latest_serial": 10,
+      "passed": true,
+      "actual": "앞 문장 先生です 뒤 문장"
+    },
+    {
+      "source": "센세-데스",
+      "expected": "先生です",
+      "geometry_changed": true,
+      "requested_serial": 12,
+      "latest_serial": 13,
+      "passed": true,
+      "actual": "앞 문장 先生です 뒤 문장"
+    },
+    {
+      "source": "코-죠-데스",
+      "expected": "工場です",
+      "geometry_changed": false,
+      "requested_serial": 15,
+      "latest_serial": 15,
+      "passed": true,
+      "actual": "앞 문장 工場です 뒤 문장"
+    },
+    {
+      "source": "코-죠-데스",
+      "expected": "工場です",
+      "geometry_changed": true,
+      "requested_serial": 17,
+      "latest_serial": 18,
+      "passed": true,
+      "actual": "앞 문장 工場です 뒤 문장"
+    }
+  ]
+}

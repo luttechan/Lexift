@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "repository": "luttechan/Lexift",
+  "result": {
+    "release": {
+      "version": "1.0.0",
+      "page": "https://github.com/luttechan/Lexift/releases/tag/v1.0.0",
+      "asset_url": "https://github.com/luttechan/Lexift/releases/download/v1.0.0/Lexift-1.0.0-Windows-x64.zip",
+      "asset_name": "Lexift-1.0.0-Windows-x64.zip",
+      "size": 66014588,
+      "digest": "sha256:28fbdcb2e38580322f68fc8a208dc568d7a81d94d6197a48b9c0dbfb9cea8d6f"
+    }
+  }
+}

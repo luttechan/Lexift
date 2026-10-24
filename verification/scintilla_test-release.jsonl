@@ -1,0 +1,11 @@
+{"test":"real 32-bit Scintilla read from 64-bit host","passed":true}
+{"test":"UTF8 byte selection after emoji","passed":true}
+{"test":"changed word refuses stale selection","passed":true}
+{"test":"read only","passed":true}
+{"test":"multiple selections","passed":true}
+{"test":"rectangle selection","passed":true}
+{"test":"non UTF8 codepage","passed":true}
+{"test":"moved caret","passed":true}
+{"test":"virtual space","passed":true}
+{"test":"multiline UTF8 document","passed":true}
+{"passed":10,"failed":0,"cross_process":true,"cross_bitness":true}

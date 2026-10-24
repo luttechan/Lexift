@@ -1,0 +1,55 @@
+{
+  "language": "ko",
+  "prepared": false,
+  "rows": [
+    {
+      "operation": "construct",
+      "ms": 1982.972
+    },
+    {
+      "operation": "dashboard_first_paint",
+      "ms": 562.99
+    },
+    {
+      "operation": "page_2_paint",
+      "ms": 187.883
+    },
+    {
+      "operation": "page_3_paint",
+      "ms": 86.026
+    },
+    {
+      "operation": "page_4_paint",
+      "ms": 82.268
+    },
+    {
+      "operation": "page_1_paint",
+      "ms": 23.174
+    },
+    {
+      "operation": "page_0_paint",
+      "ms": 7.678
+    },
+    {
+      "operation": "page_2_paint",
+      "ms": 12.835
+    },
+    {
+      "operation": "page_3_paint",
+      "ms": 9.902
+    },
+    {
+      "operation": "page_4_paint",
+      "ms": 10.974
+    },
+    {
+      "operation": "page_0_paint",
+      "ms": 6.074
+    },
+    {
+      "operation": "page_2_paint",
+      "ms": 11.168
+    }
+  ],
+  "profile": "         60313 function calls (59296 primitive calls) in 2.991 seconds\n\n   Ordered by: cumulative time\n   List reduced from 534 to 25 due to restriction <25>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n        1    0.002    0.002    1.983    1.983 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:820(__init__)\n        5    1.944    0.389    1.944    0.389 {method 'addWidget' of 'PySide6.QtWidgets.QStackedWidget' objects}\n        1    0.489    0.489    0.489    0.489 {method 'show' of 'PySide6.QtWidgets.QWidget' objects}\n       11    0.000    0.000    0.248    0.023 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1340(navigate)\n       10    0.000    0.000    0.232    0.023 {method 'click' of 'PySide6.QtWidgets.QAbstractButton' objects}\n       10    0.000    0.000    0.232    0.023 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:845(<lambda>)\n       12    0.224    0.019    0.225    0.019 {built-in method processEvents}\n       11    0.000    0.000    0.193    0.018 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1326(_ensure_page)\n        1    0.003    0.003    0.077    0.077 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:956(_make_preferences)\n       11    0.052    0.005    0.053    0.005 {method 'grab' of 'PySide6.QtWidgets.QWidget' objects}\n        4    0.046    0.012    0.046    0.012 {method 'setWidget' of 'PySide6.QtWidgets.QScrollArea' objects}\n        1    0.011    0.011    0.041    0.041 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1219(_make_about)\n        1    0.000    0.000    0.038    0.038 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1105(_make_dictionary)\n        3    0.035    0.012    0.036    0.012 {method 'insertWidget' of 'PySide6.QtWidgets.QStackedWidget' objects}\n       11    0.035    0.003    0.036    0.003 {method 'setCurrentIndex' of 'PySide6.QtWidgets.QStackedWidget' objects}\n      102    0.032    0.000    0.033    0.000 {method 'addWidget' of 'PySide6.QtWidgets.QBoxLayout' objects}\n      761    0.001    0.000    0.031    0.000 C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\enum.py:720(__call__)\n       90    0.001    0.000    0.029    0.000 C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\enum.py:862(_create_)\n       90    0.002    0.000    0.019    0.000 C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\enum.py:528(__new__)\n      4/3    0.000    0.000    0.018    0.006 <frozen importlib._bootstrap>:1349(_find_and_load)\n        1    0.001    0.001    0.018    0.018 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\dictionary_ui.py:59(__init__)\n      4/3    0.000    0.000    0.018    0.006 <frozen importlib._bootstrap>:1304(_find_and_load_unlocked)\n      4/3    0.000    0.000    0.017    0.006 <frozen importlib._bootstrap>:911(_load_unlocked)\n        3    0.000    0.000    0.017    0.006 <frozen importlib._bootstrap_external>:993(exec_module)\n     12/9    0.000    0.000    0.015    0.002 <frozen importlib._bootstrap>:480(_call_with_frames_removed)\n\n\n"
+}

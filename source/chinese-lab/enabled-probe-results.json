@@ -1,0 +1,46 @@
+{
+  "enabled_before": true,
+  "tests": [
+    {
+      "input": "nihao",
+      "exit_code": 4,
+      "result": {
+        "id": 0,
+        "source": "nihao",
+        "kana": "nihao",
+        "candidates": [],
+        "document_focus": true,
+        "composition_set": false,
+        "conversion_requested": true
+      }
+    },
+    {
+      "input": "zhongguo",
+      "exit_code": 4,
+      "result": {
+        "id": 0,
+        "source": "zhongguo",
+        "kana": "zhongguo",
+        "candidates": [],
+        "document_focus": true,
+        "composition_set": false,
+        "conversion_requested": true
+      }
+    },
+    {
+      "input": "xiexie",
+      "exit_code": 4,
+      "result": {
+        "id": 0,
+        "source": "xiexie",
+        "kana": "xiexie",
+        "candidates": [],
+        "document_focus": true,
+        "composition_set": false,
+        "conversion_requested": true
+      }
+    }
+  ],
+  "enabled_for_probe": true,
+  "enabled_restored": true
+}

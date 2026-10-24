@@ -1,0 +1,15 @@
+{"event":"thread_manager","hr":"0x00000000","tick":5111812}
+{"event":"activate_uiless","hr":"0x00000000","tick":5111812}
+{"event":"advise_sink","hr":"0x00000000","tick":5111812}
+{"event":"change_language","hr":"0x00000000","tick":5111812}
+{"event":"layout_found","hr":"0x00000000","tick":5111828}
+{"event":"host_ready","hr":"0x00000000","tick":5111859}
+{"event":"focused_change_language","hr":"0x00000000","tick":5112046}
+{"event":"activate_focused_profile","hr":"0x00000000","tick":5112046}
+{"event":"set_composition","hr":"0x00000000","tick":5112234}
+{"event":"begin","hr":"0x00000000","tick":5112515}
+{"event":"candidates","reason":"update","id":0,"count":9,"extracted":9,"selection":null,"page":0,"behavior":true,"strings":["わたし","私","渡し","ワタシ","渡司","和多氏","和太氏","渡氏","綿氏"]}
+{"event":"candidates","reason":"update","id":0,"count":9,"extracted":9,"selection":0,"page":0,"behavior":true,"strings":["わたし","私","渡し","ワタシ","渡司","和多氏","和太氏","渡氏","綿氏"]}
+{"event":"candidates","reason":"update","id":0,"count":10,"extracted":10,"selection":0,"page":0,"behavior":true,"strings":["わたし","私","渡し","ワタシ","渡司","和多氏","和太氏","渡氏","綿氏","単漢字..."]}
+{"event":"candidates","reason":"update","id":0,"count":10,"extracted":10,"selection":0,"page":0,"behavior":true,"strings":["わたし","私","渡し","ワタシ","渡司","和多氏","和太氏","渡氏","綿氏","単漢字..."]}
+{"event":"end","hr":"0x00000000","tick":5113265}

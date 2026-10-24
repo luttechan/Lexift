@@ -1,0 +1,85 @@
+{
+  "language": "ko",
+  "prepared": true,
+  "rows": [
+    {
+      "operation": "construct",
+      "ms": 2314.66
+    },
+    {
+      "operation": "dashboard_first_paint",
+      "ms": 553.221
+    },
+    {
+      "operation": "page_2_paint",
+      "ms": 21.222,
+      "navigate_ms": 0.794,
+      "events_ms": 13.636,
+      "paint_ms": 6.791
+    },
+    {
+      "operation": "page_3_paint",
+      "ms": 11.02,
+      "navigate_ms": 0.885,
+      "events_ms": 3.729,
+      "paint_ms": 6.406
+    },
+    {
+      "operation": "page_4_paint",
+      "ms": 11.325,
+      "navigate_ms": 4.439,
+      "events_ms": 2.826,
+      "paint_ms": 4.059
+    },
+    {
+      "operation": "page_1_paint",
+      "ms": 23.934,
+      "navigate_ms": 4.146,
+      "events_ms": 15.169,
+      "paint_ms": 4.619
+    },
+    {
+      "operation": "page_0_paint",
+      "ms": 7.933,
+      "navigate_ms": 0.565,
+      "events_ms": 2.062,
+      "paint_ms": 5.306
+    },
+    {
+      "operation": "page_2_paint",
+      "ms": 13.88,
+      "navigate_ms": 1.273,
+      "events_ms": 6.624,
+      "paint_ms": 5.983
+    },
+    {
+      "operation": "page_3_paint",
+      "ms": 9.033,
+      "navigate_ms": 0.848,
+      "events_ms": 3.47,
+      "paint_ms": 4.715
+    },
+    {
+      "operation": "page_4_paint",
+      "ms": 13.985,
+      "navigate_ms": 5.264,
+      "events_ms": 3.832,
+      "paint_ms": 4.889
+    },
+    {
+      "operation": "page_0_paint",
+      "ms": 6.498,
+      "navigate_ms": 0.973,
+      "events_ms": 2.12,
+      "paint_ms": 3.405
+    },
+    {
+      "operation": "page_2_paint",
+      "ms": 11.721,
+      "navigate_ms": 0.678,
+      "events_ms": 4.882,
+      "paint_ms": 6.16
+    }
+  ],
+  "profile": "         62980 function calls (61942 primitive calls) in 3.217 seconds\n\n   Ordered by: cumulative time\n   List reduced from 572 to 25 due to restriction <25>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n        1    0.002    0.002    2.315    2.315 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:853(__init__)\n        5    2.017    0.403    2.017    0.403 {method 'addWidget' of 'PySide6.QtWidgets.QStackedWidget' objects}\n        1    0.482    0.482    0.482    0.482 {method 'show' of 'PySide6.QtWidgets.QWidget' objects}\n       14    0.000    0.000    0.196    0.014 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1388(_ensure_page)\n        3    0.001    0.000    0.112    0.037 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1380(_prepare_next_page)\n        3    0.001    0.000    0.111    0.037 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1355(_prepare_page_layout)\n       12    0.106    0.009    0.107    0.009 {built-in method processEvents}\n        3    0.106    0.035    0.107    0.036 {method 'render' of 'PySide6.QtWidgets.QWidget' objects}\n       14    0.092    0.007    0.093    0.007 {method 'grab' of 'PySide6.QtWidgets.QWidget' objects}\n        3    0.080    0.027    0.080    0.027 {method 'save' of 'PySide6.QtGui.QPixmap' objects}\n        3    0.064    0.021    0.080    0.027 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:214(brand_mark)\n        1    0.008    0.008    0.060    0.060 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1257(_make_about)\n        1    0.002    0.002    0.057    0.057 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:994(_make_preferences)\n        4    0.043    0.011    0.043    0.011 {method 'setWidget' of 'PySide6.QtWidgets.QScrollArea' objects}\n        3    0.039    0.013    0.040    0.013 {method 'insertWidget' of 'PySide6.QtWidgets.QStackedWidget' objects}\n        1    0.000    0.000    0.038    0.038 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1143(_make_dictionary)\n       11    0.000    0.000    0.038    0.003 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:1402(navigate)\n      817    0.001    0.000    0.035    0.000 C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\enum.py:720(__call__)\n       92    0.001    0.000    0.034    0.000 C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\enum.py:862(_create_)\n      105    0.031    0.000    0.032    0.000 {method 'addWidget' of 'PySide6.QtWidgets.QBoxLayout' objects}\n        1    0.001    0.001    0.023    0.023 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:923(_make_dashboard)\n       92    0.003    0.000    0.022    0.000 C:\\Users\\Neko4K\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\enum.py:528(__new__)\n       10    0.000    0.000    0.020    0.002 {method 'click' of 'PySide6.QtWidgets.QAbstractButton' objects}\n       10    0.000    0.000    0.020    0.002 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\app.py:878(<lambda>)\n        1    0.001    0.001    0.018    0.018 C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0\\module\\dictionary_ui.py:59(__init__)\n\n\n"
+}

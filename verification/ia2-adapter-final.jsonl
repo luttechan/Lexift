@@ -1,0 +1,22 @@
+{"test":"editable text snapshot","passed":true}
+{"test":"only word before caret","passed":true}
+{"test":"caret on negative-origin monitor","passed":true}
+{"test":"stable identity and range","passed":true}
+{"test":"selection before replacement","passed":true}
+{"test":"Unicode replacement and caret after text","passed":true}
+{"test":"COM references balanced","passed":true}
+{"test":"blocked field never read","passed":true}
+{"test":"blocked field never read","passed":true}
+{"test":"blocked field never read","passed":true}
+{"test":"unfocused field refused","passed":true}
+{"test":"nonempty selection refused","passed":true}
+{"test":"last character caret fallback","passed":true}
+{"test":"changed suffix invalidates range","passed":true}
+{"test":"different field invalidates range","passed":true}
+{"test":"contenteditable via IA2 editable state","passed":true}
+{"test":"caret browsing document is not editable","passed":true}
+{"test":"IServiceProvider interface discovery","passed":true}
+{"test":"exact IME completion space accepted","passed":true}
+{"test":"space included in verified replacement range","passed":true}
+{"test":"two spaces cannot reuse original range","passed":true}
+{"passed":21,"failed":0,"fixture":"IAccessible2 COM provider","firefox_end_to_end":false}

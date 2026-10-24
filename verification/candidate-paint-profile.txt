@@ -1,0 +1,26 @@
+         9564 function calls (9292 primitive calls) in 13.861 seconds
+
+   Ordered by: cumulative time
+   List reduced from 206 to 18 due to restriction <18>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   13.801   13.801 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8/module\ime_inline.py:268(_show)
+        1   13.801   13.801   13.801   13.801 {method 'show' of 'PySide6.QtWidgets.QWidget' objects}
+        1    0.047    0.047    0.053    0.053 {built-in method processEvents}
+        3    0.000    0.000    0.006    0.002 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:720(__call__)
+        1    0.000    0.000    0.006    0.006 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:862(_create_)
+        2    0.000    0.000    0.004    0.002 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py:1443(__enter__)
+        1    0.000    0.000    0.004    0.004 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:528(__new__)
+    188/9    0.000    0.000    0.004    0.000 {built-in method __new__ of type object at 0x00007FFD0AC218F0}
+      179    0.002    0.000    0.003    0.000 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:254(__set_name__)
+        2    0.000    0.000    0.003    0.001 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py:2137(__init__)
+        4    0.000    0.000    0.002    0.001 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py:2143(_mock_set_magics)
+      154    0.002    0.000    0.002    0.000 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py:2217(__init__)
+      181    0.001    0.000    0.002    0.000 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:390(__setitem__)
+        4    0.000    0.000    0.002    0.000 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pkgutil.py:458(resolve_name)
+        1    0.001    0.001    0.002    0.002 {method 'grab' of 'PySide6.QtWidgets.QWidget' objects}
+        1    0.000    0.000    0.001    0.001 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\re\__init__.py:226(compile)
+        1    0.000    0.000    0.001    0.001 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\re\__init__.py:280(_compile)
+        1    0.000    0.000    0.001    0.001 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\re\_compiler.py:745(compile)
+
+

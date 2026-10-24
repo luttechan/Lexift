@@ -1,0 +1,46 @@
+...................................................................................E.....E........................WARNING:root:IME �Է� ��带 Ȯ������ ���߽��ϴ�. �Է±� ������ Ȯ���ϼ���.
+.............................................................................................................................................E..................................................................................................................................WARNING:root:�ѱ��� �Է� ���¸� Ȯ������ ���߽��ϴ�.
+......
+======================================================================
+ERROR: test_failed_hook_keeps_keyboard_fallback (tests.test_explorer_focus.ExplorerFocusTests.test_failed_hook_keeps_keyboard_fallback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\tests\test_explorer_focus.py", line 90, in test_failed_hook_keeps_keyboard_fallback
+    controller._start_hook()
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\app.py", line 1733, in _start_hook
+    if self._warm_keyboard(notify):return
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\app.py", line 1759, in _warm_keyboard
+    if self._hook_warming:return True
+       ^^^^^^^^^^^^^^^^^^
+AttributeError: 'KanaShiftController' object has no attribute '_hook_warming'
+
+======================================================================
+ERROR: test_successful_hook_enables_focus_preservation (tests.test_explorer_focus.ExplorerFocusTests.test_successful_hook_enables_focus_preservation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\tests\test_explorer_focus.py", line 83, in test_successful_hook_enables_focus_preservation
+    controller._start_hook()
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\app.py", line 1733, in _start_hook
+    if self._warm_keyboard(notify):return
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\app.py", line 1759, in _warm_keyboard
+    if self._hook_warming:return True
+       ^^^^^^^^^^^^^^^^^^
+AttributeError: 'KanaShiftController' object has no attribute '_hook_warming'
+
+======================================================================
+ERROR: test_exit_never_waits_for_per_hook_acknowledgements (tests.test_quit_confirmation.QuitConfirmationTests.test_exit_never_waits_for_per_hook_acknowledgements)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\tests\test_quit_confirmation.py", line 93, in test_exit_never_waits_for_per_hook_acknowledgements
+    controller.stop()
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\KanaShift v.0.8\module\app.py", line 2293, in stop
+    if self._ime_toast:self._ime_toast.hide()
+       ^^^^^^^^^^^^^^^
+AttributeError: 'KanaShiftController' object has no attribute '_ime_toast'
+
+----------------------------------------------------------------------
+Ran 392 tests in 39.285s
+
+FAILED (errors=3)

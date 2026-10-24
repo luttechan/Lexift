@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "commit": "bf1f3286aaed7b93189f34c860acf4ae72915e3e",
+  "release_id": 422981440,
+  "url": "https://github.com/luttechan/Lexift/releases/tag/v1.0.0",
+  "assets": [
+    {
+      "id": 673340416,
+      "name": "Lexift-1.0.0-Windows-x64.zip",
+      "sha256": "28fbdcb2e38580322f68fc8a208dc568d7a81d94d6197a48b9c0dbfb9cea8d6f",
+      "size": 66014588,
+      "url": "https://github.com/luttechan/Lexift/releases/download/v1.0.0/Lexift-1.0.0-Windows-x64.zip"
+    },
+    {
+      "id": 673342178,
+      "name": "Lexift-1.0.0-Windows-x64.zip.sha256",
+      "sha256": "d05949189ab1dbd5f581a436ed562963af95f5b677f71ced3f9878bf59d6f12c",
+      "size": 96,
+      "url": "https://github.com/luttechan/Lexift/releases/download/v1.0.0/Lexift-1.0.0-Windows-x64.zip.sha256"
+    }
+  ],
+  "tag": "v1.0.0",
+  "published_at": "2026-10-24T21:05:47Z",
+  "latest": true,
+  "public_downloads_verified": true,
+  "readme_verified": true
+}

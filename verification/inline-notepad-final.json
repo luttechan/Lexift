@@ -1,0 +1,54 @@
+{
+  "enabled": true,
+  "snapshot": {
+    "event": "input",
+    "serial": 3,
+    "hwnd": 2556442,
+    "source": "",
+    "x": 0,
+    "y": 0,
+    "reason": 9
+  },
+  "visible": false,
+  "replace": {
+    "event": "replace",
+    "serial": 2,
+    "success": true
+  },
+  "query": {
+    "data": {
+      "candidates": [
+        "にほんご",
+        "日本語",
+        "ニホンゴ"
+      ],
+      "composition_set": true,
+      "conversion_requested": true,
+      "document_focus": true,
+      "id": 1,
+      "kana": "にほんご",
+      "source": "니혼고"
+    }
+  },
+  "history": [
+    {
+      "event": "input",
+      "serial": 2,
+      "hwnd": 2556442,
+      "source": "니혼고",
+      "x": 2151,
+      "y": 369,
+      "reason": 0
+    },
+    {
+      "event": "input",
+      "serial": 3,
+      "hwnd": 2556442,
+      "source": "",
+      "x": 0,
+      "y": 0,
+      "reason": 9
+    }
+  ],
+  "verification": "Optimized persistent IME: Notepad text changed from 앞 문장 私 니혼고 to 앞 문장 私 日本語; verified using Windows Computer Use screenshot."
+}

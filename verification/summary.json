@@ -1,0 +1,33 @@
+{
+  "context": "KanaShift & ANV",
+  "version": "0.8.0-experimental",
+  "regression_tests": 93,
+  "physical_shortcut_tested": false,
+  "cases": {
+    "watashi-final": {
+      "event": "summary",
+      "passed": true,
+      "got_candidates": true,
+      "extracted": 10,
+      "input_aborted": false,
+      "editor_text": "私"
+    },
+    "hashi-final": {
+      "event": "summary",
+      "passed": true,
+      "got_candidates": true,
+      "extracted": 15,
+      "input_aborted": false,
+      "editor_text": "箸"
+    },
+    "kyou-cancel": {
+      "event": "summary",
+      "passed": true,
+      "got_candidates": true,
+      "extracted": 75,
+      "input_aborted": false,
+      "editor_text": ""
+    }
+  },
+  "original_app_unchanged": true
+}

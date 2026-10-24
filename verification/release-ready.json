@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "commit": "bf1f3286aaed7b93189f34c860acf4ae72915e3e",
+  "release": "https://github.com/luttechan/Lexift/releases/tag/v1.0.0",
+  "archive_sha256": "28fbdcb2e38580322f68fc8a208dc568d7a81d94d6197a48b9c0dbfb9cea8d6f",
+  "regression_tests": 398,
+  "native_compatibility_checks": 51,
+  "settings_languages": 9,
+  "settings_checks": 162,
+  "first_settings_display_ms": {
+    "min": 14.02,
+    "max": 22.086
+  },
+  "excludes_initial_qt_startup": true,
+  "public_downloads_verified": true,
+  "update_lookup_verified": true,
+  "credit": "Translation (JP) & QA : 루노",
+  "credits_refresh_tests": 35
+}

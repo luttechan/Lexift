@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "memory": [
+    {
+      "iteration": 10,
+      "private_bytes": 40022016,
+      "gdi": 0,
+      "user": 3
+    },
+    {
+      "iteration": 30,
+      "private_bytes": 39784448,
+      "gdi": 0,
+      "user": 3
+    },
+    {
+      "iteration": 60,
+      "private_bytes": 39116800,
+      "gdi": 0,
+      "user": 3
+    }
+  ],
+  "construct_ms": 23.49,
+  "private_growth_after_warmup": -905216,
+  "gdi_growth_after_warmup": 0,
+  "user_growth_after_warmup": 0
+}

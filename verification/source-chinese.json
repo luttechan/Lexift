@@ -1,0 +1,153 @@
+{
+  "version": "0.8.0",
+  "backend": "offline-pinyin",
+  "passed": true,
+  "queries": [
+    {
+      "source": "니하오",
+      "reading": "ni hao",
+      "elapsed_ms": 165.49,
+      "candidates": [
+        "你好",
+        "你号",
+        "你浩",
+        "你豪",
+        "拟好"
+      ],
+      "passed": true
+    },
+    {
+      "source": "셰셰",
+      "reading": "xie xie",
+      "elapsed_ms": 0.28,
+      "candidates": [
+        "谢谢",
+        "写写",
+        "歇歇",
+        "写些",
+        "些写"
+      ],
+      "passed": true
+    },
+    {
+      "source": "씨에씨에",
+      "reading": "xie xie",
+      "elapsed_ms": 0.23,
+      "candidates": [
+        "谢谢",
+        "写写",
+        "歇歇",
+        "写些",
+        "些写"
+      ],
+      "passed": true
+    },
+    {
+      "source": "워아이니",
+      "reading": "wo ai ni",
+      "elapsed_ms": 0.33,
+      "candidates": [
+        "我爱你",
+        "我唉你",
+        "我哎你",
+        "喔爱你",
+        "窝爱你"
+      ],
+      "passed": true
+    },
+    {
+      "source": "중궈",
+      "reading": "zhong guo",
+      "elapsed_ms": 0.35,
+      "candidates": [
+        "中国",
+        "中过",
+        "种过",
+        "中果",
+        "中郭"
+      ],
+      "passed": true
+    },
+    {
+      "source": "베이징",
+      "reading": "bei jing",
+      "elapsed_ms": 0.31,
+      "candidates": [
+        "北京",
+        "背景",
+        "被经",
+        "被静",
+        "被竟"
+      ],
+      "passed": true
+    },
+    {
+      "source": "짜이젠",
+      "reading": "zai jian",
+      "elapsed_ms": 0.36,
+      "candidates": [
+        "再见",
+        "再建",
+        "在建",
+        "在见",
+        "在间"
+      ],
+      "passed": true
+    },
+    {
+      "source": "니하오마",
+      "reading": "ni hao ma",
+      "elapsed_ms": 0.34,
+      "candidates": [
+        "你好吗",
+        "你号码",
+        "你好嘛",
+        "你好马",
+        "你好妈"
+      ],
+      "passed": true
+    },
+    {
+      "source": "메이관시",
+      "reading": "mei guan xi",
+      "elapsed_ms": 0.46,
+      "candidates": [
+        "没关系",
+        "每关系",
+        "美关系",
+        "美观是",
+        "梅关系"
+      ],
+      "passed": true
+    },
+    {
+      "source": "진티엔",
+      "reading": "jin tian",
+      "elapsed_ms": 0.38,
+      "candidates": [
+        "今天",
+        "进天",
+        "进点",
+        "金天",
+        "近天"
+      ],
+      "passed": true
+    },
+    {
+      "source": "펑요우",
+      "reading": "peng you",
+      "elapsed_ms": 0.31,
+      "candidates": [
+        "朋友",
+        "风有",
+        "封有",
+        "峰有",
+        "疯有"
+      ],
+      "passed": true
+    }
+  ],
+  "gui_heartbeats": 38,
+  "elapsed_ms": 381,
+  "three_shortcuts_registered": true
+}

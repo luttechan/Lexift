@@ -1,0 +1,103 @@
+{
+  "enabled": true,
+  "snapshot": {
+    "event": "input",
+    "serial": 3,
+    "hwnd": 2556442,
+    "source": "",
+    "x": 0,
+    "y": 0,
+    "reason": 9,
+    "backend": "uia-text"
+  },
+  "visible": false,
+  "replace": {
+    "event": "replace",
+    "serial": 2,
+    "success": true
+  },
+  "query": {
+    "data": {
+      "backend": "offline-pinyin",
+      "candidates": [
+        "谢谢",
+        "写写",
+        "歇歇",
+        "写些",
+        "些写",
+        "些些",
+        "谢写",
+        "写谢",
+        "谢些",
+        "些谢",
+        "鞋写",
+        "写鞋",
+        "鞋些",
+        "些鞋",
+        "邪写",
+        "写邪",
+        "邪些",
+        "些邪",
+        "鞋谢",
+        "谢鞋"
+      ],
+      "kana": "xie xie",
+      "language": "zh",
+      "readings": [
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie",
+        "xie xie"
+      ],
+      "source": "셰셰"
+    }
+  },
+  "history": [
+    {
+      "event": "input",
+      "serial": 1,
+      "hwnd": 2556442,
+      "source": "",
+      "x": 0,
+      "y": 0,
+      "reason": 9,
+      "backend": "uia-text"
+    },
+    {
+      "event": "input",
+      "serial": 2,
+      "hwnd": 2556442,
+      "source": "셰셰",
+      "x": 2112,
+      "y": 389,
+      "reason": 0,
+      "backend": "uia-text"
+    },
+    {
+      "event": "input",
+      "serial": 3,
+      "hwnd": 2556442,
+      "source": "",
+      "x": 0,
+      "y": 0,
+      "reason": 9,
+      "backend": "uia-text"
+    }
+  ]
+}
