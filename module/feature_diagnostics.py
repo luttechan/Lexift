@@ -45,6 +45,8 @@ def verify(output):
         checks['persisted_checkbox']=not window.feature_checks['ja'].isChecked() and window.feature_checks['zh'].isChecked()
         window.navigate(4)
         checks['dictionary_page']=window.dictionary_editor.model.rowCount()==2
+        from PySide6.QtWidgets import QLabel
+        checks['japanese_translation_qa_credit']=any(w.text()=='Translation (JP) & QA :' for w in window.special_host.findChildren(QLabel)) and any(w.text()=='루노' for w in window.special_host.findChildren(QLabel))
         result['construct_all_pages_ms']=round((time.perf_counter()-started)*1000,2)
         for code,_ in LANGUAGES:
             set_language(code)

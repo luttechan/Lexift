@@ -1330,7 +1330,7 @@ class MainWindow(QWidget):
             credit_language = {"Korean":"한국어", "English":"영어", "Japanese":"일본어",
                                "Russian":"러시아어", "French":"프랑스어", "Spanish":"스페인어",
                                "German":"독일어", "Chinese":"중국어"}.get(language, language)
-            row.addWidget(label(tr(credit_language), "muted"))
+            row.addWidget(label(tr(credit_language) + ' :', "muted"))
             row.addStretch(1)
             name = label(names, "section", wrap=True)
             if language == "Japanese":
