@@ -3,7 +3,7 @@
 ## English
 - Fixed menu lag and memory leaks.
 - Added keypad tone shortcuts.
-- Fixed candidate-key conflicts and unwanted IME switching.
+- Fixed tone shortcut conflicts and unwanted IME switching.
 
 [User guide](https://luttechan.github.io/lexift/guide/1.0.3/en.html)
 
