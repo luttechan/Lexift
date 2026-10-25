@@ -2,8 +2,9 @@
 **Your keyboard. More languages.**
 
 Switch input languages and turn Hangul pronunciation into Japanese or Chinese.
+Caps Lock changes appear at the center of the screen.
 
-[Download for Windows](https://github.com/luttechan/Lexift/releases/latest) | [English](https://luttechan.github.io/lexift/guide/1.0.2/en.html) | [한국어](https://luttechan.github.io/lexift/guide/1.0.2/ko.html) | [日本語](https://luttechan.github.io/lexift/guide/1.0.2/ja.html) | [简体中文](https://luttechan.github.io/lexift/guide/1.0.2/zh_CN.html) | [繁體中文](https://luttechan.github.io/lexift/guide/1.0.2/zh_TW.html)
+[Download for Windows](https://luttechan.github.io/lexift/) | [English](https://luttechan.github.io/lexift/guide/1.0.2/en.html) | [한국어](https://luttechan.github.io/lexift/guide/1.0.2/ko.html) | [日本語](https://luttechan.github.io/lexift/guide/1.0.2/ja.html) | [简体中文](https://luttechan.github.io/lexift/guide/1.0.2/zh_CN.html) | [繁體中文](https://luttechan.github.io/lexift/guide/1.0.2/zh_TW.html)
 
 | Shortcut | Action |
 |---|---|
@@ -31,6 +32,7 @@ ZIP 압축 해제 후 **Lexift.exe** 실행. 후보는 Space / Enter로 확정�
 Traditional Chinese, Bopomofo and pinyin tone marks. Reorganized settings and a smaller native keyboard helper.
 
 번체, 주음부호, 병음 성조 추가. 설정 분류 및 메모리 사용 개선.
+Caps Lock 켜짐과 꺼짐을 화면 중앙에 표시합니다.
 
 ## Credits
 

@@ -19,10 +19,7 @@ def host_path():
 
 def caret_point(snapshot):
     """Map physical UIA coordinates using the caret's monitor, including its origin."""
-    from ime_windows import user32
-    class MonitorInfo(ctypes.Structure):
-        _fields_=[('size',wintypes.DWORD),('monitor',wintypes.RECT),('work',wintypes.RECT),
-                  ('flags',wintypes.DWORD),('device',wintypes.WCHAR*32)]
+    from ime_windows import user32,MonitorInfo
     user32.MonitorFromPoint.argtypes=[wintypes.POINT,wintypes.DWORD]
     user32.MonitorFromPoint.restype=ctypes.c_void_p
     user32.GetMonitorInfoW.argtypes=[ctypes.c_void_p,ctypes.POINTER(MonitorInfo)]

@@ -1,6 +1,6 @@
 ERROR:root:Could not restore default settings
 Traceback (most recent call last):
-  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\app.py", line 1893, in reset_defaults
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\app.py", line 1898, in reset_defaults
     self.custom_dictionary.replace([])
   File "C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1139, in __call__
     return self._mock_call(*args, **kwargs)
@@ -14,6 +14,6 @@ OSError: test write failure
 WARNING:root:IME 입력 모드를 확인하지 못했습니다. 입력기 설정을 확인하세요.
 WARNING:root:한국어 입력 상태를 확인하지 못했습니다.
 ----------------------------------------------------------------------
-Ran 449 tests in 68.484s
+Ran 454 tests in 41.806s
 
 OK

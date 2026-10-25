@@ -38,6 +38,11 @@ class IMEError(Exception):
     pass
 
 
+class MonitorInfo(ctypes.Structure):
+    _fields_=[('size',wintypes.DWORD),('monitor',wintypes.RECT),('work',wintypes.RECT),
+              ('flags',wintypes.DWORD),('device',wintypes.WCHAR*32)]
+
+
 if sys.platform == "win32":
     user32 = ctypes.WinDLL("user32", use_last_error=True)
     imm32 = ctypes.WinDLL("imm32", use_last_error=True)

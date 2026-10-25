@@ -6,7 +6,7 @@
     {
       "source": "니하오",
       "reading": "ni hao",
-      "elapsed_ms": 43.99,
+      "elapsed_ms": 40.63,
       "candidates": [
         "你好",
         "你号",
@@ -37,7 +37,7 @@
     {
       "source": "셰셰",
       "reading": "xie xie",
-      "elapsed_ms": 0.79,
+      "elapsed_ms": 0.67,
       "candidates": [
         "谢谢",
         "写写",
@@ -68,7 +68,7 @@
     {
       "source": "씨에씨에",
       "reading": "xie xie",
-      "elapsed_ms": 0.88,
+      "elapsed_ms": 0.4,
       "candidates": [
         "谢谢",
         "写写",
@@ -99,7 +99,7 @@
     {
       "source": "워아이니",
       "reading": "wo ai ni",
-      "elapsed_ms": 1.02,
+      "elapsed_ms": 0.85,
       "candidates": [
         "我爱你",
         "我唉你",
@@ -130,7 +130,7 @@
     {
       "source": "중궈",
       "reading": "zhong guo",
-      "elapsed_ms": 0.85,
+      "elapsed_ms": 0.63,
       "candidates": [
         "中国",
         "中过",
@@ -161,7 +161,7 @@
     {
       "source": "베이징",
       "reading": "bei jing",
-      "elapsed_ms": 0.67,
+      "elapsed_ms": 0.45,
       "candidates": [
         "北京",
         "背景",
@@ -192,7 +192,7 @@
     {
       "source": "짜이젠",
       "reading": "zai jian",
-      "elapsed_ms": 1.22,
+      "elapsed_ms": 0.95,
       "candidates": [
         "再见",
         "再建",
@@ -223,7 +223,7 @@
     {
       "source": "니하오마",
       "reading": "ni hao ma",
-      "elapsed_ms": 0.78,
+      "elapsed_ms": 0.52,
       "candidates": [
         "你好吗",
         "你号码",
@@ -254,7 +254,7 @@
     {
       "source": "메이관시",
       "reading": "mei guan xi",
-      "elapsed_ms": 1.02,
+      "elapsed_ms": 1.01,
       "candidates": [
         "没关系",
         "每关系",
@@ -285,7 +285,7 @@
     {
       "source": "진티엔",
       "reading": "jin tian",
-      "elapsed_ms": 0.76,
+      "elapsed_ms": 0.54,
       "candidates": [
         "今天",
         "进天",
@@ -316,7 +316,7 @@
     {
       "source": "펑요우",
       "reading": "peng you",
-      "elapsed_ms": 1.05,
+      "elapsed_ms": 1.23,
       "candidates": [
         "朋友",
         "风有",
@@ -347,7 +347,7 @@
     {
       "source": "췐",
       "reading": "quan",
-      "elapsed_ms": 0.57,
+      "elapsed_ms": 0.54,
       "candidates": [
         "全",
         "村",
@@ -378,7 +378,7 @@
     {
       "source": "췐부",
       "reading": "quan bu",
-      "elapsed_ms": 0.4,
+      "elapsed_ms": 0.49,
       "candidates": [
         "全部",
         "全不",
@@ -409,7 +409,7 @@
     {
       "source": "취엔부",
       "reading": "quan bu",
-      "elapsed_ms": 0.29,
+      "elapsed_ms": 0.59,
       "candidates": [
         "全部",
         "全不",
@@ -440,7 +440,7 @@
     {
       "source": "안췐",
       "reading": "an quan",
-      "elapsed_ms": 0.4,
+      "elapsed_ms": 0.6,
       "candidates": [
         "安全",
         "鹌鹑",
@@ -471,7 +471,7 @@
     {
       "source": "웬췐",
       "reading": "wen quan",
-      "elapsed_ms": 0.68,
+      "elapsed_ms": 0.64,
       "candidates": [
         "温泉",
         "源泉",
@@ -502,7 +502,7 @@
     {
       "source": "쉔저",
       "reading": "xuan ze",
-      "elapsed_ms": 0.69,
+      "elapsed_ms": 0.8,
       "candidates": [
         "选择",
         "顺着",
@@ -533,7 +533,7 @@
     {
       "source": "쉬엔저",
       "reading": "xuan ze",
-      "elapsed_ms": 0.44,
+      "elapsed_ms": 0.32,
       "candidates": [
         "选择",
         "悬着",
@@ -564,7 +564,7 @@
     {
       "source": "줸콴",
       "reading": "juan kuan",
-      "elapsed_ms": 0.66,
+      "elapsed_ms": 0.6,
       "candidates": [
         "捐款",
         "卷款",
@@ -595,7 +595,7 @@
     {
       "source": "위엔",
       "reading": "yuan",
-      "elapsed_ms": 0.27,
+      "elapsed_ms": 0.38,
       "candidates": [
         "元",
         "远",
@@ -626,7 +626,7 @@
     {
       "source": "숑마오",
       "reading": "xiong mao",
-      "elapsed_ms": 0.64,
+      "elapsed_ms": 0.62,
       "candidates": [
         "熊猫",
         "熊毛",
@@ -657,7 +657,7 @@
     {
       "source": "시옹마오",
       "reading": "xiong mao",
-      "elapsed_ms": 0.48,
+      "elapsed_ms": 0.4,
       "candidates": [
         "熊猫",
         "熊毛",
@@ -688,7 +688,7 @@
     {
       "source": "슈에셩",
       "reading": "xue sheng",
-      "elapsed_ms": 0.4,
+      "elapsed_ms": 0.43,
       "candidates": [
         "学生",
         "学省",
@@ -719,7 +719,7 @@
     {
       "source": "퍄오",
       "reading": "biao",
-      "elapsed_ms": 0.57,
+      "elapsed_ms": 0.48,
       "candidates": [
         "表",
         "票",
@@ -750,7 +750,7 @@
     {
       "source": "피아오",
       "reading": "biao",
-      "elapsed_ms": 1.23,
+      "elapsed_ms": 1.51,
       "candidates": [
         "表",
         "票",
@@ -781,7 +781,7 @@
     {
       "source": "치",
       "reading": "qi",
-      "elapsed_ms": 0.54,
+      "elapsed_ms": 0.56,
       "candidates": [
         "其",
         "吃",
@@ -812,7 +812,7 @@
     {
       "source": "치",
       "reading": "qi",
-      "elapsed_ms": 0.33,
+      "elapsed_ms": 0.66,
       "candidates": [
         "其",
         "吃",
@@ -843,7 +843,7 @@
     {
       "source": "츠",
       "reading": "chi",
-      "elapsed_ms": 0.29,
+      "elapsed_ms": 0.39,
       "candidates": [
         "吃",
         "次",
@@ -874,7 +874,7 @@
     {
       "source": "츠",
       "reading": "chi",
-      "elapsed_ms": 0.27,
+      "elapsed_ms": 0.33,
       "candidates": [
         "吃",
         "次",
@@ -905,7 +905,7 @@
     {
       "source": "지",
       "reading": "ji",
-      "elapsed_ms": 1.0,
+      "elapsed_ms": 0.83,
       "candidates": [
         "及",
         "之",
@@ -936,7 +936,7 @@
     {
       "source": "시",
       "reading": "shi",
-      "elapsed_ms": 0.39,
+      "elapsed_ms": 0.32,
       "candidates": [
         "是",
         "时",
@@ -967,7 +967,7 @@
     {
       "source": "치판",
       "reading": "chi fan",
-      "elapsed_ms": 0.96,
+      "elapsed_ms": 0.77,
       "candidates": [
         "吃饭",
         "期盼",
@@ -998,7 +998,7 @@
     {
       "source": "츠판",
       "reading": "chi fan",
-      "elapsed_ms": 0.52,
+      "elapsed_ms": 0.58,
       "candidates": [
         "吃饭",
         "磁盘",
@@ -1029,7 +1029,7 @@
     {
       "source": "치둥시",
       "reading": "chi dong xi",
-      "elapsed_ms": 1.17,
+      "elapsed_ms": 0.99,
       "candidates": [
         "吃东西",
         "其东西",
@@ -1060,7 +1060,7 @@
     {
       "source": "치처",
       "reading": "qi che",
-      "elapsed_ms": 0.6,
+      "elapsed_ms": 1.21,
       "candidates": [
         "汽车",
         "骑车",
@@ -1091,7 +1091,7 @@
     {
       "source": "치위",
       "reading": "qi yu",
-      "elapsed_ms": 0.93,
+      "elapsed_ms": 1.24,
       "candidates": [
         "其余",
         "词语",
@@ -1122,7 +1122,7 @@
     {
       "source": "시거",
       "reading": "shi ge",
-      "elapsed_ms": 0.5,
+      "elapsed_ms": 0.62,
       "candidates": [
         "是个",
         "四个",
@@ -1153,7 +1153,7 @@
     {
       "source": "파오파오",
       "reading": "bao bao",
-      "elapsed_ms": 2.95,
+      "elapsed_ms": 3.2,
       "candidates": [
         "宝宝",
         "泡泡",
@@ -1184,7 +1184,7 @@
     {
       "source": "피아오파이",
       "reading": "biao bai",
-      "elapsed_ms": 3.06,
+      "elapsed_ms": 3.64,
       "candidates": [
         "表白",
         "标牌",
@@ -1215,7 +1215,7 @@
     {
       "source": "타이피아오",
       "reading": "dai biao",
-      "elapsed_ms": 2.78,
+      "elapsed_ms": 3.12,
       "candidates": [
         "代表",
         "太票",
@@ -1246,7 +1246,7 @@
     {
       "source": "쿠앙피아오",
       "reading": "guang biao",
-      "elapsed_ms": 2.69,
+      "elapsed_ms": 3.15,
       "candidates": [
         "光标",
         "狂飙",
@@ -1277,7 +1277,7 @@
     {
       "source": "시안",
       "reading": "xi an",
-      "elapsed_ms": 0.84,
+      "elapsed_ms": 0.96,
       "candidates": [
         "西安",
         "是按",
@@ -1308,7 +1308,7 @@
     {
       "source": "뤼",
       "reading": "lv",
-      "elapsed_ms": 0.4,
+      "elapsed_ms": 0.53,
       "candidates": [
         "率",
         "绿",
@@ -1339,7 +1339,7 @@
     {
       "source": "뉘",
       "reading": "nv",
-      "elapsed_ms": 0.34,
+      "elapsed_ms": 0.25,
       "candidates": [
         "女",
         "钕",
@@ -1358,6 +1358,6 @@
     }
   ],
   "gui_heartbeats": 33,
-  "elapsed_ms": 330,
+  "elapsed_ms": 331,
   "three_shortcuts_registered": true
 }

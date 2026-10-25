@@ -1566,6 +1566,10 @@ class LexiftController(QObject):
         self.store.setValue('traditional_hotkey/key',self.traditional_binding.key)
         self._last_ime_toggle = 0.0
         self._ime_toast = None
+        from caps_lock_indicator import CapsLockIndicator
+        self.caps_indicator=CapsLockIndicator(self)
+        self.caps_indicator.changed.connect(lambda _:self._sound())
+        self.qt.aboutToQuit.connect(self.caps_indicator.stop)
         layouts = available_layouts()
         raw = self.store.value("profiles/slots_json", "", str)
         try:
@@ -1769,6 +1773,7 @@ class LexiftController(QObject):
         if self._stopping or enabled == self._enabled:
             return
         self._enabled = enabled
+        self.caps_indicator.set_enabled(enabled)
         self._cancel_switch()
         self.overlay._selection_revision += 1
         self.overlay.hide()
@@ -2533,6 +2538,7 @@ class LexiftController(QObject):
         if self._stopping:
             return
         self._stopping = True
+        if getattr(self,'caps_indicator',None):self.caps_indicator.stop()
         if getattr(self,'_sounds',None):self._sounds.close()
         from ime_inline import inline_mode
         inline_mode().close()
