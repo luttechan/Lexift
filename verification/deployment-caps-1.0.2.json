@@ -2,10 +2,10 @@
   "passed": true,
   "deployed": true,
   "root": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0.2",
-  "backup": "G:\\AnkiVoice\\KanaShift\\.lexift-backups\\v1.0.2-before-20261025-215922",
-  "source_tests": 454,
+  "backup": "G:\\AnkiVoice\\KanaShift\\.lexift-backups\\v1.0.2-before-20261025-220555",
+  "source_tests": 457,
   "native_checks": 79,
-  "zip_sha256": "e843749d38adc0a720afc1380cdbaf25c762aac0d7a20af65a4aeb3547461e4b",
+  "zip_sha256": "1d34663e580aa7c20b57e901dcaf67768edc2fa170afd5f04bdecc51760e60b7",
   "runtime_files": 333,
   "previous_version_preserved": true,
   "restarted_existing_app": false

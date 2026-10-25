@@ -1,7 +1,7 @@
 {
   "passed": true,
   "version": "1.0.2",
-  "source_tests": 454,
+  "source_tests": 457,
   "native_checks": 79,
   "checks": [
     "runtime",
@@ -13,7 +13,7 @@
     "tones",
     "memory"
   ],
-  "zip_sha256": "e843749d38adc0a720afc1380cdbaf25c762aac0d7a20af65a4aeb3547461e4b",
+  "zip_sha256": "1d34663e580aa7c20b57e901dcaf67768edc2fa170afd5f04bdecc51760e60b7",
   "runtime_files": 333,
   "source_hashes": {
     "module/app.py": "f37e3d8c2614dde0a34de802bf8525b4035112690f6bdaf498a5001eca8509ba",
@@ -21,7 +21,7 @@
     "module/build_native_hooks.py": "9b5db63499fe43ba369f2929c916aec9689c6240a9db3b61503b5c0d31041756",
     "module/build_release.py": "d4d9c0cd9491c56ef52ac5435fe108f7358551eb678480105096e1aef3141451",
     "module/candidate_delegate.py": "f289bcf27fb4f0e015d7cac486ec0c2e74b97b78b73430b866c876de6893f88c",
-    "module/caps_lock_indicator.py": "e62f8a9e952449c65eae2c18cec808e94016911aa5251858e2828cc584b9423d",
+    "module/caps_lock_indicator.py": "933433162acaf1eaea225f6d73111c001af78275df5e4e90b10e475e4f8251bc",
     "module/chinese_diagnostics.py": "57844c09569c9b6bd43601d12cba77bf18f958d2ca8ebff58655e20157241fb4",
     "module/chinese_query_client.py": "a36746bb954e6e237459ddea327ecd53128a19e3d7a6bccbc0ccb6532ed9ebbd",
     "module/chinese_reading.py": "c05e2035bb77fbd7338c20eb083f55ec7c0dd3b3dec774e6df2f807ad68b43ef",
@@ -37,10 +37,10 @@
     "module/hotkeys_windows.py": "cfbda72729ae894735a79903dfda55f5b7f9fabb21b29da0eb9749eebaf8d998",
     "module/i18n.py": "036fc803d46e66a3c0cf57db6f812f665661172bf61bf881b47897e49e3421de",
     "module/ime_diagnostics.py": "23911b9e92e8ca987db9aa402b8708f9e6b345fbfaa06c40dc8d316a87f01fee",
-    "module/ime_inline.py": "7c9ed37892773246d44fe775a3c9fe288031933e22e9ca56f5e9757ba82c7780",
+    "module/ime_inline.py": "c34eabb3a05c8f8ed785b03809707618582615a7f985c6437f8a5f4d397f66ec",
     "module/ime_panel.py": "5664aeefa2862f0658486ac1ab75a8812a714892e9e858f4632fbd085c1715d7",
     "module/ime_query_client.py": "71ac0249911e7ad8b06e3e0416addedb4e1589315deab327d852f2256ac808f8",
-    "module/ime_windows.py": "ae250f4a802fa26ce082ff98b8030cf7bfc0811785256bd608703a784f2c2681",
+    "module/ime_windows.py": "000c7af17aa6ea1ce55b71bd8876a5a10d610583ab65f19b65b02ef97c0dc0f2",
     "module/isolated_hotkeys.py": "45c4ea76f6e1b6a298d7ca6202356fca1e64706ff5813ac3c1afbddb30d796d9",
     "module/kanashift_hooks.dll": "4db0a16e66bcd6dfa51c298b13bc53af13617ea21b18049ca58ff15b3555d6a9",
     "module/keyboard_worker.c": "a221ea2d3d499790d36cc8a89ac7213ed41e25cf4391b3b36c79024aa4405807",
@@ -75,7 +75,7 @@
     "module/tests/test_background_startup.py": "4ec256df62e8eedd78687ebf1ba05aea98d0458670137dfd92405b0eea5aac37",
     "module/tests/test_bootstrap.py": "409a7bdf3d81354e42ca6a38c496ea0a2393003f597c87415a62d0582e4ff1d5",
     "module/tests/test_candidate_position.py": "5614d6cd527497c90cf30e5fe31e60db23f5fdd2ccddbfef5e5e499f5f3fff57",
-    "module/tests/test_caps_lock_indicator.py": "e3049cbb7345c7f01e35c9223fb0f781d693bd0387abace1c812cdb6ad0f54a9",
+    "module/tests/test_caps_lock_indicator.py": "181ef004f50531c860961d40300ba7b5b69e5c0951f637c6c32a88ec6db99f46",
     "module/tests/test_chinese_input.py": "8c574a3fa8f127db4667a4942483774262894df46fa94df11af7389314848ccd",
     "module/tests/test_chinese_variants.py": "ca34bf0dee35bd4d2f20e6a0baaa74da3820ef74b5f2f1e6062e266bde107192",
     "module/tests/test_commit_and_scroll.py": "59764f9a44e9d2a3cec3c0c45321ab7238b1072fbf97dbce4ef46ed4aa610b50",
@@ -170,39 +170,39 @@
   "memory_stages": [
     {
       "name": "background_no_candidate_engines",
-      "working_mb": 62.531,
-      "private_commit_mb": 26.911,
-      "private_working_mb": 23.047
+      "working_mb": 62.703,
+      "private_commit_mb": 27.246,
+      "private_working_mb": 23.215
     },
     {
       "name": "settings_open",
-      "working_mb": 86.922,
-      "private_commit_mb": 42.262,
-      "private_working_mb": 38.289
+      "working_mb": 86.781,
+      "private_commit_mb": 42.297,
+      "private_working_mb": 38.027
     },
     {
       "name": "japanese_engine_ready",
-      "working_mb": 141.019,
-      "private_commit_mb": 55.953,
-      "private_working_mb": 48.367
+      "working_mb": 141.274,
+      "private_commit_mb": 56.402,
+      "private_working_mb": 48.582
     },
     {
       "name": "japanese_released",
-      "working_mb": 91.457,
-      "private_commit_mb": 45.637,
-      "private_working_mb": 41.617
+      "working_mb": 91.738,
+      "private_commit_mb": 46.027,
+      "private_working_mb": 41.785
     },
     {
       "name": "chinese_engine_ready",
-      "working_mb": 93.246,
-      "private_commit_mb": 47.184,
-      "private_working_mb": 42.558
+      "working_mb": 93.559,
+      "private_commit_mb": 47.586,
+      "private_working_mb": 42.754
     },
     {
       "name": "chinese_released",
-      "working_mb": 93.242,
-      "private_commit_mb": 47.11,
-      "private_working_mb": 42.508
+      "working_mb": 93.559,
+      "private_commit_mb": 47.511,
+      "private_working_mb": 42.703
     }
   ],
   "goal_60mb_private_working_met": true,

@@ -43,6 +43,23 @@ class MonitorInfo(ctypes.Structure):
               ('flags',wintypes.DWORD),('device',wintypes.WCHAR*32)]
 
 
+def screen_for_monitor(info,screens,fallback=None):
+    """Qt may expose a friendly model name instead of Windows' DISPLAYn name."""
+    screens=tuple(screens)
+    name=info.device.rsplit('\\',1)[-1].casefold()
+    for screen in screens:
+        if screen.name().rsplit('\\',1)[-1].casefold()==name:return screen
+    # On Windows Qt scales screen sizes, retaining the native screen origins.
+    # Include origin and DPI-scaled extent, so equal-sized monitors stay distinct.
+    width=info.monitor.right-info.monitor.left;height=info.monitor.bottom-info.monitor.top
+    for screen in screens:
+        bounds=screen.geometry();ratio=screen.devicePixelRatio()
+        if (abs(bounds.x()-info.monitor.left)<=1 and abs(bounds.y()-info.monitor.top)<=1
+                and abs(round(bounds.width()*ratio)-width)<=2
+                and abs(round(bounds.height()*ratio)-height)<=2):return screen
+    return fallback
+
+
 if sys.platform == "win32":
     user32 = ctypes.WinDLL("user32", use_last_error=True)
     imm32 = ctypes.WinDLL("imm32", use_last_error=True)

@@ -19,7 +19,7 @@ def host_path():
 
 def caret_point(snapshot):
     """Map physical UIA coordinates using the caret's monitor, including its origin."""
-    from ime_windows import user32,MonitorInfo
+    from ime_windows import user32,MonitorInfo,screen_for_monitor
     user32.MonitorFromPoint.argtypes=[wintypes.POINT,wintypes.DWORD]
     user32.MonitorFromPoint.restype=ctypes.c_void_p
     user32.GetMonitorInfoW.argtypes=[ctypes.c_void_p,ctypes.POINTER(MonitorInfo)]
@@ -29,8 +29,7 @@ def caret_point(snapshot):
     info=MonitorInfo();info.size=ctypes.sizeof(info)
     screen=QApplication.primaryScreen()
     if monitor and user32.GetMonitorInfoW(monitor,ctypes.byref(info)):
-        name=info.device.rsplit('\\',1)[-1].lower()
-        screen=next((s for s in QApplication.screens() if s.name().rsplit('\\',1)[-1].lower()==name),screen)
+        screen=screen_for_monitor(info,QApplication.screens(),screen)
         origin=screen.geometry().topLeft();ratio=screen.devicePixelRatio()
         return QPoint(origin.x()+round((x-info.monitor.left)/ratio),origin.y()+round((y-info.monitor.top)/ratio)+6),screen
     ratio=screen.devicePixelRatio()

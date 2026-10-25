@@ -1,9 +1,9 @@
-269 INFO: PyInstaller: 6.22.0, contrib hooks: 2026.9
-270 INFO: Python: 3.12.14
-346 INFO: Platform: Windows-11-10.0.26220-SP0
-346 INFO: Python environment: C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python
-395 INFO: UPX is available and will be used if enabled on build targets.
-2187 INFO: Module search paths (PYTHONPATH):
+347 INFO: PyInstaller: 6.22.0, contrib hooks: 2026.9
+347 INFO: Python: 3.12.14
+420 INFO: Platform: Windows-11-10.0.26220-SP0
+420 INFO: Python environment: C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python
+469 INFO: UPX is available and will be used if enabled on build targets.
+2750 INFO: Module search paths (PYTHONPATH):
 ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c',
  'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps',
  'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift '
@@ -17,69 +17,69 @@
  'v1.0.2',
  'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift '
  'v1.0.2\\module']
-2988 INFO: Appending 'binaries' from .spec
-2991 INFO: Appending 'datas' from .spec
-3015 INFO: checking Analysis
-3050 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\ime_inline.py changed
-3050 INFO: Looking for Python shared library...
-3052 INFO: Using Python shared library: C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python312.dll
-3052 INFO: Running Analysis Analysis-00.toc
-3052 INFO: Target bytecode optimization level: 0
-3052 INFO: Initializing module dependency graph...
-3054 INFO: Initializing module graph hook caches...
-3084 INFO: Analyzing modules for base_library.zip ...
-5077 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-5942 INFO: Processing standard module hook 'hook-math.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-7094 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-8184 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-8696 INFO: Caching module dependency graph...
-8744 INFO: Analyzing C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\launch.pyw
-8770 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-8846 INFO: Processing standard module hook 'hook-sqlite3.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-9851 INFO: Processing standard module hook 'hook-PySide6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-10119 INFO: Processing standard module hook 'hook-shiboken6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-10283 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-14598 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-20274 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-49827 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-55130 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-55436 INFO: Processing standard module hook 'hook-opencc.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\_pyinstaller_hooks_contrib\\stdhooks'
-55572 INFO: Analyzing hidden import 'opencc.cli'
-55575 INFO: Processing module hooks (post-graph stage)...
-55606 INFO: Performing binary vs. data reclassification (230 entries)
-55703 INFO: Looking for ctypes DLLs
-55779 INFO: Analyzing run-time hooks ...
-55781 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\rthooks'
-55784 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\rthooks'
-55786 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\pre_find_module_path'
-55790 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
-55801 INFO: Creating base_library.zip...
-55825 INFO: Looking for dynamic libraries
-56181 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\shiboken6', 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\opencc.libs']
-56181 INFO: Extra DLL search directories (PATH): ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PySide6']
-58120 INFO: Warnings written to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\warn-Lexift.txt
-58143 INFO: Graph cross-reference written to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\xref-Lexift.html
-58171 INFO: checking PYZ
-58174 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\caps_lock_indicator.py changed
-58174 INFO: Building PYZ (ZlibArchive) C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\PYZ-00.pyz
-58417 INFO: Building PYZ (ZlibArchive) C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\PYZ-00.pyz completed successfully.
-58424 INFO: checking PKG
-58425 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\PYZ-00.pyz changed
-58425 INFO: Building PKG (CArchive) Lexift.pkg
-58449 INFO: Building PKG (CArchive) Lexift.pkg completed successfully.
-58451 INFO: Bootloader C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\.builddeps\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
-58451 INFO: checking EXE
-58454 INFO: Rebuilding EXE-00.toc because pkg is more recent
-58454 INFO: Building EXE from EXE-00.toc
-58455 INFO: Copying bootloader EXE to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\Lexift.exe
-58467 INFO: Copying icon to EXE
-58478 INFO: Copying 0 resources to EXE
-58478 INFO: Embedding manifest in EXE
-58513 INFO: Appending PKG archive to EXE
-58519 INFO: Fixing EXE headers
-58629 INFO: Building EXE from EXE-00.toc completed successfully.
-58634 INFO: checking COLLECT
-58638 INFO: Removing dir C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\dist\Lexift
-58859 INFO: Building COLLECT COLLECT-00.toc
-60311 INFO: Building COLLECT COLLECT-00.toc completed successfully.
-60317 INFO: Build complete! The results are available in: C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\dist
+3587 INFO: Appending 'binaries' from .spec
+3588 INFO: Appending 'datas' from .spec
+3610 INFO: checking Analysis
+3636 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\ime_inline.py changed
+3637 INFO: Looking for Python shared library...
+3637 INFO: Using Python shared library: C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python312.dll
+3637 INFO: Running Analysis Analysis-00.toc
+3637 INFO: Target bytecode optimization level: 0
+3637 INFO: Initializing module dependency graph...
+3638 INFO: Initializing module graph hook caches...
+3664 INFO: Analyzing modules for base_library.zip ...
+5733 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+5819 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+7814 INFO: Processing standard module hook 'hook-math.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+8114 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+9992 INFO: Caching module dependency graph...
+10075 INFO: Analyzing C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\launch.pyw
+10120 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+10332 INFO: Processing standard module hook 'hook-sqlite3.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+11656 INFO: Processing standard module hook 'hook-PySide6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+12013 INFO: Processing standard module hook 'hook-shiboken6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+12242 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+17829 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+24523 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+57110 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+62579 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+62915 INFO: Processing standard module hook 'hook-opencc.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\_pyinstaller_hooks_contrib\\stdhooks'
+63069 INFO: Analyzing hidden import 'opencc.cli'
+63072 INFO: Processing module hooks (post-graph stage)...
+63109 INFO: Performing binary vs. data reclassification (230 entries)
+63216 INFO: Looking for ctypes DLLs
+63307 INFO: Analyzing run-time hooks ...
+63308 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\rthooks'
+63310 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\rthooks'
+63314 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks\\pre_find_module_path'
+63317 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PyInstaller\\hooks'
+63334 INFO: Creating base_library.zip...
+63362 INFO: Looking for dynamic libraries
+63768 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\shiboken6', 'C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\opencc.libs']
+63768 INFO: Extra DLL search directories (PATH): ['C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\.builddeps\\PySide6']
+66309 INFO: Warnings written to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\warn-Lexift.txt
+66335 INFO: Graph cross-reference written to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\xref-Lexift.html
+66362 INFO: checking PYZ
+66365 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\caps_lock_indicator.py changed
+66365 INFO: Building PYZ (ZlibArchive) C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\PYZ-00.pyz
+66640 INFO: Building PYZ (ZlibArchive) C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\PYZ-00.pyz completed successfully.
+66647 INFO: checking PKG
+66647 INFO: Building because C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\PYZ-00.pyz changed
+66647 INFO: Building PKG (CArchive) Lexift.pkg
+66675 INFO: Building PKG (CArchive) Lexift.pkg completed successfully.
+66676 INFO: Bootloader C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\.builddeps\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+66676 INFO: checking EXE
+66677 INFO: Rebuilding EXE-00.toc because pkg is more recent
+66677 INFO: Building EXE from EXE-00.toc
+66680 INFO: Copying bootloader EXE to C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\module\build\Lexift\Lexift.exe
+66694 INFO: Copying icon to EXE
+66704 INFO: Copying 0 resources to EXE
+66704 INFO: Embedding manifest in EXE
+66736 INFO: Appending PKG archive to EXE
+66744 INFO: Fixing EXE headers
+66863 INFO: Building EXE from EXE-00.toc completed successfully.
+66869 INFO: checking COLLECT
+66875 INFO: Removing dir C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\dist\Lexift
+67097 INFO: Building COLLECT COLLECT-00.toc
+68971 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+68979 INFO: Build complete! The results are available in: C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.2\dist

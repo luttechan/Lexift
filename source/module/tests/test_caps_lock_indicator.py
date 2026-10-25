@@ -54,3 +54,28 @@ class CapsLockIndicatorTests(unittest.TestCase):
             before=len(ctypes._pointer_type_cache)
             for _ in range(200):active_screen();caret_point(dict(x=0,y=0))
             self.assertLessEqual(len(ctypes._pointer_type_cache)-before,2)
+
+
+class MonitorMappingTests(unittest.TestCase):
+    def screen(self,name,rect,ratio=1):
+        value=Mock();value.name.return_value=name;value.geometry.return_value=QRect(*rect)
+        value.devicePixelRatio.return_value=ratio;return value
+    def info(self,name,rect):
+        from ime_windows import MonitorInfo
+        value=MonitorInfo();value.device=name
+        value.monitor.left,value.monitor.top,value.monitor.right,value.monitor.bottom=rect
+        return value
+    def test_friendly_names_select_the_foreground_monitor_by_origin_and_extent(self):
+        from ime_windows import screen_for_monitor
+        first=self.screen('Legion 24-10',(0,0,1920,1080));second=self.screen('LG IPS FULLHD',(1920,0,1920,1080))
+        info=self.info('DISPLAY3',(1920,0,3840,1080))
+        self.assertIs(screen_for_monitor(info,[first,second],first),second)
+    def test_negative_origin_and_mixed_dpi_use_logical_geometry_correctly(self):
+        from ime_windows import screen_for_monitor
+        first=self.screen('primary',(0,0,1920,1080));second=self.screen('scaled',(-1920,-120,1280,720),1.5)
+        info=self.info('DISPLAY4',(-1920,-120,0,960))
+        self.assertIs(screen_for_monitor(info,[first,second],first),second)
+    def test_legacy_windows_device_names_remain_supported(self):
+        from ime_windows import screen_for_monitor
+        first=self.screen('DISPLAY2',(0,0,1920,1080))
+        self.assertIs(screen_for_monitor(self.info('\\\\.\\DISPLAY2',(0,0,1920,1080)),[first]),first)

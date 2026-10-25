@@ -15,7 +15,7 @@ def caps_lock_state():
 
 def active_screen():
     """Use the foreground window's monitor, mapped to Qt's logical geometry."""
-    from ime_windows import user32,MonitorInfo
+    from ime_windows import user32,MonitorInfo,screen_for_monitor
     user32.MonitorFromWindow.argtypes=[wintypes.HWND,wintypes.DWORD]
     user32.MonitorFromWindow.restype=wintypes.HANDLE
     user32.GetMonitorInfoW.argtypes=[wintypes.HANDLE,ctypes.POINTER(MonitorInfo)]
@@ -23,8 +23,8 @@ def active_screen():
     monitor=user32.MonitorFromWindow(user32.GetForegroundWindow(),2)
     info=MonitorInfo();info.size=ctypes.sizeof(info)
     if monitor and user32.GetMonitorInfoW(monitor,ctypes.byref(info)):
-        for screen in QApplication.screens():
-            if screen.name().casefold()==info.device.casefold():return screen
+        screen=screen_for_monitor(info,QApplication.screens())
+        if screen:return screen
     return QApplication.screenAt(QCursor.pos()) or QApplication.primaryScreen()
 
 

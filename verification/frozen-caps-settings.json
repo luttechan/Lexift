@@ -24,32 +24,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 36.186,
-      "prepare_ms": 0.064,
+      "first_visit_ms": 41.535,
+      "prepare_ms": 0.136,
       "navigation": [
         {
           "page": 2,
-          "ms": 8.479
+          "ms": 10.863
         },
         {
           "page": 1,
-          "ms": 31.232
+          "ms": 34.839
         },
         {
           "page": 3,
-          "ms": 28.341
+          "ms": 35.661
         },
         {
           "page": 4,
-          "ms": 40.696
+          "ms": 64.085
         },
         {
           "page": 0,
-          "ms": 4.472
+          "ms": 5.9
         },
         {
           "page": 2,
-          "ms": 6.918
+          "ms": 7.894
         }
       ]
     },
@@ -75,32 +75,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 11.267,
-      "prepare_ms": 0.064,
+      "first_visit_ms": 11.299,
+      "prepare_ms": 0.237,
       "navigation": [
         {
           "page": 2,
-          "ms": 8.542
+          "ms": 6.941
         },
         {
           "page": 1,
-          "ms": 12.056
+          "ms": 13.498
         },
         {
           "page": 3,
-          "ms": 10.713
+          "ms": 17.35
         },
         {
           "page": 4,
-          "ms": 26.276
+          "ms": 31.226
         },
         {
           "page": 0,
-          "ms": 4.553
+          "ms": 4.218
         },
         {
           "page": 2,
-          "ms": 5.877
+          "ms": 5.74
         }
       ]
     },
@@ -126,32 +126,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 41.122,
-      "prepare_ms": 0.506,
+      "first_visit_ms": 43.911,
+      "prepare_ms": 0.174,
       "navigation": [
         {
           "page": 2,
-          "ms": 7.783
+          "ms": 9.19
         },
         {
           "page": 1,
-          "ms": 33.132
+          "ms": 37.227
         },
         {
           "page": 3,
-          "ms": 40.578
+          "ms": 37.831
         },
         {
           "page": 4,
-          "ms": 32.357
+          "ms": 31.269
         },
         {
           "page": 0,
-          "ms": 4.286
+          "ms": 3.9
         },
         {
           "page": 2,
-          "ms": 7.14
+          "ms": 6.745
         }
       ]
     },
@@ -177,32 +177,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 29.867,
-      "prepare_ms": 0.162,
+      "first_visit_ms": 47.805,
+      "prepare_ms": 0.071,
       "navigation": [
         {
           "page": 2,
-          "ms": 6.871
+          "ms": 9.124
         },
         {
           "page": 1,
-          "ms": 26.271
+          "ms": 44.796
         },
         {
           "page": 3,
-          "ms": 33.004
+          "ms": 48.52
         },
         {
           "page": 4,
-          "ms": 25.789
+          "ms": 35.634
         },
         {
           "page": 0,
-          "ms": 4.511
+          "ms": 5.906
         },
         {
           "page": 2,
-          "ms": 5.963
+          "ms": 7.594
         }
       ]
     },
@@ -228,32 +228,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 23.954,
-      "prepare_ms": 0.271,
+      "first_visit_ms": 51.693,
+      "prepare_ms": 0.192,
       "navigation": [
         {
           "page": 2,
-          "ms": 5.99
+          "ms": 15.873
         },
         {
           "page": 1,
-          "ms": 25.866
+          "ms": 67.019
         },
         {
           "page": 3,
-          "ms": 28.057
+          "ms": 70.209
         },
         {
           "page": 4,
-          "ms": 24.536
+          "ms": 33.503
         },
         {
           "page": 0,
-          "ms": 4.069
+          "ms": 6.472
         },
         {
           "page": 2,
-          "ms": 6.234
+          "ms": 7.083
         }
       ]
     },
@@ -279,32 +279,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 10.02,
-      "prepare_ms": 0.468,
+      "first_visit_ms": 20.084,
+      "prepare_ms": 0.072,
       "navigation": [
         {
           "page": 2,
-          "ms": 7.324
+          "ms": 8.527
         },
         {
           "page": 1,
-          "ms": 8.6
+          "ms": 13.211
         },
         {
           "page": 3,
-          "ms": 8.475
+          "ms": 14.201
         },
         {
           "page": 4,
-          "ms": 12.405
+          "ms": 20.647
         },
         {
           "page": 0,
-          "ms": 4.563
+          "ms": 7.322
         },
         {
           "page": 2,
-          "ms": 5.655
+          "ms": 8.06
         }
       ]
     },
@@ -330,32 +330,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 7.932,
-      "prepare_ms": 0.064,
+      "first_visit_ms": 9.349,
+      "prepare_ms": 0.067,
       "navigation": [
         {
           "page": 2,
-          "ms": 7.821
+          "ms": 6.06
         },
         {
           "page": 1,
-          "ms": 11.112
+          "ms": 10.087
         },
         {
           "page": 3,
-          "ms": 7.007
+          "ms": 7.537
         },
         {
           "page": 4,
-          "ms": 12.443
+          "ms": 12.848
         },
         {
           "page": 0,
-          "ms": 3.588
+          "ms": 4.105
         },
         {
           "page": 2,
-          "ms": 5.505
+          "ms": 5.441
         }
       ]
     },
@@ -381,32 +381,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 14.06,
-      "prepare_ms": 0.879,
+      "first_visit_ms": 17.761,
+      "prepare_ms": 0.191,
       "navigation": [
         {
           "page": 2,
-          "ms": 5.711
+          "ms": 6.009
         },
         {
           "page": 1,
-          "ms": 12.075
+          "ms": 14.827
         },
         {
           "page": 3,
-          "ms": 13.314
+          "ms": 17.794
         },
         {
           "page": 4,
-          "ms": 24.523
+          "ms": 42.162
         },
         {
           "page": 0,
-          "ms": 4.004
+          "ms": 5.255
         },
         {
           "page": 2,
-          "ms": 8.399
+          "ms": 8.656
         }
       ]
     },
@@ -432,32 +432,32 @@
         "dictionary_loaded": true,
         "dictionary_saved": true
       },
-      "first_visit_ms": 7.183,
-      "prepare_ms": 0.079,
+      "first_visit_ms": 10.934,
+      "prepare_ms": 0.281,
       "navigation": [
         {
           "page": 2,
-          "ms": 5.753
+          "ms": 9.213
         },
         {
           "page": 1,
-          "ms": 8.55
+          "ms": 13.509
         },
         {
           "page": 3,
-          "ms": 7.54
+          "ms": 8.415
         },
         {
           "page": 4,
-          "ms": 13.636
+          "ms": 16.564
         },
         {
           "page": 0,
-          "ms": 3.745
+          "ms": 4.248
         },
         {
           "page": 2,
-          "ms": 4.681
+          "ms": 6.868
         }
       ]
     }
