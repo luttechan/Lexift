@@ -22,10 +22,25 @@ static BOOL transmit(const char *value) {
     return TRUE;
 }
 static const char *field(const char *json,const char *key) {
-    char pattern[80];snprintf(pattern,sizeof pattern,"\"%s\"",key);
-    const char *p=strstr(json,pattern);if(!p)return NULL;p+=strlen(pattern);
-    while(*p==' '||*p=='\t')p++;if(*p++!=':')return NULL;
-    while(*p==' '||*p=='\t')p++;return p;
+    size_t length=strlen(key);
+    const char *p=json;
+    while((p=strchr(p,'\"'))) {
+        const char *start=++p;BOOL escaped=FALSE;
+        while(*p && *p!='\"') {
+            if(*p=='\\') {escaped=TRUE;if(!p[1])return NULL;p+=2;}
+            else p++;
+        }
+        if(!*p)return NULL;
+        const char *end=p++;
+        while(*p==' '||*p=='\t'||*p=='\r'||*p=='\n')p++;
+        /* A string value can equal a key: operation="active" is not the
+         * active field. Skip complete strings, including escaped quotes. */
+        if(*p==':' && !escaped && (size_t)(end-start)==length && !memcmp(start,key,length)) {
+            p++;while(*p==' '||*p=='\t'||*p=='\r'||*p=='\n')p++;
+            return p;
+        }
+    }
+    return NULL;
 }
 static BOOL text(const char *json,const char *key,char *out,size_t capacity,const char *fallback) {
     const char *p=field(json,key);

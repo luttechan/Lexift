@@ -1,7 +1,7 @@
 {
   "passed": true,
   "version": "1.0.3",
-  "source_tests": 470,
+  "source_tests": 472,
   "native_checks": 79,
   "checks": [
     "runtime",
@@ -43,11 +43,11 @@
     "module/ime_windows.py": "000c7af17aa6ea1ce55b71bd8876a5a10d610583ab65f19b65b02ef97c0dc0f2",
     "module/isolated_hotkeys.py": "45c4ea76f6e1b6a298d7ca6202356fca1e64706ff5813ac3c1afbddb30d796d9",
     "module/kanashift_hooks.dll": "67692a06db494c1427f44b338127442cd4d6105ddea1b9520c053f507961f084",
-    "module/keyboard_worker.c": "a221ea2d3d499790d36cc8a89ac7213ed41e25cf4391b3b36c79024aa4405807",
-    "module/keyboard_worker_build.json": "0da686f4f7fcde81bbbd7b9f4a5f7d42fde7aed357288d135b69c3b6ba21a57e",
+    "module/keyboard_worker.c": "0bc737aeaf6d466bcdefc5f910d65ffe86858ea06954eab2a06575dcb2c7b59e",
+    "module/keyboard_worker_build.json": "7167a90f9888951a81e99dcd3f1d3eaccd651c0e459c6e4a344ea27a00a63f64",
     "module/korean_activation.py": "632941c7e7b7852253165516e6bd8a9441c351c9d98a5f2d42bd84ab6a5388df",
     "module/layout_profiles.py": "f1d72b03d956f8b621fb08b6c27fb898dd9ca706c9794782730e1b018e4c7705",
-    "module/lexift_keyboard.exe": "4b33a2a5f22ce6d605ecaa12179ce5bead488294c0f9d9efe849a8a29d6c41c6",
+    "module/lexift_keyboard.exe": "358287501cd69b40d8259ebb0a558d65414e234d83b05f800231cf3a068c4230",
     "module/localized_dialogs.py": "ec8e1f18d854376c688975b37d782d0befe709c646f76311b89537179058053b",
     "module/memory_diagnostics.py": "58ee6c851d3483e6ace4b5efc84559210613b713e9c0b4d64f7ca72963a37933",
     "module/menu_diagnostics.py": "a6309fe03c0af72194cea1075207a4d2eb48bec7ba35c302a1340082b712e382",
@@ -167,10 +167,13 @@
     "lab/shortcut_smoke.py": "46c3b7546d23f5642c9940f5a91efd5f0becaaa4a5dbdfae7fda0b966fc2422b",
     "lab/structural_query_test.py": "b790b925b16754c4d6aa94b0a33bf91a9b0d7193c135f2a81f938d378841eb6b",
     "lab/wo_particle_diagnostics.py": "1fc0cb234e31938c7a7d87419a27c3cf29e7d8fb8aa7e6f8a1d4cf651a5295ad",
-    "launch.pyw": "5664b8d814d441745d19e84542566cf68ce036e7bb5a223900e04828f52b5230"
+    "launch.pyw": "5664b8d814d441745d19e84542566cf68ce036e7bb5a223900e04828f52b5230",
+    "module/tests/worker_protocol_fixture.c": "0c678a78608edd4c90798c9db734f6c29e4ee1edd166fe8a820dc107f767d3ba",
+    "module/tests/worker_protocol_fixture.exe": "897b880e9aff1f46a485f1ec05cf26f1decddd2365ab3d12ac836ae279a38dfa",
+    "module/tests/test_worker_protocol.py": "ffc57377d9524c1e3857ffa2a19fa620e009f890559ee2b9e934cfc81e36b89f"
   },
-  "zip_sha256": "006a9e4a0fbdda55aa9feabdf4383c8044372e55e4d4483b3a7f72f15e0c1e0c",
-  "runtime_files": 335,
+  "zip_sha256": "ed15272722242984f53824c3b44ad4f43607ed22e457ba702342289aed3b0b97",
+  "runtime_files": 322,
   "first_main_ms": [
     3.605,
     53.207
@@ -339,5 +342,8 @@
   ],
   "goal_60mb_total_working_met": false,
   "documentation_updated": true,
-  "previous_zip_sha256": "fba6beb6c3d27c07b9e0ff0674c43d3083f6f5c1ad216f75a4892df7f6dae44f"
+  "previous_zip_sha256": "006a9e4a0fbdda55aa9feabdf4383c8044372e55e4d4483b3a7f72f15e0c1e0c",
+  "markdown_cleanup": true,
+  "selector_protocol_checks": 15,
+  "selector_hotfix": true
 }
