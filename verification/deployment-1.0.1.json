@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "version": "1.0.1",
+  "target": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0.1",
+  "baseline": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0",
+  "baseline_unchanged": true,
+  "source_files": 178,
+  "runtime_files": 235,
+  "source_tests": 409,
+  "japanese_queries": 20,
+  "chinese_queries": 44,
+  "assets_inherited": true,
+  "zip_sha256": "5ffc4e6b230b8e8090d00defbda6b853fedc114737b950fba94d3c73b5f65c47",
+  "github_published": false
+}

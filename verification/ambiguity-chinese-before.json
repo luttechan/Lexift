@@ -1,0 +1,5017 @@
+{
+  "checked": 39032,
+  "missing": 1002,
+  "examples": [
+    {
+      "source": "파오파오",
+      "reading": "bao bao",
+      "word": "宝宝"
+    },
+    {
+      "source": "파오피아오",
+      "reading": "bao biao",
+      "word": "报表"
+    },
+    {
+      "source": "피아오파이",
+      "reading": "biao bai",
+      "word": "表白"
+    },
+    {
+      "source": "피아오투안",
+      "reading": "biao duan",
+      "word": "标段"
+    },
+    {
+      "source": "피아오카오",
+      "reading": "biao gao",
+      "word": "标高"
+    },
+    {
+      "source": "피아오쑤아이",
+      "reading": "biao shuai",
+      "word": "表率"
+    },
+    {
+      "source": "투안티아오",
+      "reading": "duan diao",
+      "word": "断掉"
+    },
+    {
+      "source": "타이피아오",
+      "reading": "dai biao",
+      "word": "代表"
+    },
+    {
+      "source": "타오티아오",
+      "reading": "dao diao",
+      "word": "倒掉"
+    },
+    {
+      "source": "티아오파오",
+      "reading": "diao bao",
+      "word": "碉堡"
+    },
+    {
+      "source": "티아오타오",
+      "reading": "diao dao",
+      "word": "调到"
+    },
+    {
+      "source": "티아오티아오",
+      "reading": "diao diao",
+      "word": "调调"
+    },
+    {
+      "source": "쿠아티아오",
+      "reading": "gua diao",
+      "word": "挂掉"
+    },
+    {
+      "source": "쿠안티아오",
+      "reading": "guan diao",
+      "word": "关掉"
+    },
+    {
+      "source": "쿠앙피아오",
+      "reading": "guang biao",
+      "word": "光标"
+    },
+    {
+      "source": "쿠앙티아오",
+      "reading": "guang diao",
+      "word": "光雕"
+    },
+    {
+      "source": "쿠아이쿠아이",
+      "reading": "guai guai",
+      "word": "乖乖"
+    },
+    {
+      "source": "쿠아이짜오",
+      "reading": "guai jiao",
+      "word": "拐角"
+    },
+    {
+      "source": "쿠아이차오",
+      "reading": "guai qiao",
+      "word": "乖巧"
+    },
+    {
+      "source": "카오티아오",
+      "reading": "gao diao",
+      "word": "高调"
+    },
+    {
+      "source": "카오쿠아이",
+      "reading": "gao guai",
+      "word": "搞怪"
+    },
+    {
+      "source": "짜오피아오",
+      "reading": "zhao biao",
+      "word": "招标"
+    },
+    {
+      "source": "차오피아오",
+      "reading": "chao biao",
+      "word": "超标"
+    },
+    {
+      "source": "쑤아이티아오",
+      "reading": "shuai diao",
+      "word": "甩掉"
+    },
+    {
+      "source": "이아오쿠아이",
+      "reading": "yao guai",
+      "word": "妖怪"
+    },
+    {
+      "source": "파이파시",
+      "reading": "bai ba shi",
+      "word": "百八十"
+    },
+    {
+      "source": "파이파이터",
+      "reading": "bai bai de",
+      "word": "白白的"
+    },
+    {
+      "source": "파이파오샹",
+      "reading": "bai bao xiang",
+      "word": "百宝箱"
+    },
+    {
+      "source": "파이펀파이",
+      "reading": "bai fen bai",
+      "word": "百分百"
+    },
+    {
+      "source": "파이로포",
+      "reading": "bai luo bo",
+      "word": "白萝卜"
+    },
+    {
+      "source": "파이카이쒸",
+      "reading": "bai kai shui",
+      "word": "白开水"
+    },
+    {
+      "source": "파이시파오",
+      "reading": "bai xi bao",
+      "word": "白细胞"
+    },
+    {
+      "source": "파오파오터",
+      "reading": "bao bao de",
+      "word": "薄薄的"
+    },
+    {
+      "source": "파오밍피아오",
+      "reading": "bao ming biao",
+      "word": "报名表"
+    },
+    {
+      "source": "파오터우시",
+      "reading": "bao tou shi",
+      "word": "包头市"
+    },
+    {
+      "source": "파오쿠안탄",
+      "reading": "bao guan dan",
+      "word": "报关单"
+    },
+    {
+      "source": "파오쿠안웬",
+      "reading": "bao guan yuan",
+      "word": "报关员"
+    },
+    {
+      "source": "파오카오슈",
+      "reading": "bao gao shu",
+      "word": "报告书"
+    },
+    {
+      "source": "파오콩터우",
+      "reading": "bao gong tou",
+      "word": "包工头"
+    },
+    {
+      "source": "파오짜오지",
+      "reading": "bao jiao zi",
+      "word": "包饺子"
+    },
+    {
+      "source": "파오쭈앙타이",
+      "reading": "bao zhuang dai",
+      "word": "包装袋"
+    },
+    {
+      "source": "파오쭈앙지",
+      "reading": "bao zhuang ji",
+      "word": "包装机"
+    },
+    {
+      "source": "파오써우파이",
+      "reading": "bao shou pai",
+      "word": "保守派"
+    },
+    {
+      "source": "피아오타시",
+      "reading": "biao da shi",
+      "word": "表达式"
+    },
+    {
+      "source": "피아오쮄판",
+      "reading": "biao zhun ban",
+      "word": "标准版"
+    },
+    {
+      "source": "피아오쮄후아",
+      "reading": "biao zhun hua",
+      "word": "标准化"
+    },
+    {
+      "source": "피아오시푸",
+      "reading": "biao shi fu",
+      "word": "标识符"
+    },
+    {
+      "source": "푸파오쩡",
+      "reading": "bu bao zheng",
+      "word": "不保证"
+    },
+    {
+      "source": "푸푸카오",
+      "reading": "bu bu gao",
+      "word": "步步高"
+    },
+    {
+      "source": "푸리아오러",
+      "reading": "bu liao le",
+      "word": "不了了"
+    },
+    {
+      "source": "푸칸짜오",
+      "reading": "bu gan jiao",
+      "word": "不干胶"
+    },
+    {
+      "source": "푸쒸짜오",
+      "reading": "bu shui jiao",
+      "word": "不睡觉"
+    },
+    {
+      "source": "파이쿠앙카오",
+      "reading": "pai guang gao",
+      "word": "拍广告"
+    },
+    {
+      "source": "피아오판지",
+      "reading": "piao fan zi",
+      "word": "票贩子"
+    },
+    {
+      "source": "파피아오쩌",
+      "reading": "fa biao zhe",
+      "word": "发表者"
+    },
+    {
+      "source": "파쿠앙카오",
+      "reading": "fa guang gao",
+      "word": "发广告"
+    },
+    {
+      "source": "판푸짜오",
+      "reading": "fan bu zhao",
+      "word": "犯不着"
+    },
+    {
+      "source": "타파이차이",
+      "reading": "da bai cai",
+      "word": "大白菜"
+    },
+    {
+      "source": "타푸리아오",
+      "reading": "da bu liao",
+      "word": "大不了"
+    },
+    {
+      "source": "타짜오타오",
+      "reading": "da jiao dao",
+      "word": "打交道"
+    },
+    {
+      "source": "타지파오",
+      "reading": "da zi bao",
+      "word": "大字报"
+    },
+    {
+      "source": "타이피아오튀",
+      "reading": "dai biao dui",
+      "word": "代表队"
+    },
+    {
+      "source": "타이피아오투안",
+      "reading": "dai biao tuan",
+      "word": "代表团"
+    },
+    {
+      "source": "타이피아오씽",
+      "reading": "dai biao xing",
+      "word": "代表性"
+    },
+    {
+      "source": "타이피아오추",
+      "reading": "dai biao chu",
+      "word": "代表处"
+    },
+    {
+      "source": "타이피아오쪼",
+      "reading": "dai biao zuo",
+      "word": "代表作"
+    },
+    {
+      "source": "탕타이피아오",
+      "reading": "dang dai biao",
+      "word": "党代表"
+    },
+    {
+      "source": "타오푸리아오",
+      "reading": "dao bu liao",
+      "word": "到不了"
+    },
+    {
+      "source": "타오푸시",
+      "reading": "dao bu shi",
+      "word": "倒不是"
+    },
+    {
+      "source": "타오터쿠안",
+      "reading": "dao de guan",
+      "word": "道德观"
+    },
+    {
+      "source": "타오충시",
+      "reading": "dao qiong si",
+      "word": "道琼斯"
+    },
+    {
+      "source": "텅지피아오",
+      "reading": "deng ji biao",
+      "word": "登记表"
+    },
+    {
+      "source": "티파티아오",
+      "reading": "di ba tiao",
+      "word": "第八条"
+    },
+    {
+      "source": "티시티아오",
+      "reading": "di si tiao",
+      "word": "第四条"
+    },
+    {
+      "source": "티아오차피아오",
+      "reading": "diao cha biao",
+      "word": "调查表"
+    },
+    {
+      "source": "티아오차쭈",
+      "reading": "diao cha zu",
+      "word": "调查组"
+    },
+    {
+      "source": "티아오유타오",
+      "reading": "diao yu dao",
+      "word": "钓鱼岛"
+    },
+    {
+      "source": "티아오유타이",
+      "reading": "diao yu tai",
+      "word": "钓鱼台"
+    },
+    {
+      "source": "타오파오우앙",
+      "reading": "tao bao wang",
+      "word": "淘宝网"
+    },
+    {
+      "source": "타오이아오파오",
+      "reading": "tao yao bao",
+      "word": "掏腰包"
+    },
+    {
+      "source": "티아오위리아오",
+      "reading": "tiao wei liao",
+      "word": "调味料"
+    },
+    {
+      "source": "루안짜오짜오",
+      "reading": "luan zao zao",
+      "word": "乱糟糟"
+    },
+    {
+      "source": "라이피아오시",
+      "reading": "lai biao shi",
+      "word": "来表示"
+    },
+    {
+      "source": "라오짜오써우",
+      "reading": "lao jiao shou",
+      "word": "老教授"
+    },
+    {
+      "source": "리앙차오위",
+      "reading": "liang chao wei",
+      "word": "梁朝伟"
+    },
+    {
+      "source": "로시타오",
+      "reading": "luo si dao",
+      "word": "螺丝刀"
+    },
+    {
+      "source": "쿠안푸리아오",
+      "reading": "guan bu liao",
+      "word": "管不了"
+    },
+    {
+      "source": "쿠앙카오파이",
+      "reading": "guang gao pai",
+      "word": "广告牌"
+    },
+    {
+      "source": "쿠앙카오페이",
+      "reading": "guang gao fei",
+      "word": "广告费"
+    },
+    {
+      "source": "쿠앙카오티아오",
+      "reading": "guang gao tiao",
+      "word": "广告条"
+    },
+    {
+      "source": "쿠앙카오쭈",
+      "reading": "guang gao zhu",
+      "word": "广告主"
+    },
+    {
+      "source": "쿠앙카오쌍",
+      "reading": "guang gao shang",
+      "word": "广告商"
+    },
+    {
+      "source": "쿠앙카오치",
+      "reading": "guang gao ci",
+      "word": "广告词"
+    },
+    {
+      "source": "쿠앙카오유",
+      "reading": "guang gao yu",
+      "word": "广告语"
+    },
+    {
+      "source": "쿠앙카오위",
+      "reading": "guang gao wei",
+      "word": "广告位"
+    },
+    {
+      "source": "쿠앙쩌우시",
+      "reading": "guang zhou shi",
+      "word": "广州市"
+    },
+    {
+      "source": "쿠아이푸터",
+      "reading": "guai bu de",
+      "word": "怪不得"
+    },
+    {
+      "source": "쿠아이쿠아이터",
+      "reading": "guai guai de",
+      "word": "乖乖的"
+    },
+    {
+      "source": "카이푸리아오",
+      "reading": "gai bu liao",
+      "word": "改不了"
+    },
+    {
+      "source": "카이푸카이",
+      "reading": "gai bu gai",
+      "word": "该不该"
+    },
+    {
+      "source": "카오피아오쮄",
+      "reading": "gao biao zhun",
+      "word": "高标准"
+    },
+    {
+      "source": "카오펀지",
+      "reading": "gao fen zi",
+      "word": "高分子"
+    },
+    {
+      "source": "카오탄파이",
+      "reading": "gao dan bai",
+      "word": "高蛋白"
+    },
+    {
+      "source": "카오카오터",
+      "reading": "gao gao de",
+      "word": "高高的"
+    },
+    {
+      "source": "카오쒸쮄",
+      "reading": "gao shui zhun",
+      "word": "高水准"
+    },
+    {
+      "source": "케이파오파오",
+      "reading": "gei bao bao",
+      "word": "给宝宝"
+    },
+    {
+      "source": "커우푸커우",
+      "reading": "gou bu gou",
+      "word": "够不够"
+    },
+    {
+      "source": "커우짜이튀",
+      "reading": "gou zai dui",
+      "word": "狗仔队"
+    },
+    {
+      "source": "콩쪼피아오",
+      "reading": "gong zuo biao",
+      "word": "工作表"
+    },
+    {
+      "source": "코푸리아오",
+      "reading": "guo bu liao",
+      "word": "过不了"
+    },
+    {
+      "source": "쿠아이처타오",
+      "reading": "kuai che dao",
+      "word": "快车道"
+    },
+    {
+      "source": "카오페이타오",
+      "reading": "kao bei dao",
+      "word": "拷贝到"
+    },
+    {
+      "source": "하이타오추안",
+      "reading": "hai dao chuan",
+      "word": "海盗船"
+    },
+    {
+      "source": "하오투안투안",
+      "reading": "hao duan duan",
+      "word": "好端端"
+    },
+    {
+      "source": "짜커피아오",
+      "reading": "jia ge biao",
+      "word": "价格表"
+    },
+    {
+      "source": "짜오써우짜",
+      "reading": "jiao shou jia",
+      "word": "脚手架"
+    },
+    {
+      "source": "짜오유푸",
+      "reading": "jiao yu bu",
+      "word": "教育部"
+    },
+    {
+      "source": "쭈짜이커우",
+      "reading": "jiu zhai gou",
+      "word": "九寨沟"
+    },
+    {
+      "source": "차오푸시",
+      "reading": "qiao bu si",
+      "word": "乔布斯"
+    },
+    {
+      "source": "차오차오터",
+      "reading": "qiao qiao de",
+      "word": "悄悄的"
+    },
+    {
+      "source": "차오차오후아",
+      "reading": "qiao qiao hua",
+      "word": "悄悄话"
+    },
+    {
+      "source": "쒠추안푸",
+      "reading": "xuan chuan bu",
+      "word": "宣传部"
+    },
+    {
+      "source": "샤오파이슈",
+      "reading": "xiao bai shu",
+      "word": "小白鼠"
+    },
+    {
+      "source": "샤오파이차이",
+      "reading": "xiao bai cai",
+      "word": "小白菜"
+    },
+    {
+      "source": "샤오파오파오",
+      "reading": "xiao bao bao",
+      "word": "小宝宝"
+    },
+    {
+      "source": "샤오파오페이",
+      "reading": "xiao bao bei",
+      "word": "小宝贝"
+    },
+    {
+      "source": "샤오쿠앙카오",
+      "reading": "xiao guang gao",
+      "word": "小广告"
+    },
+    {
+      "source": "샤오하오티아오",
+      "reading": "xiao hao diao",
+      "word": "消耗掉"
+    },
+    {
+      "source": "샤오쑤아이커",
+      "reading": "xiao shuai ge",
+      "word": "小帅哥"
+    },
+    {
+      "source": "샤오써우푸",
+      "reading": "xiao shou bu",
+      "word": "销售部"
+    },
+    {
+      "source": "슈카이카오",
+      "reading": "xiu gai gao",
+      "word": "修改稿"
+    },
+    {
+      "source": "쭈안짜이카오",
+      "reading": "zhuan zai gao",
+      "word": "转载稿"
+    },
+    {
+      "source": "쭈안짜이지",
+      "reading": "zhuan zai zi",
+      "word": "转载自"
+    },
+    {
+      "source": "짱파이지",
+      "reading": "zhang bai zhi",
+      "word": "张柏芝"
+    },
+    {
+      "source": "짜오피아오런",
+      "reading": "zhao biao ren",
+      "word": "招标人"
+    },
+    {
+      "source": "짜오푸추",
+      "reading": "zhao bu chu",
+      "word": "找不出"
+    },
+    {
+      "source": "짜오터우피아오",
+      "reading": "zhao tou biao",
+      "word": "招投标"
+    },
+    {
+      "source": "짜오샹쿠안",
+      "reading": "zhao xiang guan",
+      "word": "照相馆"
+    },
+    {
+      "source": "짜오지이앙",
+      "reading": "zhao zi yang",
+      "word": "赵紫阳"
+    },
+    {
+      "source": "지타이피아오",
+      "reading": "zhi dai biao",
+      "word": "只代表"
+    },
+    {
+      "source": "지지타오",
+      "reading": "zhi zhi dao",
+      "word": "只知道"
+    },
+    {
+      "source": "지쮄파오",
+      "reading": "zhi zun bao",
+      "word": "至尊宝"
+    },
+    {
+      "source": "쩌우샤오추안",
+      "reading": "zhou xiao chuan",
+      "word": "周小川"
+    },
+    {
+      "source": "쭝쿠안췐",
+      "reading": "zhong guan cun",
+      "word": "中关村"
+    },
+    {
+      "source": "쭝카오투안",
+      "reading": "zhong gao duan",
+      "word": "中高端"
+    },
+    {
+      "source": "쭝차오이아오",
+      "reading": "zhong cao yao",
+      "word": "中草药"
+    },
+    {
+      "source": "쭈짜이러우",
+      "reading": "zhu zhai lou",
+      "word": "住宅楼"
+    },
+    {
+      "source": "쭈처피아오",
+      "reading": "zhu ce biao",
+      "word": "注册表"
+    },
+    {
+      "source": "쭈써티아오",
+      "reading": "zhu se diao",
+      "word": "主色调"
+    },
+    {
+      "source": "추안짜오시",
+      "reading": "chuan jiao shi",
+      "word": "传教士"
+    },
+    {
+      "source": "추앙짜오쩌",
+      "reading": "chuang zao zhe",
+      "word": "创造者"
+    },
+    {
+      "source": "추앙짜오추",
+      "reading": "chuang zao chu",
+      "word": "创造出"
+    },
+    {
+      "source": "차푸타오",
+      "reading": "cha bu dao",
+      "word": "查不到"
+    },
+    {
+      "source": "차오쿠피아오",
+      "reading": "chao gu piao",
+      "word": "炒股票"
+    },
+    {
+      "source": "청푸리아오",
+      "reading": "cheng bu liao",
+      "word": "成不了"
+    },
+    {
+      "source": "치푸리아오",
+      "reading": "chi bu liao",
+      "word": "吃不了"
+    },
+    {
+      "source": "처우터우푸",
+      "reading": "chou dou fu",
+      "word": "臭豆腐"
+    },
+    {
+      "source": "추푸리아오",
+      "reading": "chu bu liao",
+      "word": "出不了"
+    },
+    {
+      "source": "쑤앙파오타이",
+      "reading": "shuang bao tai",
+      "word": "双胞胎"
+    },
+    {
+      "source": "쌍푸리아오",
+      "reading": "shang bu liao",
+      "word": "上不了"
+    },
+    {
+      "source": "쌍추안타오",
+      "reading": "shang chuan dao",
+      "word": "上传到"
+    },
+    {
+      "source": "싸오푸리아오",
+      "reading": "shao bu liao",
+      "word": "少不了"
+    },
+    {
+      "source": "썬파오피아오",
+      "reading": "shen bao biao",
+      "word": "申报表"
+    },
+    {
+      "source": "쉐이지타오",
+      "reading": "shei zhi dao",
+      "word": "谁知道"
+    },
+    {
+      "source": "시파티아오",
+      "reading": "shi ba tiao",
+      "word": "十八条"
+    },
+    {
+      "source": "써우파써우",
+      "reading": "shou ba shou",
+      "word": "手把手"
+    },
+    {
+      "source": "써우푸타오",
+      "reading": "shou bu dao",
+      "word": "收不到"
+    },
+    {
+      "source": "써우푸리아오",
+      "reading": "shou bu liao",
+      "word": "受不了"
+    },
+    {
+      "source": "써우피아오추",
+      "reading": "shou piao chu",
+      "word": "售票处"
+    },
+    {
+      "source": "써우러우추",
+      "reading": "shou lou chu",
+      "word": "售楼处"
+    },
+    {
+      "source": "써우커우짜",
+      "reading": "shou gou jia",
+      "word": "收购价"
+    },
+    {
+      "source": "써우짜오유",
+      "reading": "shou jiao yu",
+      "word": "受教育"
+    },
+    {
+      "source": "슈피아오티앤",
+      "reading": "shu biao dian",
+      "word": "鼠标垫"
+    },
+    {
+      "source": "슈타이지",
+      "reading": "shu dai zi",
+      "word": "书呆子"
+    },
+    {
+      "source": "슈니아오쿠안",
+      "reading": "shu niao guan",
+      "word": "输尿管"
+    },
+    {
+      "source": "슈루안쿠안",
+      "reading": "shu luan guan",
+      "word": "输卵管"
+    },
+    {
+      "source": "쒸푸짜오",
+      "reading": "shui bu zhao",
+      "word": "睡不着"
+    },
+    {
+      "source": "쒸지타오",
+      "reading": "shui zhi dao",
+      "word": "谁知道"
+    },
+    {
+      "source": "루안짜오후안",
+      "reading": "ruan jiao huan",
+      "word": "软交换"
+    },
+    {
+      "source": "짜이파이투",
+      "reading": "zai bai du",
+      "word": "在百度"
+    },
+    {
+      "source": "짜오지타오",
+      "reading": "zao zhi dao",
+      "word": "早知道"
+    },
+    {
+      "source": "쩌피아오시",
+      "reading": "ze biao shi",
+      "word": "则表示"
+    },
+    {
+      "source": "지푸추안",
+      "reading": "zi fu chuan",
+      "word": "字符串"
+    },
+    {
+      "source": "쪼푸리아오",
+      "reading": "zuo bu liao",
+      "word": "做不了"
+    },
+    {
+      "source": "쪼쿠앙카오",
+      "reading": "zuo guang gao",
+      "word": "做广告"
+    },
+    {
+      "source": "쮜카오짜",
+      "reading": "zui gao jia",
+      "word": "最高价"
+    },
+    {
+      "source": "쮜쿠아이터",
+      "reading": "zui kuai de",
+      "word": "最快的"
+    },
+    {
+      "source": "쮜짜오터",
+      "reading": "zui zao de",
+      "word": "最早的"
+    },
+    {
+      "source": "차이커우푸",
+      "reading": "cai gou bu",
+      "word": "采购部"
+    },
+    {
+      "source": "차이지타오",
+      "reading": "cai zhi dao",
+      "word": "才知道"
+    },
+    {
+      "source": "치차오쪼",
+      "reading": "ci cao zuo",
+      "word": "此操作"
+    },
+    {
+      "source": "쑤안푸쑤안",
+      "reading": "suan bu suan",
+      "word": "算不算"
+    },
+    {
+      "source": "쑤리아오타이",
+      "reading": "su liao dai",
+      "word": "塑料袋"
+    },
+    {
+      "source": "쒸펑피아오",
+      "reading": "sui feng piao",
+      "word": "随风飘"
+    },
+    {
+      "source": "이앙시피아오",
+      "reading": "yang shi biao",
+      "word": "样式表"
+    },
+    {
+      "source": "이앙러우추안",
+      "reading": "yang rou chuan",
+      "word": "羊肉串"
+    },
+    {
+      "source": "이아오푸시",
+      "reading": "yao bu shi",
+      "word": "要不是"
+    },
+    {
+      "source": "이아오푸이아오",
+      "reading": "yao bu yao",
+      "word": "要不要"
+    },
+    {
+      "source": "우아이파오쭈앙",
+      "reading": "wai bao zhuang",
+      "word": "外包装"
+    },
+    {
+      "source": "우아이카오차오",
+      "reading": "wai gao qiao",
+      "word": "外高桥"
+    },
+    {
+      "source": "우아이짜오푸",
+      "reading": "wai jiao bu",
+      "word": "外交部"
+    },
+    {
+      "source": "우아이짜오쿠안",
+      "reading": "wai jiao guan",
+      "word": "外交官"
+    },
+    {
+      "source": "우앙푸리아오",
+      "reading": "wang bu liao",
+      "word": "忘不了"
+    },
+    {
+      "source": "위샤오파오",
+      "reading": "wei xiao bao",
+      "word": "韦小宝"
+    },
+    {
+      "source": "오이아오짜오",
+      "reading": "wo yao zhao",
+      "word": "我要找"
+    },
+    {
+      "source": "파이펀지파이",
+      "reading": "bai fen zhi bai",
+      "word": "百分之百"
+    },
+    {
+      "source": "파이펀지시",
+      "reading": "bai fen zhi shi",
+      "word": "百分之十"
+    },
+    {
+      "source": "파이투티에파",
+      "reading": "bai du tie ba",
+      "word": "百度贴吧"
+    },
+    {
+      "source": "파이투지타오",
+      "reading": "bai du zhi dao",
+      "word": "百度知道"
+    },
+    {
+      "source": "파이투써우쏘",
+      "reading": "bai du sou suo",
+      "word": "百度搜索"
+    },
+    {
+      "source": "파이쉐콩쭈",
+      "reading": "bai xue gong zhu",
+      "word": "白雪公主"
+    },
+    {
+      "source": "파이써우치짜",
+      "reading": "bai shou qi jia",
+      "word": "白手起家"
+    },
+    {
+      "source": "파이우안샹쑤",
+      "reading": "bai wan xiang su",
+      "word": "百万像素"
+    },
+    {
+      "source": "파이우리아오라이",
+      "reading": "bai wu liao lai",
+      "word": "百无聊赖"
+    },
+    {
+      "source": "파이어로시",
+      "reading": "bai e luo si",
+      "word": "白俄罗斯"
+    },
+    {
+      "source": "판커샤오시",
+      "reading": "ban ge xiao shi",
+      "word": "半个小时"
+    },
+    {
+      "source": "판콩타러우",
+      "reading": "ban gong da lou",
+      "word": "办公大楼"
+    },
+    {
+      "source": "판콩창쏘",
+      "reading": "ban gong chang suo",
+      "word": "办公场所"
+    },
+    {
+      "source": "판콩써페이",
+      "reading": "ban gong she bei",
+      "word": "办公设备"
+    },
+    {
+      "source": "판짜콩시",
+      "reading": "ban jia gong si",
+      "word": "搬家公司"
+    },
+    {
+      "source": "판췐파오후",
+      "reading": "ban quan bao hu",
+      "word": "版权保护"
+    },
+    {
+      "source": "판시지커우",
+      "reading": "ban shi ji gou",
+      "word": "办事机构"
+    },
+    {
+      "source": "파오페이써우루",
+      "reading": "bao fei shou ru",
+      "word": "保费收入"
+    },
+    {
+      "source": "파오캉쿠펀",
+      "reading": "bao gang gu fen",
+      "word": "宝钢股份"
+    },
+    {
+      "source": "파오후티아오리",
+      "reading": "bao hu tiao li",
+      "word": "保护条例"
+    },
+    {
+      "source": "파오후지지",
+      "reading": "bao hu zi ji",
+      "word": "保护自己"
+    },
+    {
+      "source": "파오짜리이아",
+      "reading": "bao jia li ya",
+      "word": "保加利亚"
+    },
+    {
+      "source": "파오씨앤콩시",
+      "reading": "bao xian gong si",
+      "word": "保险公司"
+    },
+    {
+      "source": "파오쭈앙써지",
+      "reading": "bao zhuang she ji",
+      "word": "包装设计"
+    },
+    {
+      "source": "파오쭈앙차이리아오",
+      "reading": "bao zhuang cai liao",
+      "word": "包装材料"
+    },
+    {
+      "source": "파오짜시찌앤",
+      "reading": "bao zha shi jian",
+      "word": "爆炸事件"
+    },
+    {
+      "source": "파오짱지지",
+      "reading": "bao zhang ji zhi",
+      "word": "保障机制"
+    },
+    {
+      "source": "파오짱지투",
+      "reading": "bao zhang zhi du",
+      "word": "保障制度"
+    },
+    {
+      "source": "파오짱초시",
+      "reading": "bao zhang cuo shi",
+      "word": "保障措施"
+    },
+    {
+      "source": "파오지쩡지",
+      "reading": "bao zhi zeng zhi",
+      "word": "保值增值"
+    },
+    {
+      "source": "펀파오지쩌",
+      "reading": "ben bao ji zhe",
+      "word": "本报记者"
+    },
+    {
+      "source": "펀지콩쪼",
+      "reading": "ben zhi gong zuo",
+      "word": "本职工作"
+    },
+    {
+      "source": "펀창피싸이",
+      "reading": "ben chang bi sai",
+      "word": "本场比赛"
+    },
+    {
+      "source": "펀썬쭈시",
+      "reading": "ben shen jiu shi",
+      "word": "本身就是"
+    },
+    {
+      "source": "펀차오캉무",
+      "reading": "ben cao gang mu",
+      "word": "本草纲目"
+    },
+    {
+      "source": "펑펑티아오티아오",
+      "reading": "beng beng tiao tiao",
+      "word": "蹦蹦跳跳"
+    },
+    {
+      "source": "페이타오얼치",
+      "reading": "bei dao er chi",
+      "word": "背道而驰"
+    },
+    {
+      "source": "피푸커싸오",
+      "reading": "bi bu ke shao",
+      "word": "必不可少"
+    },
+    {
+      "source": "피짜오시후안",
+      "reading": "bi jiao xi huan",
+      "word": "比较喜欢"
+    },
+    {
+      "source": "피짜오유시",
+      "reading": "bi jiao you shi",
+      "word": "比较优势"
+    },
+    {
+      "source": "피란이아오추",
+      "reading": "bi ran yao qiu",
+      "word": "必然要求"
+    },
+    {
+      "source": "피치피치",
+      "reading": "bi ci bi ci",
+      "word": "彼此彼此"
+    },
+    {
+      "source": "피이아오티아오찌앤",
+      "reading": "bi yao tiao jian",
+      "word": "必要条件"
+    },
+    {
+      "source": "피아오타팡시",
+      "reading": "biao da fang shi",
+      "word": "表达方式"
+    },
+    {
+      "source": "피아오타지지",
+      "reading": "biao da zi ji",
+      "word": "表达自己"
+    },
+    {
+      "source": "피아오티앤푸하오",
+      "reading": "biao dian fu hao",
+      "word": "标点符号"
+    },
+    {
+      "source": "피아오씨앤추라이",
+      "reading": "biao xian chu lai",
+      "word": "表现出来"
+    },
+    {
+      "source": "피아오씨앤써우파",
+      "reading": "biao xian shou fa",
+      "word": "表现手法"
+    },
+    {
+      "source": "피아오짱타휘",
+      "reading": "biao zhang da hui",
+      "word": "表彰大会"
+    },
+    {
+      "source": "피아오시칸쉐",
+      "reading": "biao shi gan xie",
+      "word": "表示感谢"
+    },
+    {
+      "source": "핑푸타이피아오",
+      "reading": "bing bu dai biao",
+      "word": "并不代表"
+    },
+    {
+      "source": "핑푸지타오",
+      "reading": "bing bu zhi dao",
+      "word": "并不知道"
+    },
+    {
+      "source": "포팡리에피아오",
+      "reading": "bo fang lie biao",
+      "word": "播放列表"
+    },
+    {
+      "source": "포란쭈앙코",
+      "reading": "bo lan zhuang kuo",
+      "word": "波澜壮阔"
+    },
+    {
+      "source": "푸파푸파",
+      "reading": "bu pa bu pa",
+      "word": "不怕不怕"
+    },
+    {
+      "source": "푸밍푸파이",
+      "reading": "bu ming bu bai",
+      "word": "不明不白"
+    },
+    {
+      "source": "푸파펀지",
+      "reading": "bu fa fen zi",
+      "word": "不法分子"
+    },
+    {
+      "source": "푸푸췐짜이",
+      "reading": "bu fu cun zai",
+      "word": "不复存在"
+    },
+    {
+      "source": "푸투안파짠",
+      "reading": "bu duan fa zhan",
+      "word": "不断发展"
+    },
+    {
+      "source": "푸투안티카오",
+      "reading": "bu duan ti gao",
+      "word": "不断提高"
+    },
+    {
+      "source": "푸투안코타",
+      "reading": "bu duan kuo da",
+      "word": "不断扩大"
+    },
+    {
+      "source": "푸투안짜창",
+      "reading": "bu duan jia qiang",
+      "word": "不断加强"
+    },
+    {
+      "source": "푸투안추앙씬",
+      "reading": "bu duan chuang xin",
+      "word": "不断创新"
+    },
+    {
+      "source": "푸투안쩡짜",
+      "reading": "bu duan zeng jia",
+      "word": "不断增加"
+    },
+    {
+      "source": "푸투안쩡창",
+      "reading": "bu duan zeng qiang",
+      "word": "不断增强"
+    },
+    {
+      "source": "푸투안우안싼",
+      "reading": "bu duan wan shan",
+      "word": "不断完善"
+    },
+    {
+      "source": "푸타푸샤오",
+      "reading": "bu da bu xiao",
+      "word": "不大不小"
+    },
+    {
+      "source": "푸터하오시",
+      "reading": "bu de hao si",
+      "word": "不得好死"
+    },
+    {
+      "source": "푸터싼지",
+      "reading": "bu de shan zi",
+      "word": "不得擅自"
+    },
+    {
+      "source": "푸넝차오코",
+      "reading": "bu neng chao guo",
+      "word": "不能超过"
+    },
+    {
+      "source": "푸리푸치",
+      "reading": "bu li bu qi",
+      "word": "不离不弃"
+    },
+    {
+      "source": "푸리아오리아오지",
+      "reading": "bu liao liao zhi",
+      "word": "不了了之"
+    },
+    {
+      "source": "푸리앙타이쿠안",
+      "reading": "bu liang dai kuan",
+      "word": "不良贷款"
+    },
+    {
+      "source": "푸리앙지찬",
+      "reading": "bu liang zi chan",
+      "word": "不良资产"
+    },
+    {
+      "source": "푸쿠안쩐이앙",
+      "reading": "bu guan zen yang",
+      "word": "不管怎样"
+    },
+    {
+      "source": "푸코루치",
+      "reading": "bu guo ru ci",
+      "word": "不过如此"
+    },
+    {
+      "source": "푸짜시쏘",
+      "reading": "bu jia si suo",
+      "word": "不假思索"
+    },
+    {
+      "source": "푸취푸나오",
+      "reading": "bu qu bu nao",
+      "word": "不屈不挠"
+    },
+    {
+      "source": "푸쩌푸커우",
+      "reading": "bu zhe bu kou",
+      "word": "不折不扣"
+    },
+    {
+      "source": "푸쩡지펑",
+      "reading": "bu zheng zhi feng",
+      "word": "不正之风"
+    },
+    {
+      "source": "푸시지위",
+      "reading": "bu shi zi wei",
+      "word": "不是滋味"
+    },
+    {
+      "source": "푸롱러쿠안",
+      "reading": "bu rong le guan",
+      "word": "不容乐观"
+    },
+    {
+      "source": "푸짜이후아샤",
+      "reading": "bu zai hua xia",
+      "word": "不在话下"
+    },
+    {
+      "source": "푸짜이싸오슈",
+      "reading": "bu zai shao shu",
+      "word": "不在少数"
+    },
+    {
+      "source": "푸쩌써우투안",
+      "reading": "bu ze shou duan",
+      "word": "不择手段"
+    },
+    {
+      "source": "푸쭈지추",
+      "reading": "bu zu zhi chu",
+      "word": "不足之处"
+    },
+    {
+      "source": "푸쭈위치",
+      "reading": "bu zu wei qi",
+      "word": "不足为奇"
+    },
+    {
+      "source": "푸이아오초코",
+      "reading": "bu yao cuo guo",
+      "word": "不要错过"
+    },
+    {
+      "source": "푸이아오우앙지",
+      "reading": "bu yao wang ji",
+      "word": "不要忘记"
+    },
+    {
+      "source": "푸유지쭈",
+      "reading": "bu you zi zhu",
+      "word": "不由自主"
+    },
+    {
+      "source": "푸웬푸웬",
+      "reading": "bu wen bu wen",
+      "word": "不闻不问"
+    },
+    {
+      "source": "파이팡피아오쮄",
+      "reading": "pai fang biao zhun",
+      "word": "排放标准"
+    },
+    {
+      "source": "파이짜오써우지",
+      "reading": "pai zhao shou ji",
+      "word": "拍照手机"
+    },
+    {
+      "source": "펑포파짠",
+      "reading": "peng bo fa zhan",
+      "word": "蓬勃发展"
+    },
+    {
+      "source": "핑쿠파오카오",
+      "reading": "ping gu bao gao",
+      "word": "评估报告"
+    },
+    {
+      "source": "핑짜피아오쮄",
+      "reading": "ping jia biao zhun",
+      "word": "评价标准"
+    },
+    {
+      "source": "포푸지타이",
+      "reading": "po bu ji dai",
+      "word": "迫不及待"
+    },
+    {
+      "source": "푸피앤췐짜이",
+      "reading": "pu bian cun zai",
+      "word": "普遍存在"
+    },
+    {
+      "source": "민판카오샤오",
+      "reading": "min ban gao xiao",
+      "word": "民办高校"
+    },
+    {
+      "source": "민판짜오유",
+      "reading": "min ban jiao yu",
+      "word": "民办教育"
+    },
+    {
+      "source": "무피아오쿠안리",
+      "reading": "mu biao guan li",
+      "word": "目标管理"
+    },
+    {
+      "source": "무피아오시창",
+      "reading": "mu biao shi chang",
+      "word": "目标市场"
+    },
+    {
+      "source": "파피아오핑루엔",
+      "reading": "fa biao ping lun",
+      "word": "发表评论"
+    },
+    {
+      "source": "파피아오루엔웬",
+      "reading": "fa biao lun wen",
+      "word": "发表论文"
+    },
+    {
+      "source": "파피아오썽밍",
+      "reading": "fa biao sheng ming",
+      "word": "发表声明"
+    },
+    {
+      "source": "파피아오이앤루엔",
+      "reading": "fa biao yan lun",
+      "word": "发表言论"
+    },
+    {
+      "source": "파피아오웬짱",
+      "reading": "fa biao wen zhang",
+      "word": "发表文章"
+    },
+    {
+      "source": "파푸쿠앙카오",
+      "reading": "fa bu guang gao",
+      "word": "发布广告"
+    },
+    {
+      "source": "파푸콩카오",
+      "reading": "fa bu gong gao",
+      "word": "发布公告"
+    },
+    {
+      "source": "파밍추앙짜오",
+      "reading": "fa ming chuang zao",
+      "word": "发明创造"
+    },
+    {
+      "source": "파짠무피아오",
+      "reading": "fa zhan mu biao",
+      "word": "发展目标"
+    },
+    {
+      "source": "파짠쭈앙타",
+      "reading": "fa zhan zhuang da",
+      "word": "发展壮大"
+    },
+    {
+      "source": "파지짜오유",
+      "reading": "fa zhi jiao yu",
+      "word": "法制教育"
+    },
+    {
+      "source": "파썽파오짜",
+      "reading": "fa sheng bao zha",
+      "word": "发生爆炸"
+    },
+    {
+      "source": "파런타이피아오",
+      "reading": "fa ren dai biao",
+      "word": "法人代表"
+    },
+    {
+      "source": "파이앙쿠앙타",
+      "reading": "fa yang guang da",
+      "word": "发扬光大"
+    },
+    {
+      "source": "판롱투안파",
+      "reading": "fan long duan fa",
+      "word": "反垄断法"
+    },
+    {
+      "source": "판쮜펀지",
+      "reading": "fan zui fen zi",
+      "word": "犯罪分子"
+    },
+    {
+      "source": "팡지푸쭈앙",
+      "reading": "fang zhi fu zhuang",
+      "word": "纺织服装"
+    },
+    {
+      "source": "펀타오이앙피아오",
+      "reading": "fen dao yang biao",
+      "word": "分道扬镳"
+    },
+    {
+      "source": "펀터우무피아오",
+      "reading": "fen dou mu biao",
+      "word": "奋斗目标"
+    },
+    {
+      "source": "펀시파오카오",
+      "reading": "fen xi bao gao",
+      "word": "分析报告"
+    },
+    {
+      "source": "펀지지커우",
+      "reading": "fen zhi ji gou",
+      "word": "分支机构"
+    },
+    {
+      "source": "펑취차오통",
+      "reading": "feng chui cao dong",
+      "word": "风吹草动"
+    },
+    {
+      "source": "페이쩌우코짜",
+      "reading": "fei zhou guo jia",
+      "word": "非洲国家"
+    },
+    {
+      "source": "페이창푸초",
+      "reading": "fei chang bu cuo",
+      "word": "非常不错"
+    },
+    {
+      "source": "페이창피아오리앙",
+      "reading": "fei chang piao liang",
+      "word": "非常漂亮"
+    },
+    {
+      "source": "페이창쭝이아오",
+      "reading": "fei chang zhong yao",
+      "word": "非常重要"
+    },
+    {
+      "source": "푸파이펀지",
+      "reading": "fu bai fen zi",
+      "word": "腐败分子"
+    },
+    {
+      "source": "푸카이판위",
+      "reading": "fu gai fan wei",
+      "word": "覆盖范围"
+    },
+    {
+      "source": "푸우우아이파오",
+      "reading": "fu wu wai bao",
+      "word": "服务外包"
+    },
+    {
+      "source": "투안투안쒸쒸",
+      "reading": "duan duan xu xu",
+      "word": "断断续续"
+    },
+    {
+      "source": "타타샤오샤오",
+      "reading": "da da xiao xiao",
+      "word": "大大小小"
+    },
+    {
+      "source": "타타추써우",
+      "reading": "da da chu shou",
+      "word": "大打出手"
+    },
+    {
+      "source": "타타오카오차오",
+      "reading": "da dao gao chao",
+      "word": "达到高潮"
+    },
+    {
+      "source": "타팅쿠앙쭝",
+      "reading": "da ting guang zhong",
+      "word": "大庭广众"
+    },
+    {
+      "source": "타콩카오청",
+      "reading": "da gong gao cheng",
+      "word": "大功告成"
+    },
+    {
+      "source": "타지파오푸",
+      "reading": "da ji bao fu",
+      "word": "打击报复"
+    },
+    {
+      "source": "타짜터우라이",
+      "reading": "da jia dou lai",
+      "word": "大家都来"
+    },
+    {
+      "source": "타짜터우시",
+      "reading": "da jia dou shi",
+      "word": "大家都是"
+    },
+    {
+      "source": "타찡샤오쿠아이",
+      "reading": "da jing xiao guai",
+      "word": "大惊小怪"
+    },
+    {
+      "source": "타쉐짜오써우",
+      "reading": "da xue jiao shou",
+      "word": "大学教授"
+    },
+    {
+      "source": "타쭈안웬샤오",
+      "reading": "da zhuan yuan xiao",
+      "word": "大专院校"
+    },
+    {
+      "source": "타싸오위썽",
+      "reading": "da sao wei sheng",
+      "word": "打扫卫生"
+    },
+    {
+      "source": "타이피아오타휘",
+      "reading": "dai biao da hui",
+      "word": "代表大会"
+    },
+    {
+      "source": "타이피아오런우",
+      "reading": "dai biao ren wu",
+      "word": "代表人物"
+    },
+    {
+      "source": "타이리콩시",
+      "reading": "dai li gong si",
+      "word": "代理公司"
+    },
+    {
+      "source": "타이리지커우",
+      "reading": "dai li ji gou",
+      "word": "代理机构"
+    },
+    {
+      "source": "타이쿠안리류",
+      "reading": "dai kuan li lv",
+      "word": "贷款利率"
+    },
+    {
+      "source": "타이쩌하이지",
+      "reading": "dai zhe hai zi",
+      "word": "带着孩子"
+    },
+    {
+      "source": "탄파오콩시",
+      "reading": "dan bao gong si",
+      "word": "担保公司"
+    },
+    {
+      "source": "탄타오타오탄",
+      "reading": "dan dao dao dan",
+      "word": "弹道导弹"
+    },
+    {
+      "source": "탕타이쭝코",
+      "reading": "dang dai zhong guo",
+      "word": "当代中国"
+    },
+    {
+      "source": "타오터퀴판",
+      "reading": "dao de gui fan",
+      "word": "道德规范"
+    },
+    {
+      "source": "타오터짜오유",
+      "reading": "dao de jiao yu",
+      "word": "道德教育"
+    },
+    {
+      "source": "타오티시쒸",
+      "reading": "dao di shi shui",
+      "word": "到底是谁"
+    },
+    {
+      "source": "타오추터우시",
+      "reading": "dao chu dou shi",
+      "word": "到处都是"
+    },
+    {
+      "source": "터푸창시",
+      "reading": "de bu chang shi",
+      "word": "得不偿失"
+    },
+    {
+      "source": "터카오우앙쭝",
+      "reading": "de gao wang zhong",
+      "word": "德高望重"
+    },
+    {
+      "source": "티티타오타오",
+      "reading": "di di dao dao",
+      "word": "地地道道"
+    },
+    {
+      "source": "티코시타이",
+      "reading": "di guo shi dai",
+      "word": "帝国时代"
+    },
+    {
+      "source": "티지짜이하이",
+      "reading": "di zhi zai hai",
+      "word": "地质灾害"
+    },
+    {
+      "source": "티시파티아오",
+      "reading": "di shi ba tiao",
+      "word": "第十八条"
+    },
+    {
+      "source": "티시류티아오",
+      "reading": "di shi liu tiao",
+      "word": "第十六条"
+    },
+    {
+      "source": "티시쭈티아오",
+      "reading": "di shi jiu tiao",
+      "word": "第十九条"
+    },
+    {
+      "source": "티시치티아오",
+      "reading": "di shi qi tiao",
+      "word": "第十七条"
+    },
+    {
+      "source": "티시싼티아오",
+      "reading": "di shi san tiao",
+      "word": "第十三条"
+    },
+    {
+      "source": "티시시티아오",
+      "reading": "di shi si tiao",
+      "word": "第十四条"
+    },
+    {
+      "source": "티이아타이쿠안",
+      "reading": "di ya dai kuan",
+      "word": "抵押贷款"
+    },
+    {
+      "source": "티앤지치추",
+      "reading": "dian ji ci chu",
+      "word": "点击此处"
+    },
+    {
+      "source": "티앤시쿠앙카오",
+      "reading": "dian shi guang gao",
+      "word": "电视广告"
+    },
+    {
+      "source": "티앤지지슈",
+      "reading": "dian zi ji shu",
+      "word": "电子技术"
+    },
+    {
+      "source": "티앤지지푸",
+      "reading": "dian zi zhi fu",
+      "word": "电子支付"
+    },
+    {
+      "source": "티앤지써페이",
+      "reading": "dian zi she bei",
+      "word": "电子设备"
+    },
+    {
+      "source": "티앤지짜지",
+      "reading": "dian zi za zhi",
+      "word": "电子杂志"
+    },
+    {
+      "source": "티아오차파오카오",
+      "reading": "diao cha bao gao",
+      "word": "调查报告"
+    },
+    {
+      "source": "티아오차콩쪼",
+      "reading": "diao cha gong zuo",
+      "word": "调查工作"
+    },
+    {
+      "source": "티아오차찌에코",
+      "reading": "diao cha jie guo",
+      "word": "调查结果"
+    },
+    {
+      "source": "티아오차취쩡",
+      "reading": "diao cha qu zheng",
+      "word": "调查取证"
+    },
+    {
+      "source": "티아오차씨앤시",
+      "reading": "diao cha xian shi",
+      "word": "调查显示"
+    },
+    {
+      "source": "티아오차이앤쭈",
+      "reading": "diao cha yan jiu",
+      "word": "调查研究"
+    },
+    {
+      "source": "티아오차웬쮄",
+      "reading": "diao cha wen juan",
+      "word": "调查问卷"
+    },
+    {
+      "source": "티아오이앤파오카오",
+      "reading": "diao yan bao gao",
+      "word": "调研报告"
+    },
+    {
+      "source": "티에티에푸슈",
+      "reading": "die die bu xiu",
+      "word": "喋喋不休"
+    },
+    {
+      "source": "티에티에쭈앙쭈앙",
+      "reading": "die die zhuang zhuang",
+      "word": "跌跌撞撞"
+    },
+    {
+      "source": "터우푸지타오",
+      "reading": "dou bu zhi dao",
+      "word": "都不知道"
+    },
+    {
+      "source": "터우시쩌이앙",
+      "reading": "dou shi zhe yang",
+      "word": "都是这样"
+    },
+    {
+      "source": "터우유지지",
+      "reading": "dou you zi ji",
+      "word": "都有自己"
+    },
+    {
+      "source": "통팡푸파이",
+      "reading": "dong fang bu bai",
+      "word": "东方不败"
+    },
+    {
+      "source": "통충샤차오",
+      "reading": "dong chong xia cao",
+      "word": "冬虫夏草"
+    },
+    {
+      "source": "투리시카오",
+      "reading": "du li si kao",
+      "word": "独立思考"
+    },
+    {
+      "source": "토토싸오싸오",
+      "reading": "duo duo shao shao",
+      "word": "多多少少"
+    },
+    {
+      "source": "토지토차이",
+      "reading": "duo zi duo cai",
+      "word": "多姿多彩"
+    },
+    {
+      "source": "튀쩡샤이아오",
+      "reading": "dui zheng xia yao",
+      "word": "对症下药"
+    },
+    {
+      "source": "튀우아이터우지",
+      "reading": "dui wai tou zi",
+      "word": "对外投资"
+    },
+    {
+      "source": "튀우아이쒠추안",
+      "reading": "dui wai xuan chuan",
+      "word": "对外宣传"
+    },
+    {
+      "source": "타이우안통파오",
+      "reading": "tai wan tong bao",
+      "word": "台湾同胞"
+    },
+    {
+      "source": "탄위쿠안지",
+      "reading": "tan wei guan zhi",
+      "word": "叹为观止"
+    },
+    {
+      "source": "터피에쿠안쭈",
+      "reading": "te bie guan zhu",
+      "word": "特别关注"
+    },
+    {
+      "source": "티카오샤오류",
+      "reading": "ti gao xiao lv",
+      "word": "提高效率"
+    },
+    {
+      "source": "티카오지지",
+      "reading": "ti gao zi ji",
+      "word": "提高自己"
+    },
+    {
+      "source": "티카오지썬",
+      "reading": "ti gao zi shen",
+      "word": "提高自身"
+    },
+    {
+      "source": "티콩탄파오",
+      "reading": "ti gong dan bao",
+      "word": "提供担保"
+    },
+    {
+      "source": "티앤롱파푸",
+      "reading": "tian long ba bu",
+      "word": "天龙八部"
+    },
+    {
+      "source": "터우텅타시",
+      "reading": "tou deng da shi",
+      "word": "头等大事"
+    },
+    {
+      "source": "터우지리차이",
+      "reading": "tou zi li cai",
+      "word": "投资理财"
+    },
+    {
+      "source": "터우지쿠안리",
+      "reading": "tou zi guan li",
+      "word": "投资管理"
+    },
+    {
+      "source": "터우지콩시",
+      "reading": "tou zi gong si",
+      "word": "投资公司"
+    },
+    {
+      "source": "터우지휘파오",
+      "reading": "tou zi hui bao",
+      "word": "投资回报"
+    },
+    {
+      "source": "터우지지투안",
+      "reading": "tou zi ji tuan",
+      "word": "投资集团"
+    },
+    {
+      "source": "터우지지커우",
+      "reading": "tou zi ji gou",
+      "word": "投资机构"
+    },
+    {
+      "source": "터우지지후아",
+      "reading": "tou zi ji hua",
+      "word": "投资计划"
+    },
+    {
+      "source": "터우지짜지",
+      "reading": "tou zi jia zhi",
+      "word": "投资价值"
+    },
+    {
+      "source": "터우지취타오",
+      "reading": "tou zi qu dao",
+      "word": "投资渠道"
+    },
+    {
+      "source": "터우지쭈티",
+      "reading": "tou zi zhu ti",
+      "word": "投资主体"
+    },
+    {
+      "source": "터우지청펀",
+      "reading": "tou zi cheng ben",
+      "word": "投资成本"
+    },
+    {
+      "source": "터우지써우이",
+      "reading": "tou zi shou yi",
+      "word": "投资收益"
+    },
+    {
+      "source": "통지파오카오",
+      "reading": "tong ji bao gao",
+      "word": "统计报告"
+    },
+    {
+      "source": "통지지리아오",
+      "reading": "tong ji zi liao",
+      "word": "统计资料"
+    },
+    {
+      "source": "난쒸페이티아오",
+      "reading": "nan shui bei diao",
+      "word": "南水北调"
+    },
+    {
+      "source": "니앤투파오카오",
+      "reading": "nian du bao gao",
+      "word": "年度报告"
+    },
+    {
+      "source": "루안치파짜오",
+      "reading": "luan qi ba zao",
+      "word": "乱七八糟"
+    },
+    {
+      "source": "류써후안파오",
+      "reading": "lv se huan bao",
+      "word": "绿色环保"
+    },
+    {
+      "source": "라오통파오짱",
+      "reading": "lao dong bao zhang",
+      "word": "劳动保障"
+    },
+    {
+      "source": "라오통파오처우",
+      "reading": "lao dong bao chou",
+      "word": "劳动报酬"
+    },
+    {
+      "source": "라오통쿠안시",
+      "reading": "lao dong guan xi",
+      "word": "劳动关系"
+    },
+    {
+      "source": "라오시라이시",
+      "reading": "lao si lai si",
+      "word": "劳斯莱斯"
+    },
+    {
+      "source": "리아오파지리아오",
+      "reading": "liao fa zhi liao",
+      "word": "疗法治疗"
+    },
+    {
+      "source": "리아오샤오쿠안차",
+      "reading": "liao xiao guan cha",
+      "word": "疗效观察"
+    },
+    {
+      "source": "리아오루지짱",
+      "reading": "liao ru zhi zhang",
+      "word": "了如指掌"
+    },
+    {
+      "source": "리앙커하이지",
+      "reading": "liang ge hai zi",
+      "word": "两个孩子"
+    },
+    {
+      "source": "린파시파오",
+      "reading": "lin ba xi bao",
+      "word": "淋巴细胞"
+    },
+    {
+      "source": "링타오판지",
+      "reading": "ling dao ban zi",
+      "word": "领导班子"
+    },
+    {
+      "source": "로타오시추",
+      "reading": "luo dao shi chu",
+      "word": "落到实处"
+    },
+    {
+      "source": "쿠안팡우앙짠",
+      "reading": "guan fang wang zhan",
+      "word": "官方网站"
+    },
+    {
+      "source": "쿠안란카오써우",
+      "reading": "guan lan gao shou",
+      "word": "灌篮高手"
+    },
+    {
+      "source": "쿠안리판파",
+      "reading": "guan li ban fa",
+      "word": "管理办法"
+    },
+    {
+      "source": "쿠안리팡시",
+      "reading": "guan li fang shi",
+      "word": "管理方式"
+    },
+    {
+      "source": "쿠안리투안튀",
+      "reading": "guan li tuan dui",
+      "word": "管理团队"
+    },
+    {
+      "source": "쿠안리티아오리",
+      "reading": "guan li tiao li",
+      "word": "管理条例"
+    },
+    {
+      "source": "쿠안리콩시",
+      "reading": "guan li gong si",
+      "word": "管理公司"
+    },
+    {
+      "source": "쿠안리지커우",
+      "reading": "guan li ji gou",
+      "word": "管理机构"
+    },
+    {
+      "source": "쿠안리지투",
+      "reading": "guan li zhi du",
+      "word": "管理制度"
+    },
+    {
+      "source": "쿠안리아오쭈이",
+      "reading": "guan liao zhu yi",
+      "word": "官僚主义"
+    },
+    {
+      "source": "쿠안쿠안쒸쒸",
+      "reading": "guan guan shui shui",
+      "word": "灌灌水水"
+    },
+    {
+      "source": "쿠안찌앤짜이유",
+      "reading": "guan jian zai yu",
+      "word": "关键在于"
+    },
+    {
+      "source": "쿠안쭈앙통마이",
+      "reading": "guan zhuang dong mai",
+      "word": "冠状动脉"
+    },
+    {
+      "source": "쿠안처로시",
+      "reading": "guan che luo shi",
+      "word": "贯彻落实"
+    },
+    {
+      "source": "쿠안처시시",
+      "reading": "guan che shi shi",
+      "word": "贯彻实施"
+    },
+    {
+      "source": "쿠안유카이짠",
+      "reading": "guan yu kai zhan",
+      "word": "关于开展"
+    },
+    {
+      "source": "쿠안유짜창",
+      "reading": "guan yu jia qiang",
+      "word": "关于加强"
+    },
+    {
+      "source": "쿠안유쭝코",
+      "reading": "guan yu zhong guo",
+      "word": "关于中国"
+    },
+    {
+      "source": "쿠안유쪼하오",
+      "reading": "guan yu zuo hao",
+      "word": "关于做好"
+    },
+    {
+      "source": "쿠앙포티앤타이",
+      "reading": "guang bo dian tai",
+      "word": "广播电台"
+    },
+    {
+      "source": "쿠앙포티앤시",
+      "reading": "guang bo dian shi",
+      "word": "广播电视"
+    },
+    {
+      "source": "쿠앙파쩡췐",
+      "reading": "guang fa zheng quan",
+      "word": "广发证券"
+    },
+    {
+      "source": "쿠앙판카이짠",
+      "reading": "guang fan kai zhan",
+      "word": "广泛开展"
+    },
+    {
+      "source": "쿠앙티앤쭝쮜",
+      "reading": "guang dian zong ju",
+      "word": "广电总局"
+    },
+    {
+      "source": "쿠앙카오터우팡",
+      "reading": "guang gao tou fang",
+      "word": "广告投放"
+    },
+    {
+      "source": "쿠앙카오콩시",
+      "reading": "guang gao gong si",
+      "word": "广告公司"
+    },
+    {
+      "source": "쿠앙카오허쪼",
+      "reading": "guang gao he zuo",
+      "word": "广告合作"
+    },
+    {
+      "source": "쿠앙카오쒠추안",
+      "reading": "guang gao xuan chuan",
+      "word": "广告宣传"
+    },
+    {
+      "source": "쿠앙카오써우루",
+      "reading": "guang gao shou ru",
+      "word": "广告收入"
+    },
+    {
+      "source": "쿠앙쉐피앤짜오",
+      "reading": "guang xue bian jiao",
+      "word": "光学变焦"
+    },
+    {
+      "source": "쿠앙쩌우펀티앤",
+      "reading": "guang zhou ben tian",
+      "word": "广州本田"
+    },
+    {
+      "source": "쿠앙쩌우처짠",
+      "reading": "guang zhou che zhan",
+      "word": "广州车展"
+    },
+    {
+      "source": "쿠앙쩌우리파오",
+      "reading": "guang zhou ri bao",
+      "word": "广州日报"
+    },
+    {
+      "source": "카이피앤지지",
+      "reading": "gai bian zi ji",
+      "word": "改变自己"
+    },
+    {
+      "source": "카이커파짠",
+      "reading": "gai ge fa zhan",
+      "word": "改革发展"
+    },
+    {
+      "source": "카이커카이팡",
+      "reading": "gai ge kai fang",
+      "word": "改革开放"
+    },
+    {
+      "source": "카이커시티앤",
+      "reading": "gai ge shi dian",
+      "word": "改革试点"
+    },
+    {
+      "source": "카이짜오콩청",
+      "reading": "gai zao gong cheng",
+      "word": "改造工程"
+    },
+    {
+      "source": "칸푸지콩",
+      "reading": "gan bu zhi gong",
+      "word": "干部职工"
+    },
+    {
+      "source": "캉차이짜커",
+      "reading": "gang cai jia ge",
+      "word": "钢材价格"
+    },
+    {
+      "source": "카오펀피앤류",
+      "reading": "gao fen bian lv",
+      "word": "高分辨率"
+    },
+    {
+      "source": "카오푸짜지",
+      "reading": "gao fu jia zhi",
+      "word": "高附加值"
+    },
+    {
+      "source": "카오투안찬핀",
+      "reading": "gao duan chan pin",
+      "word": "高端产品"
+    },
+    {
+      "source": "카오텅짜오유",
+      "reading": "gao deng jiao yu",
+      "word": "高等教育"
+    },
+    {
+      "source": "카오텅쉐샤오",
+      "reading": "gao deng xue xiao",
+      "word": "高等学校"
+    },
+    {
+      "source": "카오텅슈쉐",
+      "reading": "gao deng shu xue",
+      "word": "高等数学"
+    },
+    {
+      "source": "카오텅웬샤오",
+      "reading": "gao deng yuan xiao",
+      "word": "高等院校"
+    },
+    {
+      "source": "카오투핑짜",
+      "reading": "gao du ping jia",
+      "word": "高度评价"
+    },
+    {
+      "source": "카오투쭝시",
+      "reading": "gao du zhong shi",
+      "word": "高度重视"
+    },
+    {
+      "source": "카오러우타싸",
+      "reading": "gao lou da sha",
+      "word": "高楼大厦"
+    },
+    {
+      "source": "카오카오짜이쌍",
+      "reading": "gao gao zai shang",
+      "word": "高高在上"
+    },
+    {
+      "source": "카오지쿠안웬",
+      "reading": "gao ji guan yuan",
+      "word": "高级官员"
+    },
+    {
+      "source": "카오쉐이아핑",
+      "reading": "gao xue ya bing",
+      "word": "高血压病"
+    },
+    {
+      "source": "카오샤오짜오썽",
+      "reading": "gao xiao zhao sheng",
+      "word": "高校招生"
+    },
+    {
+      "source": "카오지웬샤오",
+      "reading": "gao zhi yuan xiao",
+      "word": "高职院校"
+    },
+    {
+      "source": "카오쭝찌에투안",
+      "reading": "gao zhong jie duan",
+      "word": "高中阶段"
+    },
+    {
+      "source": "카오청링타오",
+      "reading": "gao ceng ling dao",
+      "word": "高层领导"
+    },
+    {
+      "source": "카오쑤타짜",
+      "reading": "gao su da jia",
+      "word": "告诉大家"
+    },
+    {
+      "source": "카오쑤쩡짱",
+      "reading": "gao su zeng zhang",
+      "word": "高速增长"
+    },
+    {
+      "source": "카오쑤지지",
+      "reading": "gao su zi ji",
+      "word": "告诉自己"
+    },
+    {
+      "source": "카오이투안로",
+      "reading": "gao yi duan luo",
+      "word": "告一段落"
+    },
+    {
+      "source": "커샹지피아오",
+      "reading": "ge xiang zhi biao",
+      "word": "各项指标"
+    },
+    {
+      "source": "커런지리아오",
+      "reading": "ge ren zi liao",
+      "word": "个人资料"
+    },
+    {
+      "source": "커우씬터우짜오",
+      "reading": "gou xin dou jiao",
+      "word": "勾心斗角"
+    },
+    {
+      "source": "커우청판쮜",
+      "reading": "gou cheng fan zui",
+      "word": "构成犯罪"
+    },
+    {
+      "source": "커우짜오한슈",
+      "reading": "gou zao han shu",
+      "word": "构造函数"
+    },
+    {
+      "source": "콩콩쿠안시",
+      "reading": "gong gong guan xi",
+      "word": "公共关系"
+    },
+    {
+      "source": "콩카이쒠파",
+      "reading": "gong kai xuan ba",
+      "word": "公开选拔"
+    },
+    {
+      "source": "콩카이짜오피아오",
+      "reading": "gong kai zhao biao",
+      "word": "公开招标"
+    },
+    {
+      "source": "콩짜오콩시",
+      "reading": "gong jiao gong si",
+      "word": "公交公司"
+    },
+    {
+      "source": "콩추파푸",
+      "reading": "gong qiu fa bu",
+      "word": "供求发布"
+    },
+    {
+      "source": "콩추쿠안시",
+      "reading": "gong qiu guan xi",
+      "word": "供求关系"
+    },
+    {
+      "source": "콩청짜오짜",
+      "reading": "gong cheng zao jia",
+      "word": "工程造价"
+    },
+    {
+      "source": "콩지타이유",
+      "reading": "gong zi dai yu",
+      "word": "工资待遇"
+    },
+    {
+      "source": "콩지써우루",
+      "reading": "gong zi shou ru",
+      "word": "工资收入"
+    },
+    {
+      "source": "콩쪼파오카오",
+      "reading": "gong zuo bao gao",
+      "word": "工作报告"
+    },
+    {
+      "source": "콩쪼푸슈",
+      "reading": "gong zuo bu shu",
+      "word": "工作部署"
+    },
+    {
+      "source": "콩쪼무피아오",
+      "reading": "gong zuo mu biao",
+      "word": "工作目标"
+    },
+    {
+      "source": "콩쪼쭈앙타이",
+      "reading": "gong zuo zhuang tai",
+      "word": "工作状态"
+    },
+    {
+      "source": "콩시짜이췐",
+      "reading": "gong si zhai quan",
+      "word": "公司债券"
+    },
+    {
+      "source": "콩시짱청",
+      "reading": "gong si zhang cheng",
+      "word": "公司章程"
+    },
+    {
+      "source": "콩시쭈처",
+      "reading": "gong si zhu ce",
+      "word": "公司注册"
+    },
+    {
+      "source": "콩시쭝푸",
+      "reading": "gong si zong bu",
+      "word": "公司总部"
+    },
+    {
+      "source": "콩시쭝차이",
+      "reading": "gong si zong cai",
+      "word": "公司总裁"
+    },
+    {
+      "source": "콩시우앙지",
+      "reading": "gong si wang zhi",
+      "word": "公司网址"
+    },
+    {
+      "source": "콩이쿠앙카오",
+      "reading": "gong yi guang gao",
+      "word": "公益广告"
+    },
+    {
+      "source": "쿠피아오터우지",
+      "reading": "gu piao tou zi",
+      "word": "股票投资"
+    },
+    {
+      "source": "쿠피아오짜커",
+      "reading": "gu piao jia ge",
+      "word": "股票价格"
+    },
+    {
+      "source": "쿠피아오짜오이",
+      "reading": "gu piao jiao yi",
+      "word": "股票交易"
+    },
+    {
+      "source": "쿠피아오시창",
+      "reading": "gu piao shi chang",
+      "word": "股票市场"
+    },
+    {
+      "source": "쿠펀콩시",
+      "reading": "gu fen gong si",
+      "word": "股份公司"
+    },
+    {
+      "source": "쿠러우쿠아웬",
+      "reading": "gu lou gua wen",
+      "word": "孤陋寡闻"
+    },
+    {
+      "source": "쿠칸짜오시",
+      "reading": "gu gan jiao shi",
+      "word": "骨干教师"
+    },
+    {
+      "source": "쿠췐터우지",
+      "reading": "gu quan tou zi",
+      "word": "股权投资"
+    },
+    {
+      "source": "쿠췐쭈안랑",
+      "reading": "gu quan zhuan rang",
+      "word": "股权转让"
+    },
+    {
+      "source": "쿠짱쩐투안",
+      "reading": "gu zhang zhen duan",
+      "word": "故障诊断"
+    },
+    {
+      "source": "코팡푸짱",
+      "reading": "guo fang bu zhang",
+      "word": "国防部长"
+    },
+    {
+      "source": "코지피아오쮄",
+      "reading": "guo ji biao zhun",
+      "word": "国际标准"
+    },
+    {
+      "source": "코지써우지",
+      "reading": "guo ji shou zhi",
+      "word": "国际收支"
+    },
+    {
+      "source": "코지지펀",
+      "reading": "guo ji zi ben",
+      "word": "国际资本"
+    },
+    {
+      "source": "코짜피아오쮄",
+      "reading": "guo jia biao zhun",
+      "word": "国家标准"
+    },
+    {
+      "source": "코짜지쿠안",
+      "reading": "guo jia ji guan",
+      "word": "国家机关"
+    },
+    {
+      "source": "코치카이커",
+      "reading": "guo qi gai ge",
+      "word": "国企改革"
+    },
+    {
+      "source": "코유지펀",
+      "reading": "guo you zi ben",
+      "word": "国有资本"
+    },
+    {
+      "source": "퀴판쿠안리",
+      "reading": "gui fan guan li",
+      "word": "规范管理"
+    },
+    {
+      "source": "퀴타오짜오통",
+      "reading": "gui dao jiao tong",
+      "word": "轨道交通"
+    },
+    {
+      "source": "퀴컨타오티",
+      "reading": "gui gen dao di",
+      "word": "归根到底"
+    },
+    {
+      "source": "퀴후아캉이아오",
+      "reading": "gui hua gang yao",
+      "word": "规划纲要"
+    },
+    {
+      "source": "퀴짱지투",
+      "reading": "gui zhang zhi du",
+      "word": "规章制度"
+    },
+    {
+      "source": "쿠아코콩시",
+      "reading": "kua guo gong si",
+      "word": "跨国公司"
+    },
+    {
+      "source": "쿠안타이쌍우앙",
+      "reading": "kuan dai shang wang",
+      "word": "宽带上网"
+    },
+    {
+      "source": "쿠앙펑파오유",
+      "reading": "kuang feng bao yu",
+      "word": "狂风暴雨"
+    },
+    {
+      "source": "쿠앙짜쉐이",
+      "reading": "kuang jia xie yi",
+      "word": "框架协议"
+    },
+    {
+      "source": "쿠아이티콩시",
+      "reading": "kuai di gong si",
+      "word": "快递公司"
+    },
+    {
+      "source": "쿠아이쿠아이러러",
+      "reading": "kuai kuai le le",
+      "word": "快快乐乐"
+    },
+    {
+      "source": "쿠아이지파오피아오",
+      "reading": "kuai ji bao biao",
+      "word": "会计报表"
+    },
+    {
+      "source": "쿠아이쑤쩡짱",
+      "reading": "kuai su zeng zhang",
+      "word": "快速增长"
+    },
+    {
+      "source": "카파시지",
+      "reading": "ka ba si ji",
+      "word": "卡巴斯基"
+    },
+    {
+      "source": "카이파콩시",
+      "reading": "kai fa gong si",
+      "word": "开发公司"
+    },
+    {
+      "source": "카이티파오카오",
+      "reading": "kai ti bao gao",
+      "word": "开题报告"
+    },
+    {
+      "source": "카이쿠안티앤웬",
+      "reading": "kai guan dian yuan",
+      "word": "开关电源"
+    },
+    {
+      "source": "카이시차이탄",
+      "reading": "kai shi cai dan",
+      "word": "开始菜单"
+    },
+    {
+      "source": "커쿠안췐짜이",
+      "reading": "ke guan cun zai",
+      "word": "客观存在"
+    },
+    {
+      "source": "콩푸펀지",
+      "reading": "kong bu fen zi",
+      "word": "恐怖分子"
+    },
+    {
+      "source": "콩티아오위슈",
+      "reading": "kong tiao wei xiu",
+      "word": "空调维修"
+    },
+    {
+      "source": "쿠샤오푸터",
+      "reading": "ku xiao bu de",
+      "word": "哭笑不得"
+    },
+    {
+      "source": "후아후아차오차오",
+      "reading": "hua hua cao cao",
+      "word": "花花草草"
+    },
+    {
+      "source": "후안파오푸먼",
+      "reading": "huan bao bu men",
+      "word": "环保部门"
+    },
+    {
+      "source": "후안파오쭝쮜",
+      "reading": "huan bao zong ju",
+      "word": "环保总局"
+    },
+    {
+      "source": "후안추시파오",
+      "reading": "huan qiu shi bao",
+      "word": "环球时报"
+    },
+    {
+      "source": "후안위시카오",
+      "reading": "huan wei si kao",
+      "word": "换位思考"
+    },
+    {
+      "source": "하이푸지타오",
+      "reading": "hai bu zhi dao",
+      "word": "还不知道"
+    },
+    {
+      "source": "하이쿠안쭝슈",
+      "reading": "hai guan zong shu",
+      "word": "海关总署"
+    },
+    {
+      "source": "하이우아이터우지",
+      "reading": "hai wai tou zi",
+      "word": "海外投资"
+    },
+    {
+      "source": "하이우아이시창",
+      "reading": "hai wai shi chang",
+      "word": "海外市场"
+    },
+    {
+      "source": "후우아이쿠앙카오",
+      "reading": "hu wai guang gao",
+      "word": "户外广告"
+    },
+    {
+      "source": "호펑루안티아오",
+      "reading": "huo beng luan tiao",
+      "word": "活蹦乱跳"
+    },
+    {
+      "source": "지펀콩지",
+      "reading": "ji ben gong zi",
+      "word": "基本工资"
+    },
+    {
+      "source": "지펀이아오추",
+      "reading": "ji ben yao qiu",
+      "word": "基本要求"
+    },
+    {
+      "source": "지피아오짜커",
+      "reading": "ji piao jia ge",
+      "word": "机票价格"
+    },
+    {
+      "source": "지티앤시카오",
+      "reading": "ji dian si kao",
+      "word": "几点思考"
+    },
+    {
+      "source": "지투안콩시",
+      "reading": "ji tuan gong si",
+      "word": "集团公司"
+    },
+    {
+      "source": "지쿠안칸푸",
+      "reading": "ji guan gan bu",
+      "word": "机关干部"
+    },
+    {
+      "source": "지커우카이커",
+      "reading": "ji gou gai ge",
+      "word": "机构改革"
+    },
+    {
+      "source": "지쉐지짜오",
+      "reading": "ji xie zhi zao",
+      "word": "机械制造"
+    },
+    {
+      "source": "지쭝차이커우",
+      "reading": "ji zhong cai gou",
+      "word": "集中采购"
+    },
+    {
+      "source": "지슈피아오쮄",
+      "reading": "ji shu biao zhun",
+      "word": "技术标准"
+    },
+    {
+      "source": "지슈카이짜오",
+      "reading": "ji shu gai zao",
+      "word": "技术改造"
+    },
+    {
+      "source": "지슈쭈앙페이",
+      "reading": "ji shu zhuang bei",
+      "word": "技术装备"
+    },
+    {
+      "source": "지슈지피아오",
+      "reading": "ji shu zhi biao",
+      "word": "技术指标"
+    },
+    {
+      "source": "지슈지타오",
+      "reading": "ji shu zhi dao",
+      "word": "技术指导"
+    },
+    {
+      "source": "지슈써우투안",
+      "reading": "ji shu shou duan",
+      "word": "技术手段"
+    },
+    {
+      "source": "지슈지리아오",
+      "reading": "ji shu zi liao",
+      "word": "技术资料"
+    },
+    {
+      "source": "지위쭝이아오",
+      "reading": "ji wei zhong yao",
+      "word": "极为重要"
+    },
+    {
+      "source": "짜판짜티앤",
+      "reading": "jia ban jia dian",
+      "word": "加班加点"
+    },
+    {
+      "source": "짜커포통",
+      "reading": "jia ge bo dong",
+      "word": "价格波动"
+    },
+    {
+      "source": "짜커지슈",
+      "reading": "jia ge zhi shu",
+      "word": "价格指数"
+    },
+    {
+      "source": "짜커쩌우시",
+      "reading": "jia ge zou shi",
+      "word": "价格走势"
+    },
+    {
+      "source": "짜창쿠안리",
+      "reading": "jia qiang guan li",
+      "word": "加强管理"
+    },
+    {
+      "source": "짜지터우지",
+      "reading": "jia zhi tou zi",
+      "word": "价值投资"
+    },
+    {
+      "source": "찌앤쿠아이푸쿠아이",
+      "reading": "jian guai bu guai",
+      "word": "见怪不怪"
+    },
+    {
+      "source": "찌앤처파오카오",
+      "reading": "jian ce bao gao",
+      "word": "检测报告"
+    },
+    {
+      "source": "짜오펀유이앤",
+      "reading": "jiao ben yu yan",
+      "word": "脚本语言"
+    },
+    {
+      "source": "짜오통쿠안리",
+      "reading": "jiao tong guan li",
+      "word": "交通管理"
+    },
+    {
+      "source": "짜오통쿠안지",
+      "reading": "jiao tong guan zhi",
+      "word": "交通管制"
+    },
+    {
+      "source": "짜오쉐무피아오",
+      "reading": "jiao xue mu biao",
+      "word": "教学目标"
+    },
+    {
+      "source": "짜오쉐카이커",
+      "reading": "jiao xue gai ge",
+      "word": "教学改革"
+    },
+    {
+      "source": "짜오처시창",
+      "reading": "jiao che shi chang",
+      "word": "轿车市场"
+    },
+    {
+      "source": "짜오웬탄파이",
+      "reading": "jiao yuan dan bai",
+      "word": "胶原蛋白"
+    },
+    {
+      "source": "짜오유푸먼",
+      "reading": "jiao yu bu men",
+      "word": "教育部门"
+    },
+    {
+      "source": "짜오유카이커",
+      "reading": "jiao yu gai ge",
+      "word": "教育改革"
+    },
+    {
+      "source": "짜오유콩쪼",
+      "reading": "jiao yu gong zuo",
+      "word": "教育工作"
+    },
+    {
+      "source": "짜오유하이지",
+      "reading": "jiao yu hai zi",
+      "word": "教育孩子"
+    },
+    {
+      "source": "짜오유지커우",
+      "reading": "jiao yu ji gou",
+      "word": "教育机构"
+    },
+    {
+      "source": "짜오유짜오쉐",
+      "reading": "jiao yu jiao xue",
+      "word": "教育教学"
+    },
+    {
+      "source": "짜오유지투",
+      "reading": "jiao yu zhi du",
+      "word": "教育制度"
+    },
+    {
+      "source": "짜오유지리앙",
+      "reading": "jiao yu zhi liang",
+      "word": "教育质量"
+    },
+    {
+      "source": "짜오유지웬",
+      "reading": "jiao yu zi yuan",
+      "word": "教育资源"
+    },
+    {
+      "source": "짜오유시샹",
+      "reading": "jiao yu si xiang",
+      "word": "教育思想"
+    },
+    {
+      "source": "찌에커우티아오쩡",
+      "reading": "jie gou tiao zheng",
+      "word": "结构调整"
+    },
+    {
+      "source": "찡지지피아오",
+      "reading": "jing ji zhi biao",
+      "word": "经济指标"
+    },
+    {
+      "source": "찡우아이터우지",
+      "reading": "jing wai tou zi",
+      "word": "境外投资"
+    },
+    {
+      "source": "쭈밍타오차오",
+      "reading": "jiu ming dao cao",
+      "word": "救命稻草"
+    },
+    {
+      "source": "쭈청카이짜오",
+      "reading": "jiu cheng gai zao",
+      "word": "旧城改造"
+    },
+    {
+      "source": "쮜파오티앤후아",
+      "reading": "ju bao dian hua",
+      "word": "举报电话"
+    },
+    {
+      "source": "쮜카오푸샤",
+      "reading": "ju gao bu xia",
+      "word": "居高不下"
+    },
+    {
+      "source": "췐추쮜타",
+      "reading": "quan qiu zui da",
+      "word": "全球最大"
+    },
+    {
+      "source": "췐썬쿠안쭈",
+      "reading": "quan shen guan zhu",
+      "word": "全神贯注"
+    },
+    {
+      "source": "췐위지커우",
+      "reading": "quan wei ji gou",
+      "word": "权威机构"
+    },
+    {
+      "source": "츄에푸지타오",
+      "reading": "que bu zhi dao",
+      "word": "却不知道"
+    },
+    {
+      "source": "치지파이후아이",
+      "reading": "qi ji bai huai",
+      "word": "气急败坏"
+    },
+    {
+      "source": "차타오하오추",
+      "reading": "qia dao hao chu",
+      "word": "恰到好处"
+    },
+    {
+      "source": "치앤치파이쿠아이",
+      "reading": "qian qi bai guai",
+      "word": "千奇百怪"
+    },
+    {
+      "source": "창리에이아오추",
+      "reading": "qiang lie yao qiu",
+      "word": "强烈要求"
+    },
+    {
+      "source": "쒠추안파오타오",
+      "reading": "xuan chuan bao dao",
+      "word": "宣传报道"
+    },
+    {
+      "source": "쒠추안푸짱",
+      "reading": "xuan chuan bu zhang",
+      "word": "宣传部长"
+    },
+    {
+      "source": "쒠추안튀쿠앙",
+      "reading": "xuan chuan tui guang",
+      "word": "宣传推广"
+    },
+    {
+      "source": "쒠추안콩쪼",
+      "reading": "xuan chuan gong zuo",
+      "word": "宣传工作"
+    },
+    {
+      "source": "쒠추안짜오유",
+      "reading": "xuan chuan jiao yu",
+      "word": "宣传教育"
+    },
+    {
+      "source": "쒠추안지리아오",
+      "reading": "xuan chuan zi liao",
+      "word": "宣传资料"
+    },
+    {
+      "source": "시파오티아오우앙",
+      "reading": "xi bao diao wang",
+      "word": "细胞凋亡"
+    },
+    {
+      "source": "시치쿠쿠아이",
+      "reading": "xi qi gu guai",
+      "word": "稀奇古怪"
+    },
+    {
+      "source": "샤짜이티지",
+      "reading": "xia zai di zhi",
+      "word": "下载地址"
+    },
+    {
+      "source": "샤오페이티앤지",
+      "reading": "xiao fei dian zi",
+      "word": "消费电子"
+    },
+    {
+      "source": "샤오페이시쿠안",
+      "reading": "xiao fei xi guan",
+      "word": "消费习惯"
+    },
+    {
+      "source": "샤오타오샤오시",
+      "reading": "xiao dao xiao xi",
+      "word": "小道消息"
+    },
+    {
+      "source": "샤오후아푸리앙",
+      "reading": "xiao hua bu liang",
+      "word": "消化不良"
+    },
+    {
+      "source": "샤오써우타이피아오",
+      "reading": "xiao shou dai biao",
+      "word": "销售代表"
+    },
+    {
+      "source": "샤오써우콩시",
+      "reading": "xiao shou gong si",
+      "word": "销售公司"
+    },
+    {
+      "source": "샤오써우짜커",
+      "reading": "xiao shou jia ge",
+      "word": "销售价格"
+    },
+    {
+      "source": "샤오써우취타오",
+      "reading": "xiao shou qu dao",
+      "word": "销售渠道"
+    },
+    {
+      "source": "샤오써우써우루",
+      "reading": "xiao shou shou ru",
+      "word": "销售收入"
+    },
+    {
+      "source": "샤오써우우앙로",
+      "reading": "xiao shou wang luo",
+      "word": "销售网络"
+    },
+    {
+      "source": "샹쿠안파오타오",
+      "reading": "xiang guan bao dao",
+      "word": "相关报道"
+    },
+    {
+      "source": "샹쿠안파류",
+      "reading": "xiang guan fa lv",
+      "word": "相关法律"
+    },
+    {
+      "source": "샹쿠안쭈안이에",
+      "reading": "xiang guan zhuan ye",
+      "word": "相关专业"
+    },
+    {
+      "source": "샹쿠안지시",
+      "reading": "xiang guan zhi shi",
+      "word": "相关知识"
+    },
+    {
+      "source": "샹쿠안써우쒸",
+      "reading": "xiang guan shou xu",
+      "word": "相关手续"
+    },
+    {
+      "source": "샹쿠안지리아오",
+      "reading": "xiang guan zi liao",
+      "word": "相关资料"
+    },
+    {
+      "source": "샹쿠안웬짱",
+      "reading": "xiang guan wen zhang",
+      "word": "相关文章"
+    },
+    {
+      "source": "샹시지리아오",
+      "reading": "xiang xi zi liao",
+      "word": "详细资料"
+    },
+    {
+      "source": "샹시지추",
+      "reading": "xiang si zhi chu",
+      "word": "相似之处"
+    },
+    {
+      "source": "쉐티아오파짠",
+      "reading": "xie tiao fa zhan",
+      "word": "协调发展"
+    },
+    {
+      "source": "쉐티아오지지",
+      "reading": "xie tiao ji zhi",
+      "word": "协调机制"
+    },
+    {
+      "source": "씬웬파오타오",
+      "reading": "xin wen bao dao",
+      "word": "新闻报道"
+    },
+    {
+      "source": "씽쿠앙타타오",
+      "reading": "xing guang da dao",
+      "word": "星光大道"
+    },
+    {
+      "source": "쒸짜쿠앙카오",
+      "reading": "xu jia guang gao",
+      "word": "虚假广告"
+    },
+    {
+      "source": "쒸이아오팡쭈",
+      "reading": "xu yao bang zhu",
+      "word": "需要帮助"
+    },
+    {
+      "source": "쭈안라이쭈안취",
+      "reading": "zhuan lai zhuan qu",
+      "word": "转来转去"
+    },
+    {
+      "source": "쭈안짜찌에싸오",
+      "reading": "zhuan jia jie shao",
+      "word": "专家介绍"
+    },
+    {
+      "source": "쭈안이옹파피아오",
+      "reading": "zhuan yong fa piao",
+      "word": "专用发票"
+    },
+    {
+      "source": "쭈앙슈콩시",
+      "reading": "zhuang xiu gong si",
+      "word": "装修公司"
+    },
+    {
+      "source": "쭈앙시콩시",
+      "reading": "zhuang shi gong si",
+      "word": "装饰公司"
+    },
+    {
+      "source": "쭈앙시쭈앙슈",
+      "reading": "zhuang shi zhuang xiu",
+      "word": "装饰装修"
+    },
+    {
+      "source": "쭈앙시차이리아오",
+      "reading": "zhuang shi cai liao",
+      "word": "装饰材料"
+    },
+    {
+      "source": "쮄페이콩쪼",
+      "reading": "zhun bei gong zuo",
+      "word": "准备工作"
+    },
+    {
+      "source": "짜짜시시",
+      "reading": "zha zha shi shi",
+      "word": "扎扎实实"
+    },
+    {
+      "source": "짜오피아오터우피아오",
+      "reading": "zhao biao tou biao",
+      "word": "招标投标"
+    },
+    {
+      "source": "짜오피아오콩카오",
+      "reading": "zhao biao gong gao",
+      "word": "招标公告"
+    },
+    {
+      "source": "짜오피아오웬찌앤",
+      "reading": "zhao biao wen jian",
+      "word": "招标文件"
+    },
+    {
+      "source": "짜오푸타오러",
+      "reading": "zhao bu dao le",
+      "word": "找不到了"
+    },
+    {
+      "source": "짜오쌍인지",
+      "reading": "zhao shang yin zi",
+      "word": "招商引资"
+    },
+    {
+      "source": "쩌커시타이",
+      "reading": "zhe ge shi dai",
+      "word": "这个时代"
+    },
+    {
+      "source": "쩌커슈지",
+      "reading": "zhe ge shu zi",
+      "word": "这个数字"
+    },
+    {
+      "source": "쩌쉐터우시",
+      "reading": "zhe xie dou shi",
+      "word": "这些都是"
+    },
+    {
+      "source": "쩌쭈이아오시",
+      "reading": "zhe zhu yao shi",
+      "word": "这主要是"
+    },
+    {
+      "source": "쩐푸지타오",
+      "reading": "zhen bu zhi dao",
+      "word": "真不知道"
+    },
+    {
+      "source": "쩐시쉐짜오",
+      "reading": "zhen shi xie zhao",
+      "word": "真实写照"
+    },
+    {
+      "source": "쩡푸터우지",
+      "reading": "zheng fu tou zi",
+      "word": "政府投资"
+    },
+    {
+      "source": "쩡푸차이커우",
+      "reading": "zheng fu cai gou",
+      "word": "政府采购"
+    },
+    {
+      "source": "쩡췐터우지",
+      "reading": "zheng quan tou zi",
+      "word": "证券投资"
+    },
+    {
+      "source": "쩡지터우쩡",
+      "reading": "zheng zhi dou zheng",
+      "word": "政治斗争"
+    },
+    {
+      "source": "지피아오티시",
+      "reading": "zhi biao ti xi",
+      "word": "指标体系"
+    },
+    {
+      "source": "지푸지타오",
+      "reading": "zhi bu zhi dao",
+      "word": "知不知道"
+    },
+    {
+      "source": "지푸슈지",
+      "reading": "zhi bu shu ji",
+      "word": "支部书记"
+    },
+    {
+      "source": "지타오라오시",
+      "reading": "zhi dao lao shi",
+      "word": "指导老师"
+    },
+    {
+      "source": "지타오콩쪼",
+      "reading": "zhi dao gong zuo",
+      "word": "指导工作"
+    },
+    {
+      "source": "지타오씨앤짜이",
+      "reading": "zhi dao xian zai",
+      "word": "直到现在"
+    },
+    {
+      "source": "지타오지지",
+      "reading": "zhi dao zi ji",
+      "word": "知道自己"
+    },
+    {
+      "source": "지타오시샹",
+      "reading": "zhi dao si xiang",
+      "word": "指导思想"
+    },
+    {
+      "source": "지터쿠안쭈",
+      "reading": "zhi de guan zhu",
+      "word": "值得关注"
+    },
+    {
+      "source": "지터치타이",
+      "reading": "zhi de qi dai",
+      "word": "值得期待"
+    },
+    {
+      "source": "지투카이커",
+      "reading": "zhi du gai ge",
+      "word": "制度改革"
+    },
+    {
+      "source": "지리아오팡파",
+      "reading": "zhi liao fang fa",
+      "word": "治疗方法"
+    },
+    {
+      "source": "지리아오샤오코",
+      "reading": "zhi liao xiao guo",
+      "word": "治疗效果"
+    },
+    {
+      "source": "지리앙파오쩡",
+      "reading": "zhi liang bao zheng",
+      "word": "质量保证"
+    },
+    {
+      "source": "지리앙피아오쮄",
+      "reading": "zhi liang biao zhun",
+      "word": "质量标准"
+    },
+    {
+      "source": "지리앙쿠안리",
+      "reading": "zhi liang guan li",
+      "word": "质量管理"
+    },
+    {
+      "source": "지쿠안쭝이아오",
+      "reading": "zhi guan zhong yao",
+      "word": "至关重要"
+    },
+    {
+      "source": "지콩콩지",
+      "reading": "zhi gong gong zi",
+      "word": "职工工资"
+    },
+    {
+      "source": "지지푸리",
+      "reading": "zhi zhi bu li",
+      "word": "置之不理"
+    },
+    {
+      "source": "지시펀지",
+      "reading": "zhi shi fen zi",
+      "word": "知识分子"
+    },
+    {
+      "source": "지시쿠안리",
+      "reading": "zhi shi guan li",
+      "word": "知识管理"
+    },
+    {
+      "source": "지써우후아짜오",
+      "reading": "zhi shou hua jiao",
+      "word": "指手画脚"
+    },
+    {
+      "source": "지짜오지슈",
+      "reading": "zhi zao ji shu",
+      "word": "制造技术"
+    },
+    {
+      "source": "쩌우피앤코짜",
+      "reading": "zhou bian guo jia",
+      "word": "周边国家"
+    },
+    {
+      "source": "쭝티써우루",
+      "reading": "zhong di shou ru",
+      "word": "中低收入"
+    },
+    {
+      "source": "쭝코페이팡",
+      "reading": "zhong guo bei fang",
+      "word": "中国北方"
+    },
+    {
+      "source": "쭝코탕타이",
+      "reading": "zhong guo dang dai",
+      "word": "中国当代"
+    },
+    {
+      "source": "쭝코뉴파이",
+      "reading": "zhong guo nv pai",
+      "word": "中国女排"
+    },
+    {
+      "source": "쭝코뉴쭈",
+      "reading": "zhong guo nv zu",
+      "word": "中国女足"
+    },
+    {
+      "source": "쭝코콩시",
+      "reading": "zhong guo gong si",
+      "word": "中国公司"
+    },
+    {
+      "source": "쭝코쿠타이",
+      "reading": "zhong guo gu dai",
+      "word": "中国古代"
+    },
+    {
+      "source": "쭝코짜오유",
+      "reading": "zhong guo jiao yu",
+      "word": "中国教育"
+    },
+    {
+      "source": "쭝코시푸",
+      "reading": "zhong guo xi bu",
+      "word": "中国西部"
+    },
+    {
+      "source": "쭝코지짜오",
+      "reading": "zhong guo zhi zao",
+      "word": "中国制造"
+    },
+    {
+      "source": "쭝코추안통",
+      "reading": "zhong guo chuan tong",
+      "word": "中国传统"
+    },
+    {
+      "source": "쭝코추커우",
+      "reading": "zhong guo chu kou",
+      "word": "中国出口"
+    },
+    {
+      "source": "쭝코쭈추",
+      "reading": "zhong guo zu qiu",
+      "word": "中国足球"
+    },
+    {
+      "source": "쭝코쭈쉐",
+      "reading": "zhong guo zu xie",
+      "word": "中国足协"
+    },
+    {
+      "source": "쭝코쮜타",
+      "reading": "zhong guo zui da",
+      "word": "中国最大"
+    },
+    {
+      "source": "쭝지무피아오",
+      "reading": "zhong ji mu biao",
+      "word": "终极目标"
+    },
+    {
+      "source": "쭝추쿠아이러",
+      "reading": "zhong qiu kuai le",
+      "word": "中秋快乐"
+    },
+    {
+      "source": "쭝쭝지쭝",
+      "reading": "zhong zhong zhi zhong",
+      "word": "重中之重"
+    },
+    {
+      "source": "쭝리쿠안시",
+      "reading": "zhong ri guan xi",
+      "word": "中日关系"
+    },
+    {
+      "source": "쭝청칸푸",
+      "reading": "zhong ceng gan bu",
+      "word": "中层干部"
+    },
+    {
+      "source": "쭝쏘쩌우지",
+      "reading": "zhong suo zhou zhi",
+      "word": "众所周知"
+    },
+    {
+      "source": "쭝이앙탕샤오",
+      "reading": "zhong yang dang xiao",
+      "word": "中央党校"
+    },
+    {
+      "source": "쭝이앙차이쩡",
+      "reading": "zhong yang cai zheng",
+      "word": "中央财政"
+    },
+    {
+      "source": "쭝이아오피아오지",
+      "reading": "zhong yao biao zhi",
+      "word": "重要标志"
+    },
+    {
+      "source": "쭝이아오티위",
+      "reading": "zhong yao di wei",
+      "word": "重要地位"
+    },
+    {
+      "source": "쭝이아오짱후아",
+      "reading": "zhong yao jiang hua",
+      "word": "重要讲话"
+    },
+    {
+      "source": "쭝이아오시샹",
+      "reading": "zhong yao si xiang",
+      "word": "重要思想"
+    },
+    {
+      "source": "쭝유짜오타오",
+      "reading": "zhong yu zhao dao",
+      "word": "终于找到"
+    },
+    {
+      "source": "쭈판탄위",
+      "reading": "zhu ban dan wei",
+      "word": "主办单位"
+    },
+    {
+      "source": "쭈팡타이쿠안",
+      "reading": "zhu fang dai kuan",
+      "word": "住房贷款"
+    },
+    {
+      "source": "쭈타오티위",
+      "reading": "zhu dao di wei",
+      "word": "主导地位"
+    },
+    {
+      "source": "쭈쿠안푸먼",
+      "reading": "zhu guan bu men",
+      "word": "主管部门"
+    },
+    {
+      "source": "쭈쿠안지쿠안",
+      "reading": "zhu guan ji guan",
+      "word": "主管机关"
+    },
+    {
+      "source": "쭈러우짜커",
+      "reading": "zhu rou jia ge",
+      "word": "猪肉价格"
+    },
+    {
+      "source": "쭈처콩시",
+      "reading": "zhu ce gong si",
+      "word": "注册公司"
+    },
+    {
+      "source": "쭈처쌍피아오",
+      "reading": "zhu ce shang biao",
+      "word": "注册商标"
+    },
+    {
+      "source": "쭈처지펀",
+      "reading": "zhu ce zi ben",
+      "word": "注册资本"
+    },
+    {
+      "source": "쭈이아오파오코",
+      "reading": "zhu yao bao kuo",
+      "word": "主要包括"
+    },
+    {
+      "source": "쭈이아오피아오씨앤",
+      "reading": "zhu yao biao xian",
+      "word": "主要表现"
+    },
+    {
+      "source": "쭈이아오마오투엔",
+      "reading": "zhu yao mao dun",
+      "word": "主要矛盾"
+    },
+    {
+      "source": "쭈이아오무피아오",
+      "reading": "zhu yao mu biao",
+      "word": "主要目标"
+    },
+    {
+      "source": "쭈이아오펀푸",
+      "reading": "zhu yao fen bu",
+      "word": "主要分布"
+    },
+    {
+      "source": "쭈이아오터티앤",
+      "reading": "zhu yao te dian",
+      "word": "主要特点"
+    },
+    {
+      "source": "쭈이아오링타오",
+      "reading": "zhu yao ling dao",
+      "word": "主要领导"
+    },
+    {
+      "source": "쭈이아오콩쪼",
+      "reading": "zhu yao gong zuo",
+      "word": "主要工作"
+    },
+    {
+      "source": "쭈이아오지쩌",
+      "reading": "zhu yao zhi ze",
+      "word": "主要职责"
+    },
+    {
+      "source": "쭈이아오시지",
+      "reading": "zhu yao shi zhi",
+      "word": "主要是指"
+    },
+    {
+      "source": "쭈이아오웬리아오",
+      "reading": "zhu yao yuan liao",
+      "word": "主要原料"
+    },
+    {
+      "source": "쭈이아오웬티",
+      "reading": "zhu yao wen ti",
+      "word": "主要问题"
+    },
+    {
+      "source": "쪼쭈앙청짱",
+      "reading": "zhuo zhuang cheng zhang",
+      "word": "茁壮成长"
+    },
+    {
+      "source": "추안푸코치",
+      "reading": "chuan bu guo qi",
+      "word": "喘不过气"
+    },
+    {
+      "source": "추안시시푸",
+      "reading": "chuan shi si fu",
+      "word": "传世私服"
+    },
+    {
+      "source": "추안슈쑤투",
+      "reading": "chuan shu su du",
+      "word": "传输速度"
+    },
+    {
+      "source": "추안슈쑤류",
+      "reading": "chuan shu su lv",
+      "word": "传输速率"
+    },
+    {
+      "source": "추앙짜오티아오찌앤",
+      "reading": "chuang zao tiao jian",
+      "word": "创造条件"
+    },
+    {
+      "source": "추앙짜오리앙하오",
+      "reading": "chuang zao liang hao",
+      "word": "创造良好"
+    },
+    {
+      "source": "추앙짜오짜지",
+      "reading": "chuang zao jia zhi",
+      "word": "创造价值"
+    },
+    {
+      "source": "추앙짜오차이푸",
+      "reading": "chuang zao cai fu",
+      "word": "创造财富"
+    },
+    {
+      "source": "추앙이에터우지",
+      "reading": "chuang ye tou zi",
+      "word": "创业投资"
+    },
+    {
+      "source": "췐췐유통",
+      "reading": "chun chun yu dong",
+      "word": "蠢蠢欲动"
+    },
+    {
+      "source": "창짜지샤오",
+      "reading": "chang jia zhi xiao",
+      "word": "厂家直销"
+    },
+    {
+      "source": "창짱타차오",
+      "reading": "chang jiang da qiao",
+      "word": "长江大桥"
+    },
+    {
+      "source": "창치터우지",
+      "reading": "chang qi tou zi",
+      "word": "长期投资"
+    },
+    {
+      "source": "차오지타코",
+      "reading": "chao ji da guo",
+      "word": "超级大国"
+    },
+    {
+      "source": "차오씨앤판타오",
+      "reading": "chao xian ban dao",
+      "word": "朝鲜半岛"
+    },
+    {
+      "source": "청쿠안지파",
+      "reading": "cheng guan zhi fa",
+      "word": "城管执法"
+    },
+    {
+      "source": "청짜오짜커",
+      "reading": "cheng jiao jia ge",
+      "word": "成交价格"
+    },
+    {
+      "source": "치밍쌍피아오",
+      "reading": "chi ming shang biao",
+      "word": "驰名商标"
+    },
+    {
+      "source": "처우페이콩쪼",
+      "reading": "chou bei gong zuo",
+      "word": "筹备工作"
+    },
+    {
+      "source": "처우이앙티아오차",
+      "reading": "chou yang diao cha",
+      "word": "抽样调查"
+    },
+    {
+      "source": "추라이짜타오",
+      "reading": "chu lai zha dao",
+      "word": "初来乍到"
+    },
+    {
+      "source": "추커우리펀",
+      "reading": "chu kou ri ben",
+      "word": "出口日本"
+    },
+    {
+      "source": "추치지우아이",
+      "reading": "chu ci zhi wai",
+      "word": "除此之外"
+    },
+    {
+      "source": "쒠치지란",
+      "reading": "shun qi zi ran",
+      "word": "顺其自然"
+    },
+    {
+      "source": "싼싼파쿠앙",
+      "reading": "shan shan fa guang",
+      "word": "闪闪发光"
+    },
+    {
+      "source": "쌍피아오쭈처",
+      "reading": "shang biao zhu ce",
+      "word": "商标注册"
+    },
+    {
+      "source": "썬티아오샤류",
+      "reading": "shen diao xia lv",
+      "word": "神雕侠侣"
+    },
+    {
+      "source": "썬지파오카오",
+      "reading": "shen ji bao gao",
+      "word": "审计报告"
+    },
+    {
+      "source": "썬시슈류",
+      "reading": "shen si shu lv",
+      "word": "深思熟虑"
+    },
+    {
+      "source": "썽피터파오",
+      "reading": "sheng bi de bao",
+      "word": "圣彼得堡"
+    },
+    {
+      "source": "썽푸루시",
+      "reading": "sheng bu ru si",
+      "word": "生不如死"
+    },
+    {
+      "source": "썽탄쿠아이러",
+      "reading": "sheng dan kuai le",
+      "word": "圣诞快乐"
+    },
+    {
+      "source": "썽지포포",
+      "reading": "sheng ji bo bo",
+      "word": "生机勃勃"
+    },
+    {
+      "source": "썽찬지짜오",
+      "reading": "sheng chan zhi zao",
+      "word": "生产制造"
+    },
+    {
+      "source": "썽찬지리아오",
+      "reading": "sheng chan zi liao",
+      "word": "生产资料"
+    },
+    {
+      "source": "썽췐쭈앙타이",
+      "reading": "sheng cun zhuang tai",
+      "word": "生存状态"
+    },
+    {
+      "source": "시판콩페이",
+      "reading": "shi ban gong bei",
+      "word": "事半功倍"
+    },
+    {
+      "source": "시펀쭝이아오",
+      "reading": "shi fen zhong yao",
+      "word": "十分重要"
+    },
+    {
+      "source": "시퍼우췐짜이",
+      "reading": "shi fou cun zai",
+      "word": "是否存在"
+    },
+    {
+      "source": "시타이쿠앙창",
+      "reading": "shi dai guang chang",
+      "word": "时代广场"
+    },
+    {
+      "source": "시짜쭈앙시",
+      "reading": "shi jia zhuang shi",
+      "word": "石家庄市"
+    },
+    {
+      "source": "시쭝파오치",
+      "reading": "shi zhong bao chi",
+      "word": "始终保持"
+    },
+    {
+      "source": "시창티아오차",
+      "reading": "shi chang diao cha",
+      "word": "市场调查"
+    },
+    {
+      "source": "시창티아오이앤",
+      "reading": "shi chang diao yan",
+      "word": "市场调研"
+    },
+    {
+      "source": "시창튀쿠앙",
+      "reading": "shi chang tui guang",
+      "word": "市场推广"
+    },
+    {
+      "source": "시창샤오써우",
+      "reading": "shi chang xiao shou",
+      "word": "市场销售"
+    },
+    {
+      "source": "시창쩌우시",
+      "reading": "shi chang zou shi",
+      "word": "市场走势"
+    },
+    {
+      "source": "시시판파",
+      "reading": "shi shi ban fa",
+      "word": "实施办法"
+    },
+    {
+      "source": "시시짜이짜이",
+      "reading": "shi shi zai zai",
+      "word": "实实在在"
+    },
+    {
+      "source": "시지루커우",
+      "reading": "shi zi lu kou",
+      "word": "十字路口"
+    },
+    {
+      "source": "써우망짜오루안",
+      "reading": "shou mang jiao luan",
+      "word": "手忙脚乱"
+    },
+    {
+      "source": "써우페이피아오쮄",
+      "reading": "shou fei biao zhun",
+      "word": "收费标准"
+    },
+    {
+      "source": "써우타오씨앤지",
+      "reading": "shou dao xian zhi",
+      "word": "受到限制"
+    },
+    {
+      "source": "써우커우짜커",
+      "reading": "shou gou jia ge",
+      "word": "收购价格"
+    },
+    {
+      "source": "써우짜오핑리앙",
+      "reading": "shou jiao bing liang",
+      "word": "手脚冰凉"
+    },
+    {
+      "source": "써우슈지리아오",
+      "reading": "shou shu zhi liao",
+      "word": "手术治疗"
+    },
+    {
+      "source": "써우루쩡짱",
+      "reading": "shou ru zeng zhang",
+      "word": "收入增长"
+    },
+    {
+      "source": "써우창짜지",
+      "reading": "shou cang jia zhi",
+      "word": "收藏价值"
+    },
+    {
+      "source": "써우우쭈타오",
+      "reading": "shou wu zu dao",
+      "word": "手舞足蹈"
+    },
+    {
+      "source": "슈피아오유찌앤",
+      "reading": "shu biao you jian",
+      "word": "鼠标右键"
+    },
+    {
+      "source": "슈푸썽슈",
+      "reading": "shu bu sheng shu",
+      "word": "数不胜数"
+    },
+    {
+      "source": "슈쮜추안슈",
+      "reading": "shu ju chuan shu",
+      "word": "数据传输"
+    },
+    {
+      "source": "슈루슈추",
+      "reading": "shu ru shu chu",
+      "word": "输入输出"
+    },
+    {
+      "source": "슈지티앤시",
+      "reading": "shu zi dian shi",
+      "word": "数字电视"
+    },
+    {
+      "source": "슈지짜팅",
+      "reading": "shu zi jia ting",
+      "word": "数字家庭"
+    },
+    {
+      "source": "쏘싼타오시",
+      "reading": "shuo san dao si",
+      "word": "说三道四"
+    },
+    {
+      "source": "쒸타오취청",
+      "reading": "shui dao qu cheng",
+      "word": "水到渠成"
+    },
+    {
+      "source": "쒸투파오치",
+      "reading": "shui tu bao chi",
+      "word": "水土保持"
+    },
+    {
+      "source": "쒸로시추",
+      "reading": "shui luo shi chu",
+      "word": "水落石出"
+    },
+    {
+      "source": "쒸짱추안카오",
+      "reading": "shui zhang chuan gao",
+      "word": "水涨船高"
+    },
+    {
+      "source": "쒸써우쩡쿠안",
+      "reading": "shui shou zheng guan",
+      "word": "税收征管"
+    },
+    {
+      "source": "쒸써우쩡처",
+      "reading": "shui shou zheng ce",
+      "word": "税收政策"
+    },
+    {
+      "source": "쒸써우써우루",
+      "reading": "shui shou shou ru",
+      "word": "税收收入"
+    },
+    {
+      "source": "쒸쒸쿠안쿠안",
+      "reading": "shui shui guan guan",
+      "word": "水水灌灌"
+    },
+    {
+      "source": "루안찌앤우아이파오",
+      "reading": "ruan jian wai bao",
+      "word": "软件外包"
+    },
+    {
+      "source": "란리아오티앤치",
+      "reading": "ran liao dian chi",
+      "word": "燃料电池"
+    },
+    {
+      "source": "러타이펑파오",
+      "reading": "re dai feng bao",
+      "word": "热带风暴"
+    },
+    {
+      "source": "런타타이피아오",
+      "reading": "ren da dai biao",
+      "word": "人大代表"
+    },
+    {
+      "source": "런터우지타오",
+      "reading": "ren dou zhi dao",
+      "word": "人都知道"
+    },
+    {
+      "source": "리펀퀴지",
+      "reading": "ri ben gui zi",
+      "word": "日本鬼子"
+    },
+    {
+      "source": "리펀써우샹",
+      "reading": "ri ben shou xiang",
+      "word": "日本首相"
+    },
+    {
+      "source": "리창쿠안리",
+      "reading": "ri chang guan li",
+      "word": "日常管理"
+    },
+    {
+      "source": "롱지취타오",
+      "reading": "rong zi qu dao",
+      "word": "融资渠道"
+    },
+    {
+      "source": "루치쩌판",
+      "reading": "ru ci zhe ban",
+      "word": "如此这般"
+    },
+    {
+      "source": "쮄쭝우앙쌍",
+      "reading": "zun zhong wang shang",
+      "word": "尊重网上"
+    },
+    {
+      "source": "짜치짜파",
+      "reading": "za qi za ba",
+      "word": "杂七杂八"
+    },
+    {
+      "source": "짜이리앙쩌우네이",
+      "reading": "zai liang zhou nei",
+      "word": "在两周内"
+    },
+    {
+      "source": "짜이콩쪼쭝",
+      "reading": "zai gong zuo zhong",
+      "word": "在工作中"
+    },
+    {
+      "source": "짜이씬추앙커우",
+      "reading": "zai xin chuang kou",
+      "word": "在新窗口"
+    },
+    {
+      "source": "짜이치지치앤",
+      "reading": "zai ci zhi qian",
+      "word": "在此之前"
+    },
+    {
+      "source": "짜이시샹쌍",
+      "reading": "zai si xiang shang",
+      "word": "在思想上"
+    },
+    {
+      "source": "짜이이앙쿠앙샤",
+      "reading": "zai yang guang xia",
+      "word": "在阳光下"
+    },
+    {
+      "source": "짜이우앙로쌍",
+      "reading": "zai wang luo shang",
+      "word": "在网络上"
+    },
+    {
+      "source": "짱추안포짜오",
+      "reading": "zang chuan fo jiao",
+      "word": "藏传佛教"
+    },
+    {
+      "source": "짜오청쒠시",
+      "reading": "zao cheng sun shi",
+      "word": "造成损失"
+    },
+    {
+      "source": "짜오쌍치추앙",
+      "reading": "zao shang qi chuang",
+      "word": "早上起床"
+    },
+    {
+      "source": "짜오쒸짜오치",
+      "reading": "zao shui zao qi",
+      "word": "早睡早起"
+    },
+    {
+      "source": "지파오지치",
+      "reading": "zi bao zi qi",
+      "word": "自暴自弃"
+    },
+    {
+      "source": "지펀쭈이",
+      "reading": "zi ben zhu yi",
+      "word": "资本主义"
+    },
+    {
+      "source": "지펀시창",
+      "reading": "zi ben shi chang",
+      "word": "资本市场"
+    },
+    {
+      "source": "지통포팡",
+      "reading": "zi dong bo fang",
+      "word": "自动播放"
+    },
+    {
+      "source": "지통튀짜오",
+      "reading": "zi dong dui jiao",
+      "word": "自动对焦"
+    },
+    {
+      "source": "지통쿠안피",
+      "reading": "zi dong guan bi",
+      "word": "自动关闭"
+    },
+    {
+      "source": "지통쿠안지",
+      "reading": "zi dong guan ji",
+      "word": "自动关机"
+    },
+    {
+      "source": "지커카오시",
+      "reading": "zi ge kao shi",
+      "word": "资格考试"
+    },
+    {
+      "source": "지커쩡슈",
+      "reading": "zi ge zheng shu",
+      "word": "资格证书"
+    },
+    {
+      "source": "지커썬차",
+      "reading": "zi ge shen cha",
+      "word": "资格审查"
+    },
+    {
+      "source": "지쮸에쮄써우",
+      "reading": "zi jue zun shou",
+      "word": "自觉遵守"
+    },
+    {
+      "source": "지지통써우",
+      "reading": "zi ji dong shou",
+      "word": "自己动手"
+    },
+    {
+      "source": "지지지쭈",
+      "reading": "zi ji zi zu",
+      "word": "自给自足"
+    },
+    {
+      "source": "지창푸시",
+      "reading": "zi qiang bu xi",
+      "word": "自强不息"
+    },
+    {
+      "source": "지쭈핀파이",
+      "reading": "zi zhu pin pai",
+      "word": "自主品牌"
+    },
+    {
+      "source": "지쭈카이파",
+      "reading": "zi zhu kai fa",
+      "word": "自主开发"
+    },
+    {
+      "source": "지쭈짜오썽",
+      "reading": "zi zhu zhao sheng",
+      "word": "自主招生"
+    },
+    {
+      "source": "지쭈추앙씬",
+      "reading": "zi zhu chuang xin",
+      "word": "自主创新"
+    },
+    {
+      "source": "지쭈추앙이에",
+      "reading": "zi zhu chuang ye",
+      "word": "自主创业"
+    },
+    {
+      "source": "지찬쿠안리",
+      "reading": "zi chan guan li",
+      "word": "资产管理"
+    },
+    {
+      "source": "지찬충쭈",
+      "reading": "zi chan chong zu",
+      "word": "资产重组"
+    },
+    {
+      "source": "지시지쭝",
+      "reading": "zi shi zhi zhong",
+      "word": "自始至终"
+    },
+    {
+      "source": "지란펑쿠앙",
+      "reading": "zi ran feng guang",
+      "word": "自然风光"
+    },
+    {
+      "source": "지란짜이하이",
+      "reading": "zi ran zai hai",
+      "word": "自然灾害"
+    },
+    {
+      "source": "지지푸쮄",
+      "reading": "zi zi bu juan",
+      "word": "孜孜不倦"
+    },
+    {
+      "source": "지쒠허우타이",
+      "reading": "zi sun hou dai",
+      "word": "子孙后代"
+    },
+    {
+      "source": "지유지짜이",
+      "reading": "zi you zi zai",
+      "word": "自由自在"
+    },
+    {
+      "source": "지유지러",
+      "reading": "zi yu zi le",
+      "word": "自娱自乐"
+    },
+    {
+      "source": "쩌우짜이루쌍",
+      "reading": "zou zai lu shang",
+      "word": "走在路上"
+    },
+    {
+      "source": "쭝티무피아오",
+      "reading": "zong ti mu biao",
+      "word": "总体目标"
+    },
+    {
+      "source": "쭈추피싸이",
+      "reading": "zu qiu bi sai",
+      "word": "足球比赛"
+    },
+    {
+      "source": "쭈지푸짱",
+      "reading": "zu zhi bu zhang",
+      "word": "组织部长"
+    },
+    {
+      "source": "쭈지지커우",
+      "reading": "zu zhi ji gou",
+      "word": "组织机构"
+    },
+    {
+      "source": "쭈지짜커우",
+      "reading": "zu zhi jia gou",
+      "word": "组织架构"
+    },
+    {
+      "source": "쭈지쉐티아오",
+      "reading": "zu zhi xie tiao",
+      "word": "组织协调"
+    },
+    {
+      "source": "쭈지시시",
+      "reading": "zu zhi shi shi",
+      "word": "组织实施"
+    },
+    {
+      "source": "쭈청푸펀",
+      "reading": "zu cheng bu fen",
+      "word": "组成部分"
+    },
+    {
+      "source": "쪼하오쮄페이",
+      "reading": "zuo hao zhun bei",
+      "word": "做好准备"
+    },
+    {
+      "source": "쮜티콩지",
+      "reading": "zui di gong zi",
+      "word": "最低工资"
+    },
+    {
+      "source": "쮜카오파웬",
+      "reading": "zui gao fa yuan",
+      "word": "最高法院"
+    },
+    {
+      "source": "쮜카오치웬",
+      "reading": "zui gao qi wen",
+      "word": "最高气温"
+    },
+    {
+      "source": "쮜쭝무피아오",
+      "reading": "zui zhong mu biao",
+      "word": "最终目标"
+    },
+    {
+      "source": "쮜쭝하이시",
+      "reading": "zui zhong hai shi",
+      "word": "最终还是"
+    },
+    {
+      "source": "쮜쭝이아오터",
+      "reading": "zui zhong yao de",
+      "word": "最重要的"
+    },
+    {
+      "source": "쮜쭈이아오터",
+      "reading": "zui zhu yao de",
+      "word": "最主要的"
+    },
+    {
+      "source": "쮜써우쿠안쭈",
+      "reading": "zui shou guan zhu",
+      "word": "最受关注"
+    },
+    {
+      "source": "쮜유짜지",
+      "reading": "zui you jia zhi",
+      "word": "最有价值"
+    },
+    {
+      "source": "췐추써페이",
+      "reading": "cun chu she bei",
+      "word": "存储设备"
+    },
+    {
+      "source": "차이쩡푸짱",
+      "reading": "cai zheng bu zhang",
+      "word": "财政部长"
+    },
+    {
+      "source": "차이쩡지추",
+      "reading": "cai zheng zhi chu",
+      "word": "财政支出"
+    },
+    {
+      "source": "차이쩡써우루",
+      "reading": "cai zheng shou ru",
+      "word": "财政收入"
+    },
+    {
+      "source": "차이쩡유쑤안",
+      "reading": "cai zheng yu suan",
+      "word": "财政预算"
+    },
+    {
+      "source": "차이찬쒠시",
+      "reading": "cai chan sun shi",
+      "word": "财产损失"
+    },
+    {
+      "source": "차이우파오피아오",
+      "reading": "cai wu bao biao",
+      "word": "财务报表"
+    },
+    {
+      "source": "차이우파오카오",
+      "reading": "cai wu bao gao",
+      "word": "财务报告"
+    },
+    {
+      "source": "차이우쭈앙쿠앙",
+      "reading": "cai wu zhuang kuang",
+      "word": "财务状况"
+    },
+    {
+      "source": "찬카오지리아오",
+      "reading": "can kao zi liao",
+      "word": "参考资料"
+    },
+    {
+      "source": "천치푸치",
+      "reading": "cen ci bu qi",
+      "word": "参差不齐"
+    },
+    {
+      "source": "청추푸충",
+      "reading": "ceng chu bu qiong",
+      "word": "层出不穷"
+    },
+    {
+      "source": "치싼지커우",
+      "reading": "ci shan ji gou",
+      "word": "慈善机构"
+    },
+    {
+      "source": "치시치커",
+      "reading": "ci shi ci ke",
+      "word": "此时此刻"
+    },
+    {
+      "source": "충터우타오위",
+      "reading": "cong tou dao wei",
+      "word": "从头到尾"
+    },
+    {
+      "source": "충컨펀쌍",
+      "reading": "cong gen ben shang",
+      "word": "从根本上"
+    },
+    {
+      "source": "초써우푸지",
+      "reading": "cuo shou bu ji",
+      "word": "措手不及"
+    },
+    {
+      "source": "쒠지핑파",
+      "reading": "sun zi bing fa",
+      "word": "孙子兵法"
+    },
+    {
+      "source": "싼커타이피아오",
+      "reading": "san ge dai biao",
+      "word": "三个代表"
+    },
+    {
+      "source": "시파카오시",
+      "reading": "si fa kao shi",
+      "word": "司法考试"
+    },
+    {
+      "source": "시파지쿠안",
+      "reading": "si fa ji guan",
+      "word": "司法机关"
+    },
+    {
+      "source": "시샹타오터",
+      "reading": "si xiang dao de",
+      "word": "思想道德"
+    },
+    {
+      "source": "시샹짜오유",
+      "reading": "si xiang jiao yu",
+      "word": "思想教育"
+    },
+    {
+      "source": "시추안타쉐",
+      "reading": "si chuan da xue",
+      "word": "四川大学"
+    },
+    {
+      "source": "시처우지루",
+      "reading": "si chou zhi lu",
+      "word": "丝绸之路"
+    },
+    {
+      "source": "시유차이찬",
+      "reading": "si you cai chan",
+      "word": "私有财产"
+    },
+    {
+      "source": "시위팡시",
+      "reading": "si wei fang shi",
+      "word": "思维方式"
+    },
+    {
+      "source": "쑤투쮜쿠아이",
+      "reading": "su du zui kuai",
+      "word": "速度最快"
+    },
+    {
+      "source": "쑤지짜오유",
+      "reading": "su zhi jiao yu",
+      "word": "素质教育"
+    },
+    {
+      "source": "쏘짜이탄위",
+      "reading": "suo zai dan wei",
+      "word": "所在单位"
+    },
+    {
+      "source": "쒸포쭈류",
+      "reading": "sui bo zhu liu",
+      "word": "随波逐流"
+    },
+    {
+      "source": "쒸썬쉐타이",
+      "reading": "sui shen xie dai",
+      "word": "随身携带"
+    },
+    {
+      "source": "쒸시쒸티",
+      "reading": "sui shi sui di",
+      "word": "随时随地"
+    },
+    {
+      "source": "쒸쒸피앤피앤",
+      "reading": "sui sui bian bian",
+      "word": "随随便便"
+    },
+    {
+      "source": "웬추앙웬짱",
+      "reading": "yuan chuang wen zhang",
+      "word": "原创文章"
+    },
+    {
+      "source": "웬웬푸투안",
+      "reading": "yuan yuan bu duan",
+      "word": "源源不断"
+    },
+    {
+      "source": "이아쩌우코짜",
+      "reading": "ya zhou guo jia",
+      "word": "亚洲国家"
+    },
+    {
+      "source": "이아쩌우쮜타",
+      "reading": "ya zhou zui da",
+      "word": "亚洲最大"
+    },
+    {
+      "source": "이앤후아리아오루안",
+      "reading": "yan hua liao luan",
+      "word": "眼花缭乱"
+    },
+    {
+      "source": "이앤쭈파오카오",
+      "reading": "yan jiu bao gao",
+      "word": "研究报告"
+    },
+    {
+      "source": "이앙라오파오씨앤",
+      "reading": "yang lao bao xian",
+      "word": "养老保险"
+    },
+    {
+      "source": "이아오쑤안페이텅",
+      "reading": "yao suan bei teng",
+      "word": "腰酸背疼"
+    },
+    {
+      "source": "이아오이아오유쮜",
+      "reading": "yao yao yu zhui",
+      "word": "摇摇欲坠"
+    },
+    {
+      "source": "이아오우지리아오",
+      "reading": "yao wu zhi liao",
+      "word": "药物治疗"
+    },
+    {
+      "source": "이에푸지타오",
+      "reading": "ye bu zhi dao",
+      "word": "也不知道"
+    },
+    {
+      "source": "이리아오파오짱",
+      "reading": "yi liao bao zhang",
+      "word": "医疗保障"
+    },
+    {
+      "source": "이리아오지커우",
+      "reading": "yi liao ji gou",
+      "word": "医疗机构"
+    },
+    {
+      "source": "이리아오지우아이",
+      "reading": "yi liao zhi wai",
+      "word": "意料之外"
+    },
+    {
+      "source": "이리아오써페이",
+      "reading": "yi liao she bei",
+      "word": "医疗设备"
+    },
+    {
+      "source": "이지터우짜이",
+      "reading": "yi zhi dou zai",
+      "word": "一直都在"
+    },
+    {
+      "source": "이추안쑤안파",
+      "reading": "yi chuan suan fa",
+      "word": "遗传算法"
+    },
+    {
+      "source": "이시푸쿠아",
+      "reading": "yi si bu gua",
+      "word": "一丝不挂"
+    },
+    {
+      "source": "이시푸커우",
+      "reading": "yi si bu gou",
+      "word": "一丝不苟"
+    },
+    {
+      "source": "이시란짜오",
+      "reading": "yi si lan jiao",
+      "word": "伊斯兰教"
+    },
+    {
+      "source": "유티아오푸웬",
+      "reading": "you tiao bu wen",
+      "word": "有条不紊"
+    },
+    {
+      "source": "유쿠안지리아오",
+      "reading": "you guan zi liao",
+      "word": "有关资料"
+    },
+    {
+      "source": "유쒸지타오",
+      "reading": "you shui zhi dao",
+      "word": "有谁知道"
+    },
+    {
+      "source": "유러우쿠아투안",
+      "reading": "you rou gua duan",
+      "word": "优柔寡断"
+    },
+    {
+      "source": "유러파쿠아",
+      "reading": "yu le ba gua",
+      "word": "娱乐八卦"
+    },
+    {
+      "source": "유허우췐쒠",
+      "reading": "yu hou chun sun",
+      "word": "雨后春笋"
+    },
+    {
+      "source": "유이앤피아오타",
+      "reading": "yu yan biao da",
+      "word": "语言表达"
+    },
+    {
+      "source": "우아이마오콩시",
+      "reading": "wai mao gong si",
+      "word": "外贸公司"
+    },
+    {
+      "source": "우아이마오추커우",
+      "reading": "wai mao chu kou",
+      "word": "外贸出口"
+    },
+    {
+      "source": "우아이쿠안써지",
+      "reading": "wai guan she ji",
+      "word": "外观设计"
+    },
+    {
+      "source": "우아이코콩시",
+      "reading": "wai guo gong si",
+      "word": "外国公司"
+    },
+    {
+      "source": "우아이커써우슈",
+      "reading": "wai ke shou shu",
+      "word": "外科手术"
+    },
+    {
+      "source": "우아이짜오푸짱",
+      "reading": "wai jiao bu zhang",
+      "word": "外交部长"
+    },
+    {
+      "source": "우아이짜오쩡처",
+      "reading": "wai jiao zheng ce",
+      "word": "外交政策"
+    },
+    {
+      "source": "우아이쌍터우지",
+      "reading": "wai shang tou zi",
+      "word": "外商投资"
+    },
+    {
+      "source": "우아이지핑커우",
+      "reading": "wai zi bing gou",
+      "word": "外资并购"
+    },
+    {
+      "source": "우안쌍쒸짜오",
+      "reading": "wan shang shui jiao",
+      "word": "晚上睡觉"
+    },
+    {
+      "source": "우앙로타오터",
+      "reading": "wang luo dao de",
+      "word": "网络道德"
+    },
+    {
+      "source": "우앙로튀쿠앙",
+      "reading": "wang luo tui guang",
+      "word": "网络推广"
+    },
+    {
+      "source": "우앙로쿠안리",
+      "reading": "wang luo guan li",
+      "word": "网络管理"
+    },
+    {
+      "source": "우앙로쿠앙카오",
+      "reading": "wang luo guang gao",
+      "word": "网络广告"
+    },
+    {
+      "source": "우앙로콩시",
+      "reading": "wang luo gong si",
+      "word": "网络公司"
+    },
+    {
+      "source": "우앙로추안포",
+      "reading": "wang luo chuan bo",
+      "word": "网络传播"
+    },
+    {
+      "source": "우앙로써페이",
+      "reading": "wang luo she bei",
+      "word": "网络设备"
+    },
+    {
+      "source": "우앙로시타이",
+      "reading": "wang luo shi dai",
+      "word": "网络时代"
+    },
+    {
+      "source": "웬후아쿠앙창",
+      "reading": "wen hua guang chang",
+      "word": "文化广场"
+    },
+    {
+      "source": "웬후아짜오류",
+      "reading": "wen hua jiao liu",
+      "word": "文化交流"
+    },
+    {
+      "source": "웬후아짜오유",
+      "reading": "wen hua jiao yu",
+      "word": "文化教育"
+    },
+    {
+      "source": "웬후아추안포",
+      "reading": "wen hua chuan bo",
+      "word": "文化传播"
+    },
+    {
+      "source": "웬쮄티아오차",
+      "reading": "wen juan diao cha",
+      "word": "问卷调查"
+    },
+    {
+      "source": "위푸쭈타오",
+      "reading": "wei bu zu dao",
+      "word": "微不足道"
+    },
+    {
+      "source": "위파판쮜",
+      "reading": "wei fa fan zui",
+      "word": "违法犯罪"
+    },
+    {
+      "source": "위슈푸토",
+      "reading": "wei shu bu duo",
+      "word": "为数不多"
+    },
+    {
+      "source": "위루안콩시",
+      "reading": "wei ruan gong si",
+      "word": "微软公司"
+    },
+    {
+      "source": "위위타오라이",
+      "reading": "wei wei dao lai",
+      "word": "娓娓道来"
+    },
+    {
+      "source": "우짜오타러우",
+      "reading": "wu jiao da lou",
+      "word": "五角大楼"
+    },
+    {
+      "source": "아이푸시써우",
+      "reading": "ai bu shi shou",
+      "word": "爱不释手"
+    },
+    {
+      "source": "어우쩌우코짜",
+      "reading": "ou zhou guo jia",
+      "word": "欧洲国家"
+    },
+    {
+      "source": "어우쩌우시창",
+      "reading": "ou zhou shi chang",
+      "word": "欧洲市场"
+    }
+  ],
+  "elapsed": 0.64
+}

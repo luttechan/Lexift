@@ -27,15 +27,15 @@ class MigrationTests(unittest.TestCase):
             self.assertFalse(migrate_preferences(new,old))
             self.assertEqual(new.value('general/ui_language'),'ja');self.assertEqual(old.value('general/ui_language'),'ko')
     def test_new_release_namespace_and_executable_are_consistent(self):
-        self.assertEqual(app.PRODUCT,'Lexift');self.assertEqual(app.VERSION,'1.0.0')
+        self.assertEqual(app.PRODUCT,'Lexift');self.assertEqual(app.VERSION,'1.0.1')
         self.assertEqual(updates.REPOSITORY,'luttechan/Lexift')
         self.assertEqual(updates.API_URL,'https://api.github.com/repos/luttechan/Lexift/releases/latest')
         self.assertEqual(updates.MODULE_ENTRIES,('Lexift.exe','module'))
-        manifest={'format':1,'product':'KanaShift','version':'1.0.0','architecture':'x64','files':{}}
+        manifest={'format':1,'product':'KanaShift','version':'1.0.1','architecture':'x64','files':{}}
         with tempfile.TemporaryDirectory() as folder:
             import json
             root=Path(folder);(root/'update-manifest.json').write_text(json.dumps(manifest))
-            with self.assertRaises(updates.UpdateError):updates.validate_payload(root,'1.0.0')
+            with self.assertRaises(updates.UpdateError):updates.validate_payload(root,'1.0.1')
     def test_shortcut_controls_live_in_separate_panels(self):
         with tempfile.TemporaryDirectory() as folder:
             store=QSettings(str(Path(folder)/'prefs.ini'),QSettings.Format.IniFormat)

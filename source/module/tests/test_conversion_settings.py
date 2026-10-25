@@ -163,6 +163,17 @@ class DictionaryTests(unittest.TestCase):
             self.assertEqual(answer['candidates'],['澄音','私','住みね'])
             self.assertEqual(len(answer['readings']),len(answer['candidates']))
             self.assertEqual(data['candidates'][0],'私')
+    def test_custom_word_uses_its_own_reading_and_retains_other_polyphonic_metadata(self):
+        with tempfile.TemporaryDirectory() as folder:
+            dictionary=CustomDictionary(QSettings(str(Path(folder)/'prefs.ini'),QSettings.Format.IniFormat))
+            dictionary.replace([dict(keyword='쉐이',text='谁',language='zh')])
+            data={'kana':'shui','candidates':['谁','四'],'readings':['shui','si'],
+                  'reading_alternatives':{'谁':['shui','shei'],'四':['si']}}
+            answer=dictionary.merge('zh','쉐이',data)
+            self.assertEqual(answer['readings'][0],'쉐이')
+            self.assertNotIn('谁',answer['reading_alternatives'])
+            self.assertEqual(answer['reading_alternatives']['四'],['si'])
+            self.assertIn('谁',data['reading_alternatives'])
     def test_invalid_entries_leave_saved_dictionary_unchanged(self):
         with tempfile.TemporaryDirectory() as folder:
             store=QSettings(str(Path(folder)/'prefs.ini'),QSettings.Format.IniFormat);dictionary=CustomDictionary(store)

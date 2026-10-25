@@ -4,137 +4,137 @@
     {
       "language": "ko",
       "page": 0,
-      "ms": 20.43
+      "ms": 13.74
     },
     {
       "language": "ko",
       "page": 1,
-      "ms": 7.36
+      "ms": 5.72
     },
     {
       "language": "ko",
       "page": 2,
-      "ms": 14.56
+      "ms": 10.34
     },
     {
       "language": "ko",
-      "page": 3,
-      "ms": 0.68
-    },
-    {
-      "language": "ko",
-      "page": 4,
-      "ms": 0.29
-    },
-    {
-      "language": "ko",
-      "page": 0,
-      "ms": 0.25
-    },
-    {
-      "language": "ko",
-      "page": 2,
-      "ms": 0.2
-    },
-    {
-      "language": "ko",
-      "page": 3,
-      "ms": 0.19
-    },
-    {
-      "language": "ko",
-      "page": 4,
-      "ms": 0.22
-    },
-    {
-      "language": "en",
-      "page": 0,
-      "ms": 11.03
-    },
-    {
-      "language": "en",
-      "page": 1,
-      "ms": 4.47
-    },
-    {
-      "language": "en",
-      "page": 2,
-      "ms": 10.43
-    },
-    {
-      "language": "en",
       "page": 3,
       "ms": 0.6
     },
     {
-      "language": "en",
+      "language": "ko",
       "page": 4,
-      "ms": 0.26
-    },
-    {
-      "language": "en",
-      "page": 0,
       "ms": 0.23
     },
     {
-      "language": "en",
+      "language": "ko",
+      "page": 0,
+      "ms": 0.22
+    },
+    {
+      "language": "ko",
       "page": 2,
+      "ms": 0.18
+    },
+    {
+      "language": "ko",
+      "page": 3,
+      "ms": 0.18
+    },
+    {
+      "language": "ko",
+      "page": 4,
       "ms": 0.19
     },
     {
       "language": "en",
+      "page": 0,
+      "ms": 9.42
+    },
+    {
+      "language": "en",
+      "page": 1,
+      "ms": 4.42
+    },
+    {
+      "language": "en",
+      "page": 2,
+      "ms": 9.1
+    },
+    {
+      "language": "en",
       "page": 3,
-      "ms": 0.18
+      "ms": 0.67
     },
     {
       "language": "en",
       "page": 4,
-      "ms": 0.18
+      "ms": 0.27
+    },
+    {
+      "language": "en",
+      "page": 0,
+      "ms": 0.21
+    },
+    {
+      "language": "en",
+      "page": 2,
+      "ms": 0.17
+    },
+    {
+      "language": "en",
+      "page": 3,
+      "ms": 0.17
+    },
+    {
+      "language": "en",
+      "page": 4,
+      "ms": 0.17
     },
     {
       "language": "ja",
       "page": 0,
-      "ms": 15.09
+      "ms": 13.33
     },
     {
       "language": "ja",
       "page": 1,
-      "ms": 5.87
+      "ms": 6.23
     },
     {
       "language": "ja",
       "page": 2,
-      "ms": 14.06
+      "ms": 9.73
     },
     {
       "language": "ja",
       "page": 3,
-      "ms": 1.14
+      "ms": 0.79
     },
     {
       "language": "ja",
       "page": 4,
-      "ms": 0.54
+      "ms": 0.46
     },
     {
       "language": "ja",
       "page": 0,
-      "ms": 0.48
+      "ms": 0.36
     },
     {
       "language": "ja",
       "page": 2,
-      "ms": 0.32
+      "ms": 0.27
     },
     {
       "language": "ja",
       "page": 3,
-      "ms": 0.3
+      "ms": 0.21
     },
     {
       "language": "ja",
       "page": 4,
-      "ms": 0.28
+      "ms": 0.21
     }
   ],
   "lifecycle": [
@@ -242,25 +242,25 @@
   "memory": [
     {
       "iteration": 10,
-      "private_bytes": 39989248,
+      "private_bytes": 39845888,
       "gdi": 0,
       "user": 16
     },
     {
       "iteration": 30,
-      "private_bytes": 40943616,
+      "private_bytes": 41205760,
       "gdi": 0,
       "user": 16
     },
     {
       "iteration": 60,
-      "private_bytes": 40837120,
+      "private_bytes": 40669184,
       "gdi": 0,
       "user": 16
     }
   ],
-  "construct_ms": 254.11,
-  "private_growth_after_warmup": 847872,
+  "construct_ms": 234.46,
+  "private_growth_after_warmup": 823296,
   "gdi_growth_after_warmup": 0,
   "user_growth_after_warmup": 0
 }

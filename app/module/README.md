@@ -36,6 +36,12 @@ ZIP의 압축을 풀고 **Lexift.exe**를 실행하세요. Python 설치는 필�
 
 ## Version History
 
+### 1.0.1
+
+- More Japanese and Chinese pronunciation variants
+- Fixed long vowels and missing dictionary readings
+- Multiple readings for Chinese polyphonic words
+
 ### 1.0.0
 
 - KanaShift → Lexift

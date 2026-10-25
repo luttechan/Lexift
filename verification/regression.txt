@@ -1,3 +1,0 @@
-Ran 100 tests in 16.086s
-OK
-Includes 11,172 modern Hangul syllables and 6 live IME paths (reported separately).

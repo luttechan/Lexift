@@ -126,6 +126,9 @@ class InlineMode(QObject):
     def _selected_row_changed(self,row):
         if not self._updating_list and self._shown_identity is not None:
             self._user_selected=True
+            readings=getattr(self,'_candidate_readings',[])
+            if 0<=row<len(readings):
+                self.reading.setText(self.snapshot['source']+'  →  '+readings[row])
 
     def _commit_timeout(self):
         if self.watcher:self.watcher.kill()
@@ -378,7 +381,9 @@ class InlineMode(QObject):
         self._updating_list=False
         self._shown_identity=identity
         readings=data.get('readings',[])
-        self._candidate_readings=[readings[n] if n<len(readings) else data['kana'] for n in indices]
+        alternatives=data.get('reading_alternatives',{})
+        self._candidate_readings=[' / '.join(alternatives.get(data['candidates'][n],[])) or
+                                  (readings[n] if n<len(readings) else data['kana']) for n in indices]
         self._reading_default=data['kana']
         self.hint.setText(tr('Lexift · 한자 후보 준비 중…') if data.get('preview') and not data.get('custom') else tr('1–9 / 0 확정 · ↑↓ 이동 · Space / Enter'))
         row=self.list.currentRow()
@@ -427,9 +432,6 @@ class InlineMode(QObject):
                 self.commit()
         elif key in (0x26,0x28):
             self.list.setCurrentRow((self.list.currentRow()+(-1 if key==0x26 else 1))%self.list.count())
-            row=self.list.currentRow()
-            reading=self._candidate_readings[row] if row<len(self._candidate_readings) else self._reading_default
-            self.reading.setText(self.snapshot['source']+'  →  '+reading)
 
     def commit(self):
         from ime_windows import user32

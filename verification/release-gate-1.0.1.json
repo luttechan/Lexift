@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "version": "1.0.1",
+  "local": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0.1",
+  "checks": [
+    {
+      "check": "delivered-source-runtime-zip-match",
+      "passed": true,
+      "source_files": 169,
+      "runtime_files": 236,
+      "zip_sha256": "6f2bbb9c00b95045f2480546a081b4591af944c92d9638001738c6addf47351a"
+    },
+    {
+      "check": "release-unit-tests",
+      "passed": true,
+      "elapsed_ms": 36293.97
+    },
+    {
+      "check": "release--verify-runtime",
+      "passed": true,
+      "elapsed_ms": 495.42
+    },
+    {
+      "check": "release--verify-settings",
+      "passed": true,
+      "elapsed_ms": 14573.65
+    },
+    {
+      "check": "release--verify-features",
+      "passed": true,
+      "elapsed_ms": 2834.59
+    },
+    {
+      "check": "release--verify-chinese",
+      "passed": true,
+      "elapsed_ms": 1372.58
+    },
+    {
+      "check": "release--verify-ime",
+      "passed": true,
+      "elapsed_ms": 6995.35
+    },
+    {
+      "check": "release-phonetic-audit",
+      "passed": true,
+      "elapsed_ms": 27452.74
+    },
+    {
+      "check": "release-resource-lifecycle",
+      "passed": true,
+      "elapsed_ms": 18407.44
+    },
+    {
+      "check": "release-ia2_adapter_test",
+      "passed": true,
+      "elapsed_ms": 50.08
+    },
+    {
+      "check": "release-native_edit_test",
+      "passed": true,
+      "elapsed_ms": 806.93
+    },
+    {
+      "check": "release-scintilla_test",
+      "passed": true,
+      "elapsed_ms": 123.09
+    },
+    {
+      "check": "native-adapter-summaries",
+      "passed": true,
+      "results": [
+        {
+          "test": "ia2_adapter_test",
+          "summary": {
+            "passed": 21,
+            "failed": 0,
+            "fixture": "IAccessible2 COM provider",
+            "firefox_end_to_end": false
+          }
+        },
+        {
+          "test": "native_edit_test",
+          "summary": {
+            "passed": 20,
+            "failed": 0,
+            "cross_process": true
+          }
+        },
+        {
+          "test": "scintilla_test",
+          "summary": {
+            "passed": 10,
+            "failed": 0,
+            "cross_process": true,
+            "cross_bitness": true
+          }
+        }
+      ]
+    },
+    {
+      "check": "real-1.0.0-to-1.0.1-upgrade-and-rollback",
+      "passed": true,
+      "user_data_preserved": true
+    }
+  ],
+  "decision": "release-ready",
+  "unit_tests": 411,
+  "limitations": [
+    "Initial IME/font preparation and final merging of long-sentence candidates can exceed 100 ms.",
+    "Owned native compatibility fixtures were tested; no manual Firefox or other external-app end-to-end test was performed."
+  ]
+}

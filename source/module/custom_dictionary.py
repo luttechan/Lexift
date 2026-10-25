@@ -69,6 +69,8 @@ class CustomDictionary:
         values=data.get('candidates',[]);readings=data.get('readings',[])
         remaining=[(value,readings[n] if n<len(readings) else data.get('kana',source))
                    for n,value in enumerate(values) if value!=text][:19]
+        alternatives={value:forms for value,forms in data.get('reading_alternatives',{}).items()
+                      if value!=text and value in {v for v,_ in remaining}}
         return dict(data,source=source,kana=data.get('kana') or source,
                     candidates=[text]+[v for v,_ in remaining],
-                    readings=[source]+[r for _,r in remaining],custom=True)
+                    readings=[source]+[r for _,r in remaining],reading_alternatives=alternatives,custom=True)

@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 from PySide6.QtCore import QSettings
 from PySide6.QtWidgets import QApplication
 from chinese_reading import ChineseEngine
-from pinyin_phonetics import classify, korean_forms
+from pinyin_phonetics import classify, korean_forms, korean_variants
 from hotkeys_windows import HotkeyBinding, HotkeyGroup
 from native_hooks import library
 from tests.test_native_hooks import CapsState
@@ -140,7 +140,66 @@ class ChineseReadingTests(unittest.TestCase):
         self.assertEqual(classify('ji').final,'i')
         self.assertIn('즈',korean_forms('zhi'))
         self.assertIn('쓰',korean_forms('si'))
-        self.assertNotIn('시',korean_forms('si'))
+        forms={form.text:form for form in korean_variants('si')}
+        self.assertEqual(forms['시'].kind,'approximate-syllabic-i')
+        self.assertGreater(forms['시'].penalty,forms['쓰'].penalty)
+
+    def test_apical_input_conveniences_preserve_all_ambiguous_readings(self):
+        examples={'치':('qi','chi','ci'),'지':('ji','zhi','zi'),
+                  '시':('xi','shi','si'),'츠':('chi','ci')}
+        for source,spellings in examples.items():
+            with self.subTest(source=source):
+                readings={tokens for _,tokens in self.engine.readings(source)}
+                answer=self.engine.query(source)
+                for spelling in spellings:
+                    self.assertIn((spelling,),readings)
+                    # Test displayed candidates, not just an internal alias.
+                    self.assertIn(spelling,answer['readings'])
+        self.assertNotIn('치',korean_forms('che'))
+        self.assertNotIn('시',korean_forms('shu'))
+        self.assertNotIn('지',korean_forms('ju'))
+
+    def test_chi_and_qi_are_both_usable_in_words(self):
+        for source,expected,reading in (
+                ('치판','吃饭','chi fan'),('츠판','吃饭','chi fan'),
+                ('치둥시','吃东西','chi dong xi'),('츠둥시','吃东西','chi dong xi'),
+                ('치처','汽车','qi che'),('츠위','词语','ci yu'),
+                ('치위','词语','ci yu'),('시거','四个','si ge')):
+            with self.subTest(source=source):
+                answer=self.engine.query(source)
+                self.assertIn(expected,answer['candidates'])
+                self.assertEqual(answer['readings'][answer['candidates'].index(expected)],reading)
+
+    def test_dictionary_words_recover_readings_dropped_by_phonetic_beam(self):
+        for source,reading,expected in (
+                ('파오파오',('bao','bao'),'宝宝'),
+                ('피아오파이',('biao','bai'),'表白'),
+                ('타이피아오',('dai','biao'),'代表'),
+                ('쿠앙피아오',('guang','biao'),'光标')):
+            with self.subTest(source=source):
+                paths=self.engine.readings(source)
+                self.assertIn(reading,{tokens for _,tokens in paths})
+                self.assertLessEqual(len(paths),128)
+                self.assertIn(expected,self.engine.query(source)['candidates'])
+
+    def test_syllable_boundaries_and_rounded_vowels_remain_distinct(self):
+        self.assertIn('西安',self.engine.query('시안')['candidates'])
+        self.assertNotIn(('xian',),{tokens for _,tokens in self.engine.readings('시안')})
+        for source,reading,excluded in (('뤼','lv','lu'),('뉘','nv','nu'),
+                                        ('쥐','ju','zhu'),('췬','qun','quan')):
+            paths={tokens for _,tokens in self.engine.readings(source)}
+            self.assertIn((reading,),paths)
+            self.assertNotIn((excluded,),paths)
+
+    def test_polyphonic_candidates_keep_all_recognized_readings_without_duplicate_rows(self):
+        for source,word,expected in (('쉐이','谁',{'shei','shui'}),
+                                     ('쉐이터','谁的',{'shei de','shui de'}),
+                                     ('티아오페이','调配',{'diao pei','tiao pei'})):
+            answer=self.engine.query(source)
+            with self.subTest(source=source):
+                self.assertEqual(answer['candidates'].count(word),1)
+                self.assertLessEqual(len(answer['candidates']),20)
+                self.assertTrue(expected.issubset(answer['reading_alternatives'][word]))
 
     def test_contracted_and_zero_initial_finals(self):
         for word,final in (('liu','iou'),('gui','uei'),('dun','uen'),('you','iou'),

@@ -1,0 +1,31 @@
+{
+  "version": "1.0.1",
+  "product": "Lexift",
+  "passed": true,
+  "checks": {
+    "nonblocking_keyboard_start": true,
+    "legacy_migration": true,
+    "custom_japanese": true,
+    "custom_chinese": true,
+    "language_scoping": true,
+    "branding": true,
+    "separate_panels": true,
+    "persisted_checkbox": true,
+    "dictionary_page": true,
+    "japanese_translation_qa_credit": true,
+    "translation_en": true,
+    "translation_ja": true,
+    "translation_zh_CN": true,
+    "translation_zh_TW": true,
+    "translation_fr": true,
+    "translation_es": true,
+    "translation_ru": true,
+    "translation_de": true,
+    "notify_asset": true,
+    "async_notify_path": true,
+    "sound_thread_stopped": true
+  },
+  "keyboard_start_ms": 354.34,
+  "startup_heartbeats": 65,
+  "construct_all_pages_ms": 2525.12
+}

@@ -1,9 +1,0 @@
-{"event":"thread_manager","hr":"0x00000000","tick":1328156}
-{"event":"activate_uiless","hr":"0x00000000","tick":1328156}
-{"event":"advise_sink","hr":"0x00000000","tick":1328156}
-{"event":"change_language","hr":"0x00000000","tick":1328156}
-{"event":"layout_found","hr":"0x00000000","tick":1328156}
-{"event":"host_ready","hr":"0x00000000","tick":1328203}
-{"event":"document_focus_present","hr":"0x00000000","tick":1329328}
-{"event":"focus_abort","hr":"0x80004004","tick":1330078}
-{"event":"summary","got_candidates":false,"extracted":0,"input_aborted":true,"editor_text":""}

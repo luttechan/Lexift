@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "queries": [
+    {
+      "source": "와타시와키노-토쇼칸데카리타아타라시이혼오토모다치니와타시마시타",
+      "expected_reading": "わたしはきのうとしょかんでかりたあたらしいほんをともだちにわたしました",
+      "first_result_ms": 645.51,
+      "final_ms": 4293.74,
+      "queried_readings": 16,
+      "matched_candidates": [
+        "私は昨日図書館で借りた新しい本を友達に渡しました",
+        "わたしは昨日図書館で借りた新しい本を友達に渡しました",
+        "渡しは昨日図書館で借りた新しい本を友達に渡しました",
+        "ワタシは昨日図書館で借りた新しい本を友達に渡しました",
+        "渡司は昨日図書館で借りた新しい本を友達に渡しました"
+      ],
+      "passed": true
+    },
+    {
+      "source": "와타시와오오사카데카리타아오이혼오요미나가라온가쿠오키키마스",
+      "expected_reading": "わたしはおおさかでかりたあおいほんをよみながらおんがくをききます",
+      "first_result_ms": 258.14,
+      "final_ms": 3742.97,
+      "queried_readings": 16,
+      "matched_candidates": [
+        "私は大阪で借りた青い本を読みながら音楽を聴きます",
+        "わたしは大阪で借りた青い本を読みながら音楽を聴きます",
+        "渡しは大阪で借りた青い本を読みながら音楽を聴きます",
+        "ワタシは大阪で借りた青い本を読みながら音楽を聴きます",
+        "渡司は大阪で借りた青い本を読みながら音楽を聴きます"
+      ],
+      "passed": true
+    },
+    {
+      "source": "아오이카미오오오키나하코니이레마스",
+      "expected_reading": "あおいかみをおおきなはこにいれます",
+      "first_result_ms": 235.55,
+      "final_ms": 3209.88,
+      "queried_readings": 16,
+      "matched_candidates": [
+        "青い髪を大きな箱に入れます",
+        "蒼い髪を大きな箱に入れます",
+        "青井髪を大きな箱に入れます",
+        "葵髪を大きな箱に入れます",
+        "蒼井髪を大きな箱に入れます"
+      ],
+      "passed": true
+    },
+    {
+      "source": "오모이데오오모이다시마스",
+      "expected_reading": "おもいでをおもいだします",
+      "first_result_ms": 190.74,
+      "final_ms": 2837.16,
+      "queried_readings": 16,
+      "matched_candidates": [
+        "思い出を思い出します",
+        "想い出を思い出します",
+        "おもいでを思い出します"
+      ],
+      "passed": true
+    },
+    {
+      "source": "호-코쿠쇼오테-슈츠시마스",
+      "expected_reading": "ほうこくしょをていしゅつします",
+      "first_result_ms": 222.18,
+      "final_ms": 3159.37,
+      "queried_readings": 16,
+      "matched_candidates": [
+        "報告書を提出します",
+        "ほうこくしょを提出します"
+      ],
+      "passed": true
+    },
+    {
+      "source": "혼오니혼니오쿠리마스",
+      "expected_reading": "ほんをにほんにおくります",
+      "first_result_ms": 195.05,
+      "final_ms": 685.19,
+      "queried_readings": 4,
+      "matched_candidates": [
+        "本を日本に送ります",
+        "ホンを日本に送ります",
+        "📚を日本に送ります",
+        "phonを日本に送ります",
+        "ほんを日本に送ります"
+      ],
+      "passed": true
+    }
+  ],
+  "host": "C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0.1\\lab\\ime_candidate_host.exe",
+  "elapsed_ms": 18138.26
+}

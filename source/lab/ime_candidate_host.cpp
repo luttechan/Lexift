@@ -477,7 +477,20 @@ static void tick() {
         if((step>=(queryServer?5:12) && gotCandidates && (!queryServer || queryConverted) && GetTickCount()-lastQueryUpdate>=(queryServer?0:60)) || step>=(queryServer?160:100)) {
             if(queryServer) {
                 for(auto& candidate:wholeCompositionCandidates()) {
-                    if(std::find(mergedCandidates.begin(),mergedCandidates.end(),candidate)==mergedCandidates.end() && mergedCandidates.size()<200) {
+                    if(std::find(mergedCandidates.begin(),mergedCandidates.end(),candidate)==mergedCandidates.end()) {
+                        // One prolific reading must not consume the entire
+                        // result budget before a later pronunciation is seen.
+                        if(mergedCandidates.size()==200 &&
+                           std::find(mergedReadings.begin(),mergedReadings.end(),queryReadings[queryReadingIndex])==mergedReadings.end()) {
+                            for(size_t i=mergedReadings.size();i>1;i--) {
+                                auto& reading=mergedReadings[i-1];
+                                if(std::count(mergedReadings.begin(),mergedReadings.end(),reading)>1) {
+                                    mergedCandidates.erase(mergedCandidates.begin()+i-1);
+                                    mergedReadings.erase(mergedReadings.begin()+i-1);break;
+                                }
+                            }
+                        }
+                        if(mergedCandidates.size()==200)continue;
                         mergedCandidates.push_back(candidate);
                         mergedReadings.push_back(queryReadings[queryReadingIndex]);
                     }

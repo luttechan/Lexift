@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "check": "frozen-real-GitHub-update-query",
+  "version": "1.0.0",
+  "release_url": "https://github.com/luttechan/Lexift/releases/tag/v1.0.0",
+  "asset": "Lexift-1.0.0-Windows-x64.zip",
+  "digest": "sha256:28fbdcb2e38580322f68fc8a208dc568d7a81d94d6197a48b9c0dbfb9cea8d6f"
+}

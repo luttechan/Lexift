@@ -53,6 +53,11 @@ FINALS={'a':'아','ai':'아이','an':'안','ang':'앙','ao':'아오',
         'van':'위안 웬 위엔 위앤 왠 유엔 유앤 유안','vn':'윈 윤'}
 APICAL={'zhi':'즈 쯔 지','chi':'츠 치','shi':'스 시 쓰','ri':'르 리',
         'zi':'쯔 즈','ci':'츠','si':'쓰 스'}
+# Input conveniences, not standard Mandarin transcriptions. Apply these to
+# the whole apical syllable only: a global ㅣ/ㅡ substitution would also merge
+# unrelated vowels, syllable boundaries and the rounded-front vowel family.
+# Keep the standard forms above ahead of these intentionally ambiguous forms.
+APICAL_APPROXIMATIONS={'zi':'지 찌','ci':'치','si':'시 씨'}
 # Korean spellings often omit the already-palatalised glide after j/q.
 PALATAL_JQ={'ia':'아 야 이아','iao':'아오 야오 이아오','ian':'엔 옌 이엔 앤 얜 이앤',
             'iang':'앙 양 이앙','ie':'에 예 이에','iong':'웅 용 융 이웅 이옹',
@@ -125,6 +130,8 @@ def korean_variants(spelling):
         # Never generate an ordinary /i/ merely because the spelling ends i.
         for index,text in enumerate(APICAL[syllable.spelling].split()):
             add(text,index*.2,'syllabic-i')
+        for index,text in enumerate(APICAL_APPROXIMATIONS.get(syllable.spelling,'').split()):
+            add(text,.65+index*.2,'approximate-syllabic-i')
     else:
         bases=FINALS.get(syllable.final,'').split()
         if syllable.initial in ('j','q'):

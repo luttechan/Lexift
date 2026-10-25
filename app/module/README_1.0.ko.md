@@ -71,12 +71,12 @@ Windows 10/11이 필요하며, 일본어 변환에는 Microsoft 일본어 IME가
 
 ## 검증 자료
 
-- `test-results/regression-0.8-final.txt`: 회귀 테스트
-- `test-results/query-benchmark.json`: 실제 IME 엔진 지연 측정 (초기 준비 시간 별도)
-- `test-results/latency-desktop.json`: 자체 입력창의 첫 화면·전체 후보 표시 및 영문→한글 전환 검사
-- `test-results/preferences-latency-after.json`: 일반 설정 페이지 전환 측정
-- `test-results/frozen-ime-final.json`: 배포 실행 파일의 Qt/IME 연결 검사
-- `test-results/inline-notepad-verified.json`: 메모장 본문 치환 검증
+- `../verification/regression-0.8-final.txt`: 회귀 테스트
+- `../verification/query-benchmark.json`: 실제 IME 엔진 지연 측정 (초기 준비 시간 별도)
+- `../verification/latency-desktop.json`: 자체 입력창의 첫 화면·전체 후보 표시 및 영문→한글 전환 검사
+- `../verification/preferences-latency-after.json`: 일반 설정 페이지 전환 측정
+- `../verification/frozen-ime-final.json`: 배포 실행 파일의 Qt/IME 연결 검사
+- `../verification/inline-notepad-verified.json`: 메모장 본문 치환 검증
 
 검사 명령: `Lexift.exe --verify-ime 결과파일.json`
 
@@ -97,7 +97,7 @@ Space 전용 후크 보강: IME 처리 키(VK_PROCESSKEY)의 스캔 코드가 Sp
 
 연속 Space와 후보 스크롤 수정: 확정 요청을 한 번만 보내고 응답 전에는 같은 입력의 후보 재표시·중복 확정을 막습니다. 대상 앱에 공백 키를 전달해 한글 조합을 먼저 완료하고, 정확히 추가된 한 공백과 원문을 재검증한 범위만 후보로 치환합니다. 방향키·Home·End로 커서를 옮기지 않습니다. IA2 치환 후에는 커서를 치환 문자열 뒤에 둡니다. 확정 중 빠른 추가 Space는 중복 명령으로 처리하지 않습니다. 새 입력과 자동 미리보기 갱신은 후보 1부터 표시하며, 사용자가 명시적으로 고른 후보만 다음 갱신에서 유지합니다.
 
-메뉴 지연 개선: 숨겨진 설정 페이지 전체를 grab으로 그리는 작업을 제거하고 일반 설정·정보 페이지를 유휴 시간에 나누어 준비합니다. 입력 감지기는 Lexift 본체 PID를 제외하며, 일시정지 시 텍스트 폴링과 진행 중인 후보 검색도 멈춥니다. 같은 후보 목록은 다시 만들지 않으며 화면이 이미 보이는 갱신에서는 반복적으로 최상단 창 올리기와 단축키 보조 IPC를 보내지 않습니다. 메뉴 개발 측정은 test-results/menu-latency-final.json에 기록했습니다.
+메뉴 지연 개선: 숨겨진 설정 페이지 전체를 grab으로 그리는 작업을 제거하고 일반 설정·정보 페이지를 유휴 시간에 나누어 준비합니다. 입력 감지기는 Lexift 본체 PID를 제외하며, 일시정지 시 텍스트 폴링과 진행 중인 후보 검색도 멈춥니다. 같은 후보 목록은 다시 만들지 않으며 화면이 이미 보이는 갱신에서는 반복적으로 최상단 창 올리기와 단축키 보조 IPC를 보내지 않습니다. 메뉴 개발 측정은 ../verification/menu-latency-final.json에 기록했습니다.
 
 
 최종 릴리즈 점검: `--verify-settings 결과파일.json`으로 9개 표시 언어에서 설정값 저장, 기능별 스위치, 단축키 중복 차단, 사용자 사전, 화면 이동과 표시 시간을 확인할 수 있습니다. 실제 사용자 설정과 키보드 후크는 변경하지 않습니다. 사이드바·대시보드·프로그램 정보에 `Style/Lexift_black.png` 원본 로고를 사용합니다.

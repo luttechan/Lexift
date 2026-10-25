@@ -38,7 +38,7 @@ inline std::wstring mora(int l,int v) {
         {L"ちゃ",L"ち",L"ちゅ",L"ちぇ",L"ちょ"},{L"か",L"き",L"く",L"け",L"こ"},
         {L"た",L"てぃ",L"とぅ",L"て",L"と"},{L"ぱ",L"ぴ",L"ぷ",L"ぺ",L"ぽ"},
         {L"は",L"ひ",L"ふ",L"へ",L"ほ"}};
-    static const wchar_t* stems[19]={L"ぎ",L"き",L"に",L"じ",L"て",L"り",L"み",L"び",L"ぴ",L"し",L"し",L"",L"じ",L"じ",L"ち",L"き",L"て",L"ぴ",L"ひ"};
+    static const wchar_t* stems[19]={L"ぎ",L"き",L"に",L"で",L"て",L"り",L"み",L"び",L"ぴ",L"し",L"し",L"",L"じ",L"じ",L"ち",L"き",L"て",L"ぴ",L"ひ"};
     if(v==2 || v==6 || v==12 || v==17) { // ya / yeo / yo / yu
         const wchar_t* small=v==2?L"ゃ":v==17?L"ゅ":L"ょ";
         if(l==11) return v==2?L"や":v==17?L"ゆ":L"よ";
@@ -106,12 +106,17 @@ inline std::wstring canonicalSpelling(std::wstring text) {
         {L"ちじま",L"ちぢま"},{L"ちじみ",L"ちぢみ"},{L"ちじめ",L"ちぢめ"},
         {L"ちじれ",L"ちぢれ"},{L"ちじこま",L"ちぢこま"},
         {L"つず",L"つづ"},{L"ものずく",L"ものづく"},{L"てずく",L"てづく"},
-        {L"おうき",L"おおき"},{L"おねい",L"おねえ"}};
+        {L"おねいさん",L"おねえさん"},{L"おねいちゃん",L"おねえちゃん"}};
     for(auto& item:stems) {
         size_t at=0;
         while((at=text.find(item.first,at))!=std::wstring::npos) {
             text.replace(at,item.first.size(),item.second);at+=item.second.size();
         }
+    }
+    // 大きい/大きく/大きな share a stem, but 応急/王旗 do not.
+    for(size_t at=0;(at=text.find(L"おうき",at))!=std::wstring::npos;at+=3) {
+        if(at+3<text.size() && std::wstring(L"いくけさなめ").find(text[at+3])!=std::wstring::npos)
+            text.replace(at,3,L"おおき");
     }
     // Only known word boundaries receive a preferred particle spelling.
     for(auto word:{L"わたし",L"あなた",L"かれ",L"かのじょ",L"これ",L"それ",L"あれ",L"きょう"}) {
@@ -122,16 +127,119 @@ inline std::wstring canonicalSpelling(std::wstring text) {
         }
     }
     for(size_t at=1;at+1<text.size();at++) {
-        if(text[at]!=L'お' && text[at]!=L'え')continue;
+        if(text[at]!=L'え')continue;
         bool predicate=false;
         for(auto stem:{L"べんきょう",L"よみ",L"よむ",L"かき",L"かく",L"たべ",L"のみ",L"のむ",
                        L"いき",L"いく",L"いっ",L"かえり",L"かえる"}) {
             auto tail=std::wstring(stem);
             if(text.compare(at+1,tail.size(),tail)==0){predicate=true;break;}
         }
-        if(predicate)text[at]=text[at]==L'お'?L'を':L'へ';
+        if(predicate)text[at]=L'へ';
     }
     return text;
+}
+// This is conservative reading inference, not a noun/POS parser. A noun can
+// be an unseen name or a long relative clause; evidence comes from the written
+// boundary and the following predicate, never a closed list of object nouns.
+inline bool objectPredicateAt(const std::wstring& text,size_t at) {
+    for(auto stem:{L"よみ",L"かき",L"たべ",L"のみ",L"きき",L"み",L"みせ",L"はなし",
+                   L"つかい",L"かい",L"つくり",L"わたし",L"おしえ",L"おくり",L"おもいだし",
+                   L"おぼえ",L"えらび",L"うけとり",L"まち",L"さがし",L"かし",L"はこび",L"あらい"}) {
+        auto length=std::wstring(stem).size();
+        if(text.compare(at,length,stem)!=0)continue;
+        for(auto ending:{L"ます",L"ました",L"ません",L"ましょ",L"たい",L"たく",L"ながら",
+                         L"はじめ",L"おわ",L"つづけ",L"やす",L"づら",L"すぎ",L"なさい"})
+            if(text.compare(at+length,std::wstring(ending).size(),ending)==0)return true;
+    }
+    for(auto form:{L"よむ",L"よんだ",L"よんで",L"かく",L"かいた",L"かいて",L"たべる",L"たべた",
+                   L"のむ",L"のんだ",L"のんで",L"きく",L"きいた",L"きいて",L"みる",L"みた",
+                   L"つかう",L"つかった",L"かう",L"かった",L"つくる",L"わたす",L"おしえる",
+                   L"おくる",L"おもいだす",L"おぼえる",L"えらぶ",L"さがす",L"まつ",L"あるく",L"でる"}) {
+        auto length=std::wstring(form).size();
+        if(text.compare(at,length,form)!=0)continue;
+        if(at+length==text.size())return true;
+        for(auto ending:{L"。",L"、",L"こと",L"ため",L"ので",L"けど",L"ひと",L"あと",L"とき"})
+            if(text.compare(at+length,std::wstring(ending).size(),ending)==0)return true;
+    }
+    return false;
+}
+inline std::vector<Spelling> objectParticlePaths(const std::wstring& text,
+        const std::vector<std::pair<size_t,wchar_t>>& input,const std::vector<size_t>& boundaries) {
+    if(input.empty())return {};
+    auto base=canonicalSpelling(text);
+    auto boundary=[&](size_t at){return at==0 || at==text.size() ||
+        std::find(boundaries.begin(),boundaries.end(),at)!=boundaries.end();};
+    struct Site {size_t at;int score;};
+    std::vector<Site> sites;
+    std::vector<bool> protectedWord(text.size(),false);
+    // Negative evidence protects common word-internal お. A genuine predicate
+    // with an inflection can override this (本を貸します vs お菓子).
+    for(auto word:{L"あおい",L"あおじろ",L"かおり",L"かおいろ",L"おおき",L"おおさか",L"おおかみ",
+                   L"おもいで",L"おもちゃ",L"おいし",L"おかし",L"おかね",L"おとこ",L"おんな",
+                   L"おんがく",L"おのみち",L"おねがい",L"おもいだ",L"おちゃ",L"おさけ",
+                   L"およみ",L"おかき",L"おはなし",L"おのみ",L"おみやげ"}) {
+        size_t pos=0,length=std::wstring(word).size();
+        while((pos=text.find(word,pos))!=std::wstring::npos) {
+            for(size_t i=pos;i<pos+length;i++)if(text[i]==L'お')protectedWord[i]=true;
+            pos++;
+        }
+    }
+    bool confident=false;
+    for(auto site:input) {
+        auto at=site.first;
+        if(boundary(at) && boundary(at+1)) {
+            base[at]=site.second;confident=true;
+            if(site.second==L'を')sites.push_back({at,200});
+            continue;
+        }
+        if(site.second!=L'を' || at==0)continue;
+        bool predicate=objectPredicateAt(text,at+1);
+        if(!predicate && protectedWord[at])continue;
+        // Only an explicitly separated next token is a reliable case boundary;
+        // と may instead begin ともだち, and に may begin にほん.
+        if(!predicate && at+1<text.size() && boundary(at+1) && boundary(at+2) &&
+           std::wstring(L"がにのはもでへと").find(text[at+1])!=std::wstring::npos)continue;
+        sites.push_back({at,predicate?100:0});
+        if(predicate){base[at]=L'を';confident=true;}
+    }
+    std::vector<Spelling> result;
+    if(base!=text)result.push_back({base,confident?-3:-2});
+    // Unknown predicates (including noun+suru) still get an independent
+    // fallback: the last plausible object position in each explicit clause.
+    // It is an alternative, not a forced correction of the user's spelling.
+    auto fallback=base;size_t begin=0;
+    while(begin<text.size()) {
+        size_t end=text.size(),skip=0;
+        for(auto marker:{L"。",L"、",L"ながら",L"けれど",L"けど"}) {
+            auto at=text.find(marker,begin);
+            if(at!=std::wstring::npos && at<end){end=at;skip=std::wstring(marker).size();}
+        }
+        bool strong=false;size_t last=std::wstring::npos;
+        for(auto site:sites)if(site.at>=begin && site.at<end) {
+            if(site.score>=100)strong=true;
+            else last=site.at;
+        }
+        bool predicateEnding=false;
+        for(auto ending:{L"ます",L"ました",L"ません",L"ませんでした",L"ましょう",L"ない",L"なかった",L"する",L"した",L"して"}) {
+            auto size=std::wstring(ending).size();
+            if(end>=size && text.compare(end-size,size,ending)==0){predicateEnding=true;break;}
+        }
+        if(!strong && predicateEnding && last!=std::wstring::npos)fallback[last]=L'を';
+        if(end==text.size())break;
+        begin=end+skip;
+    }
+    if(fallback!=base)result.push_back({fallback,1});
+    std::stable_sort(sites.begin(),sites.end(),[](const Site& a,const Site& b){
+        return a.score!=b.score?a.score>b.score:a.at>b.at;});
+    for(auto site:sites) {
+        auto single=canonicalSpelling(text);single[site.at]=L'を';
+        // Explicitly separated は/へ/を stay together in every alternative.
+        for(auto written:input)if(boundary(written.first) && boundary(written.first+1))single[written.first]=written.second;
+        if(std::none_of(result.begin(),result.end(),[&](const Spelling& old){return old.text==single;}))
+            result.push_back({single,site.score>=100?-1:3});
+        if(result.size()==6)break;
+    }
+    return result;
 }
 inline Result convert(const std::wstring& input) {
     Result out;
@@ -149,32 +257,84 @@ inline Result convert(const std::wstring& input) {
         {L"히토즈쿠리",L"ひとづくり"},{L"츠즈쿠",L"つづく"},{L"츠즈미",L"つづみ"},
         {L"치지무",L"ちぢむ"},{L"치지레",L"ちぢれ"},{L"하나지",L"はなぢ"}};
     bool corrected=false,approximate=false;
-    struct Alias {size_t at,length;std::wstring text;};
+    struct Alias {size_t at,length;std::wstring text;int family=0;int cost=3;};
     std::vector<Alias> aliases;
     std::vector<size_t> boundaries;
+    std::vector<std::pair<size_t,wchar_t>> particleInputs;
     for(size_t i=0;i<text.size();i++) {
         wchar_t c=text[i];
         if(c==L' ' || c==L'\t' || c==L'\n' || c==L'\r') {boundaries.push_back(out.kana.size());continue;}
         bool matched=false;
         for(const auto& entry:lexicon) {
-            if(text.compare(i,entry.first.size(),entry.first)==0 &&
-               !(i+entry.first.size()<text.size() && text[i+entry.first.size()]==L'우')) {
-                out.kana+=entry.second;i+=entry.first.size()-1;corrected=matched=true;break;
+            if(text.compare(i,entry.first.size(),entry.first)==0) {
+                auto end=i+entry.first.size();
+                // A conventional spelling may already supply the final long
+                // vowel (ありがとう, おはよう, とうきょう). Consume one
+                // explicitly repeated equivalent, rather than doubling it.
+                if(end<text.size() && entry.second.size()>1) {
+                    auto vowel=entry.second.back();
+                    bool longEnding=vowel==L'う' || vowel==L'い';
+                    if(longEnding && (text[end]==L'-' || text[end]==L'ー' ||
+                       (vowel==L'う' && text[end]==L'우') || (vowel==L'い' && text[end]==L'이')))end++;
+                }
+                out.kana+=entry.second;i=end-1;corrected=matched=true;break;
             }
         }
         if(matched) continue;
         if(c>=0xac00 && c<=0xd7a3) {
             unsigned n=c-0xac00;int l=n/588,v=(n%588)/28,t=n%28;
             auto syllable=mora(l,v);size_t at=out.kana.size();
+            if(c==L'오' || c==L'와' || c==L'에')particleInputs.push_back({at,c==L'오'?L'を':c==L'와'?L'は':L'へ'});
             // Common Korean transcriptions are alternatives, never global replacements.
-            if(l==13 && v==18) {syllable=L"つ";aliases.push_back({at,1,L"ず"});}
+            if(l==13 && v==18) {syllable=L"つ";aliases.push_back({at,1,L"ず",6});}
+            if(l==10 && v==18)aliases.push_back({at,1,L"つ",6,2}); // 쓰: ス or ツ
             if(l==0 || l==3 || l==7) {
                 auto other=mora(l==0?15:l==3?16:17,v);
                 if(other!=syllable)aliases.push_back({at,syllable.size(),other});
             }
+            int column=v==20?1:(v==13 || v==18)?2:(v==1 || v==5)?3:(v==4 || v==8)?4:v==0?0:-1;
+            if(column>=0 && (l==7 || l==17)) {
+                static const wchar_t* f[]={L"ふぁ",L"ふぃ",L"ふ",L"ふぇ",L"ふぉ"};
+                static const wchar_t* vv[]={L"ゔぁ",L"ゔぃ",L"ゔ",L"ゔぇ",L"ゔぉ"};
+                aliases.push_back({at,syllable.size(),l==17?f[column]:vv[column],l==17?1:2,2});
+            }
+            if((l==7 || l==17) && (v==2 || v==6 || v==12 || v==17)) {
+                auto small=v==2?L"ゃ":v==17?L"ゅ":L"ょ";
+                aliases.push_back({at,syllable.size(),std::wstring(l==17?L"ふ":L"ゔ")+small,l==17?1:2,2});
+            }
+            if((l==12 || l==13) && column>=0 && column!=1) {
+                static const wchar_t* j[]={L"じゃ",L"じ",L"じゅ",L"じぇ",L"じょ"};
+                aliases.push_back({at,syllable.size(),j[column],3,2});
+            }
+            bool wordInitial=at==0 || (!boundaries.empty() && boundaries.back()==at);
+            if(wordInitial && (l==12 || l==13)) {
+                // The Korean transcription table uses 지/자/주/조 for
+                // word-initial チ/チャ/チュ/チョ as well as voiced sounds.
+                if(column==1)aliases.push_back({at,syllable.size(),L"ち",5,2});
+                else if(column==0 || column==2 || column==4) {
+                    static const wchar_t* ch[]={L"ちゃ",L"ち",L"ちゅ",L"ちぇ",L"ちょ"};
+                    aliases.push_back({at,syllable.size(),ch[column],5,2});
+                } else if(v==2 || v==6 || v==12 || v==17) {
+                    auto small=v==2?L"ゃ":v==17?L"ゅ":L"ょ";
+                    aliases.push_back({at,syllable.size(),std::wstring(L"ち")+small,5,2});
+                }
+            }
+            if((l==9 || l==10 || l==12 || l==13) && v==16)
+                aliases.push_back({at,syllable.size(),(l==9 || l==10)?L"し":L"じ",3,2});
+            if(l==3 && (v==2 || v==6 || v==12 || v==17)) {
+                auto small=v==2?L"ゃ":v==17?L"ゅ":L"ょ";
+                aliases.push_back({at,syllable.size(),std::wstring(L"じ")+small,3,2});
+            }
             out.kana+=syllable;
             if(t==4 || t==16 || t==21) out.kana+=L"ん";
-            else if(t==8) {out.kana+=L"る";approximate=true;}
+            else if(t==8) {
+                // Korean ㄹ+ㄹ transcriptions (바이올린) can represent one
+                // Japanese r onset. Keep the uncontracted reading as well.
+                if(i+1<text.size() && text[i+1]>=0xac00 && text[i+1]<=0xd7a3 &&
+                   (text[i+1]-0xac00)/588==5)
+                    aliases.push_back({out.kana.size(),1,L"",4,2});
+                out.kana+=L"る";approximate=true;
+            }
             else if(t) {out.kana+=L"っ";approximate=true;}
             if(v==4 || v==18 || v==19 || v==11) approximate=true;
         } else if(c>=0x3041 && c<=0x3096) out.kana+=c;
@@ -192,10 +352,13 @@ inline Result convert(const std::wstring& input) {
     for(auto c:text)if(c>=0xac00 && c<=0xd7a3)koreanDash=true;
     // Korean '-' denotes a long vowel, not necessarily the katakana ー.
     // Common borrowed coffee spelling keeps its established literal reading.
-    if(koreanDash && text.find(L"코-히-")==std::wstring::npos && text.find(L"코ー히ー")==std::wstring::npos) {
+    if(koreanDash) {
         std::wstring expanded;
-        for(auto c:literal) {
-            if(c==L'ー' && !expanded.empty()) {
+        for(size_t pos=0;pos<literal.size();pos++) {
+            auto c=literal[pos];
+            bool coffee=(pos>=1 && literal.compare(pos-1,4,L"こーひー")==0) ||
+                        (pos>=3 && literal.compare(pos-3,4,L"こーひー")==0);
+            if(c==L'ー' && !expanded.empty() && !coffee) {
                 auto keys=romanize(std::wstring(1,expanded.back()));
                 wchar_t vowel=keys.empty()?0:keys.back();
                 c=vowel==L'a'?L'あ':vowel==L'i'?L'い':vowel==L'u'?L'う':vowel==L'e'?L'い':vowel==L'o'?L'う':c;
@@ -218,29 +381,37 @@ inline Result convert(const std::wstring& input) {
             options.push_back({L"ー",2});
         }
         bool boundary=std::find(boundaries.begin(),boundaries.end(),pos)!=boundaries.end();
-        if(boundary && pos+1<out.kana.size() &&
-           (std::find(boundaries.begin(),boundaries.end(),pos+1)!=boundaries.end())) {
+        if(koreanDash && boundary && (pos+1==out.kana.size() ||
+           std::find(boundaries.begin(),boundaries.end(),pos+1)!=boundaries.end())) {
             if(c==L'わ')options.push_back({L"は",-1});
             if(c==L'え')options.push_back({L"へ",-1});
             if(c==L'お')options.push_back({L"を",-1});
         }
         // Joined Korean input contains no spaces. Keep possible particles as
         // lower-priority readings; the original word spelling stays available.
-        if(koreanDash && pos>0 && pos+1<out.kana.size() && !boundary) {
+        if(koreanDash && (pos>0 || out.kana.size()==1) && !boundary) {
             if(c==L'わ')options.push_back({L"は",2});
             if(c==L'え')options.push_back({L"へ",2});
-            if(c==L'お')options.push_back({L"を",2});
+            if(c==L'お')options.push_back({L"を",4});
         }
         std::vector<Spelling> next;
         for(auto& path:paths)for(auto& option:options)next.push_back({path.text+option.text,path.cost+option.cost});
         prune(next);paths=std::move(next);
     }
-    for(auto& alias:aliases) {
+    auto particles=objectParticlePaths(out.kana,particleInputs,boundaries);
+    // Particle interpretations enter before consonant alternatives, so a
+    // long sentence can combine は/を with its original vowel and voicing.
+    for(auto& particle:particles)paths.push_back(particle);
+    prune(paths);
+    // Work backwards: a shortened coda or expanded loan sound must not move
+    // offsets belonging to earlier syllables.
+    for(auto it=aliases.rbegin();it!=aliases.rend();++it) {
+        auto& alias=*it;
         auto count=paths.size();
         for(size_t n=0;n<count;n++) {
             if(paths[n].text.compare(alias.at,alias.length,out.kana,alias.at,alias.length)!=0)continue;
             auto alternate=paths[n].text;alternate.replace(alias.at,alias.length,alias.text);
-            paths.push_back({alternate,paths[n].cost+3});
+            paths.push_back({alternate,paths[n].cost+alias.cost});
         }
         prune(paths);
     }
@@ -251,17 +422,33 @@ inline Result convert(const std::wstring& input) {
     }
     prune(paths);
     // Resource bounds must never remove the user's literal interpretation.
+    std::vector<std::wstring> retained={out.kana,literal};
     auto retain=[&](const std::wstring& value) {
         if(std::none_of(paths.begin(),paths.end(),[&](const Spelling& p){return p.text==value;})) {
             if(paths.size()==16) {
-                auto removable=std::find_if(paths.rbegin(),paths.rend(),[&](const Spelling& p){return p.text!=out.kana && p.text!=literal;});
+                auto removable=std::find_if(paths.rbegin(),paths.rend(),[&](const Spelling& p){return std::find(retained.begin(),retained.end(),p.text)==retained.end();});
                 if(removable!=paths.rend())paths.erase(std::next(removable).base());
+                else return;
             }
             paths.push_back({value,0});
         }
+        retained.push_back(value);
     };
     retain(out.kana);
     if(literal!=out.kana)retain(literal);
+    for(auto& particle:particles)retain(particle.text);
+    // Long input must still offer a consistent whole-input interpretation;
+    // the 16-path beam otherwise loses "all k/t/p" or "all f" after a few
+    // ambiguous syllables. These families consume a fixed number of slots.
+    for(int family=0;family<=6;family++) {
+        auto uniform=out.kana;
+        for(auto it=aliases.rbegin();it!=aliases.rend();++it) {
+            auto& alias=*it;
+            if(alias.family==family && uniform.compare(alias.at,alias.length,out.kana,alias.at,alias.length)==0)
+                uniform.replace(alias.at,alias.length,alias.text);
+        }
+        if(uniform!=out.kana)retain(uniform);
+    }
     for(auto& path:paths)out.alternatives.push_back(path.text);
     // Keep the literal normalization stable for callers; query order may prefer
     // an orthographic stem or an explicitly separated particle.

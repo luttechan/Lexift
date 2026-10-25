@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "queries": 500,
+  "retained_growth_bytes": 60,
+  "peak_traced_bytes": 26277053
+}

@@ -1,6 +1,0 @@
-{
-  "abi": 4,
-  "target": "x86_64-windows-gnu",
-  "source_sha256": "f0b8a7df87a98672559cbaebdf8849acf3fd087fe140f45999f840673b9e6585",
-  "dll_sha256": "a4018e098d329d602425fb6a26dfc73ed9a82ce1fc6604414acc812eb2fcb5b9"
-}

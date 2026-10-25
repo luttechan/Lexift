@@ -1,94 +1,109 @@
 {
-  "startup_ms": 167,
+  "startup_ms": 129,
   "queries": [
     {
       "source": "와타시",
-      "elapsed_ms": 340,
+      "first_ms": 275,
+      "elapsed_ms": 275,
       "count": 9,
       "passed": true
     },
     {
       "source": "와타시",
-      "elapsed_ms": 84,
+      "first_ms": 64,
+      "elapsed_ms": 64,
       "count": 9,
       "passed": true
     },
     {
       "source": "와타시",
-      "elapsed_ms": 88,
+      "first_ms": 50,
+      "elapsed_ms": 51,
       "count": 9,
       "passed": true
     },
     {
       "source": "니혼고",
-      "elapsed_ms": 67,
-      "count": 3,
+      "first_ms": 64,
+      "elapsed_ms": 218,
+      "count": 13,
       "passed": true
     },
     {
       "source": "갓코우",
+      "first_ms": 73,
+      "elapsed_ms": 116,
+      "count": 17,
+      "passed": true
+    },
+    {
+      "source": "쿄우",
+      "first_ms": 56,
       "elapsed_ms": 56,
-      "count": 9,
-      "passed": true
-    },
-    {
-      "source": "쿄우",
-      "elapsed_ms": 70,
-      "count": 74,
+      "count": 10,
       "passed": true
     },
     {
       "source": "코-히-",
-      "elapsed_ms": 68,
+      "first_ms": 67,
+      "elapsed_ms": 67,
       "count": 10,
       "passed": true
     },
     {
       "source": "코-죠-",
-      "elapsed_ms": 99,
-      "count": 29,
+      "first_ms": 72,
+      "elapsed_ms": 1508,
+      "count": 103,
       "passed": true
     },
     {
       "source": "모요-데스",
-      "elapsed_ms": 74,
-      "count": 4,
+      "first_ms": 53,
+      "elapsed_ms": 686,
+      "count": 37,
       "passed": true
     },
     {
       "source": "니혼고",
-      "elapsed_ms": 71,
-      "count": 3,
+      "first_ms": 54,
+      "elapsed_ms": 225,
+      "count": 13,
       "passed": true
     },
     {
       "source": "갓코우",
-      "elapsed_ms": 66,
-      "count": 9,
+      "first_ms": 66,
+      "elapsed_ms": 113,
+      "count": 17,
       "passed": true
     },
     {
       "source": "쿄우",
-      "elapsed_ms": 81,
-      "count": 74,
+      "first_ms": 62,
+      "elapsed_ms": 62,
+      "count": 10,
       "passed": true
     },
     {
       "source": "코-히-",
-      "elapsed_ms": 73,
+      "first_ms": 63,
+      "elapsed_ms": 63,
       "count": 10,
       "passed": true
     },
     {
       "source": "코-죠-",
-      "elapsed_ms": 103,
-      "count": 29,
+      "first_ms": 92,
+      "elapsed_ms": 1740,
+      "count": 103,
       "passed": true
     },
     {
       "source": "모요-데스",
-      "elapsed_ms": 74,
-      "count": 4,
+      "first_ms": 55,
+      "elapsed_ms": 569,
+      "count": 37,
       "passed": true
     }
   ],

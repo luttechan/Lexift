@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "version": "1.0.1",
+  "checks": [
+    "--verify-runtime",
+    "--verify-chinese",
+    "--verify-ime",
+    "--verify-features"
+  ],
+  "zip_sha256": "5ffc4e6b230b8e8090d00defbda6b853fedc114737b950fba94d3c73b5f65c47",
+  "archive": "C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0.1\\release\\Lexift-1.0.1-Windows-x64.zip"
+}

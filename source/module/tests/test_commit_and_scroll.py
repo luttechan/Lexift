@@ -55,6 +55,14 @@ class CommitAndScrollTests(unittest.TestCase):
         self.assertEqual(self.mode.list.verticalScrollBar().value(),0)
         self.assertEqual(self.mode.list.row(self.mode.list.itemAt(QPoint(10,10))),0)
 
+    def test_polyphonic_labels_follow_the_selected_candidate_after_filtering(self):
+        data={'kana':'shui','candidates':['単漢字…','谁','四'],'readings':['','shui','si'],
+              'reading_alternatives':{'谁':['shui','shei'],'四':['si']}}
+        self.mode._show(data)
+        self.assertIn('shui / shei',self.mode.reading.text())
+        self.mode.list.setCurrentRow(1)
+        self.assertTrue(self.mode.reading.text().endswith('si'))
+
     def test_new_word_resets_previous_scroll_but_explicit_selection_survives_updates(self):
         values=[f'候補{i}' for i in range(30)]
         self.mode._show({'kana':'わたし','candidates':values})
