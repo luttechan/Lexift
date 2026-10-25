@@ -10,7 +10,8 @@ static bool inlineCommitSpace=false;
 #define STUB(name,args) HRESULT STDMETHODCALLTYPE name args override{return E_NOTIMPL;}
 struct TextProvider : KsAccessible2,KsAccessibleText,KsEditableText,IServiceProvider {
     ULONG refs=1;LONG state=STATE_SYSTEM_FOCUSED,msaaRole=ROLE_SYSTEM_TEXT,ia2State=0x8,selections=0,begin=0,end=0;
-    bool serviceOnly=false;
+    bool serviceOnly=false,asynchronousSelection=false;
+    LONG selectionWrites=0;
     LONG caret=0,reads=0;bool endGeometry=true;
     std::wstring value=L"prefix 고치소-사마 suffix";
     TextProvider(){caret=(LONG)value.find(L" suffix");}
@@ -47,7 +48,7 @@ struct TextProvider : KsAccessible2,KsAccessibleText,KsEditableText,IServiceProv
         else if(IsEqualIID(iid,ksEditableIID))*out=(KsEditableText*)this;
         if(!*out)return E_NOINTERFACE;AddRef();return S_OK;
     }
-    HRESULT STDMETHODCALLTYPE addSelection(LONG a,LONG b)override{selections=1;begin=a;end=b;return S_OK;}
+    HRESULT STDMETHODCALLTYPE addSelection(LONG a,LONG b)override{selectionWrites++;if(!asynchronousSelection){selections=1;begin=a;end=b;}return S_OK;}
     STUB(get_attributes,(LONG,LONG*,LONG*,BSTR*))
     HRESULT STDMETHODCALLTYPE get_caretOffset(LONG* out)override{*out=caret;return S_OK;}
     HRESULT STDMETHODCALLTYPE get_characterExtents(LONG offset,int,LONG* x,LONG* y,LONG* w,LONG* h)override {
@@ -64,7 +65,7 @@ struct TextProvider : KsAccessible2,KsAccessibleText,KsEditableText,IServiceProv
     STUB(get_textBeforeOffset,(LONG,int,LONG*,LONG*,BSTR*))
     STUB(get_textAfterOffset,(LONG,int,LONG*,LONG*,BSTR*))
     STUB(get_textAtOffset,(LONG,int,LONG*,LONG*,BSTR*)) STUB(removeSelection,(LONG)) HRESULT STDMETHODCALLTYPE setCaretOffset(LONG n)override{caret=n;return S_OK;}
-    HRESULT STDMETHODCALLTYPE setSelection(LONG,LONG a,LONG b)override{begin=a;end=b;return S_OK;}
+    HRESULT STDMETHODCALLTYPE setSelection(LONG,LONG a,LONG b)override{selectionWrites++;if(!asynchronousSelection){begin=a;end=b;}return S_OK;}
     HRESULT STDMETHODCALLTYPE get_nCharacters(LONG* n)override{*n=(LONG)value.size();return S_OK;}
     STUB(scrollSubstringTo,(LONG,LONG,int)) STUB(scrollSubstringToPoint,(LONG,LONG,int,LONG,LONG))
     STUB(get_newText,(KsTextSegment*)) STUB(get_oldText,(KsTextSegment*))
@@ -83,7 +84,7 @@ int main(){
         check("only word before caret",a.token==L"고치소-사마" && a.start==7 && a.after==L" suffix");
         check("caret on negative-origin monitor",a.caret.left<0 && a.caret.bottom==324);
         check("stable identity and range",readIa2Object(&provider,b) && sameIa2(a,b));
-        check("selection before replacement",selectIa2(a) && provider.begin==a.start && provider.end==a.end);
+        check("range verified without selecting",prepareIa2Replacement(&provider,a) && provider.selectionWrites==0);
         check("Unicode replacement and caret after text",replaceIa2(a,L"ご馳走様") && provider.value==L"prefix ご馳走様 suffix" && provider.caret==a.start+4);
     }
     check("COM references balanced",provider.refs==1);
@@ -127,7 +128,7 @@ int main(){
         TextProvider composition;Ia2Snapshot before,settled;readIa2Object(&composition,before);
         composition.value.insert(composition.caret,L" ");composition.caret++;inlineCommitSpace=true;
         check("exact IME completion space accepted",readIa2Object(&composition,settled) && sameIa2AfterCommitSpace(before,settled));
-        check("space included in verified replacement range",selectIa2(settled) && replaceIa2(settled,L"ご馳走様") && composition.value==L"prefix ご馳走様 suffix");
+        check("space included in verified replacement range",prepareIa2Replacement(&composition,settled) && replaceIa2(settled,L"ご馳走様") && composition.value==L"prefix ご馳走様 suffix");
         inlineCommitSpace=false;
     }
     {
@@ -135,6 +136,16 @@ int main(){
         moved.value.insert(moved.caret,L"  ");moved.caret+=2;inlineCommitSpace=true;
         check("two spaces cannot reuse original range",!readIa2Object(&moved,wrong) || !sameIa2AfterCommitSpace(before,wrong));
         inlineCommitSpace=false;
+    }
+    {
+        TextProvider remote;remote.asynchronousSelection=true;Ia2Snapshot snapshot;
+        check("remote textarea snapshot",readIa2Object(&remote,snapshot));
+        check("remote selection cache is not required",prepareIa2Replacement(&remote,snapshot) && remote.selectionWrites==0);
+        check("remote textarea replacement preserves surrounding text",replaceIa2(snapshot,L"ご馳走様") && remote.value==L"prefix ご馳走様 suffix" && remote.caret==snapshot.start+4);
+    }
+    {
+        TextProvider changed;Ia2Snapshot snapshot;readIa2Object(&changed,snapshot);changed.value+=L"!";
+        check("stale remote text cannot be prepared for replacement",!prepareIa2Replacement(&changed,snapshot) && changed.selectionWrites==0);
     }
     printf("{\"passed\":%d,\"failed\":%d,\"fixture\":\"IAccessible2 COM provider\",\"firefox_end_to_end\":false}\n",passed,failed);
     return failed?1:0;

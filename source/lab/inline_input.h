@@ -257,12 +257,12 @@ static bool inlineSnapshot(IUIAutomation* automation,InlineSnapshot& result) {
     if(!gecko && ia2InlineSnapshot(result))return true;
     return false;
 }
-static bool selectInlineSnapshot(IUIAutomation* automation,const InlineSnapshot& snapshot) {
+static bool prepareInlineReplacement(IUIAutomation* automation,const InlineSnapshot& snapshot) {
     if(GetForegroundWindow()!=snapshot.target) return false;
     if(snapshot.ia2) {
         IAccessible* focused=focusedMsaa(snapshot.target);if(!focused)return false;
-        Ia2Snapshot fresh;bool valid=readIa2Object(focused,fresh) && sameIa2(*snapshot.ia2,fresh);
-        focused->Release();return valid && selectIa2(*snapshot.ia2);
+        bool valid=prepareIa2Replacement(focused,*snapshot.ia2);
+        focused->Release();return valid;
     }
     if(snapshot.native) {
         GUITHREADINFO info={sizeof info};
@@ -411,7 +411,7 @@ static int runInlineWatcher(DWORD ownerPid=0) {
                         CommitSpaceScope probe;
                         auto settled=settleInlineComposition(automation,fresh);
                         const InlineSnapshot* selected=settled.get();
-                        success=selected && selectInlineSnapshot(automation,*selected) && GetForegroundWindow()==fresh.target;
+                        success=selected && prepareInlineReplacement(automation,*selected) && GetForegroundWindow()==fresh.target;
                         if(success) {
                             GUITHREADINFO focus={sizeof focus};
                             HWND direct=fresh.native&&!fresh.edit.scintilla?fresh.edit.control:nullptr;

@@ -5,13 +5,15 @@
   "root": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0.3",
   "previous_version_preserved": true,
   "source_tests": 472,
-  "native_checks": 79,
+  "native_checks": 83,
   "runtime_files": 322,
-  "zip_sha256": "ed15272722242984f53824c3b44ad4f43607ed22e457ba702342289aed3b0b97",
+  "zip_sha256": "7f49225b70e2b2900605315989c5572b3027fd143ffda2facb534038086931d7",
   "assets_preserved": true,
   "documentation_updated": true,
   "markdown_cleanup": true,
   "previous_zip_sha256": "006a9e4a0fbdda55aa9feabdf4383c8044372e55e4d4483b3a7f72f15e0c1e0c",
   "selector_protocol_checks": 15,
-  "selector_hotfix": true
+  "selector_hotfix": true,
+  "firefox_hotfix": true,
+  "firefox_end_to_end": false
 }

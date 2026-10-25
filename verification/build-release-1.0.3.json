@@ -2,7 +2,7 @@
   "passed": true,
   "version": "1.0.3",
   "source_tests": 472,
-  "native_checks": 79,
+  "native_checks": 83,
   "checks": [
     "runtime",
     "variants",
@@ -133,15 +133,15 @@
     "lab/composition_launcher.exe": "53a752c453f06491ebcf2f21f6d5d6dc65032db851beed12d29580cc060ec95d",
     "lab/composition_probe.py": "21fe99f839f9dc7806d3e917c4167568611af9ae7767ee3ea58f69dd21d50723",
     "lab/hangul_reading.h": "7ccb3977bee69dca21083f89b91b05b57e5f0b8ddacfc24560e9ef7a8303f447",
-    "lab/ia2_adapter.h": "2018e1798252407fbccc345a1befde08ad81490bc2692819b2879fd1a8395e35",
-    "lab/ia2_adapter_test.cpp": "92b53e86cab2b7e51861ff980d612c0f879776e9d14abc5cb28c6c1ff28d1db1",
-    "lab/ia2_adapter_test.exe": "62a99bd6dfa20725e345fa90eb83b61cab9e29c595e6f316c3bda5f0092207c8",
+    "lab/ia2_adapter.h": "02287c95b4211282afb71e68eb6b9e9130881acdff3148012fb87259148bbc38",
+    "lab/ia2_adapter_test.cpp": "0c28f990ec2414b78b9c2257097b2baa7b1043af83d7e73b18f488bc7a6312bd",
+    "lab/ia2_adapter_test.exe": "269645dca891d3c9c2f58e0009f46c12afccefddc829371b06d0dc76839e1d47",
     "lab/ime_candidate_host.cpp": "04e8f2527dec4ebefcc06b6942221140a694d6f45bd4604de0b3f52f9457e83e",
-    "lab/ime_candidate_host.exe": "4b8a126c09cdeac4a3efa60acdf806e97718db8de6eb5ab3b3fb7153feabac24",
+    "lab/ime_candidate_host.exe": "0b86941057fbe750c7b01adc89da3432004f35972fccf818dff4efb4c04bdd4f",
     "lab/inline_desktop_launcher.cpp": "c2ef40d4f7f5390cff6d6821e54049c1cf9d9251388140b75214b271e2bc6e37",
     "lab/inline_desktop_launcher.exe": "bd2f1c6fa6ec0c4e02a55fb4ddf98b2fc428bedea2bbb7a881c901ea0748d18d",
     "lab/inline_desktop_test.py": "14418af126d10ebae092f61e1e78834b1d91eb6d3420e07e01ba04a8dc1c8a09",
-    "lab/inline_input.h": "3fb6add321effdecadee8dd45188b761c1e874e9ab0f876545b81dea770b361c",
+    "lab/inline_input.h": "ecbc45ce7229d12757aea6f6d894b09ccaa20644bcc990fd4daf2e17e3bf71b0",
     "lab/latency_desktop_launcher.cpp": "71ba21def6b77a87b5b4106cbd64dcdea4e9edfd80ec7a706f517fdfdc18fac3",
     "lab/latency_desktop_launcher.exe": "960782b5a089e28a1a6afdf3210701a8d50a8ec4eca8752992ee231b5eec3131",
     "lab/latency_desktop_test.py": "b2b4bebec9c1df1f72217bdd5a4bfefb6125c9163a30254bc4c0a1f1e89522b0",
@@ -172,7 +172,7 @@
     "module/tests/worker_protocol_fixture.exe": "897b880e9aff1f46a485f1ec05cf26f1decddd2365ab3d12ac836ae279a38dfa",
     "module/tests/test_worker_protocol.py": "ffc57377d9524c1e3857ffa2a19fa620e009f890559ee2b9e934cfc81e36b89f"
   },
-  "zip_sha256": "ed15272722242984f53824c3b44ad4f43607ed22e457ba702342289aed3b0b97",
+  "zip_sha256": "7f49225b70e2b2900605315989c5572b3027fd143ffda2facb534038086931d7",
   "runtime_files": 322,
   "first_main_ms": [
     3.605,
@@ -345,5 +345,7 @@
   "previous_zip_sha256": "006a9e4a0fbdda55aa9feabdf4383c8044372e55e4d4483b3a7f72f15e0c1e0c",
   "markdown_cleanup": true,
   "selector_protocol_checks": 15,
-  "selector_hotfix": true
+  "selector_hotfix": true,
+  "firefox_hotfix": true,
+  "firefox_end_to_end": false
 }

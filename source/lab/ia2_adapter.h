@@ -181,12 +181,12 @@ static bool sameIa2AfterCommitSpace(const Ia2Snapshot& a,const Ia2Snapshot& b) {
     return a.identity && a.identity==b.identity && a.start==b.start && b.end==a.end+1 && b.length==a.length+1 &&
         b.token==a.token+L" " && b.before==before && a.after==b.after;
 }
-static bool selectIa2(const Ia2Snapshot& snapshot) {
-    LONG count=0;
-    if(FAILED(snapshot.text->get_nSelections(&count)))return false;
-    HRESULT hr=count?snapshot.text->setSelection(0,snapshot.start,snapshot.end):snapshot.text->addSelection(snapshot.start,snapshot.end);
-    LONG begin=-1,end=-1;
-    return SUCCEEDED(hr) && SUCCEEDED(snapshot.text->get_selection(0,&begin,&end)) && begin==snapshot.start && end==snapshot.end;
+static bool prepareIa2Replacement(IAccessible* focused,const Ia2Snapshot& snapshot) {
+    // replaceText takes explicit offsets; selecting first is unnecessary.
+    // Gecko can acknowledge a selection before its accessibility cache updates.
+    // Reading that cache immediately incorrectly aborts an otherwise valid edit.
+    Ia2Snapshot fresh;
+    return focused && readIa2Object(focused,fresh) && sameIa2(snapshot,fresh);
 }
 static bool replaceIa2(const Ia2Snapshot& snapshot,const std::wstring& replacement) {
     BSTR text=SysAllocStringLen(replacement.data(),(UINT)replacement.size());
