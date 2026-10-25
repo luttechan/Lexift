@@ -78,15 +78,13 @@ class PreferencesWarmupTests(unittest.TestCase):
             self.window.navigate(2)
         self.assertIs(prepared,self.window.pages.widget(2))
 
-    def test_idle_page_preparation_is_bounded_to_viewport_and_keeps_state(self):
+    def test_idle_page_preparation_never_paints_hidden_pages_and_keeps_state(self):
         self.window._ensure_page(2)
         page=self.window.pages.widget(2)
         with patch.object(page,'grab') as grab,patch.object(page,'render') as render:
             self.window._prepare_preferences()
         grab.assert_not_called()
-        image=render.call_args.args[0]
-        self.assertLessEqual(image.width(),1280)
-        self.assertLessEqual(image.height(),900)
+        render.assert_not_called()
         self.assertFalse(page.isVisible())
         self.assertEqual(self.window.pages.currentIndex(),0)
         self.window._prepare_next_page()

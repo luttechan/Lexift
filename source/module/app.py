@@ -31,6 +31,7 @@ from isolated_hotkeys import CapsQHook, OverlayNavigationHook, service as keyboa
 from credits_static import get_special_thanks
 from i18n import LANGUAGES, SUPPORTED, set_language, language, tr, tr_count, tr_hint, tr_notify, text_font_family, error_text, load_saved_language
 from localized_dialogs import QMessageBox
+from settings_controls import SettingsComboBox
 from native_language_dialog import choose_ui_language, confirm_quit, NativeDialogUnavailable
 from cursor_indicator import CursorIndicator
 from update_ui import UpdateManager
@@ -849,6 +850,7 @@ class MainWindow(QWidget):
     enabled_requested = Signal(bool)
     feature_requested = Signal(str,bool)
     dictionary_saved = Signal(list)
+    defaults_requested = Signal()
 
     def __init__(self, store: QSettings, slots: list[dict[str, str]], first_run: bool):
         super().__init__()
@@ -907,7 +909,7 @@ class MainWindow(QWidget):
         self._preferences_timer=QTimer(self)
         self._preferences_timer.setSingleShot(True)
         self._preferences_timer.timeout.connect(self._prepare_next_page)
-        self._preferences_timer.start(0)
+        self._preferences_timer.start(120)
 
     def _wrap_page(self, title: str, subtitle: str, content: QWidget) -> QWidget:
         page = QWidget()
@@ -1036,10 +1038,10 @@ class MainWindow(QWidget):
         shortcut_row = QHBoxLayout()
         shortcut_row.setSpacing(10)
         shortcut_row.addWidget(self._feature_check('selector'))
-        self.shortcut_modifier = QComboBox()
+        self.shortcut_modifier = SettingsComboBox()
         for mode in MODES:
             self.shortcut_modifier.addItem(tr(MODE_LABELS[mode]), mode)
-        self.shortcut_key = QComboBox()
+        self.shortcut_key = SettingsComboBox()
         for key in KEY_LABELS:
             self.shortcut_key.addItem(key, key)
         shortcut_row.addWidget(self.shortcut_modifier, 2)
@@ -1056,10 +1058,10 @@ class MainWindow(QWidget):
         vv.addWidget(label(tr('한–일 변환'), 'section'))
         ime_row = QHBoxLayout()
         ime_row.addWidget(self._feature_check('ja'))
-        self.ime_modifier = QComboBox()
+        self.ime_modifier = SettingsComboBox()
         for mode in MODES:
             self.ime_modifier.addItem(tr(MODE_LABELS[mode]), mode)
-        self.ime_key = QComboBox()
+        self.ime_key = SettingsComboBox()
         for key in KEY_LABELS:
             self.ime_key.addItem(key, key)
         ime_row.addWidget(self.ime_modifier, 2)
@@ -1070,10 +1072,10 @@ class MainWindow(QWidget):
         vv.addWidget(label(tr('한–중 변환'), 'section'))
         chinese_row = QHBoxLayout()
         chinese_row.addWidget(self._feature_check('zh'))
-        self.chinese_modifier = QComboBox()
+        self.chinese_modifier = SettingsComboBox()
         for mode in MODES:
             self.chinese_modifier.addItem(tr(MODE_LABELS[mode]), mode)
-        self.chinese_key = QComboBox()
+        self.chinese_key = SettingsComboBox()
         for key in KEY_LABELS:
             self.chinese_key.addItem(key, key)
         chinese_row.addWidget(self.chinese_modifier, 2)
@@ -1096,7 +1098,7 @@ class MainWindow(QWidget):
         lang_layout.setContentsMargins(23, 20, 23, 20)
         lang_layout.setSpacing(10)
         lang_layout.addWidget(label(tr("표시 언어"), "section"))
-        self.language_combo = QComboBox()
+        self.language_combo = SettingsComboBox()
         family = {"ja": "Yu Gothic UI", "zh_CN": "Microsoft YaHei UI",
                   "zh_TW": "Microsoft JhengHei UI"}.get(language())
         if family:
@@ -1120,6 +1122,8 @@ class MainWindow(QWidget):
         lang_layout.addWidget(self.language_combo)
         v.addWidget(language_panel)
         v.addWidget(button(tr("업데이트 확인"), lambda: self.update_requested.emit(), "ghost"))
+        self.defaults_button=button(tr('기본값'),self._request_defaults,'ghost')
+        v.addWidget(self.defaults_button)
         v.addStretch(1)
         scroll=QScrollArea()
         scroll.setWidgetResizable(True)
@@ -1201,7 +1205,24 @@ class MainWindow(QWidget):
     def _request_language(self, _index: int) -> None:
         code = self.language_combo.currentData()
         if code and code != language():
-            self.language_requested.emit(code)
+            name=dict(LANGUAGES)[code]
+            accepted=QMessageBox.question(self,tr('표시 언어'),
+                tr('정말로 {language}로 변경하시겠습니까?').format(language=name),
+                QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No)==QMessageBox.StandardButton.Yes
+            # Restore the selector before emitting: a rejected or failed change
+            # must never leave a language selected that is not actually in use.
+            self.language_combo.blockSignals(True)
+            self.language_combo.setCurrentIndex(self.language_combo.findData(language()))
+            self.language_combo.blockSignals(False)
+            if accepted:self.language_requested.emit(code)
+
+    def _request_defaults(self):
+        if QMessageBox.question(self,tr('기본값'),
+                tr('모든 설정을 기본값으로 되돌릴까요? 단축키, 표시 언어, 실행 옵션, 입력기 슬롯과 사용자 사전이 초기화됩니다.'),
+                QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No)==QMessageBox.StandardButton.Yes:
+            self.defaults_requested.emit()
 
     def current_binding(self) -> HotkeyBinding:
         try:
@@ -1353,28 +1374,11 @@ class MainWindow(QWidget):
         self._prepare_page_layout(2)
 
     def _prepare_page_layout(self, index):
-        # Resolve style/word wrapping while idle. Render only the fixed viewport,
-        # never the full (potentially long) scroll contents or every table row.
-        # The temporary image is discarded, leaving Qt's reusable glyph cache.
+        # Hidden page rendering forces font fallback, child polishing and table
+        # painting on the GUI thread while the user is trying to open a menu.
+        # Widgets already exist; leave their paint to Qt's visible-page update.
         page = self.pages.widget(index)
-        if page.isVisible():
-            self._prepared_pages.add(index)
-            return
-        self.layout().activate()
-        page.resize(self.pages.contentsRect().size())
-        widgets = [page, *page.findChildren(QWidget)]
-        for widget in widgets:
-            widget.ensurePolished()
-            if widget.layout() is not None:
-                widget.layout().activate()
-        if isinstance(page, QScrollArea) and page.widget() is not None:
-            content = page.widget()
-            content.resize(page.viewport().width(), content.sizeHint().height())
-            content.layout().activate()
-        if not page.size().isEmpty():
-            size = QSize(min(page.width(),1280), min(page.height(),900))
-            preview = QImage(size, QImage.Format.Format_ARGB32_Premultiplied)
-            page.render(preview, QPoint(), QRegion(0,0,size.width(),size.height()))
+        page.ensurePolished()
         self._prepared_pages.add(index)
 
     def _prepare_next_page(self):
@@ -1382,7 +1386,7 @@ class MainWindow(QWidget):
             if index not in self._prepared_pages:
                 self._prepare_page_layout(index)
                 if len(self._prepared_pages) < 3:
-                    self._preferences_timer.start(0)
+                    self._preferences_timer.start(120)
                 return
 
     def _ensure_page(self, index):
@@ -1600,6 +1604,7 @@ class LexiftController(QObject):
         self.window.enabled_requested.connect(self.set_enabled)
         self.window.feature_requested.connect(self.set_feature_enabled)
         self.window.dictionary_saved.connect(self.save_dictionary)
+        self.window.defaults_requested.connect(self.reset_defaults)
         self.window.refresh_dashboard(self.slots)
         self.overlay.set_shortcut(self.binding)
         self.window.update_shortcut_ui(self.binding)
@@ -1731,13 +1736,16 @@ class LexiftController(QObject):
         """Recreate Qt widgets in-process; no restart or IME-hook interruption."""
         if code not in SUPPORTED or code == language():
             return
+        self._rebuild_window(code)
+
+    def _rebuild_window(self,code,*,preserve_edits=True):
         previous = self.window
         page = previous._current_page
         was_visible = previous.isVisible()
         geometry = previous.geometry()
-        edits = [dict(s) for s in previous.slot_editor.slots]
+        edits = [dict(s) for s in (previous.slot_editor.slots if preserve_edits else self.slots)]
         dictionary_edits=([dict(row) for row in previous.dictionary_editor.model.rows]
-                          if 4 in previous._ready_pages else None)
+                          if preserve_edits and 4 in previous._ready_pages else None)
         # Preserve edits in progress when changing the display language.
         set_language(code)
         # Construct the editor with its unsaved edits once, rather than build
@@ -1757,6 +1765,7 @@ class LexiftController(QObject):
         replacement.enabled_requested.connect(self.set_enabled)
         replacement.feature_requested.connect(self.set_feature_enabled)
         replacement.dictionary_saved.connect(self.save_dictionary)
+        replacement.defaults_requested.connect(self.reset_defaults)
         replacement.refresh_dashboard(self.slots)
         replacement.update_shortcut_ui(self.binding)
         replacement.setGeometry(geometry)
@@ -1782,6 +1791,65 @@ class LexiftController(QObject):
             replacement.raise_()
             replacement.activateWindow()
         previous.deleteLater()
+
+    def reset_defaults(self):
+        """Apply one coherent set of bindings; avoid collisions during a reset."""
+        if self._stopping:return
+        from ime_inline import inline_mode
+        snapshot={key:self.store.value(key) for key in self.store.allKeys()}
+        old=(self.binding,self.ime_binding,self.chinese_binding,dict(self.features),self.slots,self.first_run)
+        running=self._running
+        startup=startup_enabled()
+        replacement=None
+        try:
+            slots=first_run_slots(available_layouts())
+            if not slots:raise RuntimeError(tr('현재 Windows에서 사용할 수 있는 입력기가 없습니다.'))
+            if running:self.hook.stop();self._running=False
+            self.binding=HotkeyBinding('caps','Q')
+            self.ime_binding=HotkeyBinding('caps','A')
+            self.chinese_binding=HotkeyBinding('caps','C')
+            self.features={name:True for name in ('selector','ja','zh')}
+            replacement=self._make_keyboard_hook(self.binding)
+            if running:replacement.start()
+            if startup:set_startup_enabled(False)
+            self.store.clear()
+            for key,value in (('general/ui_language','ko'),('general/show_dashboard',True),
+                    ('general/start_notice',True),('general/sound',True),
+                    ('profiles/slots_json',json.dumps(slots,ensure_ascii=False)),
+                    ('migration/from_kanashift',False)):
+                self.store.setValue(key,value)
+            for prefix,binding in (('hotkey',self.binding),('ime_hotkey',self.ime_binding),
+                                   ('chinese_hotkey',self.chinese_binding)):
+                self.store.setValue(prefix+'/mode',binding.mode);self.store.setValue(prefix+'/key',binding.key)
+            for name in self.features:self.store.setValue('features/'+name,True)
+            self.custom_dictionary.replace([])
+        except Exception as error:
+            if replacement is not None:replacement.stop()
+            self.binding,self.ime_binding,self.chinese_binding,self.features,self.slots,self.first_run=old
+            self.store.clear()
+            for key,value in snapshot.items():self.store.setValue(key,value)
+            self.store.sync()
+            from custom_dictionary import CustomDictionary
+            self.custom_dictionary=CustomDictionary(self.store)
+            inline_mode().dictionary=self.custom_dictionary
+            try:
+                if startup:set_startup_enabled(True)
+                self.hook=self._make_keyboard_hook(self.binding)
+                if running:self.hook.start();self._running=True
+            except Exception:logging.exception('Could not restore settings after reset failure')
+            QMessageBox.warning(self.window,tr('기본값'),tr('기본값으로 되돌리지 못했습니다. 기존 설정을 유지합니다.'))
+            logging.exception('Could not restore default settings')
+            return
+        self.hook=replacement;self._running=running
+        self._enabled=True
+        self.slots=slots;self.first_run=False
+        self._cancel_switch();self.overlay._selection_revision+=1;self.overlay.hide()
+        inline_mode().close()
+        inline_mode().dictionary=self.custom_dictionary
+        self.overlay.set_shortcut(self.binding)
+        self._rebuild_window('ko',preserve_edits=False)
+        if self._enabled and not running:self._start_hook(notify=False)
+        if self._enabled:self._engine_prepare_timer.start(150)
 
     def start(self, *, show_main=False, background=False):
         if self.first_run:
@@ -2383,7 +2451,7 @@ class LanguagePicker(QDialog):
         area.setSpacing(15)
         self.picker_title = label(tr('언어를 선택하세요'), 'pageTitle')
         area.addWidget(self.picker_title)
-        self.selector = QComboBox()
+        self.selector = SettingsComboBox()
         for code, native in LANGUAGES:
             self.selector.addItem(native, code)
         self.selector.setCurrentIndex(max(0, self.selector.findData(initial)))

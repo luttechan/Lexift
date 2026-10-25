@@ -1,0 +1,24 @@
+{
+  "before": {
+    "languages": [
+      {
+        "language": "ko",
+        "queued_ms": 49.131,
+        "click_and_paint_ms": 7.392
+      }
+    ],
+    "median_queued_ms": 49.131,
+    "median_click_and_paint_ms": 7.392
+  },
+  "after": {
+    "languages": [
+      {
+        "language": "ko",
+        "queued_ms": 1.616,
+        "click_and_paint_ms": 55.186
+      }
+    ],
+    "median_queued_ms": 1.616,
+    "median_click_and_paint_ms": 55.186
+  }
+}

@@ -136,6 +136,40 @@ class ConversionSettingsTests(unittest.TestCase):
         with patch.object(c.overlay,'open') as opened,patch.object(app,'request_hkl') as request:
             c._hotkey(123);c.show_overlay();c.apply_slot(c.slots[0]);c._show_ime_panel(123,'ja')
         opened.assert_not_called();request.assert_not_called();self.mode.toggle.assert_not_called()
+    def test_defaults_reset_bindings_atomically_and_replace_unsaved_edits(self):
+        c=self.c;c.window.navigate(2)
+        # This may be occupied: test the cyclic bindings directly, as loaded settings.
+        c.binding=HotkeyBinding('caps','A');c.ime_binding=HotkeyBinding('caps','C');c.chinese_binding=HotkeyBinding('caps','Q')
+        c.custom_dictionary.replace([dict(keyword='스미네',text='澄音',language='ja')])
+        c.window.dictionary_editor.model.add()
+        self.store.setValue('general/sound',False)
+        c.features['zh']=False
+        with patch.object(app,'startup_enabled',return_value=True),patch.object(app,'set_startup_enabled') as startup:
+            c.reset_defaults()
+        self.assertEqual((c.binding,c.ime_binding,c.chinese_binding),
+                         (HotkeyBinding('caps','Q'),HotkeyBinding('caps','A'),HotkeyBinding('caps','C')))
+        self.assertEqual(c.features,dict(selector=True,ja=True,zh=True))
+        self.assertEqual(c.custom_dictionary.entries,[])
+        self.assertEqual(c.window.dictionary_editor.model.rows,[])
+        self.assertTrue(c.window.sound_notice.isChecked())
+        self.assertEqual(c.window.language_combo.currentData(),'ko')
+        self.assertEqual(c.window._current_page,2)
+        startup.assert_called_once_with(False)
+        self.assertTrue(c.slots)
+
+    def test_failed_defaults_reset_restores_settings_and_runtime_bindings(self):
+        c=self.c;c.window.navigate(2)
+        c.custom_dictionary.replace([dict(keyword='스미네',text='澄音',language='ja')])
+        before={key:self.store.value(key) for key in self.store.allKeys()}
+        old=(c.binding,c.ime_binding,c.chinese_binding,dict(c.features))
+        with patch.object(app,'startup_enabled',return_value=False),patch.object(app,'set_startup_enabled'),\
+             patch.object(c.custom_dictionary,'replace',side_effect=OSError('test write failure')),\
+             patch.object(app.QMessageBox,'warning'):
+            c.reset_defaults()
+        self.assertEqual({key:self.store.value(key) for key in self.store.allKeys()},before)
+        self.assertEqual((c.binding,c.ime_binding,c.chinese_binding,c.features),old)
+        self.assertEqual(c.custom_dictionary.lookup('ja','스미네'),'澄音')
+
     def test_dictionary_saves_and_unsaved_edits_survive_language_change(self):
         c=self.c;c.window.navigate(4)
         rows=[dict(keyword='스미네',text='澄音',language='ja')]

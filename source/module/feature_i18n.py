@@ -1,5 +1,28 @@
 """Conversion settings and dictionary strings, in the catalog's eight languages."""
 ROWS={
+'기본값':('Defaults','初期設定','默认值','預設值','Par défaut','Predeterminados','По умолчанию','Standardwerte'),
+'정말로 {language}로 변경하시겠습니까?':(
+ 'Are you sure you want to switch to {language}?','本当に{language}に変更しますか？',
+ '确定要切换为{language}吗？','確定要切換為{language}嗎？',
+ 'Voulez-vous vraiment passer à {language} ?','¿Seguro que desea cambiar a {language}?',
+ 'Вы действительно хотите переключиться на {language}?','Möchten Sie wirklich zu {language} wechseln?'),
+'모든 설정을 기본값으로 되돌릴까요? 단축키, 표시 언어, 실행 옵션, 입력기 슬롯과 사용자 사전이 초기화됩니다.':(
+ 'Restore all defaults? Shortcuts, display language, startup options, input slots and the custom dictionary will be reset.',
+ 'すべて初期設定に戻しますか？ショートカット、表示言語、起動設定、入力スロット、ユーザー辞書が初期化されます。',
+ '恢复所有默认值吗？快捷键、显示语言、启动选项、输入法槽位和用户词典都将重置。',
+ '要還原所有預設值嗎？快速鍵、顯示語言、啟動選項、輸入法欄位與使用者字典都將重設。',
+ 'Tout rétablir par défaut ? Les raccourcis, la langue, les options de démarrage, les emplacements de saisie et le dictionnaire personnel seront réinitialisés.',
+ '¿Restaurar todos los valores predeterminados? Se restablecerán los atajos, el idioma, las opciones de inicio, las entradas y el diccionario personal.',
+ 'Восстановить все настройки по умолчанию? Сочетания, язык, параметры запуска, слоты ввода и пользовательский словарь будут сброшены.',
+ 'Alle Standardwerte wiederherstellen? Tastenkürzel, Anzeigesprache, Startoptionen, Eingabeplätze und eigenes Wörterbuch werden zurückgesetzt.'),
+'기본값으로 되돌리지 못했습니다. 기존 설정을 유지합니다.':(
+ 'Could not restore defaults. Your existing settings have been kept.',
+ '初期設定に戻せませんでした。以前の設定を維持します。',
+ '无法恢复默认值，已保留原有设置。','無法還原預設值，已保留原有設定。',
+ 'Impossible de rétablir les valeurs par défaut. Vos réglages sont conservés.',
+ 'No se pudieron restaurar los valores predeterminados. Se conserva la configuración anterior.',
+ 'Не удалось восстановить настройки по умолчанию. Прежние настройки сохранены.',
+ 'Standardwerte konnten nicht wiederhergestellt werden. Ihre bisherigen Einstellungen bleiben erhalten.'),
 '언어 스위칭':('Language switching','入力言語の切り替え','输入语言切换','輸入語言切換','Changement de langue','Cambio de idioma','Переключение языка','Sprachwechsel'),
 '한글 환경 언어 변환':('Language conversion from Hangul','ハングル入力からの言語変換','韩文输入语言转换','韓文輸入語言轉換','Conversion de langue depuis le hangeul','Conversión de idioma desde hangul','Преобразование языка при вводе хангылем','Sprachumwandlung aus Hangul'),
 '발음 변환을 중단했습니다. 한글 입력 상태와 입력기 설치를 확인하세요.':(

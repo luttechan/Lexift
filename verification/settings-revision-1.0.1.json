@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "version": "1.0.1",
+  "source_tests": 419,
+  "targeted_tests": 16,
+  "checks": [
+    "--verify-runtime",
+    "--verify-settings",
+    "--verify-features",
+    "--verify-chinese",
+    "--verify-ime"
+  ],
+  "settings_navigation_median_ms": 12.523,
+  "settings_navigation_max_ms": 74.332,
+  "zip_sha256": "b5583e71458a8e3ece746d67dd704e8114db5e8ad8acaa9f758b56a2dfa65e68",
+  "archive": "C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\Lexift v1.0.1\\release\\Lexift-1.0.1-Windows-x64.zip"
+}
