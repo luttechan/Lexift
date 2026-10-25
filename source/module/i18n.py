@@ -17,7 +17,7 @@ _ROWS = {
 '한국어': ('Korean','韓国語','韩语','韓語','Coréen','Coreano','Корейский','Koreanisch'),
 '영어': ('English','英語','英语','英語','Anglais','Inglés','Английский','Englisch'),
 '중국어': ('Chinese','中国語','中文','中文','Chinois','Chino','Китайский','Chinesisch'),
-'일본어 · 히라가나': ('Japanese · Hiragana','日本語 · ひらがな','日语 · 平假名','日語 · 平假名','Japonais · Hiragana','Japonés · Hiragana','Японский · Хирагана','Japanisch · Hiragana'),
+'일본어 / 히라가나': ('Japanese / Hiragana','日本語 / ひらがな','日语 / 平假名','日語 / 平假名','Japonais / Hiragana','Japonés / Hiragana','Японский / Хирагана','Japanisch / Hiragana'),
 '업데이트 확인': ('Check for updates','アップデートを確認','检查更新','檢查更新','Rechercher des mises à jour','Buscar actualizaciones','Проверить обновления','Nach Updates suchen'),
 '취소': ('Cancel','キャンセル','取消','取消','Annuler','Cancelar','Отмена','Abbrechen'),
 '업데이트를 확인하는 중...': ('Checking for updates...','更新を確認中...','正在检查更新...','正在檢查更新...','Recherche de mises à jour...','Buscando actualizaciones...','Проверка обновлений...','Updates werden gesucht...'),
@@ -37,7 +37,7 @@ _ROWS = {
 '정말로 종료하시겠습니까?': ('Are you sure you want to quit?','本当に終了しますか？','确定要退出吗？','確定要結束嗎？','Voulez-vous vraiment quitter ?','¿Seguro que quieres salir?','Вы действительно хотите выйти?','Möchten Sie wirklich beenden?'),
 '입력기 선택': ('Choose input','入力方式を選択','选择输入法','選擇輸入法','Choisir une saisie','Elegir entrada','Выбор ввода','Eingabe wählen'),
 '숫자키 또는 방향키로 선택': ('Number or arrow keys','数字キーまたは矢印キー','数字键或方向键','數字鍵或方向鍵','Chiffres ou flèches','Números o flechas','Цифры или стрелки','Ziffern oder Pfeile'),
-'Enter 선택    ·    Esc 닫기': ('Enter select · Esc close','Enter 選択 · Esc 閉じる','Enter 确认 · Esc 关闭','Enter 確認 · Esc 關閉','Entrée valider · Échap fermer','Intro elegir · Esc cerrar','Enter — выбрать · Esc — закрыть','Enter wählen · Esc schließen'),
+'Enter 선택    /    Esc 닫기': ('Enter select / Esc close','Enter 選択 / Esc 閉じる','Enter 确认 / Esc 关闭','Enter 確認 / Esc 關閉','Entrée valider / Échap fermer','Intro elegir / Esc cerrar','Enter — выбрать / Esc — закрыть','Enter wählen / Esc schließen'),
 '가타카나 문자 폭': ('Katakana width','カタカナの文字幅','片假名字符宽度','片假名字元寬度','Largeur katakana','Anchura de katakana','Ширина катаканы','Katakana-Breite'),
 '전각 또는 반각을 선택하세요': ('Choose full- or half-width','全角または半角を選択','选择全角或半角','選擇全形或半形','Choisir pleine ou demi-chasse','Elige ancho completo o medio','Полная или половинная ширина','Voll- oder Halbbreite wählen'),
 '전각 가타카나': ('Full-width Katakana','全角カタカナ','全角片假名','全形片假名','Katakana pleine chasse','Katakana de ancho completo','Полноширинная катакана','Katakana in Vollbreite'),
@@ -104,10 +104,10 @@ _ROWS = {
 '한글': ('Hangul','ハングル','韩文','韓文','Hangul','Hangul','Хангыль','Hangul'),
 '영문 (한/영)': ('Latin (Korean IME)','英字（韓国語 IME）','英文（韩语输入法）','英文（韓語輸入法）','Latin (IME coréen)','Latino (IME coreano)','Латиница (корейский IME)','Lateinisch (koreanische IME)'),
 '현재 설정 유지': ('Keep current mode','現在のモードを維持','保持当前模式','維持目前模式','Conserver le mode','Mantener modo actual','Оставить режим','Aktuellen Modus behalten'),
-'히라가나 · 전각': ('Hiragana · full-width','ひらがな・全角','平假名 · 全角','平假名 · 全形','Hiragana · pleine chasse','Hiragana · ancho completo','Хирагана · полная ширина','Hiragana · Vollbreite'),
-'가타카나 · 전각': ('Katakana · full-width','カタカナ・全角','片假名 · 全角','片假名 · 全形','Katakana · pleine chasse','Katakana · ancho completo','Катакана · полная ширина','Katakana · Vollbreite'),
-'가타카나 · 반각': ('Katakana · half-width','カタカナ・半角','片假名 · 半角','片假名 · 半形','Katakana · demi-chasse','Katakana · medio ancho','Катакана · половинная ширина','Katakana · Halbbreite'),
-'가타카나 · 매번 선택': ('Katakana · ask every time','カタカナ・毎回選択','片假名 · 每次询问','片假名 · 每次詢問','Katakana · demander','Katakana · preguntar','Катакана · спрашивать','Katakana · jedes Mal fragen'),
+'히라가나 / 전각': ('Hiragana / full-width','ひらがな・全角','平假名 / 全角','平假名 / 全形','Hiragana / pleine chasse','Hiragana / ancho completo','Хирагана / полная ширина','Hiragana / Vollbreite'),
+'가타카나 / 전각': ('Katakana / full-width','カタカナ・全角','片假名 / 全角','片假名 / 全形','Katakana / pleine chasse','Katakana / ancho completo','Катакана / полная ширина','Katakana / Vollbreite'),
+'가타카나 / 반각': ('Katakana / half-width','カタカナ・半角','片假名 / 半角','片假名 / 半形','Katakana / demi-chasse','Katakana / medio ancho','Катакана / половинная ширина','Katakana / Halbbreite'),
+'가타카나 / 매번 선택': ('Katakana / ask every time','カタカナ・毎回選択','片假名 / 每次询问','片假名 / 每次詢問','Katakana / demander','Katakana / preguntar','Катакана / спрашивать','Katakana / jedes Mal fragen'),
 '키보드 / 입력기 전환': ('Switch keyboard / IME','キーボード切替','切换键盘 / 输入法','切換鍵盤 / 輸入法','Changer clavier / IME','Cambiar teclado / IME','Сменить раскладку / IME','Tastatur / IME wechseln'),
 'CapsLock': ('CapsLock','CapsLock','CapsLock','CapsLock','Verr. Maj','Bloq Mayús','CapsLock','Feststelltaste'),
 'Ctrl + Shift': ('Ctrl + Shift','Ctrl + Shift','Ctrl + Shift','Ctrl + Shift','Ctrl + Maj','Ctrl + Mayús','Ctrl + Shift','Strg + Umschalt'),
@@ -164,26 +164,26 @@ _ROWS.update({
 })
 _ROWS.update({
 '실행 정보': ('Runtime information','動作情報','运行信息','執行資訊','Informations d’exécution','Información de ejecución','Сведения о работе','Laufzeitinformationen'),
-'RAM · 본체': ('RAM · application','RAM・本体','RAM · 主程序','RAM · 主程式','RAM · application','RAM · aplicación','ОЗУ · приложение','RAM · Anwendung'),
-'RAM · 단축키 보조': ('RAM · shortcut worker','RAM・ショートカット補助','RAM · 快捷键辅助','RAM · 快捷鍵輔助','RAM · raccourcis','RAM · proceso de atajos','ОЗУ · процесс сочетаний','RAM · Tastenkürzelprozess'),
-'전용 메모리 · 본체': ('Private memory · application','プライベートメモリ・本体','专用内存 · 主程序','私人記憶體 · 主程式','Mémoire privée · application','Memoria privada · aplicación','Частная память · приложение','Privater Speicher · Anwendung'),
+'RAM / 본체': ('RAM / application','RAM・本体','RAM / 主程序','RAM / 主程式','RAM / application','RAM / aplicación','ОЗУ / приложение','RAM / Anwendung'),
+'RAM / 단축키 보조': ('RAM / shortcut worker','RAM・ショートカット補助','RAM / 快捷键辅助','RAM / 快捷鍵輔助','RAM / raccourcis','RAM / proceso de atajos','ОЗУ / процесс сочетаний','RAM / Tastenkürzelprozess'),
+'전용 메모리 / 본체': ('Private memory / application','プライベートメモリ・本体','专用内存 / 主程序','私人記憶體 / 主程式','Mémoire privée / application','Memoria privada / aplicación','Частная память / приложение','Privater Speicher / Anwendung'),
 '가동 시간': ('Uptime','稼働時間','运行时间','執行時間','Durée d’exécution','Tiempo en ejecución','Время работы','Laufzeit'),
 '실행 환경': ('Environment','実行環境','运行环境','執行環境','Environnement','Entorno','Среда','Umgebung'),
 '런타임': ('Runtime','ランタイム','运行时','執行階段','Moteur d’exécution','Entorno de ejecución','Среда выполнения','Laufzeitumgebung'),
 'EXE 배포본': ('Packaged EXE','EXE 配布版','EXE 发行版','EXE 發行版','Version EXE','Versión EXE','Версия EXE','EXE-Version'),
 'Python 소스': ('Python source','Python ソース','Python 源码','Python 原始碼','Sources Python','Código Python','Исходный код Python','Python-Quellcode'),
-'2초 간격 · 화면에 보일 때만 갱신': ('Every 2 seconds · only while visible','2秒間隔・画面に表示中のみ更新','每2秒刷新 · 仅在可见时更新','每2秒更新 · 僅在可見時更新','Toutes les 2 secondes · uniquement à l’écran','Cada 2 segundos · solo mientras se ve','Раз в 2 секунды · только на экране','Alle 2 Sekunden · nur im sichtbaren Bereich'),
+'2초 간격 / 화면에 보일 때만 갱신': ('Every 2 seconds / only while visible','2秒間隔・画面に表示中のみ更新','每2秒刷新 / 仅在可见时更新','每2秒更新 / 僅在可見時更新','Toutes les 2 secondes / uniquement à l’écran','Cada 2 segundos / solo mientras se ve','Раз в 2 секунды / только на экране','Alle 2 Sekunden / nur im sichtbaren Bereich'),
 '현재 물리 메모리 사용량입니다. 공유 메모리가 포함됩니다.': ('Current resident memory, including shared pages.','現在の物理メモリ使用量です。共有メモリを含みます。','当前物理内存使用量，包含共享内存。','目前實體記憶體使用量，包含共用記憶體。','Mémoire physique utilisée, pages partagées comprises.','Memoria física actual, incluidas las páginas compartidas.','Текущая физическая память, включая общие страницы.','Aktuell belegter physischer Speicher einschließlich gemeinsam genutzter Seiten.'),
 '단축키 보조 프로세스만 표시합니다. 실행 중이 아니면 —로 표시됩니다.': ('Shortcut worker only. A dash means it is not running.','ショートカット補助プロセスのみ表示します。未実行時は — になります。','仅显示快捷键辅助进程。未运行时显示 —。','僅顯示快捷鍵輔助處理程序。未執行時顯示 —。','Processus des raccourcis uniquement. Un tiret indique qu’il est arrêté.','Solo el proceso de atajos. Un guion indica que no está activo.','Только процесс сочетаний. Прочерк означает, что он не запущен.','Nur der Tastenkürzelprozess. Ein Strich bedeutet, dass er nicht läuft.'),
 '프로세스 전용 커밋 메모리입니다. 물리 RAM 사용량과 다를 수 있습니다.': ('Private committed memory. This may differ from resident RAM.','プロセス専用のコミットメモリです。物理RAM使用量とは異なる場合があります。','进程专用提交内存，可能与物理RAM使用量不同。','處理程序的私人認可記憶體，可能與實體RAM使用量不同。','Mémoire privée engagée, distincte de la RAM physique.','Memoria privada comprometida; puede diferir de la RAM física.','Частная выделенная память; может отличаться от физической ОЗУ.','Privater zugesicherter Speicher; kann vom physischen RAM-Verbrauch abweichen.'),
 })
 _ROWS.update({
-'등록된 입력기 {n}개 · {shortcut}': ('{n} inputs · {shortcut}','入力方式 {n} 件 · {shortcut}','{n} 个输入法 · {shortcut}','{n} 個輸入法 · {shortcut}','{n} saisies · {shortcut}','{n} entradas · {shortcut}','{n} раскладок · {shortcut}','{n} Eingaben · {shortcut}'),
-'등록된 입력기 1개 · {shortcut}': ('1 input · {shortcut}','入力方式 1 件 · {shortcut}','1 个输入法 · {shortcut}','1 個輸入法 · {shortcut}','1 saisie · {shortcut}','1 entrada · {shortcut}','1 раскладка · {shortcut}','1 Eingabe · {shortcut}'),
+'등록된 입력기 {n}개 / {shortcut}': ('{n} inputs / {shortcut}','入力方式 {n} 件 / {shortcut}','{n} 个输入法 / {shortcut}','{n} 個輸入法 / {shortcut}','{n} saisies / {shortcut}','{n} entradas / {shortcut}','{n} раскладок / {shortcut}','{n} Eingaben / {shortcut}'),
+'등록된 입력기 1개 / {shortcut}': ('1 input / {shortcut}','入力方式 1 件 / {shortcut}','1 个输入法 / {shortcut}','1 個輸入法 / {shortcut}','1 saisie / {shortcut}','1 entrada / {shortcut}','1 раскладка / {shortcut}','1 Eingabe / {shortcut}'),
 '입력할 창으로 돌아가 {shortcut}를 누르세요.': ('Return to the target app and press {shortcut}.','入力先のアプリに戻り {shortcut} を押してください。','返回输入窗口并按 {shortcut}。','返回輸入視窗並按 {shortcut}。','Revenez à l’application cible et appuyez sur {shortcut}.','Vuelve a la aplicación y pulsa {shortcut}.','Вернитесь в нужное окно и нажмите {shortcut}.','Zum Eingabefenster wechseln und {shortcut} drücken.'),
 '{shortcut}로 입력기를 전환하세요.': ('Press {shortcut} to switch inputs.','{shortcut} で入力方式を切り替えます。','按 {shortcut} 切换输入法。','按 {shortcut} 切換輸入法。','Appuyez sur {shortcut} pour changer de saisie.','Pulsa {shortcut} para cambiar la entrada.','Нажмите {shortcut}, чтобы сменить раскладку.','Mit {shortcut} die Eingabe wechseln.'),
 })
-from feature_i18n import ROWS as FEATURE_ROWS
+from feature_i18n import ROWS as FEATURE_ROWS, KOREAN_COPY
 _ROWS.update(FEATURE_ROWS)
 CODES = ('en','ja','zh_CN','zh_TW','fr','es','ru','de')
 
@@ -251,6 +251,8 @@ def load_saved_language() -> str:
 
 def text_font_family(text: str) -> str:
     """Use known Windows script fonts before Qt searches unrelated families."""
+    if any(0x3100 <= ord(char) <= 0x312F or 0x31A0 <= ord(char) <= 0x31BF for char in text):
+        return "Microsoft JhengHei UI"
     if any(0x3040 <= ord(char) <= 0x30FF for char in text):
         return "Yu Gothic UI"
     if not any(0xAC00 <= ord(char) <= 0xD7AF for char in text) and any(
@@ -260,9 +262,9 @@ def text_font_family(text: str) -> str:
 
 def tr(key: str) -> str:
     if _current_index < 0:
-        return key
+        return KOREAN_COPY.get(key,key).replace("·", " / ")
     row = _ROWS.get(key)
-    return row[_current_index] if row is not None else key
+    return (row[_current_index] if row is not None else key).replace("·", " / ")
 
 
 def source_key(text: str) -> str:
@@ -307,10 +309,10 @@ def tr_count(n: int, shortcut: str) -> str:
     if _current == 'ru':
         ending = 'раскладка' if n % 10 == 1 and n % 100 != 11 else (
             'раскладки' if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14) else 'раскладок')
-        return f'{n} {ending} · {shortcut}'
+        return f'{n} {ending} / {shortcut}'
     if n == 1:
-        return tr('등록된 입력기 1개 · {shortcut}').format(shortcut=shortcut)
-    return tr('등록된 입력기 {n}개 · {shortcut}').format(n=n, shortcut=shortcut)
+        return tr('등록된 입력기 1개 / {shortcut}').format(shortcut=shortcut)
+    return tr('등록된 입력기 {n}개 / {shortcut}').format(n=n, shortcut=shortcut)
 
 def tr_hint(shortcut: str) -> str:
     return tr('입력할 창으로 돌아가 {shortcut}를 누르세요.').format(shortcut=shortcut)

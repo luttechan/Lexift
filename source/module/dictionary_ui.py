@@ -7,6 +7,8 @@ from settings_controls import SettingsComboBox
 from custom_dictionary import MAX_ENTRIES,validate
 from i18n import tr,text_font_family
 
+LANGUAGE_NAMES={'ja':'한–일 변환','zh':'한–중 변환','zh_tw':'한–중 번체','zh_bopomofo':'주음부호'}
+
 
 class DictionaryModel(QAbstractTableModel):
     columns=('keyword','text','language')
@@ -23,14 +25,14 @@ class DictionaryModel(QAbstractTableModel):
         value=self.rows[index.row()][self.columns[index.column()]]
         if role==Qt.ItemDataRole.EditRole:return value
         if role==Qt.ItemDataRole.DisplayRole:
-            return tr('한–중 변환' if value=='zh' else '한–일 변환') if index.column()==2 else value
+            return tr(LANGUAGE_NAMES[value]) if index.column()==2 else value
         if role==Qt.ItemDataRole.FontRole and index.column()==1:
             return QFont(text_font_family(value))
     def flags(self,index):
         return super().flags(index) if index.column()==3 else super().flags(index)|Qt.ItemFlag.ItemIsEditable
     def setData(self,index,value,role=Qt.ItemDataRole.EditRole):
         if not index.isValid() or index.column()>=3 or role!=Qt.ItemDataRole.EditRole:return False
-        if index.column()==2 and value not in ('ja','zh'):return False
+        if index.column()==2 and value not in LANGUAGE_NAMES:return False
         self.rows[index.row()][self.columns[index.column()]]=str(value)
         self.dataChanged.emit(index,index,[role,Qt.ItemDataRole.DisplayRole]);return True
     def add(self):
@@ -46,7 +48,7 @@ class LanguageDelegate(QStyledItemDelegate):
     def createEditor(self,parent,option,index):
         if index.column()!=2:return super().createEditor(parent,option,index)
         editor=SettingsComboBox(parent)
-        for code,key in (('ja','한–일 변환'),('zh','한–중 변환')):editor.addItem(tr(key),code)
+        for code,key in LANGUAGE_NAMES.items():editor.addItem(tr(key),code)
         return editor
     def setEditorData(self,editor,index):
         if index.column()!=2:return super().setEditorData(editor,index)

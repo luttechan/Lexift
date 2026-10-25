@@ -1,50 +1,43 @@
 # NOW WE ARE LEXIFT.
-Lexift is a Windows input utility that lets you switch input languages and convert Hangul pronunciation into Japanese or Chinese text using keyboard shortcuts.
+**Your keyboard. More languages.**
 
-[Download for Windows](https://github.com/luttechan/Lexift/releases/latest)
+Switch input languages and turn Hangul pronunciation into Japanese or Chinese.
 
-## How to Use
+[Download for Windows](https://github.com/luttechan/Lexift/releases/latest) | [English](https://luttechan.github.io/lexift/guide/1.0.2/en.html) | [한국어](https://luttechan.github.io/lexift/guide/1.0.2/ko.html) | [日本語](https://luttechan.github.io/lexift/guide/1.0.2/ja.html) | [简体中文](https://luttechan.github.io/lexift/guide/1.0.2/zh_CN.html) | [繁體中文](https://luttechan.github.io/lexift/guide/1.0.2/zh_TW.html)
 
-- **CapsLock + Q** — Select an input language
-- **CapsLock + A** — Korean → Japanese: `와타시 → 私`
-- **CapsLock + C** — Korean → Chinese: `니하오 → 你好`
+| Shortcut | Action |
+|---|---|
+| Caps + Q | Select input language |
+| Caps + A | Japanese: 와타시 → 私 |
+| Caps + C | Simplified Chinese: 니하오 → 你好 |
+| Caps + T | Traditional → Bopomofo → OFF |
+| Caps + 1–4 / 0 | Set / remove a pinyin tone (enable in Settings) |
 
-**Requirements:** Windows 10/11 x64, Python 3.10+
+Windows 10 / 11 x64. Extract the ZIP and run **Lexift.exe**. Python is not required for the portable download.
+Pronunciation conversion switches to Hangul automatically. Japanese conversion requires Microsoft Japanese IME; some input fields are unsupported.
 
-Conversion requires the Korean IME to be in Hangul mode. Some applications may not support all features.
-Download the ZIP file, extract it, and run **Lexift.exe**.
+## 한국어
 
----
+입력기 전환과 한글 발음 입력을 단축키로 처리하는 Windows 입력 유틸리티입니다.
 
-## 한국어 설명
+- **번체 및 주음부호:** Caps + T로 번체, 주음부호, OFF 순환.
+- **병음 성조:** 설정에서 사용 선택 후 Caps + 1~4로 지정, Caps + 0으로 해제. 중국어 IME의 영문 모드에서 입력합니다.
+- **설정:** 실행, 언어 스위칭, 발음 변환, 중국어 성조로 분류. 기능별 사용 여부와 단축키 지정.
 
-Lexift는 단축키로 입력 언어를 전환하고 
-한글로 입력한 발음을 일본어나 중국어로 변환할 수 있는 Windows용 입력 유틸리티입니다.
+ZIP 압축 해제 후 **Lexift.exe** 실행. 후보는 Space / Enter로 확정하거나 번호로 선택합니다.
 
-- **CapsLock + Q** — 입력 언어 선택
-- **CapsLock + A** — 한글 → 일본어: `와타시 → 私`
-- **CapsLock + C** — 한글 → 중국어: `니하오 → 你好`
+## 1.0.2
 
-**지원 환경:** Windows 10/11 x64, Python 3.10+
+Traditional Chinese, Bopomofo and pinyin tone marks. Reorganized settings and a smaller native keyboard helper.
 
-변환 기능은 한국어 IME가 한글 입력 상태일 때 사용할 수 있으며 일부 프로그램에서는 정상적으로 작동하지 않을 수 있습니다.
-ZIP 파일의 압축을 풀고 **Lexift.exe**를 실행하면 됩니다.
-
-## Version History
-
-### 1.0.0
-
-- Renamed KanaShift to Lexift
-- Added Japanese and Chinese conversion from Hangul input
-- Added input language switching
-- Added custom dictionaries and configurable shortcuts for individual features
-- Improved settings responsiveness and candidate selection
-
-[Previous releases](https://github.com/luttechan/Lexift/releases)
+번체, 주음부호, 병음 성조 추가. 설정 분류 및 메모리 사용 개선.
 
 ## Credits
 
-**Developed by Lutté**
-
-Japanese translation & QA: Runo  
+Developed by Lutté  
+Translation (JP) & QA : 루노  
 Development assistance: OpenAI ChatGPT (GPT-6 Astra)
+
+[Previous releases](https://github.com/luttechan/Lexift/releases)
+
+Local folder: `app/` runtime, `source/` code, `docs/` references, `release/` ZIP, `verification/` checks. Run `run.bat` or `app/Lexift.exe`.

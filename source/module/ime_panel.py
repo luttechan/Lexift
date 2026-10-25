@@ -40,7 +40,7 @@ class CandidatePanel(QObject):
 
     def _build(self):
         self.window = QDialog()
-        self.window.setWindowTitle('Lexift · 한–일 변환')
+        self.window.setWindowTitle('Lexift / 한–일 변환')
         self.window.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.WindowStaysOnTopHint)
         self.window.resize(560, 470)
         self.window.setMinimumSize(420, 320)
@@ -65,7 +65,7 @@ class CandidatePanel(QObject):
         header.addWidget(title); header.addStretch(); header.addWidget(QLabel('Lexift'))
         layout.addLayout(header)
         self.search = PronunciationEdit()
-        self.search.setPlaceholderText('한글 발음 검색 · 예: 와타시')
+        self.search.setPlaceholderText('한글 발음 검색 / 예: 와타시')
         self.search.setMaxLength(256)
         layout.addWidget(self.search)
         self.reading = QLabel('한글 발음을 입력하면 일본어 후보가 나타납니다.')
@@ -75,7 +75,7 @@ class CandidatePanel(QObject):
         self.candidates.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         layout.addWidget(self.candidates, 1)
         footer = QHBoxLayout()
-        self.status = QLabel('↑ ↓ 선택   ·   Enter 입력   ·   Esc 닫기')
+        self.status = QLabel('↑ ↓ 선택   /   Enter 입력   /   Esc 닫기')
         footer.addWidget(self.status, 1)
         copy = QPushButton('복사'); copy.clicked.connect(self.copy_selected)
         footer.addWidget(copy); layout.addLayout(footer)
@@ -184,7 +184,7 @@ class CandidatePanel(QObject):
                 if values:
                     self.displayed = self.query; self.candidates.setCurrentRow(0)
                 else:
-                    self.reading.setText(result['kana'] + ' · 후보가 없습니다.')
+                    self.reading.setText(result['kana'] + ' / 후보가 없습니다.')
             except (ValueError, KeyError, UnicodeError):
                 self.reading.setText('일본어 IME 후보를 불러오지 못했습니다. 발음을 확인해 주세요.')
         self.process = None; process.deleteLater()
@@ -201,7 +201,7 @@ class CandidatePanel(QObject):
         text = self._selection()
         if text:
             QApplication.clipboard().setText(text)
-            self.status.setText('복사했습니다 · ' + text); self.search.setFocus()
+            self.status.setText('복사했습니다 / ' + text); self.search.setFocus()
 
     def commit(self):
         text = self._selection()

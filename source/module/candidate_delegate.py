@@ -12,7 +12,7 @@ class CandidateDelegate(QStyledItemDelegate):
     def __init__(self,parent=None,pixel_size=20):
         super().__init__(parent)
         self.fonts=[];self.raw=[];self.cache={}
-        for family in ('Malgun Gothic','Yu Gothic UI','Meiryo','Microsoft YaHei UI',
+        for family in ('Malgun Gothic','Yu Gothic UI','Meiryo','Microsoft JhengHei UI','Microsoft YaHei UI',
                        'Segoe UI Emoji','Segoe UI Symbol','Segoe UI Historic'):
             font=QFont(family);font.setPixelSize(pixel_size)
             font.setStyleStrategy(QFont.StyleStrategy.NoFontMerging)

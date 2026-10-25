@@ -30,7 +30,7 @@ def build():
         str(source), '-o', str(target), '-luser32', '-lkernel32'], check=True)
     source.with_suffix('.lib').unlink(missing_ok=True)  # Not used by the Python loader.
     target.with_suffix('.lib').unlink(missing_ok=True)
-    manifest.write_text(json.dumps({'abi': 4, 'target': 'x86_64-windows-gnu',
+    manifest.write_text(json.dumps({'abi': 6, 'target': 'x86_64-windows-gnu',
         'source_sha256': source_digest, 'dll_sha256': digest(target)}, indent=2) + '\n', encoding='utf-8')
     print('Native keyboard module built')
 

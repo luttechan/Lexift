@@ -4,6 +4,11 @@
 from pathlib import Path
 import os
 import importlib.util
+from PyInstaller.utils.hooks import collect_all
+opencc_datas,opencc_binaries,opencc_hidden=collect_all('opencc')
+opencc_libs=Path(importlib.util.find_spec('opencc').origin).parent.parent/'opencc.libs'
+if opencc_libs.is_dir():
+    opencc_binaries.extend((str(path),'opencc.libs') for path in opencc_libs.glob('*.dll'))
 # Resolve Windows' ICU from System32 before unrelated tools on PATH (Poppler,
 # for example, ships an incompatible DLL with the same name).
 windows_folder = Path(os.environ.get('SystemRoot', 'C:/Windows'))
@@ -19,11 +24,13 @@ a = Analysis(
     [str(project_folder / 'launch.pyw')],
     pathex=[str(module_folder)],
     binaries=[(str(module_folder / 'kanashift_hooks.dll'), '.'),
-              (str(project_folder / 'lab' / 'ime_candidate_host.exe'), 'lab'),*ssl_binaries],
+              (str(module_folder / 'lexift_keyboard.exe'), '.'),
+              (str(project_folder / 'lab' / 'ime_candidate_host.exe'), 'lab'),*ssl_binaries,*opencc_binaries],
     datas=[(str(module_folder / 'Style'), 'Style'), (str(project_folder / 'LICENSE'), '.'),
            (str(module_folder / 'chinese_data'), 'chinese_data'),
-           (str(module_folder / 'IAccessible2-LICENSE.txt'), '.'),*tls_datas],
-    hiddenimports=[],
+           (str(module_folder / 'IAccessible2-LICENSE.txt'), '.'),*tls_datas,*opencc_datas,
+           (str(module_folder / 'OpenCC-LICENSE.txt'),'.')],
+    hiddenimports=opencc_hidden,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

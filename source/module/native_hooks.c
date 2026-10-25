@@ -14,6 +14,7 @@
 #define REPLAY 4
 #define FIRE_IME 8
 #define FIRE_CHINESE 16
+#define FIRE_TRADITIONAL 32
 
 typedef struct { DWORD trigger, held, used, suppressed, chord; } CapsState;
 typedef struct {
@@ -28,6 +29,11 @@ typedef struct {
     DWORD secondary_suppressed;
     volatile LONG tertiary;
     DWORD tertiary_suppressed;
+    volatile LONG quaternary;
+    DWORD quaternary_suppressed;
+    volatile LONG cycle_key;
+    volatile LONG tones;
+    BYTE tone_held[5];
     BYTE held[256];
     BYTE replayed[256];
 } Hook;
@@ -102,6 +108,30 @@ static BOOL selector_key(DWORD vk) {
         (vk >= VK_NUMPAD0 && vk <= VK_NUMPAD9) || (vk >= 'A' && vk <= 'E');
 }
 
+API DWORD ks_caps_four_step(CapsState *s,DWORD *second_held,DWORD *third_held,DWORD *fourth_held,
+                           DWORD vk,BOOL down,DWORD second,DWORD third,DWORD fourth) {
+    if(fourth && fourth!=s->trigger && fourth!=second && fourth!=third && vk==fourth) {
+        if(*fourth_held) {if(!down)*fourth_held=0;return SWALLOW;}
+        if(down && s->held && !s->used) {
+            *fourth_held=1;
+            if(!s->chord){s->chord=1;return SWALLOW|FIRE_TRADITIONAL;}
+            return SWALLOW;
+        }
+    }
+    return ks_caps_three_step(s,second_held,third_held,vk,down,second,third);
+}
+
+API DWORD ks_caps_cycle_step(CapsState *s,DWORD *second_held,DWORD *third_held,DWORD *fourth_held,
+                            DWORD vk,BOOL down,DWORD second,DWORD third,DWORD fourth,DWORD cycle) {
+    DWORD chord=s->chord;
+    /* Fresh taps of the cycle key work with Caps held. Its own suppression
+       still blocks auto-repeat; other shortcuts keep their existing behavior. */
+    if(cycle && vk==cycle && down && s->held && !s->used)s->chord=0;
+    DWORD action=ks_caps_four_step(s,second_held,third_held,fourth_held,vk,down,second,third,fourth);
+    if(chord && vk!=VK_CAPITAL)s->chord=1;
+    return action;
+}
+
 API BOOL ks_inline_key(DWORD vk) {
     return vk == VK_UP || vk == VK_DOWN || vk == VK_RETURN || vk == VK_SPACE || vk == VK_ESCAPE ||
         (vk >= '0' && vk <= '9') || (vk >= VK_NUMPAD0 && vk <= VK_NUMPAD9);
@@ -142,6 +172,17 @@ API DWORD ks_navigation_event_step(BYTE *held,DWORD vk,DWORD scan,BOOL down,DWOR
     return ks_navigation_step(held,vk,down,active,modified);
 }
 
+API DWORD ks_caps_tone_step(CapsState *s,BYTE *held,DWORD vk,BOOL down,BOOL enabled) {
+    if(vk<'0' || vk>'4')return 0;
+    DWORD tone=vk-'0';
+    if(held[tone]) {if(!down)held[tone]=0;return SWALLOW;}
+    if(enabled && down && s->held && !s->used) {
+        held[tone]=1;s->chord=1;
+        return SWALLOW|((tone+1)<<8);
+    }
+    return 0;
+}
+
 static LRESULT CALLBACK caps_proc(int code, WPARAM message, LPARAM data) {
     Hook *h = &hooks[0];
     if (code == HC_ACTION && (message == WM_KEYDOWN || message == WM_KEYUP ||
@@ -161,9 +202,14 @@ static LRESULT CALLBACK caps_proc(int code, WPARAM message, LPARAM data) {
                 if (!down) h->replayed[vk] = 0;
                 if (PostThreadMessageW(h->thread_id, KS_REPLAY_KEY, vk, flags)) return 1;
             }
-            DWORD action = ks_caps_three_step(&h->caps, &h->secondary_suppressed, &h->tertiary_suppressed,
+            DWORD toneAction=ks_caps_tone_step(&h->caps,h->tone_held,vk,down,InterlockedCompareExchange(&h->tones,0,0));
+            if(toneAction & 0xff00)PostThreadMessageW(h->receiver,KS_COMMAND,3+(toneAction>>8),0);
+            if(toneAction & SWALLOW)return 1;
+            DWORD action = ks_caps_cycle_step(&h->caps, &h->secondary_suppressed, &h->tertiary_suppressed,&h->quaternary_suppressed,
                 key->vkCode, down, (DWORD)InterlockedCompareExchange(&h->secondary, 0, 0),
-                (DWORD)InterlockedCompareExchange(&h->tertiary, 0, 0));
+                (DWORD)InterlockedCompareExchange(&h->tertiary, 0, 0),
+                (DWORD)InterlockedCompareExchange(&h->quaternary, 0, 0),
+                (DWORD)InterlockedCompareExchange(&h->cycle_key, 0, 0));
             if (action & REPLAY) {
                 if (vk != VK_CAPITAL && vk < 256) {
                     if (PostThreadMessageW(h->thread_id, KS_REPLAY, vk, flags)) {
@@ -175,6 +221,7 @@ static LRESULT CALLBACK caps_proc(int code, WPARAM message, LPARAM data) {
             if (action & FIRE) PostThreadMessageW(h->receiver, KS_COMMAND, 0, 0);
             if (action & FIRE_IME) PostThreadMessageW(h->receiver, KS_COMMAND, 1, 0);
             if (action & FIRE_CHINESE) PostThreadMessageW(h->receiver, KS_COMMAND, 2, 0);
+            if (action & FIRE_TRADITIONAL) PostThreadMessageW(h->receiver, KS_COMMAND, 3, 0);
             if (action & SWALLOW) return 1;
         }
     }
@@ -285,6 +332,8 @@ API void ks_set_active(BOOL active) {
     if(mode==2)InterlockedCompareExchange(&hooks[1].active,2,0);
     if(mode!=2 || InterlockedCompareExchange(&hooks[1].active,0,0)!=3)InterlockedExchange(&hooks[1].active,mode);
 }
+API void ks_set_quaternary(DWORD key) { InterlockedExchange(&hooks[0].quaternary, key); }
+API void ks_set_cycle_key(DWORD key) { InterlockedExchange(&hooks[0].cycle_key, key); }
 API void ks_set_secondary(DWORD key) { InterlockedExchange(&hooks[0].secondary, key); }
 API void ks_set_tertiary(DWORD key) { InterlockedExchange(&hooks[0].tertiary, key); }
 API void ks_set_nav_target(HWND target) { InterlockedExchangePointer(&hooks[1].target, target); }
@@ -301,4 +350,5 @@ API BOOL ks_stop(int kind) {
     return TRUE;
 }
 
-API DWORD ks_abi_version(void) { return 4; }
+API void ks_set_tones(BOOL enabled) {InterlockedExchange(&hooks[0].tones,enabled);}
+API DWORD ks_abi_version(void) { return 6; }

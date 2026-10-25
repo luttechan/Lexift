@@ -103,6 +103,38 @@ static int tests() {
         check("changed document refuses composition replacement",!sameNativeAfterCommitSpace(edit,changed));
         inlineCommitSpace=false;
     }
+    for(int control=1;control<=3;control+=2) {
+        for(const auto& replacement:std::vector<std::wstring>{L"中國",L"ㄋㄧ ㄏㄠ"}) {
+            editMessage(handles[control],WM_SETTEXT,0,(LPARAM)L"앞 문장 니하오 뒤 문장",answer);
+            editMessage(handles[control],EM_SETSEL,8,8,answer);
+            NativeEditSnapshot current;bool selected=readNativeEdit(root,handles[control],current)&&selectNativeEdit(current);
+            editMessage(handles[control],EM_REPLACESEL,TRUE,(LPARAM)replacement.c_str(),answer);
+            wchar_t text[100]={};editMessage(handles[control],WM_GETTEXT,100,(LPARAM)text,answer);
+            DWORD_PTR selection=0;editMessage(handles[control],EM_GETSEL,0,0,selection);
+            check(control==1?"Edit traditional/Bopomofo exact replacement":"RichEdit traditional/Bopomofo exact replacement",
+                selected && std::wstring(text)==L"앞 문장 "+replacement+L" 뒤 문장" &&
+                LOWORD(selection)==5+replacement.size() && HIWORD(selection)==5+replacement.size());
+        }
+    }
+    inlineRoman=true;
+    for(int control=1;control<=3;control+=2) {
+        for(const auto& sample:std::vector<std::pair<std::wstring,std::wstring>>{
+                {L"hao",L"hǎo"},{L"liú",L"liǔ"},{L"nǐhǎo",L"nǐhào"},{L"nü",L"nǚ"},
+                {L"m",L"m\u0304"},{L"ḿ",L"m\u030c"}}) {
+            std::wstring document=L"before "+sample.first+L" after";
+            editMessage(handles[control],WM_SETTEXT,0,(LPARAM)document.c_str(),answer);
+            DWORD caret=7+sample.first.size();editMessage(handles[control],EM_SETSEL,caret,caret,answer);
+            NativeEditSnapshot observed;bool valid=readNativeEdit(root,handles[control],observed)&&observed.token==sample.first;
+            bool selected=valid&&selectNativeEdit(observed);
+            if(selected)editMessage(handles[control],EM_REPLACESEL,TRUE,(LPARAM)sample.second.c_str(),answer);
+            wchar_t text[100]={};editMessage(handles[control],WM_GETTEXT,100,(LPARAM)text,answer);
+            DWORD_PTR selection=0;editMessage(handles[control],EM_GETSEL,0,0,selection);
+            check(control==1?"Edit pinyin replacement preserves context and caret":"RichEdit pinyin replacement preserves context and caret",
+                selected && std::wstring(text)==L"before "+sample.second+L" after" && LOWORD(selection)==7+sample.second.size() && HIWORD(selection)==7+sample.second.size());
+            check("pinyin stale snapshot refused",!selectNativeEdit(observed));
+        }
+    }
+    inlineRoman=false;
     PostMessageW(root,WM_APP+6,0,0);Sleep(30);
     ULONGLONG started=GetTickCount64();NativeEditSnapshot hung;
     bool refused=!readNativeEdit(root,handles[1],hung);

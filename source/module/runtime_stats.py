@@ -209,7 +209,7 @@ class RuntimeStatsPanel(QFrame):
         grid.setVerticalSpacing(10)
         grid.setColumnStretch(1, 1)
         self.values = []
-        for row, key in enumerate(('RAM · 본체', 'RAM · 단축키 보조', '전용 메모리 · 본체',
+        for row, key in enumerate(('RAM / 본체', 'RAM / 단축키 보조', '전용 메모리 / 본체',
                                    '가동 시간', '실행 환경', '런타임')):
             grid.addWidget(_label(tr(key), 'muted'), row, 0)
             value = _label('—')
@@ -220,10 +220,10 @@ class RuntimeStatsPanel(QFrame):
         windows = '11' if version.build >= 22000 else str(version.major)
         mode = tr('EXE 배포본') if getattr(sys, 'frozen', False) else tr('Python 소스')
         bits = ctypes.sizeof(ctypes.c_void_p) * 8
-        self.values[4].setText(f'Windows {windows} ({version.build}) · x{bits if bits == 64 else 86} · {mode}')
-        self.values[5].setText(f'Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro} · Qt {qVersion()}')
+        self.values[4].setText(f'Windows {windows} ({version.build}) / x{bits if bits == 64 else 86} / {mode}')
+        self.values[5].setText(f'Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro} / Qt {qVersion()}')
         outer.addLayout(grid)
-        outer.addWidget(_label(tr('2초 간격 · 화면에 보일 때만 갱신'), 'small'))
+        outer.addWidget(_label(tr('2초 간격 / 화면에 보일 때만 갱신'), 'small'))
         self.values[0].setToolTip(tr('현재 물리 메모리 사용량입니다. 공유 메모리가 포함됩니다.'))
         self.values[1].setToolTip(tr('단축키 보조 프로세스만 표시합니다. 실행 중이 아니면 —로 표시됩니다.'))
         self.values[2].setToolTip(tr('프로세스 전용 커밋 메모리입니다. 물리 RAM 사용량과 다를 수 있습니다.'))

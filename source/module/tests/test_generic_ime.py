@@ -10,7 +10,7 @@ from layout_profiles import create_layout, mode_options, installed_slots, saniti
 class IMEModeChoiceTests(unittest.TestCase):
     def test_choices_name_the_language_and_english(self):
         for locale, mode, name in ((0x0412,'ko_hangul','한국어'),
-                                   (0x0411,'ja_hiragana','일본어 · 히라가나'),
+                                   (0x0411,'ja_hiragana','일본어 / 히라가나'),
                                    (0x0804,'ime_native','중국어'),
                                    (0x0404,'ime_native','중국어'),
                                    (0x0439,'ime_native',None)):

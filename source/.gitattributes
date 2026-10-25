@@ -12,3 +12,4 @@
 *.c text eol=lf
 *.cpp text eol=lf
 *.h text eol=lf
+module/chinese_data/** -text

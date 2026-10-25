@@ -580,8 +580,10 @@ static LRESULT CALLBACK proc(HWND hwnd,UINT msg,WPARAM w,LPARAM l) {
 }
 static int hostMain(int argc,wchar_t** argv) {
     SetDllDirectoryW(nullptr);  // Do not inherit a frozen Python host's DLL directory.
-    if(argc>=2 && !wcscmp(argv[1],L"--watch-input"))
+    if(argc>=2 && (!wcscmp(argv[1],L"--watch-input") || !wcscmp(argv[1],L"--watch-roman"))) {
+        inlineRoman=!wcscmp(argv[1],L"--watch-roman");
         return runInlineWatcher(argc==4 && !wcscmp(argv[2],L"--owner-pid")?(DWORD)wcstoul(argv[3],nullptr,10):0);
+    }
     if(argc>=3 && !wcscmp(argv[1],L"--normalize")) {
         for(int i=2;i<argc;i++) {
             auto r=reading::convert(argv[i]);

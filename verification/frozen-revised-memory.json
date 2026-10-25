@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "target_mb": 60,
+  "stages": [
+    {
+      "name": "background_no_candidate_engines",
+      "processes": [
+        {
+          "pid": 204504,
+          "working_mb": 6.633,
+          "private_commit_mb": 1.191,
+          "private_working_mb": 0.789
+        },
+        {
+          "pid": 36196,
+          "working_mb": 55.996,
+          "private_commit_mb": 26.105,
+          "private_working_mb": 22.445
+        }
+      ],
+      "total": {
+        "working_mb": 62.629,
+        "private_commit_mb": 27.296,
+        "private_working_mb": 23.234
+      }
+    },
+    {
+      "name": "settings_open",
+      "processes": [
+        {
+          "pid": 204504,
+          "working_mb": 6.633,
+          "private_commit_mb": 1.191,
+          "private_working_mb": 0.789
+        },
+        {
+          "pid": 36196,
+          "working_mb": 79.836,
+          "private_commit_mb": 40.832,
+          "private_working_mb": 37.082
+        }
+      ],
+      "total": {
+        "working_mb": 86.469,
+        "private_commit_mb": 42.023,
+        "private_working_mb": 37.871
+      }
+    },
+    {
+      "name": "japanese_engine_ready",
+      "processes": [
+        {
+          "pid": 204504,
+          "working_mb": 6.633,
+          "private_commit_mb": 1.191,
+          "private_working_mb": 0.789
+        },
+        {
+          "pid": 201932,
+          "working_mb": 49.566,
+          "private_commit_mb": 10.266,
+          "private_working_mb": 6.758
+        },
+        {
+          "pid": 36196,
+          "working_mb": 84.641,
+          "private_commit_mb": 44.441,
+          "private_working_mb": 40.684
+        }
+      ],
+      "total": {
+        "working_mb": 140.84,
+        "private_commit_mb": 55.898,
+        "private_working_mb": 48.231
+      }
+    },
+    {
+      "name": "japanese_released",
+      "processes": [
+        {
+          "pid": 204504,
+          "working_mb": 6.633,
+          "private_commit_mb": 1.191,
+          "private_working_mb": 0.789
+        },
+        {
+          "pid": 36196,
+          "working_mb": 84.648,
+          "private_commit_mb": 44.441,
+          "private_working_mb": 40.684
+        }
+      ],
+      "total": {
+        "working_mb": 91.281,
+        "private_commit_mb": 45.632,
+        "private_working_mb": 41.473
+      }
+    },
+    {
+      "name": "chinese_engine_ready",
+      "processes": [
+        {
+          "pid": 204504,
+          "working_mb": 6.633,
+          "private_commit_mb": 1.191,
+          "private_working_mb": 0.789
+        },
+        {
+          "pid": 36196,
+          "working_mb": 86.441,
+          "private_commit_mb": 45.984,
+          "private_working_mb": 41.617
+        }
+      ],
+      "total": {
+        "working_mb": 93.074,
+        "private_commit_mb": 47.175,
+        "private_working_mb": 42.406
+      }
+    },
+    {
+      "name": "chinese_released",
+      "processes": [
+        {
+          "pid": 204504,
+          "working_mb": 6.633,
+          "private_commit_mb": 1.191,
+          "private_working_mb": 0.789
+        },
+        {
+          "pid": 36196,
+          "working_mb": 86.438,
+          "private_commit_mb": 45.91,
+          "private_working_mb": 41.566
+        }
+      ],
+      "total": {
+        "working_mb": 93.071,
+        "private_commit_mb": 47.101,
+        "private_working_mb": 42.355
+      }
+    }
+  ],
+  "scope": "Main process, keyboard worker, and live candidate host; no working-set trimming",
+  "all_engines_released": true,
+  "goal_private_working_met": true,
+  "goal_total_working_met": false
+}

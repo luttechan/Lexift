@@ -17,6 +17,7 @@ struct NativeEditSnapshot {
     RECT caret={};
 };
 static bool inlineCommitSpace=false;
+static bool inlineRoman=false;
 static bool editMessage(HWND control,UINT message,WPARAM w,LPARAM l,DWORD_PTR& answer) {
     return SendMessageTimeoutW(control,message,w,l,SMTO_ABORTIFHUNG|SMTO_BLOCK,120,&answer)!=0;
 }
@@ -27,6 +28,7 @@ static bool nativeEditClass(HWND control) {
            !_wcsicmp(name,L"RICHEDIT50W") || !_wcsicmp(name,L"RichEditD2DPT");
 }
 static bool nativeHangul(wchar_t c) {
+    if(inlineRoman)return (c>=L'a' && c<=L'z') || (c>=L'A' && c<=L'Z') || c==L':' || (c>=0xc0 && c<=0x24f) || (c>=0x300 && c<=0x36f) || (c>=0x1e00 && c<=0x1eff);
     return (c>=0xac00 && c<=0xd7a3) || (c>=0x3131 && c<=0x3163) ||
            (c>=0x1100 && c<=0x11ff) || c==L'-' || c==L'ー';
 }

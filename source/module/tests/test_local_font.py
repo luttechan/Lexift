@@ -15,7 +15,9 @@ class LocalFontTests(unittest.TestCase):
 
     def test_loads_local_true_type_font_and_reuses_registration(self):
         self.qt.setProperty('kanashiftLocalFontPath', None)
-        with patch.object(QFontDatabase, 'addApplicationFont', wraps=QFontDatabase.addApplicationFont) as load:
+        with patch.object(app.os.environ, 'get', wraps=app.os.environ.get) as env, \
+             patch.object(QFontDatabase, 'addApplicationFont', wraps=QFontDatabase.addApplicationFont) as load:
+            env.side_effect=lambda key,default=None:'C:/missing-windows-fonts' if key=='WINDIR' else default
             app.choose_font(self.qt)
             app.choose_font(self.qt)
         load.assert_called_once_with(str(app.local_font_path()))

@@ -23,7 +23,7 @@ def validate(entries):
         if (not keyword or len(keyword)>64 or not any('가'<=c<='힣' for c in keyword)
                 or any(not ('가'<=c<='힣' or c=='-') for c in keyword)):
             raise ValueError('키워드는 한글과 -로 64자 이내로 입력하세요.')
-        if not text or len(text)>4096 or '\x00' in text or lang not in ('ja','zh'):
+        if not text or len(text)>4096 or '\x00' in text or lang not in ('ja','zh','zh_tw','zh_bopomofo'):
             raise ValueError('대치할 텍스트와 언어를 확인하세요.')
         identity=(lang,keyword)
         if identity in seen:

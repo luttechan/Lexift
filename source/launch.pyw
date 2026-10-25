@@ -46,6 +46,15 @@ def _report_startup_error(details: str, show_dialog: bool = True) -> None:
 
 def main() -> int:
     try:
+        if len(sys.argv)==3 and sys.argv[1]=='--verify-tones':
+            from tone_diagnostics import verify
+            return verify(sys.argv[2])
+        if len(sys.argv)==3 and sys.argv[1]=='--verify-memory':
+            from memory_diagnostics import verify
+            return verify(sys.argv[2])
+        if len(sys.argv)==3 and sys.argv[1]=='--verify-variants':
+            from variant_diagnostics import verify
+            return verify(sys.argv[2])
         if len(sys.argv)==3 and sys.argv[1]=='--verify-settings':
             from settings_diagnostics import verify
             return verify(sys.argv[2])
@@ -80,7 +89,7 @@ def main() -> int:
         from app import main as app_main
         return app_main()
     except BaseException:
-        if len(sys.argv)>=2 and sys.argv[1] in ('--verify-ime','--verify-chinese','--verify-features','--verify-settings'):
+        if len(sys.argv)>=2 and sys.argv[1] in ('--verify-ime','--verify-chinese','--verify-features','--verify-settings','--verify-variants'):
             _report_startup_error(traceback.format_exc(),show_dialog=False)
             return 1
         if sys.argv[1:] == ['--verify-runtime']:

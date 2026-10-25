@@ -7,44 +7,62 @@ from collections import defaultdict
 from pathlib import Path
 import math
 import unicodedata
+from sys import intern
 
 from pinyin_phonetics import korean_forms, korean_variants, classify
+
+def dictionary_lines(path):
+    with Path(path).open(encoding='utf-8') as stream:
+        yield from stream
 
 
 class ChineseEngine:
     def __init__(self, dictionary=None):
-        self.words = defaultdict(list)
-        syllables = set()
-        path = dictionary or Path(__file__).with_name('chinese_data')/'pinyin_simp.dict.yaml'
-        for line in Path(path).read_text(encoding='utf-8').splitlines():
-            parts = line.split('\t')
-            if len(parts) < 3:
-                continue
-            text, reading, weight = parts[:3]
-            tokens = tuple(reading.split())
-            if not tokens or any(not t.isascii() or not t.isalpha() for t in tokens):
-                continue
-            try:
-                score = int(weight)
-            except ValueError:
-                continue
-            self.words[tokens].append((text, score))
-            syllables.update(tokens)
-        for rows in self.words.values():
-            rows.sort(key=lambda row: -row[1])
+        path=Path(dictionary) if dictionary else Path(__file__).with_name('chinese_data')/'pinyin_simp.dict.yaml'
+        indexed=None
+        if dictionary is None and path.with_suffix('.sqlite3').is_file():
+            import sqlite3
+            from compact_dictionary import CompactDictionary
+            try:indexed=CompactDictionary(path.with_suffix('.sqlite3'),path)
+            except (ValueError,OSError,sqlite3.DatabaseError):pass
+        if indexed is not None:
+            self.words=indexed
+            syllables=indexed.meta['syllables']
+        else:
+            self.words = defaultdict(list)
+            syllables = set()
+            for line in dictionary_lines(path):
+                parts = line.rstrip('\r\n').split('\t')
+                if len(parts) < 3:
+                    continue
+                text, reading, weight = parts[:3]
+                tokens = tuple(intern(token) for token in reading.split())
+                if not tokens or any(not t.isascii() or not t.isalpha() for t in tokens):
+                    continue
+                try:
+                    score = int(weight)
+                except ValueError:
+                    continue
+                self.words[tokens].append((text, score))
+                syllables.update(tokens)
+            for rows in self.words.values():
+                rows.sort(key=lambda row: -row[1])
         self.forms = defaultdict(list)
         for syllable in sorted(syllables):
             for form in korean_variants(syllable):
                 self.forms[form.text].append((syllable, form.penalty))
         self.max_form = max(map(len, self.forms))
-        self.word_lengths = sorted({len(k) for k in self.words}, reverse=True)
+        self.word_lengths = indexed.meta['word_lengths'] if indexed else sorted({len(k) for k in self.words}, reverse=True)
         self.syllables = tuple(sorted(syllables))
         # A phonetic beam alone can discard a real dictionary word before
         # frequency ranking sees it. Share short reading prefixes rather than
         # expanding every Korean alias combination for all dictionary words.
-        self.word_prefixes = {tokens[:size] for tokens in self.words
+        self.word_prefixes = indexed.prefixes if indexed else {tokens[:size] for tokens in self.words
                               for size in range(1,len(tokens)+1)}
         self.max_word_chars = max(self.word_lengths)*self.max_form
+
+    def close(self):
+        if hasattr(self.words,'close'):self.words.close()
 
     def _dictionary_readings(self, text):
         if len(text)>self.max_word_chars:

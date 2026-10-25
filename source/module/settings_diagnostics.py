@@ -34,6 +34,9 @@ def verify(output):
                 window.show()
                 qt.processEvents()
                 window._preferences_timer.stop()
+                first=time.perf_counter();window.nav_buttons[2].click();window.grab()
+                first_visit_ms=round((time.perf_counter()-first)*1000,3)
+                window.navigate(0)
                 started = time.perf_counter()
                 for _ in range(3):
                     window._prepare_next_page()
@@ -81,7 +84,7 @@ def verify(output):
                 scroll.verticalScrollBar().setValue(scroll.verticalScrollBar().maximum())
                 qt.processEvents()
                 window.grab().save(str(Path(output).with_name('settings-'+code+'.png')))
-                result['languages'].append(dict(language=code,checks=checks,prepare_ms=prepared_ms,navigation=timings))
+                result['languages'].append(dict(language=code,checks=checks,first_visit_ms=first_visit_ms,prepare_ms=prepared_ms,navigation=timings))
                 window._preferences_timer.stop()
                 window.hide()
                 window.deleteLater()

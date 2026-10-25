@@ -52,7 +52,7 @@ class ConversionSettingsTests(unittest.TestCase):
         self.store.setValue('profiles/slots_json',json.dumps([dict(hkl=layout.hkl,mode='ko_hangul',name='Korean')]))
         self.stack.enter_context(patch.object(app,'QSettings',return_value=self.store))
         self.stack.enter_context(patch.object(app,'available_layouts',return_value=[layout]))
-        self.stack.enter_context(patch.object(app,'CapsQHook',side_effect=lambda *a,**k:Mock(on_hotkey=a[0],on_ime=k.get('on_ime'),on_chinese=k.get('on_chinese'))))
+        self.stack.enter_context(patch.object(app,'CapsQHook',side_effect=lambda *a,**k:Mock(on_hotkey=a[0],on_ime=k.get('on_ime'),on_chinese=k.get('on_chinese'),on_traditional=k.get('on_traditional'))))
         self.stack.enter_context(patch.object(app,'OverlayNavigationHook'))
         self.stack.enter_context(patch.object(app.LexiftController,'_warm_keyboard',return_value=False))
         self.stack.enter_context(patch.object(app,'keyboard_service'))
@@ -60,11 +60,13 @@ class ConversionSettingsTests(unittest.TestCase):
         self.mode=Mock(enabled=False,language='ja',engines={})
         self.stack.enter_context(patch('ime_inline.inline_mode',return_value=self.mode))
         self.c=app.LexiftController(self.qt);self.c._engine_prepare_timer.stop()
+        self.stack.enter_context(patch.object(self.c._korean_activation,'activate'))
         self.c._start_hook(notify=False)
     def tearDown(self):
         c=self.c
         c._engine_prepare_timer.stop();c.tray.hide();c.tray.hide_notification();c.tray.deleteLater()
         if c._window:c._window.hide();c._window.deleteLater()
+        if c._ime_toast:c._ime_toast.hide();c._ime_toast.deleteLater()
         c.overlay.deleteLater();c.cursor_indicator.deleteLater();c.deleteLater()
         QCoreApplication.sendPostedEvents(None,QEvent.Type.DeferredDelete);self.qt.processEvents()
         self.stack.close();self.folder.cleanup();set_language('ko')
@@ -74,6 +76,8 @@ class ConversionSettingsTests(unittest.TestCase):
         c.set_feature_enabled('ja',False);self.mode.release.assert_called_with('ja')
         self.assertIsNone(c.hook.on_ime);self.assertIsNotNone(c.hook.on_chinese)
         c.set_feature_enabled('zh',False)
+        self.assertIsNotNone(c.hook.on_traditional)
+        c.set_feature_enabled('zh_tw',False)
         self.assertFalse(c._running);self.assertFalse(any(c.features.values()))
         for name in c.features:self.assertFalse(self.store.value('features/'+name,type=bool))
         c.set_feature_enabled('zh',True)
@@ -93,7 +97,7 @@ class ConversionSettingsTests(unittest.TestCase):
         worker.close.assert_called_with(wait=False)
     def test_feature_checkbox_next_to_shortcuts_and_survives_ui_language(self):
         c=self.c;c.window.navigate(2)
-        self.assertEqual(set(c.window.feature_checks),{'selector','ja','zh'})
+        self.assertEqual(set(c.window.feature_checks),{'selector','ja','zh','zh_tw','tone'})
         c.window.feature_checks['ja'].setChecked(False)
         self.assertFalse(c.features['ja'])
         c.change_language('en')
@@ -109,22 +113,22 @@ class ConversionSettingsTests(unittest.TestCase):
         self.assertTrue(c.features['ja']);self.assertTrue(c.window.feature_checks['ja'].isChecked())
         restored.start.assert_called_once();self.assertTrue(c._running)
         self.mode.release.assert_not_called()
-    def test_non_hangul_modes_do_not_toggle_or_change_the_ime(self):
+    def test_non_hangul_modes_activate_conversion_and_request_hangul(self):
         c=self.c
-        with patch.object(app,'target_is_foreground',return_value=True),patch.object(app,'current_language') as lang,patch.object(app,'korean_is_hangul') as hangul,patch.object(app,'request_hkl') as request:
-            for conversion in ('ja','zh'):
-                for code,status in ((0x409,False),(0x411,True),(0x412,False),(0x412,None)):
-                    lang.return_value=code;hangul.return_value=status
-                    c._show_ime_panel(123,conversion)
-            self.mode.toggle.assert_not_called();request.assert_not_called()
-            c._korean_activation.activate.assert_not_called() if isinstance(c._korean_activation.activate,Mock) else None
-        self.sound.assert_not_called()
+        with patch.object(app,'target_is_foreground',return_value=True),patch.object(c._korean_activation,'activate') as activate:
+            for conversion in ('ja','zh','zh_tw'):
+                self.mode.enabled=False;c._last_ime_toggle=0
+                self.mode.toggle.return_value=True
+                c._show_ime_panel(123,conversion)
+                self.mode.toggle.assert_called_with(conversion)
+                activate.assert_called_with(123)
+
     def test_hangul_allows_toggle_but_off_is_always_available(self):
         c=self.c;c._ime_toast=Mock();c._ime_toast.width.return_value=120;c._ime_toast_timer=Mock()
         self.mode.toggle.return_value=True
         with patch.object(app,'target_is_foreground',return_value=True),patch.object(app,'current_language',return_value=0x412),patch.object(app,'korean_is_hangul',return_value=True) as check:
             c._show_ime_panel(123,'zh')
-            check.assert_called_once_with(123,timeout_ms=15)
+            check.assert_not_called()
         self.mode.toggle.assert_called_once_with('zh');self.sound.assert_called_once()
         self.mode.enabled=True;self.mode.language='zh';self.mode.toggle.reset_mock();c._last_ime_toggle=0
         with patch.object(app,'current_language',return_value=0x409),patch.object(app,'korean_is_hangul') as check:
@@ -136,6 +140,55 @@ class ConversionSettingsTests(unittest.TestCase):
         with patch.object(c.overlay,'open') as opened,patch.object(app,'request_hkl') as request:
             c._hotkey(123);c.show_overlay();c.apply_slot(c.slots[0]);c._show_ime_panel(123,'ja')
         opened.assert_not_called();request.assert_not_called();self.mode.toggle.assert_not_called()
+    def test_traditional_shortcut_cycles_tw_bopomofo_off_and_restarts(self):
+        mode=self.mode;c=self.c
+        def toggle(name):
+            mode.enabled=not(mode.enabled and mode.language==name)
+            mode.language=name;return mode.enabled
+        mode.toggle.side_effect=toggle
+        with patch.object(app,'target_is_foreground',return_value=True),\
+             patch.object(app,'current_language',return_value=app.LANG_KO),\
+             patch.object(app,'korean_is_hangul',return_value=True),\
+             patch.object(app.time,'monotonic',side_effect=[10,10.1,10.2,10.3]):
+            for expected in (('zh_tw',True),('zh_bopomofo',True),('zh_bopomofo',False),('zh_tw',True)):
+                c._show_ime_panel(123,'zh_tw')
+                self.assertEqual((mode.language,mode.enabled),expected)
+        self.assertEqual([call.args[0] for call in mode.toggle.call_args_list],['zh_tw','zh_bopomofo','zh_bopomofo','zh_tw'])
+        self.assertIn('ON',c._ime_toast.text())
+
+    def test_traditional_activates_from_english_and_off_remains_available(self):
+        c=self.c
+        self.mode.toggle.return_value=True
+        with patch.object(app,'target_is_foreground',return_value=True),patch.object(c._korean_activation,'activate') as activate:
+            c._show_ime_panel(123,'zh_tw')
+            activate.assert_called_once_with(123)
+        self.mode.toggle.assert_called_once_with('zh_tw');self.mode.toggle.reset_mock()
+        self.mode.enabled=True;self.mode.language='zh_bopomofo';self.mode.toggle.return_value=False
+        c._last_ime_toggle=0;c._show_ime_panel(123,'zh_tw')
+        self.mode.toggle.assert_called_once_with('zh_bopomofo')
+
+    def test_traditional_binding_conflicts_disabled_state_and_language_rebuild(self):
+        c=self.c;c.window.navigate(2)
+        with patch.object(app.QMessageBox,'warning'):
+            c.change_traditional_shortcut(c.binding)
+        self.assertEqual(c.traditional_binding,HotkeyBinding('caps','T'))
+        c.change_traditional_shortcut(HotkeyBinding('ctrl_alt','T'))
+        self.assertEqual(self.store.value('traditional_hotkey/mode'),'ctrl_alt')
+        c.window.traditional_key.setCurrentIndex(c.window.traditional_key.findData('A'))
+        c.window.traditional_modifier.setCurrentIndex(c.window.traditional_modifier.findData('caps'))
+        self.assertFalse(c.window.traditional_apply.isEnabled())
+        c.set_feature_enabled('zh_tw',False);self.assertIsNone(c.hook.on_traditional)
+        c.change_language('en')
+        self.assertFalse(c.window.feature_checks['zh_tw'].isChecked())
+        self.assertEqual(c.window.traditional_modifier.currentData(),'ctrl_alt')
+        c._show_ime_panel(123,'zh_tw');self.mode.toggle.assert_not_called()
+
+    def test_traditional_can_turn_off_after_leaving_hangul_before_bopomofo_step(self):
+        self.mode.enabled=True;self.mode.language='zh_tw';self.mode.toggle.return_value=False
+        with patch.object(app,'target_is_foreground',return_value=True),patch.object(app,'current_language',return_value=0x409):
+            self.c._show_ime_panel(123,'zh_tw')
+        self.mode.toggle.assert_called_once_with('zh_bopomofo')
+
     def test_defaults_reset_bindings_atomically_and_replace_unsaved_edits(self):
         c=self.c;c.window.navigate(2)
         # This may be occupied: test the cyclic bindings directly, as loaded settings.
@@ -148,7 +201,7 @@ class ConversionSettingsTests(unittest.TestCase):
             c.reset_defaults()
         self.assertEqual((c.binding,c.ime_binding,c.chinese_binding),
                          (HotkeyBinding('caps','Q'),HotkeyBinding('caps','A'),HotkeyBinding('caps','C')))
-        self.assertEqual(c.features,dict(selector=True,ja=True,zh=True))
+        self.assertEqual(c.features,dict(selector=True,ja=True,zh=True,zh_tw=True,tone=False))
         self.assertEqual(c.custom_dictionary.entries,[])
         self.assertEqual(c.window.dictionary_editor.model.rows,[])
         self.assertTrue(c.window.sound_notice.isChecked())

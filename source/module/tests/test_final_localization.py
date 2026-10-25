@@ -91,7 +91,7 @@ class FinalLocalizationTests(unittest.TestCase):
             i18n.set_language(code)
             self.assertIn(i18n.tr('러시아어'),layout.display)
         japanese=create_layout(0x0411)
-        self.assertEqual(default_name(japanese,'ja_katakana_half'),'ｶﾀｶﾅ · 半角')
+        self.assertEqual(default_name(japanese,'ja_katakana_half'),'ｶﾀｶﾅ / 半角')
 
     def test_removed_nested_layouts_do_not_accumulate(self):
         host=QWidget();root=QVBoxLayout(host)
@@ -123,7 +123,7 @@ class FinalLocalizationTests(unittest.TestCase):
     def test_slot_counts_use_correct_singular_and_plural(self):
         for code,word in (('en','input'),('fr','saisie'),('es','entrada'),('de','Eingabe')):
             i18n.set_language(code)
-            self.assertEqual(i18n.tr_count(1,'Q'),f'1 {word} · Q')
+            self.assertEqual(i18n.tr_count(1,'Q'),f'1 {word} / Q')
         i18n.set_language('ru')
         for count,word in ((1,'раскладка'),(2,'раскладки'),(5,'раскладок'),(11,'раскладок'),(21,'раскладка')):
-            self.assertEqual(i18n.tr_count(count,'Q'),f'{count} {word} · Q')
+            self.assertEqual(i18n.tr_count(count,'Q'),f'{count} {word} / Q')

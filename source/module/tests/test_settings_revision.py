@@ -31,7 +31,7 @@ class SettingsRevisionTests(unittest.TestCase):
     def test_closed_focused_dropdowns_do_not_change_with_wheel(self):
         w=self.window;w.navigate(2);w.show();self.qt.processEvents()
         for combo in (w.shortcut_modifier,w.shortcut_key,w.ime_modifier,w.ime_key,
-                      w.chinese_modifier,w.chinese_key,w.language_combo):
+                      w.chinese_modifier,w.chinese_key,w.traditional_modifier,w.traditional_key,w.language_combo):
             combo.setFocus();before=combo.currentIndex()
             event=QWheelEvent(QPointF(5,5),QPointF(combo.mapToGlobal(QPoint(5,5))),
                 QPoint(),QPoint(0,-120),Qt.MouseButton.NoButton,Qt.KeyboardModifier.NoModifier,

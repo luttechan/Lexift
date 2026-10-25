@@ -69,6 +69,8 @@ class InlineMode(QObject):
         self.language = 'ja'
         self.paused = False
         self.watcher = None
+        self.idle_release=QTimer(self);self.idle_release.setSingleShot(True)
+        self.idle_release.setInterval(3000);self.idle_release.timeout.connect(self._release_idle)
         self.query = None
         self.engines = {}
         self.dictionary=None
@@ -77,7 +79,7 @@ class InlineMode(QObject):
         self._user_selected=False;self._updating_list=False
         self.snapshot = {}
         self.buffer = b''
-        self.caches = {'ja':{},'zh':{}}
+        self.caches = {name:{} for name in ('ja','zh','zh_tw','zh_bopomofo')}
         self.cache = self.caches['ja']
         self.dismissed = None
         self.last_replace = None
@@ -120,7 +122,7 @@ class InlineMode(QObject):
         self.list.setUniformItemSizes(True)
         self.list.currentRowChanged.connect(self._selected_row_changed)
         body.addWidget(self.list)
-        self.hint=QLabel(tr('1–9 / 0 확정 · ↑↓ 이동 · Space / Enter'));body.addWidget(self.hint)
+        self.hint=QLabel(tr('1–9 / 0 확정 / ↑↓ 이동 / Space / Enter'));body.addWidget(self.hint)
         self.list.itemClicked.connect(lambda _:self.commit())
 
     def _selected_row_changed(self,row):
@@ -143,7 +145,7 @@ class InlineMode(QObject):
         if self.overlay is None:
             self._build()
             self.overlay.winId()  # create the non-activating native tool window while hidden
-        languages=(language,) if language else ('ja','zh')
+        languages=(('zh' if language in ('zh_tw','zh_bopomofo') else language),) if language else ('ja','zh')
         for name in languages:
             if name in self.engines:
                 continue
@@ -178,13 +180,26 @@ class InlineMode(QObject):
         for cache in self.caches.values():cache.clear()
 
     def release(self,language):
+        if language=='zh_tw':
+            if self.enabled and self.language in ('zh_tw','zh_bopomofo'):self.close()
+            self.caches['zh_tw'].clear();self.caches['zh_bopomofo'].clear()
+            return
         if self.enabled and self.language==language:self.close()
+        if language=='zh' and self.enabled and self.language in ('zh_tw','zh_bopomofo'):
+            self.caches['zh'].clear();return
         client=self.engines.pop(language,None)
         if client:client.stop()
         self.caches[language].clear()
 
+    def _release_idle(self):
+        if not self.enabled:
+            for client in tuple(self.engines.values()):client.stop()
+            self.engines.clear()
+            for cache in self.caches.values():cache.clear()
+
     def toggle(self, language='ja'):
-        if language not in ('ja','zh'):
+        self.idle_release.stop()
+        if language not in ('ja','zh','zh_tw','zh_bopomofo'):
             raise ValueError('Unsupported conversion language')
         if self.enabled and self.language != language:
             self.close()
@@ -206,7 +221,7 @@ class InlineMode(QObject):
             process.errorOccurred.connect(lambda error:self._watcher_error(process,error))
             process.start()
             self.prepare(language)
-            self.query=self.engines[language]
+            self.query=self.engines['ja' if language=='ja' else 'zh']
         return self.enabled
 
     def visible(self):
@@ -230,6 +245,7 @@ class InlineMode(QObject):
             self.debounce.start()
 
     def close(self):
+        self.idle_release.start()
         guarded=self.pending_commit is not None
         self.pending_commit=None;self._committed_identity=None;self.commit_timer.stop()
         self.focus_guard.stop()
@@ -330,11 +346,13 @@ class InlineMode(QObject):
         if text in self.cache:
             self._show(self.cache[text]); return
         if self.query:
-            self.query.request(text)
+            if self.language=='ja':self.query.request(text)
+            else:self.query.request(text,self.language)
 
     def _queried(self, client, data):
         if client is not self.query or not self.enabled:
             return
+        if self.language!='ja' and data.get('output_mode','zh')!=self.language:return
         self.last_query={'data':data}
         text=data.get('source','')
         if self.language=='ja' and data.get('candidates'):
@@ -385,7 +403,7 @@ class InlineMode(QObject):
         self._candidate_readings=[' / '.join(alternatives.get(data['candidates'][n],[])) or
                                   (readings[n] if n<len(readings) else data['kana']) for n in indices]
         self._reading_default=data['kana']
-        self.hint.setText(tr('Lexift · 한자 후보 준비 중…') if data.get('preview') and not data.get('custom') else tr('1–9 / 0 확정 · ↑↓ 이동 · Space / Enter'))
+        self.hint.setText(tr('Lexift / 한자 후보 준비 중…') if data.get('preview') and not data.get('custom') else tr('1–9 / 0 확정 / ↑↓ 이동 / Space / Enter'))
         row=self.list.currentRow()
         selected_reading=self._candidate_readings[row] if row<len(self._candidate_readings) else data['kana']
         self.reading.setText(self.snapshot['source']+'  →  '+selected_reading)

@@ -1,0 +1,11 @@
+{
+  "version": "1.0.2",
+  "passed": true,
+  "checks": {
+    "tone_rules": true,
+    "native_tone_abi": true,
+    "native_worker_packaged": true,
+    "indexed_dictionary": true,
+    "index_matches_source": true
+  }
+}

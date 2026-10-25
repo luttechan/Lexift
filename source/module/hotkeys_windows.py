@@ -169,12 +169,16 @@ def _send_caps_tap() -> None:
 
 class CapsQHook:
     """Compatibility name: supports any HotkeyBinding, not just Caps+Q."""
-    def __init__(self, on_hotkey: Callable[[int], None], binding: HotkeyBinding | None = None, on_ime=None, secondary_key='A', on_chinese=None, tertiary_key='C'):
+    def __init__(self, on_hotkey: Callable[[int], None], binding: HotkeyBinding | None = None, on_ime=None, secondary_key='A', on_chinese=None, tertiary_key='C', on_traditional=None, quaternary_key='T',cycle_key=None,on_tone=None):
         self.on_hotkey = on_hotkey
         self.on_ime = on_ime
         self.secondary_key = secondary_key
         self.on_chinese = on_chinese
         self.tertiary_key = tertiary_key
+        self.on_traditional=on_traditional
+        self.quaternary_key=quaternary_key
+        self.cycle_key=cycle_key
+        self.on_tone=on_tone
         self.binding = binding or HotkeyBinding()
         self.state = CapsQState(key_vk(self.binding.key))
         self.thread: threading.Thread | None = None
@@ -232,9 +236,12 @@ class CapsQHook:
     def _loop_caps(self):
         from native_hooks import start, COMMAND_MESSAGE
         try:
-            native = start(0, self.thread_id, key_vk(self.binding.key))
+            native = start(0, self.thread_id, key_vk(self.binding.key) if self.on_hotkey else 0)
+            native.ks_set_tones(bool(self.on_tone))
             native.ks_set_secondary(key_vk(self.secondary_key) if self.on_ime else 0)
             native.ks_set_tertiary(key_vk(self.tertiary_key) if self.on_chinese else 0)
+            native.ks_set_quaternary(key_vk(self.quaternary_key) if self.on_traditional else 0)
+            native.ks_set_cycle_key(key_vk(self.cycle_key) if self.cycle_key else 0)
         except (OSError, RuntimeError) as error:
             self.error = f"키보드 후크 등록 실패 ({error})"
             self._ready.set()
@@ -244,7 +251,11 @@ class CapsQHook:
         try:
             while user32.GetMessageW(ctypes.byref(msg), None, 0, 0) > 0:
                 if msg.message == COMMAND_MESSAGE:
-                    if msg.wParam == 2 and self.on_chinese:
+                    if 4<=msg.wParam<=8 and self.on_tone:
+                        self.on_tone(0,int(msg.wParam)-4)
+                    elif msg.wParam == 3 and self.on_traditional:
+                        self.on_traditional(0)
+                    elif msg.wParam == 2 and self.on_chinese:
                         self.on_chinese(0)
                     elif msg.wParam == 1 and self.on_ime:
                         self.on_ime(0)
@@ -269,19 +280,24 @@ class HotkeyGroup:
 
     Roll back the entire group if any of the three registrations fails.
     """
-    def __init__(self, entries):
+    def __init__(self, entries,cycle_binding=None,on_tone=None):
         bindings=[binding for binding, callback in entries]
         if len(set(bindings)) != len(bindings):
             raise RuntimeError('단축키가 겹칩니다. 서로 다른 조합을 선택하세요.')
+        if on_tone and any(b.mode=='caps' and b.key in '01234' for b in bindings):raise RuntimeError('Tone shortcuts conflict')
         caps=[entry for entry in entries if entry[0].mode=='caps']
+        if len(caps)>4:raise ValueError('At most four Caps Lock shortcuts are supported')
         self.hooks=[CapsQHook(callback,binding) for binding,callback in entries if binding.mode!='caps']
-        if caps:
-            kwargs={}
+        if caps or on_tone:
+            if not caps:caps=[(HotkeyBinding('caps','Q'),None)]
+            kwargs={'cycle_key':cycle_binding.key} if cycle_binding and any(b==cycle_binding for b,_ in caps) else {}
             if len(caps)>1:
                 kwargs.update(on_ime=caps[1][1],secondary_key=caps[1][0].key)
             if len(caps)>2:
                 kwargs.update(on_chinese=caps[2][1],tertiary_key=caps[2][0].key)
-            self.hooks.append(CapsQHook(caps[0][1],caps[0][0],**kwargs))
+            if len(caps)>3:
+                kwargs.update(on_traditional=caps[3][1],quaternary_key=caps[3][0].key)
+            self.hooks.append(CapsQHook(caps[0][1],caps[0][0],on_tone=on_tone,**kwargs))
 
     def start(self):
         try:

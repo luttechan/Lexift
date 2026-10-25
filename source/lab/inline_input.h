@@ -23,6 +23,7 @@ struct InlineSnapshot {
     ~InlineSnapshot() {if(range) range->Release();if(element)element->Release();}
 };
 static bool hangulCharacter(wchar_t c) {
+    if(inlineRoman)return nativeHangul(c);
     return (c>=0xac00 && c<=0xd7a3) || (c>=0x3131 && c<=0x3163) ||
         (c>=0x1100 && c<=0x11ff) || c==L'-' || c==L'ー';
 }
@@ -381,7 +382,7 @@ static int runInlineWatcher(DWORD ownerPid=0) {
                 observations.emplace_back(serial,observed);
                 if(observations.size()>32)observations.pop_front();
             }
-            auto preview=valid?reading::convert(snapshot.token):reading::Result{};
+            auto preview=valid && !inlineRoman?reading::convert(snapshot.token):reading::Result{};
             printf("{\"event\":\"input\",\"serial\":%u,\"hwnd\":%llu,\"source\":%s,\"kana\":%s,\"kana_variants\":%s,\"x\":%ld,\"y\":%ld,\"caret_height\":%ld,\"reason\":%d,\"backend\":\"%s\"}\n",serial,(unsigned long long)(ULONG_PTR)snapshot.target,json(valid?snapshot.token:L"").c_str(),json(preview.kana).c_str(),kanaAlternativesJson(preview).c_str(),snapshot.caret.left,snapshot.caret.bottom,snapshot.caret.bottom-snapshot.caret.top,snapshot.reason,snapshot.backend);
             fflush(stdout);
         }

@@ -27,7 +27,7 @@ class LayoutInfo:
 
     @property
     def display(self) -> str:
-        return f"{localized_name(self)}  ·  {self.tag}  ({self.hkl[-8:]})"
+        return f"{localized_name(self)}  /  {self.tag}  ({self.hkl[-8:]})"
 
 
 def localized_name(layout: LayoutInfo) -> str:
@@ -71,10 +71,10 @@ def mode_options(layout: str | LayoutInfo) -> list[tuple[str, str]]:
     if family == "korean":
         return [("ko_hangul", "한국어"), ("ko_latin", "영어"), ("default", "현재 설정 유지")]
     if family == "japanese":
-        return [("ja_hiragana", "일본어 · 히라가나"),
-                ("ja_katakana_full", "가타카나 · 전각"),
-                ("ja_katakana_half", "가타카나 · 반각"),
-                ("ja_katakana_ask", "가타카나 · 매번 선택"),
+        return [("ja_hiragana", "일본어 / 히라가나"),
+                ("ja_katakana_full", "가타카나 / 전각"),
+                ("ja_katakana_half", "가타카나 / 반각"),
+                ("ja_katakana_ask", "가타카나 / 매번 선택"),
                 ("ime_latin", "영어"),
                 ("default", "현재 설정 유지")]
     if is_ime:
@@ -90,8 +90,8 @@ def preferred_mode(layout: LayoutInfo) -> str:
 
 def default_name(layout: LayoutInfo, mode: str) -> str:
     names = {"ko_hangul": "한국어", "ko_latin": "English", "ime_latin": "English",
-             "ja_hiragana": "日本語", "ja_katakana_full": "カタカナ · 全角",
-             "ja_katakana_half": "ｶﾀｶﾅ · 半角", "ja_katakana_ask": "カタカナ"}
+             "ja_hiragana": "日本語", "ja_katakana_full": "カタカナ / 全角",
+             "ja_katakana_half": "ｶﾀｶﾅ / 半角", "ja_katakana_ask": "カタカナ"}
     return names.get(mode, localized_name(layout))
 
 

@@ -18,9 +18,9 @@ class SearchThread(QThread):
         self.pending = None
         self.closed = False
 
-    def submit(self, serial, text):
+    def submit(self, serial, text, output_mode='zh'):
         with self.condition:
-            self.pending=(serial,text)
+            self.pending=(serial,text,output_mode)
             self.condition.notify()
 
     def finish(self):
@@ -31,16 +31,20 @@ class SearchThread(QThread):
         try:
             from chinese_reading import ChineseEngine
             engine=ChineseEngine()
+            from chinese_variants import OutputProfiles
+            profiles=OutputProfiles()
             self.ready.emit()
             while True:
                 with self.condition:
                     self.condition.wait_for(lambda:self.closed or self.pending is not None)
                     if self.closed:
                         return
-                    serial,text=self.pending; self.pending=None
-                self.result.emit(serial,engine.query(text))
+                    serial,text,output_mode=self.pending; self.pending=None
+                self.result.emit(serial,profiles.transform(engine.query(text),output_mode))
         except Exception:
             self.failed.emit('중국어 로컬 사전을 불러오거나 검색하지 못했습니다.')
+        finally:
+            if 'engine' in locals():engine.close()
 
 
 class ChineseQueryClient(QObject):
@@ -66,11 +70,11 @@ class ChineseQueryClient(QObject):
         _running_threads.add(self.thread)
         self.thread.start()
 
-    def request(self, text):
+    def request(self, text, output_mode='zh'):
         if self.closed or not text:
             return
         self.serial+=1
-        self.thread.submit(self.serial,text)
+        self.thread.submit(self.serial,text,output_mode)
         return self.serial
 
     def cancel(self):

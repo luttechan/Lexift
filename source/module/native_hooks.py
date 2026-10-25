@@ -14,7 +14,7 @@ def library():
         if _library is None:
             dll = ctypes.WinDLL(str(Path(__file__).with_name('kanashift_hooks.dll')), use_last_error=True)
             dll.ks_abi_version.restype = wintypes.DWORD
-            if dll.ks_abi_version() != 4:
+            if dll.ks_abi_version() != 6:
                 raise RuntimeError('Incompatible Lexift keyboard module')
             dll.ks_start.argtypes = [ctypes.c_int, wintypes.DWORD, wintypes.DWORD]
             dll.ks_start.restype = wintypes.BOOL
@@ -24,6 +24,12 @@ def library():
             dll.ks_set_secondary.restype = None
             dll.ks_set_tertiary.argtypes = [wintypes.DWORD]
             dll.ks_set_tertiary.restype = None
+            dll.ks_set_quaternary.argtypes = [wintypes.DWORD]
+            dll.ks_set_quaternary.restype = None
+            dll.ks_set_tones.argtypes=[wintypes.BOOL]
+            dll.ks_set_tones.restype=None
+            dll.ks_set_cycle_key.argtypes = [wintypes.DWORD]
+            dll.ks_set_cycle_key.restype = None
             dll.ks_set_nav_target.argtypes = [wintypes.HWND]
             dll.ks_set_nav_target.restype = None
             dll.ks_stop.argtypes = [ctypes.c_int]

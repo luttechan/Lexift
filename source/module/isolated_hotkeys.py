@@ -60,7 +60,10 @@ class HookService:
             listener.listen(4)
             listener.settimeout(.25)
             args = ['--hook-worker', str(listener.getsockname()[1]), token]
-            if getattr(sys, 'frozen', False):
+            native=Path(__file__).with_name('lexift_keyboard.exe')
+            if native.is_file():
+                command=[str(native),str(listener.getsockname()[1]),token]
+            elif getattr(sys, 'frozen', False):
                 command = [sys.executable, *args]
             else:
                 command = [sys.executable, '-E', '-s', str(Path(__file__).resolve()), *args]
@@ -151,6 +154,10 @@ class HookService:
                     caps.on_ime(int(message['hwnd']))
                 elif connection is self.connection and message.get('event') == 'chinese' and caps and caps.on_chinese:
                     caps.on_chinese(int(message['hwnd']))
+                elif connection is self.connection and message.get('event') == 'traditional' and caps and caps.on_traditional:
+                    caps.on_traditional(int(message['hwnd']))
+                elif connection is self.connection and message.get('event') == 'tone' and caps and caps.on_tone:
+                    caps.on_tone(int(message['hwnd']),int(message['tone']))
                 elif connection is self.connection and message.get('event') == 'navigation' and navigation:
                     navigation.on_key(int(message['key']))
         except (OSError, ValueError, TypeError, RuntimeError):
@@ -247,12 +254,15 @@ def service():
 
 
 class CapsQHook:
-    def __init__(self, on_hotkey, binding=None, on_ime=None, ime_binding=None, on_chinese=None, chinese_binding=None):
+    def __init__(self, on_hotkey, binding=None, on_ime=None, ime_binding=None, on_chinese=None, chinese_binding=None,on_traditional=None,traditional_binding=None,on_tone=None):
         from hotkeys_windows import HotkeyBinding
         self.on_hotkey = on_hotkey
         self.on_ime = on_ime
         self.on_chinese = on_chinese
         self.chinese_binding = chinese_binding or HotkeyBinding('caps', 'C')
+        self.on_traditional=on_traditional
+        self.on_tone=on_tone
+        self.traditional_binding=traditional_binding or HotkeyBinding('caps','T')
         self.ime_binding = ime_binding or HotkeyBinding('caps', 'A')
         self.binding = binding or HotkeyBinding()
         self.thread = None
@@ -266,6 +276,9 @@ class CapsQHook:
             extra.update(ime_mode=self.ime_binding.mode, ime_key=self.ime_binding.key)
         if self.on_chinese:
             extra.update(chinese=True, chinese_mode=self.chinese_binding.mode, chinese_key=self.chinese_binding.key)
+        if self.on_traditional:
+            extra.update(traditional=True,traditional_mode=self.traditional_binding.mode,traditional_key=self.traditional_binding.key)
+        if self.on_tone:extra['tones']=True
         worker.command('caps-start', mode=self.binding.mode, key=self.binding.key, **extra)
         self.thread = worker.reader
 
@@ -363,7 +376,12 @@ def run_worker(port, token):
                         if message.get('chinese'):
                             entries.append((HotkeyBinding(message.get('chinese_mode','caps'),message.get('chinese_key','C')),
                                             lambda _:events.put(dict(event='chinese',hwnd=get_target_window()))))
-                        caps=HotkeyGroup(entries)
+                        if message.get('traditional'):
+                            entries.append((HotkeyBinding(message.get('traditional_mode','caps'),message.get('traditional_key','T')),
+                                            lambda _:events.put(dict(event='traditional',hwnd=get_target_window()))))
+                        cycle=(HotkeyBinding(message.get('traditional_mode','caps'),message.get('traditional_key','T'))
+                               if message.get('traditional') else None)
+                        caps=HotkeyGroup(entries,cycle_binding=cycle,on_tone=(lambda _,tone:events.put(dict(event='tone',hwnd=get_target_window(),tone=tone))) if message.get('tones') else None)
                         caps.start()
                     elif operation == 'caps-stop':
                         if ime_caps:
