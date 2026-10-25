@@ -1,5 +1,4 @@
 # NOW WE ARE LEXIFT.
-**Your keyboard. More languages.**
 
 Switch input languages and turn Hangul pronunciation into Japanese or Chinese.
 
@@ -13,7 +12,8 @@ Switch input languages and turn Hangul pronunciation into Japanese or Chinese.
 | Caps + T | Traditional → Bopomofo → OFF |
 | Caps + 1–4 / 0 | Set / remove a pinyin tone |
 
-Enable pinyin tones in Settings: `ke` + Caps + 3 → `kě`. Top-row and keypad numbers work with Num Lock on or off. The IME stays unchanged.
+Enable pinyin tones in Settings:
+e.g. `ke` + Caps + 3 → `kě`.
 
 Windows 10 / 11 x64. Extract the ZIP and run **Lexift.exe**. Python is not required.
 Japanese conversion requires Microsoft Japanese IME. Some input fields are unsupported.
@@ -22,7 +22,8 @@ Japanese conversion requires Microsoft Japanese IME. Some input fields are unsup
 
 입력기 전환과 한글 발음 입력을 단축키로 처리합니다. 후보는 Space / Enter 또는 번호로 선택합니다.
 
-설정에서 병음 성조를 켠 뒤 영문으로 입력하세요. `ke` 입력 후 Caps + 3 → `kě`. 상단 숫자키와 숫자패드를 모두 지원하며 입력기는 바꾸지 않습니다.
+설정에서 병음 성조를 켠 뒤 영문으로 입력하세요.
+e.g. `ke` 입력 후 Caps + 3 → `kě`. 
 
 Caps Lock 켜짐과 꺼짐은 화면 중앙에 표시합니다.
 
