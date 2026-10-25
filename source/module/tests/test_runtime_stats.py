@@ -192,6 +192,14 @@ class PanelTests(unittest.TestCase):
         self.panel._on_sample(999, None)
         self.assertEqual([value.text() for value in self.panel.values], before)
 
+    def test_disclosure_uses_bounded_icons_instead_of_native_arrow_lookup(self):
+        from PySide6.QtCore import Qt
+        self.assertEqual(self.panel.toggle.arrowType(),Qt.ArrowType.NoArrow)
+        self.assertFalse(self.panel.toggle.icon().isNull())
+        for n in range(30):
+            self.panel.toggle.setChecked(bool(n%2))
+        self.assertLessEqual(stats.expansion_icon.cache_info().currsize,2)
+
     def test_collapse_stops_queries_and_releases_details_until_expanded(self):
         self.window.show()
         self.bottom()

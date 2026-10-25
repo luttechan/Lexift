@@ -1,0 +1,38 @@
+         728 function calls in 0.046 seconds
+
+   Ordered by: cumulative time
+   List reduced from 59 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.037    0.019    0.037    0.019 {method 'grab' of 'PySide6.QtWidgets.QWidget' objects}
+        1    0.000    0.000    0.008    0.008 {method 'setChecked' of 'PySide6.QtWidgets.QAbstractButton' objects}
+        1    0.000    0.000    0.008    0.008 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\runtime_stats.py:201(_set_expanded)
+        1    0.000    0.000    0.008    0.008 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\runtime_stats.py:217(_create_details)
+        1    0.005    0.005    0.005    0.005 {method 'show' of 'PySide6.QtWidgets.QWidget' objects}
+        1    0.001    0.001    0.001    0.001 {built-in method sys.getwindowsversion}
+       13    0.001    0.000    0.001    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\runtime_stats.py:146(_label)
+        1    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\runtime_stats.py:157(expansion_icon)
+       13    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\i18n.py:252(text_font_family)
+        1    0.000    0.000    0.000    0.000 {method 'addLayout' of 'PySide6.QtWidgets.QBoxLayout' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+       12    0.000    0.000    0.000    0.000 {method 'addWidget' of 'PySide6.QtWidgets.QGridLayout' objects}
+        2    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\runtime_stats.py:259(eventFilter)
+       83    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\i18n.py:254(<genexpr>)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       13    0.000    0.000    0.000    0.000 {method 'setTextFormat' of 'PySide6.QtWidgets.QLabel' objects}
+       83    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\i18n.py:256(<genexpr>)
+        5    0.000    0.000    0.000    0.000 {method 'drawPolygon' of 'PySide6.QtGui.QPainter' objects}
+        2    0.000    0.000    0.000    0.000 {method 'addWidget' of 'PySide6.QtWidgets.QBoxLayout' objects}
+      242    0.000    0.000    0.000    0.000 {built-in method builtins.ord}
+        2    0.000    0.000    0.000    0.000 {method 'type' of 'PySide6.QtCore.QEvent' objects}
+       11    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\i18n.py:263(tr)
+        5    0.000    0.000    0.000    0.000 {method 'fill' of 'PySide6.QtGui.QPixmap' objects}
+       28    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:202(__get__)
+        1    0.000    0.000    0.000    0.000 shibokensupport/signature/loader.py:60(feature_import)
+       13    0.000    0.000    0.000    0.000 {method 'setObjectName' of 'PySide6.QtCore.QObject' objects}
+        2    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\enum.py:720(__call__)
+        3    0.000    0.000    0.000    0.000 C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.3\module\runtime_stats.py:255(_schedule_visibility)
+        2    0.000    0.000    0.000    0.000 {method 'setText' of 'PySide6.QtWidgets.QLabel' objects}
+        5    0.000    0.000    0.000    0.000 {method 'setRenderHint' of 'PySide6.QtGui.QPainter' objects}
+
+

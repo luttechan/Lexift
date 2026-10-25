@@ -1,0 +1,465 @@
+{
+  "version": "1.0.3",
+  "language": "ko",
+  "passed": true,
+  "first": [
+    {
+      "menu": "dashboard",
+      "ms": 4.329
+    },
+    {
+      "menu": "slots",
+      "ms": 38.649
+    },
+    {
+      "menu": "general",
+      "ms": 24.983
+    },
+    {
+      "menu": "about",
+      "ms": 22.751
+    },
+    {
+      "menu": "dictionary",
+      "ms": 49.123
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 3.873
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 6.488
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 14.65
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 16.453
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 39.929
+    },
+    {
+      "menu": "selector-first",
+      "ms": 62.932
+    },
+    {
+      "menu": "selector-repeat",
+      "ms": 7.009
+    },
+    {
+      "menu": "exit",
+      "ms": 7.927
+    },
+    {
+      "menu": "update-progress",
+      "ms": 4.302
+    },
+    {
+      "menu": "update-result",
+      "ms": 6.315
+    },
+    {
+      "menu": "tray-context-menu",
+      "ms": 12.202
+    }
+  ],
+  "warm": [
+    {
+      "menu": "dashboard",
+      "ms": 4.789
+    },
+    {
+      "menu": "slots",
+      "ms": 8.915
+    },
+    {
+      "menu": "general",
+      "ms": 4.379
+    },
+    {
+      "menu": "about",
+      "ms": 4.424
+    },
+    {
+      "menu": "dictionary",
+      "ms": 14.254
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 4.997
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 3.184
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 5.879
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 3.486
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 25.865
+    },
+    {
+      "menu": "dashboard",
+      "ms": 5.111
+    },
+    {
+      "menu": "slots",
+      "ms": 8.453
+    },
+    {
+      "menu": "general",
+      "ms": 3.58
+    },
+    {
+      "menu": "about",
+      "ms": 4.11
+    },
+    {
+      "menu": "dictionary",
+      "ms": 14.757
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 4.402
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 3.648
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 5.033
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 3.81
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 24.791
+    },
+    {
+      "menu": "dashboard",
+      "ms": 5.204
+    },
+    {
+      "menu": "slots",
+      "ms": 8.189
+    },
+    {
+      "menu": "general",
+      "ms": 4.235
+    },
+    {
+      "menu": "about",
+      "ms": 4.965
+    },
+    {
+      "menu": "dictionary",
+      "ms": 15.092
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 4.223
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 3.916
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 5.152
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 3.185
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 25.948
+    },
+    {
+      "menu": "dashboard",
+      "ms": 5.033
+    },
+    {
+      "menu": "slots",
+      "ms": 8.728
+    },
+    {
+      "menu": "general",
+      "ms": 3.555
+    },
+    {
+      "menu": "about",
+      "ms": 4.029
+    },
+    {
+      "menu": "dictionary",
+      "ms": 14.772
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 4.54
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 3.263
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 5.339
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 3.713
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 28.801
+    },
+    {
+      "menu": "dashboard",
+      "ms": 4.982
+    },
+    {
+      "menu": "slots",
+      "ms": 7.711
+    },
+    {
+      "menu": "general",
+      "ms": 4.287
+    },
+    {
+      "menu": "about",
+      "ms": 5.386
+    },
+    {
+      "menu": "dictionary",
+      "ms": 14.507
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 4.318
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 4.046
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 5.016
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 3.224
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 28.175
+    }
+  ],
+  "checks": {
+    "all_main_menus": true,
+    "all_first_panels_under_100ms": true,
+    "dropdowns_under_100ms": true,
+    "warm_menus_under_100ms": true,
+    "dictionary_rows": true,
+    "slot_rows": true,
+    "no_widget_growth": true,
+    "bounded_handles": true,
+    "bounded_private_commit": true,
+    "single_stats_worker": true,
+    "stats_sampler_exercised": true,
+    "stable_ctypes_cache": true,
+    "no_hidden_sampling": true,
+    "no_event_errors": true
+  },
+  "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+  "dropdowns": [
+    {
+      "menu": "input-layout",
+      "ms": 5.056
+    },
+    {
+      "menu": "shortcut-modifier",
+      "ms": 5.228
+    },
+    {
+      "menu": "shortcut-key",
+      "ms": 4.74
+    },
+    {
+      "menu": "language",
+      "ms": 23.324
+    }
+  ],
+  "soak": [
+    {
+      "cycles": 20,
+      "pid": 192088,
+      "working_mb": 98.758,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 40,
+      "pid": 192088,
+      "working_mb": 98.77,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 60,
+      "pid": 192088,
+      "working_mb": 98.77,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 80,
+      "pid": 192088,
+      "working_mb": 98.77,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 100,
+      "pid": 192088,
+      "working_mb": 98.77,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 120,
+      "pid": 192088,
+      "working_mb": 98.777,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 140,
+      "pid": 192088,
+      "working_mb": 98.777,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 160,
+      "pid": 192088,
+      "working_mb": 98.777,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 180,
+      "pid": 192088,
+      "working_mb": 98.777,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 200,
+      "pid": 192088,
+      "working_mb": 98.777,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    },
+    {
+      "cycles": 220,
+      "pid": 192088,
+      "working_mb": 98.777,
+      "private_commit_mb": 61.355,
+      "private_working_mb": 56.945,
+      "widgets": 719,
+      "handles": 428,
+      "gdi": 71,
+      "user": 67,
+      "stats_threads": 1,
+      "pointer_types": 25
+    }
+  ],
+  "growth": {
+    "private_commit_mb": 0.0,
+    "private_working_mb": 0.0,
+    "widgets": 0,
+    "handles": 0,
+    "gdi": 0,
+    "user": 0,
+    "stats_threads": 0,
+    "pointer_types": 0
+  },
+  "event_errors": [],
+  "stats_worker_released": true
+}

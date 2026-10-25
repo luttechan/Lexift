@@ -7,8 +7,10 @@ import sys
 import threading
 import time
 import weakref
+from functools import lru_cache
 
-from PySide6.QtCore import QObject, QEvent, Qt, QTimer, Signal, Slot, qVersion
+from PySide6.QtCore import QObject, QEvent, Qt, QTimer, Signal, Slot, qVersion,QPointF,QSize
+from PySide6.QtGui import QIcon,QPainter,QPixmap,QPolygonF,QColor
 from PySide6.QtWidgets import QFrame, QGridLayout, QLabel, QToolButton, QVBoxLayout, QWidget
 from i18n import tr, text_font_family
 from isolated_hotkeys import existing_worker_process
@@ -152,6 +154,20 @@ def _label(text, kind=''):
     return item
 
 
+@lru_cache(maxsize=2)
+def expansion_icon(expanded):
+    """Avoid the Windows toolbutton arrow's first-use font/style lookup."""
+    icon=QIcon()
+    for size in (16,24,32,48,64):
+        pixmap=QPixmap(size,size);pixmap.fill(Qt.GlobalColor.transparent)
+        painter=QPainter(pixmap);painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setPen(Qt.PenStyle.NoPen);painter.setBrush(QColor('#C9CBD1'))
+        points=((.25,.35),(.75,.35),(.5,.65)) if expanded else ((.35,.25),(.65,.5),(.35,.75))
+        painter.drawPolygon(QPolygonF([QPointF(x*size,y*size) for x,y in points]));painter.end()
+        icon.addPixmap(pixmap)
+    return icon
+
+
 class RuntimeStatsPanel(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -173,7 +189,8 @@ class RuntimeStatsPanel(QFrame):
         self.toggle = QToolButton(self)
         self.toggle.setText(tr('실행 정보'))
         self.toggle.setCheckable(True)
-        self.toggle.setArrowType(Qt.ArrowType.RightArrow)
+        self.toggle.setIcon(expansion_icon(False))
+        self.toggle.setIconSize(QSize(16,16))
         self.toggle.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.toggle.setStyleSheet('QToolButton { border:0; font-weight:700; padding:0; }')
         self.toggle.toggled.connect(self._set_expanded)
@@ -182,7 +199,7 @@ class RuntimeStatsPanel(QFrame):
         self.values = []
 
     def _set_expanded(self, expanded):
-        self.toggle.setArrowType(Qt.ArrowType.DownArrow if expanded else Qt.ArrowType.RightArrow)
+        self.toggle.setIcon(expansion_icon(expanded))
         if expanded:
             self._create_details()
             self._schedule_visibility()

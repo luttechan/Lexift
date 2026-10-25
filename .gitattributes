@@ -1,4 +1,3 @@
-# Preserve runtime checksums and the compiled dictionary source hash.
 app/** -text
 release/** -text
 source/module/chinese_data/** -text

@@ -26,7 +26,21 @@ class OriginalDesignTests(unittest.TestCase):
         self.assertIn('self.window.shortcut_changed.connect(self.change_shortcut)', APP)
         self.assertIn('self.dashboard_shortcut.setText(binding.title)', APP)
         self.assertIn('self.special_list', APP)
-        self.assertIn('self.tray_menu.addAction(tr("설정"), lambda: self.show_window(2))', APP)
+        # Verify the destination, rather than the source's quotes/formatting.
+        import app
+        from types import SimpleNamespace
+        from unittest.mock import Mock
+        from PySide6.QtWidgets import QApplication
+        from i18n import tr
+        qt=QApplication.instance() or QApplication([])
+        controller=SimpleNamespace(**{name:Mock() for name in
+            ('show_overlay','show_window','check_updates','request_quit','set_enabled')})
+        controller._style_tray_menu=lambda:app.LexiftController._style_tray_menu(controller)
+        app.LexiftController._create_tray_menu(controller)
+        try:
+            next(a for a in controller.tray_menu.actions() if a.text()==tr('설정')).trigger()
+            controller.show_window.assert_called_once_with(2)
+        finally:controller.tray_menu.deleteLater();qt.processEvents()
 
 
 if __name__ == '__main__':

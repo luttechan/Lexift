@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "deployed": true,
+  "version": "1.0.3",
+  "root": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0.3",
+  "previous_version_preserved": true,
+  "source_tests": 470,
+  "native_checks": 79,
+  "runtime_files": 335,
+  "zip_sha256": "006a9e4a0fbdda55aa9feabdf4383c8044372e55e4d4483b3a7f72f15e0c1e0c",
+  "assets_preserved": true,
+  "documentation_updated": true
+}

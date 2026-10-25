@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "protocol": [
+    {
+      "operation": "caps-start",
+      "passed": true
+    },
+    {
+      "operation": "navigation-start",
+      "passed": true
+    },
+    {
+      "operation": "active",
+      "passed": true
+    },
+    {
+      "operation": "active",
+      "passed": true
+    },
+    {
+      "operation": "active",
+      "passed": true
+    },
+    {
+      "operation": "navigation-stop",
+      "passed": true
+    },
+    {
+      "operation": "caps-start",
+      "passed": true
+    },
+    {
+      "operation": "caps-stop",
+      "passed": true
+    },
+    {
+      "operation": "caps-start",
+      "passed": true
+    },
+    {
+      "operation": "caps-stop",
+      "passed": true
+    }
+  ],
+  "native": [
+    {
+      "name": "native_edit_test.exe",
+      "passed": 48,
+      "failed": 0,
+      "cross_process": true
+    },
+    {
+      "name": "scintilla_test.exe",
+      "passed": 10,
+      "failed": 0,
+      "cross_process": true,
+      "cross_bitness": true
+    },
+    {
+      "name": "ia2_adapter_test.exe",
+      "passed": 21,
+      "failed": 0,
+      "fixture": "IAccessible2 COM provider",
+      "firefox_end_to_end": false
+    }
+  ],
+  "worker_memory": {
+    "pid": 55704,
+    "working_mb": 6.625,
+    "private_commit_mb": 1.184,
+    "private_working_mb": 0.785
+  },
+  "startup_ms": 39.027,
+  "tone_conflict_rejected": true,
+  "duplicate_rejected": true
+}

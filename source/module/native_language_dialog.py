@@ -4,6 +4,7 @@ import ctypes
 import sys
 from ctypes import wintypes
 from typing import Sequence
+from functools import lru_cache
 from i18n import tr
 
 
@@ -11,7 +12,10 @@ class NativeDialogUnavailable(RuntimeError):
     """The native task-dialog control could not be opened."""
 
 
+@lru_cache(maxsize=1)
 def _dialog_types():
+    # ctypes POINTER() retains the structure class. Recreating it for each
+    # native dialog grows the process-wide pointer cache even after GC.
     callback_type = ctypes.WINFUNCTYPE(
         ctypes.c_int, wintypes.HWND, wintypes.UINT,
         wintypes.WPARAM, wintypes.LPARAM, ctypes.c_ssize_t,

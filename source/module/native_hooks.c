@@ -33,7 +33,7 @@ typedef struct {
     DWORD quaternary_suppressed;
     volatile LONG cycle_key;
     volatile LONG tones;
-    BYTE tone_held[5];
+    BYTE tone_held[10];
     BYTE held[256];
     BYTE replayed[256];
 } Hook;
@@ -183,6 +183,28 @@ API DWORD ks_caps_tone_step(CapsState *s,BYTE *held,DWORD vk,BOOL down,BOOL enab
     return 0;
 }
 
+/* Keep the two physical number banks independent, including their releases.
+ * With Num Lock off Windows reports navigation VKs for the keypad; dedicated
+ * navigation keys carry the extended flag and must keep their normal meaning.
+ * The legacy five-byte state API above remains ABI compatible.
+ */
+API DWORD ks_caps_tone_event_step(CapsState *s,BYTE *held,DWORD vk,DWORD scan,BOOL extended,BOOL down,BOOL enabled,DWORD navigationMode) {
+    BOOL keypad=vk>=VK_NUMPAD0 && vk<=VK_NUMPAD4;
+    if(keypad)vk='0'+vk-VK_NUMPAD0;
+    else if(!extended) {
+        switch(scan&0xff) {
+            case 0x52:if(vk==VK_INSERT){vk='0';keypad=TRUE;}break;
+            case 0x4f:if(vk==VK_END){vk='1';keypad=TRUE;}break;
+            case 0x50:if(vk==VK_DOWN){vk='2';keypad=TRUE;}break;
+            case 0x51:if(vk==VK_NEXT){vk='3';keypad=TRUE;}break;
+            case 0x4b:if(vk==VK_LEFT){vk='4';keypad=TRUE;}break;
+        }
+    }
+    // Candidate/selector numbers take priority, even while Caps is still held
+    // after opening that popup. Existing tone releases must still be drained.
+    return ks_caps_tone_step(s,held+(keypad?5:0),vk,down,enabled && navigationMode==0);
+}
+
 static LRESULT CALLBACK caps_proc(int code, WPARAM message, LPARAM data) {
     Hook *h = &hooks[0];
     if (code == HC_ACTION && (message == WM_KEYDOWN || message == WM_KEYUP ||
@@ -202,7 +224,9 @@ static LRESULT CALLBACK caps_proc(int code, WPARAM message, LPARAM data) {
                 if (!down) h->replayed[vk] = 0;
                 if (PostThreadMessageW(h->thread_id, KS_REPLAY_KEY, vk, flags)) return 1;
             }
-            DWORD toneAction=ks_caps_tone_step(&h->caps,h->tone_held,vk,down,InterlockedCompareExchange(&h->tones,0,0));
+            DWORD toneAction=ks_caps_tone_event_step(&h->caps,h->tone_held,vk,key->scanCode,
+                (key->flags & LLKHF_EXTENDED)!=0,down,InterlockedCompareExchange(&h->tones,0,0),
+                (DWORD)InterlockedCompareExchange(&hooks[1].active,0,0));
             if(toneAction & 0xff00)PostThreadMessageW(h->receiver,KS_COMMAND,3+(toneAction>>8),0);
             if(toneAction & SWALLOW)return 1;
             DWORD action = ks_caps_cycle_step(&h->caps, &h->secondary_suppressed, &h->tertiary_suppressed,&h->quaternary_suppressed,

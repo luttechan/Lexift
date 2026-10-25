@@ -1,7 +1,7 @@
 {
   "sources": {
     "keyboard_worker.c": "a221ea2d3d499790d36cc8a89ac7213ed41e25cf4391b3b36c79024aa4405807",
-    "native_hooks.c": "659e8c223e04cf9765dbb8b02ed6c108855a7f8e5dedb628a6fd0b255c770572"
+    "native_hooks.c": "27ed14da4bbad34e27e60169a4f2ca6dec7b24ccb6b7287e26c3da8178bdd1e0"
   },
-  "binary_sha256": "545d0e079d1d35444b5042b3d51ba1668e3900266cac532ed0d9f8439eb2e0ce"
+  "binary_sha256": "4b33a2a5f22ce6d605ecaa12179ce5bead488294c0f9d9efe849a8a29d6c41c6"
 }

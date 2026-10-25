@@ -49,7 +49,7 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 ORGANIZATION = "LuteTools"
 PRODUCT = "Lexift"
 SELECTION_KEYS = "1234567890ABCDE"
@@ -88,7 +88,7 @@ QPushButton#primary { background:#DFE5EF; color:#10141B; font-weight:700; border
 QPushButton#primary:hover { background:#FFFFFF; border-color:#FFFFFF; }
 QPushButton#nav { background:transparent; border:0; color:#B8BBC6; text-align:left; min-height:25px; padding:10px 14px; font-weight:400; }
 QPushButton#nav:hover { background:#1C1F25; color:#F0F0F3; }
-QPushButton#nav[active="true"] { background:#262B33; color:#FFFFFF; border-left:2px solid #A9BACF; border-top-left-radius:0; border-bottom-left-radius:0; font-weight:400; }
+QPushButton#nav:checked { background:#262B33; color:#FFFFFF; border-left:2px solid #A9BACF; border-top-left-radius:0; border-bottom-left-radius:0; font-weight:400; }
 QPushButton#ghost { background:transparent; border:1px solid #363A43; }
 QPushButton#danger { background:transparent; border:1px solid #4E3536; color:#E0A4A7; }
 QPushButton#toggle:checked { background:#29303D; border-color:#9BAEC8; }
@@ -126,6 +126,12 @@ def choose_font(app: QApplication) -> None:
     font.setWeight(QFont.Weight.Normal)
     font.setStyleStrategy(QFont.StyleStrategy.PreferAntialias)
     app.setFont(font)
+    # Qt populates the Windows font database lazily. A background launch has
+    # no loading-window paint to do this, so it otherwise freezes the first
+    # shortcut/menu. Finish this one-time work before the app becomes ready.
+    if not app.property('lexiftFontDatabaseReady'):
+        QFontMetrics(font).horizontalAdvance('Lexift')
+        app.setProperty('lexiftFontDatabaseReady',True)
     # Native popup animations delay menus even after their contents are ready.
     for effect in (Qt.UIEffect.UI_AnimateCombo, Qt.UIEffect.UI_AnimateMenu,
                    Qt.UIEffect.UI_FadeMenu):
@@ -343,6 +349,8 @@ class SlotCard(QFrame):
         super().resizeEvent(event)
         # Elide strings inside the tile; never expand a dialog to fit long names.
         usable = max(90, self.width() - 36)
+        self._name_label.ensurePolished()
+        self._detail_label.ensurePolished()
         self._name_label.setText(QFontMetrics(self._name_label.font()).elidedText(
             self._name_full, Qt.TextElideMode.ElideRight, usable))
         self._detail_label.setText(QFontMetrics(self._detail_label.font()).elidedText(
@@ -368,6 +376,7 @@ class Overlay(QDialog):
 
     def __init__(self):
         super().__init__()
+        self._set_locale_font()
         self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint |
                             Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
@@ -419,17 +428,32 @@ class Overlay(QDialog):
 
     def retranslate(self):
         """Apply a new display language to an existing overlay instantly."""
+        self._set_locale_font()
         self.heading.setText(tr('가타카나 문자 폭') if self.page == 'width' else tr('입력기 선택'))
         self.subtitle.setText(tr('전각 또는 반각을 선택하세요') if self.page == 'width'
                               else tr('1–9, 0, A–E 또는 방향키로 선택'))
         self.footer_hint.setText(tr('Enter 선택    /    Esc 닫기'))
+        for item in (self.heading,self.subtitle,self.footer_hint):apply_text_font(item,item.text())
         if self.isVisible():
             slots = [dict(tile.slot) for tile in self.tiles]
             self.rebuild(slots, self.page == 'width')
             self._recenter()
 
+    def _set_locale_font(self):
+        family={"ja":"Yu Gothic UI","zh_CN":"Microsoft YaHei UI",
+                "zh_TW":"Microsoft JhengHei UI"}.get(language(),"Malgun Gothic")
+        style=f'QWidget {{ font-family:"{family}"; }}'
+        if self.styleSheet()!=style:self.setStyleSheet(style)
+
     def set_shortcut(self, binding: HotkeyBinding):
         self.shortcut_hint.setText(binding.title)
+
+    def prepare_slots(self,slots):
+        """Build the small selector before shortcuts become ready, without painting."""
+        self.rebuild(slots)
+        self.ensurePolished()
+        self.layout().activate()
+        self.grid.activate()
 
     def rebuild(self, slots: list[dict[str, str]], width_prompt: bool = False):
         self.page = "width" if width_prompt else "slots"
@@ -676,17 +700,20 @@ class SlotEditor(QWidget):
         self._list_revision = getattr(self, "_list_revision", 0) + 1
         clear_layout(self.list_layout)
         self._name_editors = []
+        self._slot_rows = []
         self.count_label.setText(f"{len(self.slots)} / {MAX_SLOTS}")
         self.add.setEnabled(bool(self.layouts) and len(self.slots) < MAX_SLOTS)
         for i, slot in enumerate(self.slots):
             frame = QFrame()
             frame.setObjectName("slotRow")
+            frame.setProperty('slotIndex',i)
             stack = QVBoxLayout(frame)
             stack.setContentsMargins(15, 13, 15, 13)
             stack.setSpacing(9)
             top = QHBoxLayout()
             top.setSpacing(9)
             number = label(f"{i+1:02d}", "tileCode")
+            frame.number_label=number
             number.setFixedWidth(32)
             top.addWidget(number)
             layout = SlotComboBox()
@@ -704,15 +731,17 @@ class SlotEditor(QWidget):
                 layout.setItemData(layout.count()-1, item_font, Qt.ItemDataRole.FontRole)
             layout.setCurrentIndex(max(0, layout.findData(slot["hkl"])))
             apply_text_font(layout, layout.currentText())
-            layout.currentIndexChanged.connect(lambda _, idx=i, w=layout: self._select_layout(idx, w.currentData()))
+            layout.currentIndexChanged.connect(lambda _, row=frame, w=layout: self._select_layout(row.property('slotIndex'), w.currentData()))
             top.addWidget(layout, 1)
-            up = button("↑", lambda _, idx=i: self.move_slot(idx, -1), "ghost")
+            up = button("↑", lambda _, row=frame: self.move_slot(row.property('slotIndex'), -1), "ghost")
+            frame.up_button=up
             up.setToolTip(tr("위로 이동"))
             up.setAccessibleName(tr("위로 이동"))
             up.setFixedWidth(37)
             up.setEnabled(i > 0)
             top.addWidget(up)
-            down = button("↓", lambda _, idx=i: self.move_slot(idx, 1), "ghost")
+            down = button("↓", lambda _, row=frame: self.move_slot(row.property('slotIndex'), 1), "ghost")
+            frame.down_button=down
             down.setToolTip(tr("아래로 이동"))
             down.setAccessibleName(tr("아래로 이동"))
             down.setFixedWidth(37)
@@ -736,9 +765,9 @@ class SlotEditor(QWidget):
                 modes.setItemData(modes.count()-1, mode_font, Qt.ItemDataRole.FontRole)
             modes.setCurrentIndex(max(0, modes.findData(slot["mode"])))
             apply_text_font(modes, modes.currentText())
-            def mode_changed(_, idx=i, w=modes):
+            def mode_changed(_, row=frame, w=modes):
                 apply_text_font(w, w.currentText())
-                self._select_mode(idx, w.currentData())
+                self._select_mode(row.property('slotIndex'), w.currentData())
             modes.currentIndexChanged.connect(mode_changed)
             bottom.addWidget(modes, 1)
             name = QLineEdit(slot.get("name", ""))
@@ -747,13 +776,15 @@ class SlotEditor(QWidget):
             self._name_editors.append(name)
             name.setPlaceholderText(placeholder)
             name.setMaxLength(32)
-            name.textEdited.connect(lambda value, idx=i: self._set_name(idx, value))
+            name.textEdited.connect(lambda value, row=frame: self._set_name(row.property('slotIndex'), value))
             bottom.addWidget(name, 1)
-            remove = button(tr("삭제"), lambda _, idx=i: self.delete_slot(idx), "danger")
+            remove = button(tr("삭제"), lambda _, row=frame: self.delete_slot(row.property('slotIndex')), "danger")
+            frame.remove_button=remove
             remove.setEnabled(len(self.slots) > 1)
             bottom.addWidget(remove)
             stack.addLayout(bottom)
             self.list_layout.addWidget(frame)
+            self._slot_rows.append(frame)
         self.list_layout.addStretch(1)
 
     def _select_layout(self, i, hkl):
@@ -791,15 +822,35 @@ class SlotEditor(QWidget):
 
     def move_slot(self, i, move):
         j = i + move
-        if not (0 <= i < len(self.slots) and 0 <= j < len(self.slots)):
+        if i==j or not (0 <= i < len(self.slots) and 0 <= j < len(self.slots)):
             return
         self.slots[i], self.slots[j] = self.slots[j], self.slots[i]
-        self.rebuild()
+        # Move existing controls; rebuilding all fifteen rows for one arrow
+        # click churns fonts, combo popup models and thousands of allocations.
+        self._slot_rows[i],self._slot_rows[j]=self._slot_rows[j],self._slot_rows[i]
+        self._name_editors[i],self._name_editors[j]=self._name_editors[j],self._name_editors[i]
+        for row in (self._slot_rows[i],self._slot_rows[j]):self.list_layout.removeWidget(row)
+        for index in sorted((i,j)):self.list_layout.insertWidget(index,self._slot_rows[index])
+        self._update_row_positions()
+
+    def _update_row_positions(self):
+        self._list_revision+=1
+        count=len(self.slots)
+        self.count_label.setText(f'{count} / {MAX_SLOTS}')
+        self.add.setEnabled(bool(self.layouts) and count<MAX_SLOTS)
+        for index,row in enumerate(self._slot_rows):
+            row.setProperty('slotIndex',index)
+            row.number_label.setText(f'{index+1:02d}')
+            row.up_button.setEnabled(index>0)
+            row.down_button.setEnabled(index<count-1)
+            row.remove_button.setEnabled(count>1)
 
     def delete_slot(self, i):
         if len(self.slots) > 1 and 0 <= i < len(self.slots):
             self.slots.pop(i)
-            self.rebuild()
+            row=self._slot_rows.pop(i);self._name_editors.pop(i)
+            self.list_layout.removeWidget(row);row.hide();row.deleteLater()
+            self._update_row_positions()
 
     def add_slot(self):
         if len(self.slots) >= MAX_SLOTS or not self.layouts:
@@ -858,6 +909,11 @@ class MainWindow(QWidget):
         super().__init__()
         self.store = store
         self.setObjectName("window")
+        # Raw controls (tab bars, checkboxes, comboboxes) need the locale font
+        # too. Otherwise their first paint asks GDI to find missing CJK glyphs.
+        family = {"ja":"Yu Gothic UI", "zh_CN":"Microsoft YaHei UI",
+                  "zh_TW":"Microsoft JhengHei UI"}.get(language(),"Malgun Gothic")
+        self.setStyleSheet(f'QWidget {{ font-family:"{family}"; }}')
         self.setWindowTitle(f"Lexift  /  v{VERSION}")
         self.setWindowIcon(icon())
         self.resize(1020, 690)
@@ -880,6 +936,7 @@ class MainWindow(QWidget):
         for text in (tr("대시보드"), tr("입력기 슬롯"), tr("일반 설정"), tr("프로그램 정보"),tr('사용자 사전')):
             ix = len(self.nav_buttons)
             item = button(text, lambda _=False, n=ix: self.navigate(n), "nav")
+            item.setCheckable(True)
             item.setCursor(Qt.CursorShape.PointingHandCursor)
             self.nav_buttons.append(item)
             nav.addWidget(item)
@@ -1119,7 +1176,8 @@ class MainWindow(QWidget):
         tone_layout.addWidget(label(tr("중국어 성조"),"section"))
         tone_layout.addWidget(self._feature_check("tone"))
         tone_layout.addWidget(label(tr("Caps + 1~4: 성조 지정 / Caps + 0: 성조 해제"),"muted",wrap=True))
-        tone_layout.addWidget(label(tr("직전 병음 음절에 적용합니다. 사용 시 중국어 IME를 영문 모드로 전환합니다."),"muted",wrap=True))
+        tone_layout.addWidget(label(tr("상단 숫자키와 숫자패드 지원 (Num Lock 무관)"),"muted",wrap=True))
+        tone_layout.addWidget(label(tr("영문으로 병음을 입력한 뒤 단축키를 누르세요. 입력기는 변경하지 않습니다. 예: ke → kě (Caps + 3)."),"muted",wrap=True))
         sections[3].addWidget(tone_panel);sections[3].addStretch(1)
         self.feature_checks['tone'].toggled.connect(self._validate_shortcuts)
         language_panel = QFrame()
@@ -1452,6 +1510,7 @@ class MainWindow(QWidget):
 
     def navigate(self, index: int):
         if index == self._current_page and self.nav_buttons[index].property("active") is True:
+            self.nav_buttons[index].setChecked(True)
             return
         self._ensure_page(index)
 
@@ -1462,8 +1521,7 @@ class MainWindow(QWidget):
             if item.property("active") == active:
                 continue
             item.setProperty("active", active)
-            item.style().unpolish(item)
-            item.style().polish(item)
+            item.setChecked(active)
 
     def closeEvent(self, event):
         # X closes only the main window; the input hook and tray stay active.
@@ -1581,6 +1639,7 @@ class LexiftController(QObject):
         if not self.slots:
             raise RuntimeError(tr("현재 Windows에서 사용할 수 있는 입력기가 없습니다."))
         self.overlay = Overlay()
+        self.overlay.prepare_slots(self.slots)
         self.cursor_indicator = CursorIndicator()
         self.overlay.visibility_changed.connect(self._selector_visibility)
         self.overlay.picked.connect(self.apply_slot)
@@ -1591,24 +1650,7 @@ class LexiftController(QObject):
         set_notifier(self._sound)
         self.tray = NotificationTray(icon(), qt)
         self.tray.setToolTip(f"Lexift / {self.binding.title}")
-        self.tray_menu = QMenu()
-        self.toggle_action = self.tray_menu.addAction(tr("Lexift 작동 중"))
-        self.toggle_action.setCheckable(True)
-        self.toggle_action.setChecked(True)
-        self.toggle_action.toggled.connect(self.set_enabled)
-        self.tray_menu.addSeparator()
-        self.tray_actions = [
-            self.tray_menu.addAction(tr("입력기 선택"), self.show_overlay),
-            self.tray_menu.addAction(tr("메인 창"), self.show_window),
-        ]
-        self.tray_menu.addSeparator()
-        self.tray_actions.extend([
-            self.tray_menu.addAction(tr("설정"), lambda: self.show_window(2)),
-            self.tray_menu.addAction(tr("프로그램 정보"), lambda: self.show_window(3)),
-        ])
-        self.tray_menu.addSeparator()
-        self.update_action = self.tray_menu.addAction(tr("업데이트 확인"), self.check_updates)
-        self.tray_actions.append(self.tray_menu.addAction(tr("종료"), self.request_quit))
+        self._create_tray_menu()
         self.tray.setContextMenu(self.tray_menu)
         self.tray.activated.connect(self._tray_clicked)
         self.tray.messageClicked.connect(self.show_window)
@@ -1681,6 +1723,27 @@ class LexiftController(QObject):
         self._quit_dialog = QuitConfirmation(self._window)
         self._quit_dialog.finished.connect(self._quit_decided)
 
+    def _style_tray_menu(self):
+        family={"ja":"Yu Gothic UI","zh_CN":"Microsoft YaHei UI",
+                "zh_TW":"Microsoft JhengHei UI"}.get(language(),"Malgun Gothic")
+        self.tray_menu.setStyleSheet(f'QMenu {{ font-family:"{family}"; }}')
+
+    def _create_tray_menu(self):
+        self.tray_menu=QMenu();self._style_tray_menu()
+        self.toggle_action=self.tray_menu.addAction(tr('Lexift 작동 중'))
+        self.toggle_action.setCheckable(True);self.toggle_action.setChecked(True)
+        self.toggle_action.toggled.connect(self.set_enabled)
+        self.tray_menu.addSeparator()
+        self.tray_actions=[self.tray_menu.addAction(tr('입력기 선택'),self.show_overlay),
+                           self.tray_menu.addAction(tr('메인 창'),self.show_window)]
+        self.tray_menu.addSeparator()
+        self.tray_actions.extend([
+            self.tray_menu.addAction(tr('설정'),lambda:self.show_window(2)),
+            self.tray_menu.addAction(tr('프로그램 정보'),lambda:self.show_window(3))])
+        self.tray_menu.addSeparator()
+        self.update_action=self.tray_menu.addAction(tr('업데이트 확인'),self.check_updates)
+        self.tray_actions.append(self.tray_menu.addAction(tr('종료'),self.request_quit))
+
     def _quit_decided(self, result):
         self._confirming_quit = False
         if result == QDialog.DialogCode.Accepted:
@@ -1751,11 +1814,6 @@ class LexiftController(QObject):
         if enabled and self._enabled:self._engine_prepare_timer.start(150)
         if name=='tone':
             self.tone_input.cancel()
-            if enabled:
-                self._korean_activation.cancel()
-                from ime_inline import inline_mode
-                inline_mode().close()
-                self.tone_input.prepare_input()
         self.store.setValue('features/'+name,enabled);self.store.sync()
         self._sync_enabled_ui()
 
@@ -1855,6 +1913,7 @@ class LexiftController(QObject):
                 ('입력기 선택','메인 창','설정','프로그램 정보','종료')):
             action.setText(tr(source))
         self.update_action.setText(tr("업데이트 확인"))
+        self._style_tray_menu()
         self.updater.retranslate()
         self._sync_enabled_ui()
         previous.hide()
@@ -1935,7 +1994,6 @@ class LexiftController(QObject):
             self.show_window(0)
             self.qt.processEvents(QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents)
         self._start_hook()
-        if getattr(self,'features',{}).get('tone',False):self.tone_input.prepare_input()
         # A manually launched app must never appear to be "not running".
         # Only --background (used for Windows auto-start) may stay in the tray.
         if not self._update_timer_started:
@@ -2247,8 +2305,11 @@ class LexiftController(QObject):
 
     def _apply_tone(self,hwnd,tone):
         if self._enabled and not self._stopping and self.features.get('tone',False):
+            if self.overlay.isVisible() or self._confirming_quit:return
             from ime_inline import inline_mode
-            inline_mode().close()
+            # Candidate numbers belong to the active pronunciation converter.
+            # Tone editing operates on committed Latin text independently.
+            if inline_mode().enabled:return
             self.tone_input.apply(hwnd,tone)
 
     def _korean_activation_finished(self, ok):

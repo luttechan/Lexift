@@ -83,6 +83,37 @@ class ConversionSettingsTests(unittest.TestCase):
         c.set_feature_enabled('zh',True)
         self.assertTrue(c._running);self.assertIsNone(c.hook.on_hotkey);self.assertIsNotNone(c.hook.on_chinese)
         self.assertFalse(c.features['selector']);self.assertFalse(c.features['ja'])
+    def test_enabling_tones_preserves_input_mode_and_active_converter(self):
+        c=self.c
+        with patch('ime_windows.request_language') as switch,patch('ime_windows.ime_set_native') as native,patch.object(c._korean_activation,'cancel') as cancel:
+            c.set_feature_enabled('tone',True)
+            switch.assert_not_called();native.assert_not_called();cancel.assert_not_called()
+        self.mode.close.assert_not_called()
+        self.assertTrue(self.store.value('features/tone',type=bool))
+
+    def test_tone_does_not_close_active_pronunciation_candidates(self):
+        c=self.c;c.features['tone']=True;self.mode.enabled=True
+        with patch.object(c.tone_input,'apply') as apply:
+            c._apply_tone(42,3);apply.assert_not_called()
+        self.mode.close.assert_not_called()
+
+    def test_queued_tone_event_cannot_edit_text_while_selector_or_quit_is_open(self):
+        c=self.c;c.features['tone']=True
+        for selector,quitting in ((True,False),(False,True)):
+            c._confirming_quit=quitting
+            with patch.object(c.overlay,'isVisible',return_value=selector),patch.object(c.tone_input,'apply') as apply:
+                c._apply_tone(42,3);apply.assert_not_called()
+        c._confirming_quit=False
+
+    def test_language_rebuild_releases_previous_windows_and_editors(self):
+        from shiboken6 import isValid
+        for code in ('ja','zh_TW','ko','en','ja','ko'):
+            previous=self.c.window
+            self.c._rebuild_window(code)
+            QCoreApplication.sendPostedEvents(None,QEvent.Type.DeferredDelete)
+            self.qt.processEvents()
+            self.assertFalse(isValid(previous))
+            self.assertEqual(self.c.window._ready_pages,{0,1,2,3,4})
     def test_keyboard_startup_is_asynchronous_and_cancelled_when_disabled(self):
         entered=threading.Event();release=threading.Event();worker=app.keyboard_service()
         worker.connection=None

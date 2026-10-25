@@ -108,3 +108,10 @@ class StartupPageTests(unittest.TestCase):
             self.window.navigate(0)
             self.window.navigate(3)
         reload.assert_not_called()
+
+    def test_navigation_uses_checked_state_without_repolishing_controls(self):
+        for index in (2,2,0,3,4,1):
+            self.window.nav_buttons[index].click()
+            self.assertEqual(self.window.pages.currentIndex(),index)
+            self.assertEqual([b.isChecked() for b in self.window.nav_buttons],
+                             [n==index for n in range(5)])

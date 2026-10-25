@@ -1,0 +1,460 @@
+{
+  "version": "1.0.3",
+  "language": "ko",
+  "passed": true,
+  "first": [
+    {
+      "menu": "dashboard",
+      "ms": 5.823
+    },
+    {
+      "menu": "slots",
+      "ms": 43.687
+    },
+    {
+      "menu": "general",
+      "ms": 31.091
+    },
+    {
+      "menu": "about",
+      "ms": 28.533
+    },
+    {
+      "menu": "dictionary",
+      "ms": 91.707
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 6.405
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 7.227
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 20.619
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 25.162
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 34.723
+    },
+    {
+      "menu": "selector-first",
+      "ms": 80.5
+    },
+    {
+      "menu": "selector-repeat",
+      "ms": 8.085
+    },
+    {
+      "menu": "exit",
+      "ms": 7.117
+    },
+    {
+      "menu": "update-progress",
+      "ms": 5.767
+    },
+    {
+      "menu": "update-result",
+      "ms": 6.306
+    }
+  ],
+  "warm": [
+    {
+      "menu": "dashboard",
+      "ms": 5.683
+    },
+    {
+      "menu": "slots",
+      "ms": 10.409
+    },
+    {
+      "menu": "general",
+      "ms": 4.879
+    },
+    {
+      "menu": "about",
+      "ms": 4.92
+    },
+    {
+      "menu": "dictionary",
+      "ms": 19.35
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 5.763
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 4.468
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 7.737
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 4.509
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 15.505
+    },
+    {
+      "menu": "dashboard",
+      "ms": 7.019
+    },
+    {
+      "menu": "slots",
+      "ms": 10.38
+    },
+    {
+      "menu": "general",
+      "ms": 4.94
+    },
+    {
+      "menu": "about",
+      "ms": 5.353
+    },
+    {
+      "menu": "dictionary",
+      "ms": 18.899
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 5.592
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 4.534
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 7.879
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 5.18
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 18.341
+    },
+    {
+      "menu": "dashboard",
+      "ms": 7.025
+    },
+    {
+      "menu": "slots",
+      "ms": 11.644
+    },
+    {
+      "menu": "general",
+      "ms": 4.662
+    },
+    {
+      "menu": "about",
+      "ms": 6.7
+    },
+    {
+      "menu": "dictionary",
+      "ms": 25.896
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 6.369
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 4.85
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 6.279
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 4.515
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 12.395
+    },
+    {
+      "menu": "dashboard",
+      "ms": 5.703
+    },
+    {
+      "menu": "slots",
+      "ms": 9.383
+    },
+    {
+      "menu": "general",
+      "ms": 4.476
+    },
+    {
+      "menu": "about",
+      "ms": 5.078
+    },
+    {
+      "menu": "dictionary",
+      "ms": 19.31
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 6.878
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 4.683
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 9.203
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 6.013
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 17.798
+    },
+    {
+      "menu": "dashboard",
+      "ms": 7.654
+    },
+    {
+      "menu": "slots",
+      "ms": 12.568
+    },
+    {
+      "menu": "general",
+      "ms": 6.589
+    },
+    {
+      "menu": "about",
+      "ms": 5.851
+    },
+    {
+      "menu": "dictionary",
+      "ms": 49.018
+    },
+    {
+      "menu": "general-tab-0",
+      "ms": 14.98
+    },
+    {
+      "menu": "general-tab-1",
+      "ms": 8.361
+    },
+    {
+      "menu": "general-tab-2",
+      "ms": 12.935
+    },
+    {
+      "menu": "general-tab-3",
+      "ms": 6.704
+    },
+    {
+      "menu": "runtime-details",
+      "ms": 15.776
+    }
+  ],
+  "checks": {
+    "all_main_menus": true,
+    "all_first_panels_under_100ms": true,
+    "dropdowns_under_100ms": true,
+    "warm_menus_under_100ms": true,
+    "dictionary_rows": true,
+    "slot_rows": true,
+    "no_widget_growth": true,
+    "bounded_handles": true,
+    "bounded_private_commit": true,
+    "single_stats_worker": true,
+    "stable_ctypes_cache": true,
+    "no_hidden_sampling": true,
+    "no_event_errors": true
+  },
+  "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+  "dropdowns": [
+    {
+      "menu": "input-layout",
+      "ms": 5.011
+    },
+    {
+      "menu": "shortcut-modifier",
+      "ms": 5.142
+    },
+    {
+      "menu": "shortcut-key",
+      "ms": 5.091
+    },
+    {
+      "menu": "language",
+      "ms": 27.868
+    }
+  ],
+  "soak": [
+    {
+      "cycles": 20,
+      "pid": 15648,
+      "working_mb": 97.727,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.215,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 40,
+      "pid": 15648,
+      "working_mb": 97.738,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.215,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 60,
+      "pid": 15648,
+      "working_mb": 97.758,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.223,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 80,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 100,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 120,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 140,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 160,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 180,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 200,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    },
+    {
+      "cycles": 220,
+      "pid": 15648,
+      "working_mb": 97.762,
+      "private_commit_mb": 60.395,
+      "private_working_mb": 56.227,
+      "widgets": 718,
+      "handles": 421,
+      "gdi": 71,
+      "user": 64,
+      "stats_threads": 0,
+      "pointer_types": 24
+    }
+  ],
+  "growth": {
+    "private_commit_mb": 0.0,
+    "private_working_mb": 0.012,
+    "widgets": 0,
+    "handles": 0,
+    "gdi": 0,
+    "user": 0,
+    "stats_threads": 0,
+    "pointer_types": 0
+  },
+  "event_errors": [],
+  "stats_worker_released": true
+}

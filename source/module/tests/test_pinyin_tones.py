@@ -31,7 +31,9 @@ class ToneRulesTests(unittest.TestCase):
 class ToneInputTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.qt=QApplication.instance() or QApplication([])
-    def test_one_shot_uses_verified_snapshot_and_quits_after_reply(self):
+    @patch('ime_windows.target_is_foreground',return_value=True)
+    @patch('ime_windows._root',return_value=42)
+    def test_one_shot_uses_verified_snapshot_and_quits_after_reply(self,*_):
         from pinyin_tone_input import ToneInput
         from ime_query_client import encode_text
         mode=ToneInput();process=Mock();mode.process=process;mode.target=42;mode.tone=3
@@ -41,28 +43,34 @@ class ToneInputTests(unittest.TestCase):
         mode._read(process);self.assertIsNone(mode.process)
         self.assertEqual(process.write.call_args.args,(b'QUIT\n',))
         mode.deleteLater()
-    def test_focus_change_cannot_replace_another_field(self):
+    @patch('ime_windows.target_is_foreground',return_value=True)
+    @patch('ime_windows._root',return_value=42)
+    def test_focus_change_cannot_replace_another_field(self,*_):
         from pinyin_tone_input import ToneInput
         mode=ToneInput();process=Mock();mode.process=process;mode.target=42;mode.tone=2
         process.readAllStandardOutput.return_value=b'{"event":"input","hwnd":43,"source":"hao","serial":1}\n'
         mode._read(process);process.write.assert_called_once_with(b'QUIT\n');mode.deleteLater()
 
-    def test_enable_selects_chinese_ime_and_its_latin_mode(self):
-        from pinyin_tone_input import ensure_chinese_latin
-        with patch('ime_windows.target_is_foreground',return_value=True),patch('ime_windows.current_language',side_effect=[0x409,0x804]),patch('ime_windows.request_language') as request,patch('ime_windows.ime_set_native',return_value=True) as mode:
-            self.assertTrue(ensure_chinese_latin(42,wait=lambda:None))
-            request.assert_called_once_with(42,0x804);mode.assert_called_once_with(42,False)
+    def test_focused_child_can_use_its_owner_snapshot_without_switching_ime(self):
+        from pinyin_tone_input import ToneInput
+        from ime_query_client import encode_text
+        for tone,expected in enumerate(('ke','kē','ké','kě','kè')):
+            mode=ToneInput();process=Mock();mode.process=process;mode.target=420;mode.tone=tone
+            source='kè' if tone==0 else 'ke'
+            process.readAllStandardOutput.return_value=(json.dumps(dict(event='input',hwnd=42,source=source,serial=7))+'\n').encode()
+            with patch('ime_windows._root',return_value=42),patch('ime_windows.target_is_foreground',return_value=True),patch('ime_windows.request_language') as switch,patch('ime_windows.ime_set_native') as native:
+                mode._read(process)
+                process.write.assert_called_once_with(f'REPLACE 7 {encode_text(expected)}\n'.encode())
+                switch.assert_not_called();native.assert_not_called()
+            mode.cancel();mode.deleteLater()
 
-    def test_existing_traditional_ime_is_preserved_and_set_to_latin(self):
-        from pinyin_tone_input import ensure_chinese_latin
-        with patch('ime_windows.target_is_foreground',return_value=True),patch('ime_windows.current_language',return_value=0x404),patch('ime_windows.request_language') as request,patch('ime_windows.ime_set_native',return_value=True) as mode:
-            self.assertTrue(ensure_chinese_latin(42,wait=lambda:None))
-            request.assert_not_called();mode.assert_called_once_with(42,False)
-
-    def test_cancelled_or_unfocused_activation_never_changes_ime(self):
-        from pinyin_tone_input import ensure_chinese_latin
-        with patch('ime_windows.target_is_foreground',return_value=False),patch('ime_windows.request_language') as request:
-            self.assertFalse(ensure_chinese_latin(42));request.assert_not_called()
+    def test_focus_moves_to_sibling_in_same_window_rejects_snapshot(self):
+        from pinyin_tone_input import ToneInput
+        mode=ToneInput();process=Mock();mode.process=process;mode.target=420;mode.tone=2
+        process.readAllStandardOutput.return_value=b'{"event":"input","hwnd":42,"source":"ke","serial":1}\n'
+        with patch('ime_windows._root',return_value=42),patch('ime_windows.target_is_foreground',return_value=False):
+            mode._read(process)
+        process.write.assert_called_once_with(b'QUIT\n');mode.deleteLater()
 
 class ToneSettingsTests(unittest.TestCase):
     @classmethod
@@ -80,6 +88,68 @@ class ToneSettingsTests(unittest.TestCase):
 
 
 class NativeToneStateTests(unittest.TestCase):
+    def test_keypad_tones_numlock_on_off_and_dedicated_arrows(self):
+        from native_hooks import library
+        class State(ctypes.Structure):
+            _fields_=[(name,wintypes.DWORD) for name in ('trigger','held','used','suppressed','chord')]
+        step=library().ks_caps_tone_event_step
+        step.argtypes=[ctypes.POINTER(State),ctypes.POINTER(ctypes.c_ubyte),wintypes.DWORD,wintypes.DWORD,wintypes.BOOL,wintypes.BOOL,wintypes.BOOL,wintypes.DWORD]
+        step.restype=wintypes.DWORD
+        scan=(0x52,0x4f,0x50,0x51,0x4b);nav=(0x2d,0x23,0x28,0x22,0x25)
+        for tone in range(5):
+            for vk in (0x60+tone,nav[tone]):
+                held=(ctypes.c_ubyte*10)();state=State(81,1,0,0,0)
+                call=lambda key,ext,down,enabled:step(ctypes.byref(state),held,key,scan[tone],ext,down,enabled,0)
+                self.assertEqual(call(vk,False,True,True),1|((tone+1)<<8))
+                self.assertEqual(call(vk,False,True,True),1)
+                state.held=0
+                # Num Lock can change while the physical key is held.
+                self.assertEqual(call(nav[tone],False,False,False),1)
+                self.assertFalse(any(held))
+                state.held=1
+                self.assertEqual(call(nav[tone],True,True,True),0)
+                self.assertEqual(call(vk,False,True,False),0)
+                self.assertEqual(call(vk,False,False,False),0)
+                state.held=0
+                self.assertEqual(call(vk,False,True,True),0)
+
+    def test_top_row_and_keypad_hold_independently(self):
+        from native_hooks import library
+        class State(ctypes.Structure):
+            _fields_=[(name,wintypes.DWORD) for name in ('trigger','held','used','suppressed','chord')]
+        step=library().ks_caps_tone_event_step
+        step.argtypes=[ctypes.POINTER(State),ctypes.POINTER(ctypes.c_ubyte),wintypes.DWORD,wintypes.DWORD,wintypes.BOOL,wintypes.BOOL,wintypes.BOOL,wintypes.DWORD]
+        step.restype=wintypes.DWORD
+        held=(ctypes.c_ubyte*10)();state=State(81,1,0,0,0)
+        call=lambda vk,down:step(ctypes.byref(state),held,vk,0,False,down,True,0)
+        self.assertEqual(call(ord('3'),True),1|(4<<8))
+        self.assertEqual(call(0x63,True),1|(4<<8))
+        self.assertEqual(call(ord('3'),False),1)
+        self.assertEqual(call(0x63,True),1)
+        self.assertEqual(call(0x63,False),1)
+        self.assertFalse(any(held))
+
+    def test_popup_numbers_take_priority_over_tones_while_caps_is_held(self):
+        from native_hooks import library
+        class State(ctypes.Structure):
+            _fields_=[(name,wintypes.DWORD) for name in ('trigger','held','used','suppressed','chord')]
+        dll=library();step=dll.ks_caps_tone_event_step
+        step.argtypes=[ctypes.POINTER(State),ctypes.POINTER(ctypes.c_ubyte),wintypes.DWORD,wintypes.DWORD,wintypes.BOOL,wintypes.BOOL,wintypes.BOOL,wintypes.DWORD]
+        step.restype=wintypes.DWORD
+        nav=dll.ks_navigation_event_step
+        nav.argtypes=[ctypes.POINTER(ctypes.c_ubyte),wintypes.DWORD,wintypes.DWORD,wintypes.BOOL,wintypes.DWORD,wintypes.BOOL,wintypes.BOOL,wintypes.BOOL]
+        nav.restype=wintypes.DWORD
+        for mode in (1,2,3):
+            state=State(81,1,0,0,1);held=(ctypes.c_ubyte*10)()
+            self.assertEqual(step(ctypes.byref(state),held,0x63,0x51,False,True,True,mode),0)
+            if mode<3:
+                navigation=(ctypes.c_ubyte*256)()
+                action=nav(navigation,0x63,0x51,True,mode,True,False,False)
+                self.assertEqual(action,3)  # SWALLOW | FIRE; VK travels separately.
+            self.assertEqual(step(ctypes.byref(state),held,0x63,0x51,False,True,True,0),1|(4<<8))
+            self.assertEqual(step(ctypes.byref(state),held,0x63,0x51,False,False,True,mode),1)
+            self.assertFalse(any(held))
+
     def test_caps_number_autorepeat_release_order_and_off(self):
         from native_hooks import library
         class State(ctypes.Structure):

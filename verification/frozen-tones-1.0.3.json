@@ -1,0 +1,13 @@
+{
+  "version": "1.0.3",
+  "passed": true,
+  "checks": {
+    "tone_rules": true,
+    "ke_all_tones": true,
+    "native_tone_abi": true,
+    "keypad_tone_handler_packaged": true,
+    "native_worker_packaged": true,
+    "indexed_dictionary": true,
+    "index_matches_source": true
+  }
+}

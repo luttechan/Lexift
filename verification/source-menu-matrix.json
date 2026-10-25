@@ -1,0 +1,2698 @@
+{
+  "passed": true,
+  "version": "1.0.3",
+  "frozen": false,
+  "languages": [
+    {
+      "version": "1.0.3",
+      "language": "ko",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 6.254
+        },
+        {
+          "menu": "slots",
+          "ms": 48.329
+        },
+        {
+          "menu": "general",
+          "ms": 25.064
+        },
+        {
+          "menu": "about",
+          "ms": 24.955
+        },
+        {
+          "menu": "dictionary",
+          "ms": 58.408
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 5.649
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 7.477
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 21.893
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 23.496
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 34.043
+        },
+        {
+          "menu": "selector-first",
+          "ms": 77.443
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 12.802
+        },
+        {
+          "menu": "exit",
+          "ms": 7.837
+        },
+        {
+          "menu": "update-progress",
+          "ms": 6.234
+        },
+        {
+          "menu": "update-result",
+          "ms": 10.185
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 5.345
+        },
+        {
+          "menu": "slots",
+          "ms": 8.798
+        },
+        {
+          "menu": "general",
+          "ms": 3.922
+        },
+        {
+          "menu": "about",
+          "ms": 3.868
+        },
+        {
+          "menu": "dictionary",
+          "ms": 15.333
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.093
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.756
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 5.07
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.265
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 11.668
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.933
+        },
+        {
+          "menu": "slots",
+          "ms": 10.05
+        },
+        {
+          "menu": "general",
+          "ms": 6.919
+        },
+        {
+          "menu": "about",
+          "ms": 5.516
+        },
+        {
+          "menu": "dictionary",
+          "ms": 18.23
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 9.852
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.874
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 6.286
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 4.579
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 12.227
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.567
+        },
+        {
+          "menu": "slots",
+          "ms": 9.736
+        },
+        {
+          "menu": "general",
+          "ms": 5.109
+        },
+        {
+          "menu": "about",
+          "ms": 5.721
+        },
+        {
+          "menu": "dictionary",
+          "ms": 20.689
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 5.071
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.108
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 6.508
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 5.444
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 15.974
+        },
+        {
+          "menu": "dashboard",
+          "ms": 6.351
+        },
+        {
+          "menu": "slots",
+          "ms": 9.433
+        },
+        {
+          "menu": "general",
+          "ms": 5.432
+        },
+        {
+          "menu": "about",
+          "ms": 6.399
+        },
+        {
+          "menu": "dictionary",
+          "ms": 23.806
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 6.436
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.325
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 6.882
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 4.127
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 13.057
+        },
+        {
+          "menu": "dashboard",
+          "ms": 9.603
+        },
+        {
+          "menu": "slots",
+          "ms": 12.433
+        },
+        {
+          "menu": "general",
+          "ms": 7.002
+        },
+        {
+          "menu": "about",
+          "ms": 7.534
+        },
+        {
+          "menu": "dictionary",
+          "ms": 22.101
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 6.061
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.472
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 8.149
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 4.092
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 12.84
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 8.119
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 10.398
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 6.747
+        },
+        {
+          "menu": "language",
+          "ms": 46.995
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "en",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.034
+        },
+        {
+          "menu": "slots",
+          "ms": 29.809
+        },
+        {
+          "menu": "general",
+          "ms": 10.053
+        },
+        {
+          "menu": "about",
+          "ms": 12.55
+        },
+        {
+          "menu": "dictionary",
+          "ms": 56.31
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.183
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.853
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 8.88
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 4.798
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 28.525
+        },
+        {
+          "menu": "selector-first",
+          "ms": 73.708
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 7.76
+        },
+        {
+          "menu": "exit",
+          "ms": 5.827
+        },
+        {
+          "menu": "update-progress",
+          "ms": 3.765
+        },
+        {
+          "menu": "update-result",
+          "ms": 4.387
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 14.234
+        },
+        {
+          "menu": "slots",
+          "ms": 16.012
+        },
+        {
+          "menu": "general",
+          "ms": 8.703
+        },
+        {
+          "menu": "about",
+          "ms": 8.438
+        },
+        {
+          "menu": "dictionary",
+          "ms": 30.376
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.881
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.364
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.364
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.601
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.386
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.867
+        },
+        {
+          "menu": "slots",
+          "ms": 6.022
+        },
+        {
+          "menu": "general",
+          "ms": 3.2
+        },
+        {
+          "menu": "about",
+          "ms": 3.864
+        },
+        {
+          "menu": "dictionary",
+          "ms": 31.151
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.494
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.501
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 6.297
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.956
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.96
+        },
+        {
+          "menu": "dashboard",
+          "ms": 6.421
+        },
+        {
+          "menu": "slots",
+          "ms": 8.912
+        },
+        {
+          "menu": "general",
+          "ms": 3.647
+        },
+        {
+          "menu": "about",
+          "ms": 4.019
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.079
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.789
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.216
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.36
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.001
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.502
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.907
+        },
+        {
+          "menu": "slots",
+          "ms": 6.185
+        },
+        {
+          "menu": "general",
+          "ms": 3.159
+        },
+        {
+          "menu": "about",
+          "ms": 4.232
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.874
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.204
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.701
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.734
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.993
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.925
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.879
+        },
+        {
+          "menu": "slots",
+          "ms": 6.312
+        },
+        {
+          "menu": "general",
+          "ms": 3.417
+        },
+        {
+          "menu": "about",
+          "ms": 4.062
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.796
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.212
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.76
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.997
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.175
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.821
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 4.725
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 3.708
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 3.62
+        },
+        {
+          "menu": "language",
+          "ms": 27.742
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "ja",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.775
+        },
+        {
+          "menu": "slots",
+          "ms": 49.591
+        },
+        {
+          "menu": "general",
+          "ms": 29.987
+        },
+        {
+          "menu": "about",
+          "ms": 36.178
+        },
+        {
+          "menu": "dictionary",
+          "ms": 40.948
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.381
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 10.672
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 32.93
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 16.202
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 36.352
+        },
+        {
+          "menu": "selector-first",
+          "ms": 73.042
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 6.915
+        },
+        {
+          "menu": "exit",
+          "ms": 7.624
+        },
+        {
+          "menu": "update-progress",
+          "ms": 4.0
+        },
+        {
+          "menu": "update-result",
+          "ms": 7.182
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 5.409
+        },
+        {
+          "menu": "slots",
+          "ms": 6.641
+        },
+        {
+          "menu": "general",
+          "ms": 5.123
+        },
+        {
+          "menu": "about",
+          "ms": 4.175
+        },
+        {
+          "menu": "dictionary",
+          "ms": 13.515
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 6.044
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.429
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 5.126
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.368
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 12.983
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.158
+        },
+        {
+          "menu": "slots",
+          "ms": 7.37
+        },
+        {
+          "menu": "general",
+          "ms": 3.226
+        },
+        {
+          "menu": "about",
+          "ms": 4.687
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.691
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.274
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.402
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 5.536
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.594
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.882
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.383
+        },
+        {
+          "menu": "slots",
+          "ms": 6.97
+        },
+        {
+          "menu": "general",
+          "ms": 3.262
+        },
+        {
+          "menu": "about",
+          "ms": 4.193
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.596
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.893
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.494
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.687
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.923
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.998
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.175
+        },
+        {
+          "menu": "slots",
+          "ms": 7.042
+        },
+        {
+          "menu": "general",
+          "ms": 3.653
+        },
+        {
+          "menu": "about",
+          "ms": 3.934
+        },
+        {
+          "menu": "dictionary",
+          "ms": 11.272
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.43
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.353
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.256
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.59
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.803
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.691
+        },
+        {
+          "menu": "slots",
+          "ms": 6.057
+        },
+        {
+          "menu": "general",
+          "ms": 2.565
+        },
+        {
+          "menu": "about",
+          "ms": 3.509
+        },
+        {
+          "menu": "dictionary",
+          "ms": 9.806
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.309
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.516
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.021
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.584
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.511
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 3.866
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 4.945
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 4.885
+        },
+        {
+          "menu": "language",
+          "ms": 31.335
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "zh_CN",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.251
+        },
+        {
+          "menu": "slots",
+          "ms": 37.494
+        },
+        {
+          "menu": "general",
+          "ms": 24.341
+        },
+        {
+          "menu": "about",
+          "ms": 31.456
+        },
+        {
+          "menu": "dictionary",
+          "ms": 42.396
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.132
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 5.09
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 13.717
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 14.776
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 28.388
+        },
+        {
+          "menu": "selector-first",
+          "ms": 65.057
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 5.902
+        },
+        {
+          "menu": "exit",
+          "ms": 10.484
+        },
+        {
+          "menu": "update-progress",
+          "ms": 4.531
+        },
+        {
+          "menu": "update-result",
+          "ms": 6.197
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 6.533
+        },
+        {
+          "menu": "slots",
+          "ms": 6.277
+        },
+        {
+          "menu": "general",
+          "ms": 2.654
+        },
+        {
+          "menu": "about",
+          "ms": 4.044
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.443
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.2
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.46
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.53
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.708
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.654
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.358
+        },
+        {
+          "menu": "slots",
+          "ms": 5.486
+        },
+        {
+          "menu": "general",
+          "ms": 3.176
+        },
+        {
+          "menu": "about",
+          "ms": 3.078
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.823
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.131
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.754
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.339
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.011
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.532
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.358
+        },
+        {
+          "menu": "slots",
+          "ms": 6.474
+        },
+        {
+          "menu": "general",
+          "ms": 3.21
+        },
+        {
+          "menu": "about",
+          "ms": 3.294
+        },
+        {
+          "menu": "dictionary",
+          "ms": 13.638
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.695
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.977
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 5.744
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.643
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 11.624
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.966
+        },
+        {
+          "menu": "slots",
+          "ms": 5.599
+        },
+        {
+          "menu": "general",
+          "ms": 3.678
+        },
+        {
+          "menu": "about",
+          "ms": 3.265
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.842
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.981
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.175
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.92
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.525
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.626
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.53
+        },
+        {
+          "menu": "slots",
+          "ms": 6.01
+        },
+        {
+          "menu": "general",
+          "ms": 2.437
+        },
+        {
+          "menu": "about",
+          "ms": 2.99
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.71
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.075
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.001
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.676
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.965
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.937
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 4.855
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 4.176
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 5.305
+        },
+        {
+          "menu": "language",
+          "ms": 30.685
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "zh_TW",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.491
+        },
+        {
+          "menu": "slots",
+          "ms": 51.746
+        },
+        {
+          "menu": "general",
+          "ms": 25.157
+        },
+        {
+          "menu": "about",
+          "ms": 29.867
+        },
+        {
+          "menu": "dictionary",
+          "ms": 60.067
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 5.043
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.884
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 21.944
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 16.316
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 32.923
+        },
+        {
+          "menu": "selector-first",
+          "ms": 74.894
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 7.641
+        },
+        {
+          "menu": "exit",
+          "ms": 9.014
+        },
+        {
+          "menu": "update-progress",
+          "ms": 5.293
+        },
+        {
+          "menu": "update-result",
+          "ms": 6.265
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 5.759
+        },
+        {
+          "menu": "slots",
+          "ms": 9.392
+        },
+        {
+          "menu": "general",
+          "ms": 4.66
+        },
+        {
+          "menu": "about",
+          "ms": 4.136
+        },
+        {
+          "menu": "dictionary",
+          "ms": 14.477
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.703
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.202
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.397
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.301
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.376
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.986
+        },
+        {
+          "menu": "slots",
+          "ms": 6.317
+        },
+        {
+          "menu": "general",
+          "ms": 3.221
+        },
+        {
+          "menu": "about",
+          "ms": 3.431
+        },
+        {
+          "menu": "dictionary",
+          "ms": 14.262
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.594
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.339
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.641
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.772
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.422
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.602
+        },
+        {
+          "menu": "slots",
+          "ms": 5.741
+        },
+        {
+          "menu": "general",
+          "ms": 3.66
+        },
+        {
+          "menu": "about",
+          "ms": 4.469
+        },
+        {
+          "menu": "dictionary",
+          "ms": 13.319
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.898
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 5.235
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 5.734
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.808
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 11.299
+        },
+        {
+          "menu": "dashboard",
+          "ms": 6.247
+        },
+        {
+          "menu": "slots",
+          "ms": 7.54
+        },
+        {
+          "menu": "general",
+          "ms": 3.361
+        },
+        {
+          "menu": "about",
+          "ms": 4.668
+        },
+        {
+          "menu": "dictionary",
+          "ms": 13.769
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.647
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.273
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 6.056
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.391
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 11.588
+        },
+        {
+          "menu": "dashboard",
+          "ms": 6.213
+        },
+        {
+          "menu": "slots",
+          "ms": 7.215
+        },
+        {
+          "menu": "general",
+          "ms": 3.5
+        },
+        {
+          "menu": "about",
+          "ms": 5.818
+        },
+        {
+          "menu": "dictionary",
+          "ms": 15.366
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.166
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.019
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.779
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.902
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.734
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 4.787
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 4.502
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 4.862
+        },
+        {
+          "menu": "language",
+          "ms": 34.925
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "fr",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.314
+        },
+        {
+          "menu": "slots",
+          "ms": 31.486
+        },
+        {
+          "menu": "general",
+          "ms": 13.361
+        },
+        {
+          "menu": "about",
+          "ms": 12.042
+        },
+        {
+          "menu": "dictionary",
+          "ms": 59.219
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.03
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 6.874
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 9.55
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 7.043
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 24.719
+        },
+        {
+          "menu": "selector-first",
+          "ms": 98.371
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 13.781
+        },
+        {
+          "menu": "exit",
+          "ms": 12.607
+        },
+        {
+          "menu": "update-progress",
+          "ms": 7.782
+        },
+        {
+          "menu": "update-result",
+          "ms": 5.705
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 6.402
+        },
+        {
+          "menu": "slots",
+          "ms": 7.499
+        },
+        {
+          "menu": "general",
+          "ms": 2.898
+        },
+        {
+          "menu": "about",
+          "ms": 4.176
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.744
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.492
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.172
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.399
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.34
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.337
+        },
+        {
+          "menu": "dashboard",
+          "ms": 8.106
+        },
+        {
+          "menu": "slots",
+          "ms": 8.692
+        },
+        {
+          "menu": "general",
+          "ms": 4.718
+        },
+        {
+          "menu": "about",
+          "ms": 6.059
+        },
+        {
+          "menu": "dictionary",
+          "ms": 23.103
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 6.157
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.201
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 7.542
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 4.048
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 22.433
+        },
+        {
+          "menu": "dashboard",
+          "ms": 17.54
+        },
+        {
+          "menu": "slots",
+          "ms": 14.384
+        },
+        {
+          "menu": "general",
+          "ms": 6.101
+        },
+        {
+          "menu": "about",
+          "ms": 7.283
+        },
+        {
+          "menu": "dictionary",
+          "ms": 18.863
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 6.144
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.261
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 7.81
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 5.518
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 13.899
+        },
+        {
+          "menu": "dashboard",
+          "ms": 6.078
+        },
+        {
+          "menu": "slots",
+          "ms": 6.593
+        },
+        {
+          "menu": "general",
+          "ms": 3.234
+        },
+        {
+          "menu": "about",
+          "ms": 3.881
+        },
+        {
+          "menu": "dictionary",
+          "ms": 15.117
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 5.996
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.627
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.848
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.681
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.921
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.252
+        },
+        {
+          "menu": "slots",
+          "ms": 6.834
+        },
+        {
+          "menu": "general",
+          "ms": 3.209
+        },
+        {
+          "menu": "about",
+          "ms": 3.61
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.098
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 5.513
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.202
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 5.268
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.527
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 10.573
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 5.805
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 7.737
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 11.721
+        },
+        {
+          "menu": "language",
+          "ms": 50.438
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "es",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.106
+        },
+        {
+          "menu": "slots",
+          "ms": 38.419
+        },
+        {
+          "menu": "general",
+          "ms": 13.81
+        },
+        {
+          "menu": "about",
+          "ms": 15.3
+        },
+        {
+          "menu": "dictionary",
+          "ms": 55.346
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.863
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.293
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 9.109
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 5.726
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 17.599
+        },
+        {
+          "menu": "selector-first",
+          "ms": 76.321
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 9.004
+        },
+        {
+          "menu": "exit",
+          "ms": 9.063
+        },
+        {
+          "menu": "update-progress",
+          "ms": 4.973
+        },
+        {
+          "menu": "update-result",
+          "ms": 5.914
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 4.957
+        },
+        {
+          "menu": "slots",
+          "ms": 8.018
+        },
+        {
+          "menu": "general",
+          "ms": 3.364
+        },
+        {
+          "menu": "about",
+          "ms": 3.744
+        },
+        {
+          "menu": "dictionary",
+          "ms": 17.315
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 6.006
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.937
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.94
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.333
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.656
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.947
+        },
+        {
+          "menu": "slots",
+          "ms": 6.332
+        },
+        {
+          "menu": "general",
+          "ms": 2.649
+        },
+        {
+          "menu": "about",
+          "ms": 3.292
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.213
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.383
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.831
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.717
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.252
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 9.0
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.384
+        },
+        {
+          "menu": "slots",
+          "ms": 6.664
+        },
+        {
+          "menu": "general",
+          "ms": 3.418
+        },
+        {
+          "menu": "about",
+          "ms": 4.44
+        },
+        {
+          "menu": "dictionary",
+          "ms": 15.472
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.861
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.445
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 6.414
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.125
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.902
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.51
+        },
+        {
+          "menu": "slots",
+          "ms": 5.805
+        },
+        {
+          "menu": "general",
+          "ms": 3.126
+        },
+        {
+          "menu": "about",
+          "ms": 3.112
+        },
+        {
+          "menu": "dictionary",
+          "ms": 11.011
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.287
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.602
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.006
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.515
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.315
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.125
+        },
+        {
+          "menu": "slots",
+          "ms": 5.286
+        },
+        {
+          "menu": "general",
+          "ms": 2.993
+        },
+        {
+          "menu": "about",
+          "ms": 3.009
+        },
+        {
+          "menu": "dictionary",
+          "ms": 9.647
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.104
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.038
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.803
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.344
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.643
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 5.798
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 5.394
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 9.538
+        },
+        {
+          "menu": "language",
+          "ms": 43.451
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "ru",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 4.174
+        },
+        {
+          "menu": "slots",
+          "ms": 34.25
+        },
+        {
+          "menu": "general",
+          "ms": 13.576
+        },
+        {
+          "menu": "about",
+          "ms": 19.855
+        },
+        {
+          "menu": "dictionary",
+          "ms": 52.23
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.12
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 5.559
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 8.532
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 5.175
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 18.601
+        },
+        {
+          "menu": "selector-first",
+          "ms": 60.406
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 7.204
+        },
+        {
+          "menu": "exit",
+          "ms": 4.636
+        },
+        {
+          "menu": "update-progress",
+          "ms": 3.183
+        },
+        {
+          "menu": "update-result",
+          "ms": 3.793
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 5.475
+        },
+        {
+          "menu": "slots",
+          "ms": 6.032
+        },
+        {
+          "menu": "general",
+          "ms": 2.656
+        },
+        {
+          "menu": "about",
+          "ms": 3.116
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.655
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.952
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.297
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.955
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.589
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.518
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.832
+        },
+        {
+          "menu": "slots",
+          "ms": 5.243
+        },
+        {
+          "menu": "general",
+          "ms": 3.648
+        },
+        {
+          "menu": "about",
+          "ms": 3.007
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.916
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 4.379
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.914
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.084
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.797
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.862
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.177
+        },
+        {
+          "menu": "slots",
+          "ms": 6.164
+        },
+        {
+          "menu": "general",
+          "ms": 2.833
+        },
+        {
+          "menu": "about",
+          "ms": 3.401
+        },
+        {
+          "menu": "dictionary",
+          "ms": 9.943
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.323
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.009
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.688
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.191
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.741
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.312
+        },
+        {
+          "menu": "slots",
+          "ms": 5.343
+        },
+        {
+          "menu": "general",
+          "ms": 2.846
+        },
+        {
+          "menu": "about",
+          "ms": 2.979
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.673
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.575
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.319
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.466
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.46
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.829
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.515
+        },
+        {
+          "menu": "slots",
+          "ms": 5.132
+        },
+        {
+          "menu": "general",
+          "ms": 2.554
+        },
+        {
+          "menu": "about",
+          "ms": 3.22
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.734
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.545
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.023
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.764
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.442
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.067
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 3.644
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 4.147
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 4.836
+        },
+        {
+          "menu": "language",
+          "ms": 20.737
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    },
+    {
+      "version": "1.0.3",
+      "language": "de",
+      "passed": true,
+      "first": [
+        {
+          "menu": "dashboard",
+          "ms": 3.904
+        },
+        {
+          "menu": "slots",
+          "ms": 27.984
+        },
+        {
+          "menu": "general",
+          "ms": 10.157
+        },
+        {
+          "menu": "about",
+          "ms": 11.776
+        },
+        {
+          "menu": "dictionary",
+          "ms": 52.93
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.302
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 4.983
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 7.228
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 5.651
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 17.087
+        },
+        {
+          "menu": "selector-first",
+          "ms": 53.432
+        },
+        {
+          "menu": "selector-repeat",
+          "ms": 5.797
+        },
+        {
+          "menu": "exit",
+          "ms": 4.56
+        },
+        {
+          "menu": "update-progress",
+          "ms": 2.861
+        },
+        {
+          "menu": "update-result",
+          "ms": 4.169
+        }
+      ],
+      "warm": [
+        {
+          "menu": "dashboard",
+          "ms": 4.294
+        },
+        {
+          "menu": "slots",
+          "ms": 5.402
+        },
+        {
+          "menu": "general",
+          "ms": 2.564
+        },
+        {
+          "menu": "about",
+          "ms": 2.906
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.71
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.878
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.24
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.811
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.897
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.601
+        },
+        {
+          "menu": "dashboard",
+          "ms": 5.325
+        },
+        {
+          "menu": "slots",
+          "ms": 5.483
+        },
+        {
+          "menu": "general",
+          "ms": 2.781
+        },
+        {
+          "menu": "about",
+          "ms": 3.775
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.91
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.527
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 3.34
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.362
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.775
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 8.185
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.898
+        },
+        {
+          "menu": "slots",
+          "ms": 5.66
+        },
+        {
+          "menu": "general",
+          "ms": 3.663
+        },
+        {
+          "menu": "about",
+          "ms": 3.268
+        },
+        {
+          "menu": "dictionary",
+          "ms": 12.762
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.225
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.467
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 4.424
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.449
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.918
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.769
+        },
+        {
+          "menu": "slots",
+          "ms": 5.374
+        },
+        {
+          "menu": "general",
+          "ms": 2.717
+        },
+        {
+          "menu": "about",
+          "ms": 3.546
+        },
+        {
+          "menu": "dictionary",
+          "ms": 10.699
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.355
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.897
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.867
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 3.43
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.103
+        },
+        {
+          "menu": "dashboard",
+          "ms": 4.213
+        },
+        {
+          "menu": "slots",
+          "ms": 5.999
+        },
+        {
+          "menu": "general",
+          "ms": 2.478
+        },
+        {
+          "menu": "about",
+          "ms": 3.033
+        },
+        {
+          "menu": "dictionary",
+          "ms": 9.838
+        },
+        {
+          "menu": "general-tab-0",
+          "ms": 3.473
+        },
+        {
+          "menu": "general-tab-1",
+          "ms": 2.485
+        },
+        {
+          "menu": "general-tab-2",
+          "ms": 3.793
+        },
+        {
+          "menu": "general-tab-3",
+          "ms": 2.434
+        },
+        {
+          "menu": "runtime-details",
+          "ms": 7.697
+        }
+      ],
+      "checks": {
+        "all_main_menus": true,
+        "all_first_panels_under_100ms": true,
+        "dropdowns_under_100ms": true,
+        "warm_menus_under_100ms": true,
+        "dictionary_rows": true,
+        "slot_rows": true,
+        "no_event_errors": true
+      },
+      "scope": "Owned offscreen Qt widgets; render time includes layout and paint, excludes DWM and external application behaviour",
+      "dropdowns": [
+        {
+          "menu": "input-layout",
+          "ms": 4.24
+        },
+        {
+          "menu": "shortcut-modifier",
+          "ms": 3.009
+        },
+        {
+          "menu": "shortcut-key",
+          "ms": 4.444
+        },
+        {
+          "menu": "language",
+          "ms": 22.793
+        }
+      ],
+      "event_errors": [],
+      "stats_worker_released": true
+    }
+  ]
+}

@@ -56,6 +56,7 @@ def verify(output):
                     qt.processEvents()
                     window.grab()
                     timings.append(dict(page=index, ms=round((time.perf_counter()-started)*1000,3)))
+                checks['general_under_100ms'] = first_visit_ms < 100
                 checks['conversion_heading'] = any(w.text()==tr('한글 환경 언어 변환') for w in window.findChildren(QLabel))
                 checks['translated_heading'] = code=='ko' or tr('한글 환경 언어 변환')!='한글 환경 언어 변환'
                 checks['saved_preferences_loaded'] = not window.show_at_start.isChecked() and window.start_notice.isChecked() and not window.sound_notice.isChecked()

@@ -46,6 +46,12 @@ def _report_startup_error(details: str, show_dialog: bool = True) -> None:
 
 def main() -> int:
     try:
+        if len(sys.argv) in (3,4) and sys.argv[1]=='--verify-selector':
+            from menu_diagnostics import verify_selector
+            return verify_selector(sys.argv[2],sys.argv[3] if len(sys.argv)==4 else 'ko')
+        if len(sys.argv) in (3,4) and sys.argv[1] in ('--verify-menus','--verify-menu-leaks'):
+            from menu_diagnostics import verify
+            return verify(sys.argv[2],sys.argv[3] if len(sys.argv)==4 else 'ko',sys.argv[1]=='--verify-menu-leaks')
         if len(sys.argv)==3 and sys.argv[1]=='--verify-tones':
             from tone_diagnostics import verify
             return verify(sys.argv[2])
@@ -89,7 +95,7 @@ def main() -> int:
         from app import main as app_main
         return app_main()
     except BaseException:
-        if len(sys.argv)>=2 and sys.argv[1] in ('--verify-ime','--verify-chinese','--verify-features','--verify-settings','--verify-variants'):
+        if len(sys.argv)>=2 and sys.argv[1] in ('--verify-ime','--verify-chinese','--verify-features','--verify-settings','--verify-variants','--verify-tones','--verify-memory','--verify-menus','--verify-menu-leaks','--verify-selector'):
             _report_startup_error(traceback.format_exc(),show_dialog=False)
             return 1
         if sys.argv[1:] == ['--verify-runtime']:
