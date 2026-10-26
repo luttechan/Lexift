@@ -1,4 +1,5 @@
 {
+  "cpu": "baseline",
   "sources": {
     "keyboard_worker.c": "0bc737aeaf6d466bcdefc5f910d65ffe86858ea06954eab2a06575dcb2c7b59e",
     "native_hooks.c": "27ed14da4bbad34e27e60169a4f2ca6dec7b24ccb6b7287e26c3da8178bdd1e0"

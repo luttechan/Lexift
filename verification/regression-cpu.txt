@@ -1,0 +1,45 @@
+.........................................................................................ERROR:root:Could not restore default settings
+Traceback (most recent call last):
+  File "C:\Users\Neko4K\.codex\.chatgpt-projects\g-p-6ad526318608819189f710c380e3ed4c\Lexift v1.0.4\module\app.py", line 1957, in reset_defaults
+    self.custom_dictionary.replace([])
+  File "C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Neko4K\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+OSError: test write failure
+.....................................................................WARNING:root:IME 입력 모드를 확인하지 못했습니다. 입력기 설정을 확인하세요.
+....................................................WARNING:root:Japanese query exited; code=0x0000F291; ready=True; shared_desktop=False; stages=initialize_com 0x00000000
+
+thread_manager 0x00000000
+
+activate_uiless 0x00000000
+
+advise_sink 0x00000000
+
+change_query_language 0x00000000
+
+activate_query_profile 0x80004005
+
+layout_found 0x00000000
+
+host_ready 0x00000000
+
+change_query_language 0x00000000
+
+activate_query_profile 0x80004005
+
+
+.WARNING:root:Japanese query exited; code=0x00000007; ready=False; shared_desktop=False; stages=
+....WARNING:root:Japanese query exited; code=0x00000003; ready=False; shared_desktop=False; stages=
+WARNING:root:Japanese query exited; code=0x00000003; ready=False; shared_desktop=True; stages=
+..WARNING:root:Japanese query exited; code=0x00000007; ready=False; shared_desktop=False; stages=
+.........................................................................................................................................................................................................................................................................................WARNING:root:한국어 입력 상태를 확인하지 못했습니다.
+...........
+----------------------------------------------------------------------
+Ran 509 tests in 45.415s
+
+OK

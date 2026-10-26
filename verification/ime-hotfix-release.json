@@ -1,7 +1,7 @@
 {
   "passed": true,
   "version": "1.0.4",
-  "source_tests": 505,
+  "source_tests": 509,
   "native_checks": 128,
   "frozen_checks": [
     {
@@ -34,7 +34,9 @@
     }
   ],
   "lifecycle_runs": 8,
+  "cpu_target": "x86-64 baseline",
+  "old_avx512_instructions": 346,
   "other_physical_devices_tested": false,
-  "zip_sha256": "fb1b9f0644e8308d9d39d0825ee63efb408948b8d9a2e67a8df7bc550386d2da",
-  "build_fingerprint": "b8bcc8035ee0815656c46c39008bbf97ec10eb5388ec5ce0724ddd8dbe839f74"
+  "zip_sha256": "47ff2645e37cde339630b6bd804ea3f40330b75ff474fe3cf7ac1974d37ac7fc",
+  "build_fingerprint": "6ae495704b19ce6f7ff002c366e546e82276648c431427f94bc4d35620a5400d"
 }

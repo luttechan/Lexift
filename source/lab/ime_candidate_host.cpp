@@ -807,7 +807,19 @@ static int hostMain(int argc,wchar_t** argv) {
     if(logFile) fclose(logFile);
     return queryServer?0:automatic?(gotCandidates&&!inputAborted&&actionsOK?0:4):0;
 }
+static LONG CALLBACK recordNativeFault(EXCEPTION_POINTERS* details){
+    if(details && details->ExceptionRecord && details->ExceptionRecord->ExceptionCode==EXCEPTION_ILLEGAL_INSTRUCTION){
+        void* address=details->ExceptionRecord->ExceptionAddress;HMODULE module=nullptr;wchar_t path[1024]={};
+        GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,(LPCWSTR)address,&module);
+        if(module)GetModuleFileNameW(module,path,1024);
+        const wchar_t* name=wcsrchr(path,L'\\');name=name?name+1:path;
+        fprintf(stderr,"native_fault code=0x%08lX module=%ls offset=0x%llX\n",details->ExceptionRecord->ExceptionCode,name,
+                (unsigned long long)((ULONG_PTR)address-(ULONG_PTR)module));fflush(stderr);
+    }
+    return EXCEPTION_CONTINUE_SEARCH;
+}
 int WINAPI wWinMain(HINSTANCE,HINSTANCE,PWSTR,int) {
+    AddVectoredExceptionHandler(1,recordNativeFault);
     int argc=0;
     auto argv=CommandLineToArgvW(GetCommandLineW(),&argc);
     if(!argv) return 2;

@@ -19,6 +19,8 @@ tls_datas=[(str(ssl_data),'.')] if ssl_data.is_file() else []
 os.environ['PATH'] = os.pathsep.join([str(ssl_folder), str(windows_folder / 'System32'), str(windows_folder), os.environ.get('PATH', '')])
 module_folder = Path(SPECPATH)
 project_folder = module_folder.parent
+import runpy
+runpy.run_path(str(module_folder / 'native_baseline.py'))['verify'](project_folder)
 
 a = Analysis(
     [str(project_folder / 'launch.pyw')],

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "old_executable": "1.0.3",
+  "legacy_check": true,
+  "legacy_download": true,
+  "legacy_install_transaction": true,
+  "new_runtime_verified": true,
+  "user_data_preserved": true,
+  "current_build_matches": true,
+  "zip_sha256": "fb1b9f0644e8308d9d39d0825ee63efb408948b8d9a2e67a8df7bc550386d2da"
+}
