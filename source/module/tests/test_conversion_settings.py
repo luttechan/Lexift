@@ -296,7 +296,7 @@ class DictionaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             store=QSettings(str(Path(folder)/'prefs.ini'),QSettings.Format.IniFormat);dictionary=CustomDictionary(store)
             row=dict(keyword='스미네',text='澄音',language='ja');dictionary.replace([row]);saved=store.value(KEY)
-            for entries in ([row,row],[dict(row,keyword='abc')],[dict(row,text='')],[dict(row,language='en')],[row]*1001):
+            for entries in ([row,row],[dict(row,keyword='abc')],[dict(row,text='')],[dict(row,text='\ud800')],[dict(row,text='\udc00')],[dict(row,language='en')],[row]*1001):
                 with self.assertRaises(ValueError):dictionary.replace(entries)
                 self.assertEqual(store.value(KEY),saved)
             store.setValue(KEY,'invalid json');CustomDictionary(store)

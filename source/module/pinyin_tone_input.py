@@ -9,7 +9,7 @@ class ToneInput(QObject):
     failed=Signal(str)
     def __init__(self,parent=None):
         super().__init__(parent);self.process=None;self.buffer=b'';self.target=0;self.tone=0;self.sent=False
-        self.timeout=QTimer(self);self.timeout.setSingleShot(True);self.timeout.setInterval(1800)
+        self.timeout=QTimer(self);self.timeout.setSingleShot(True);self.timeout.setInterval(3500)
         self.timeout.timeout.connect(self.cancel)
 
     def apply(self,hwnd,tone):
@@ -30,6 +30,7 @@ class ToneInput(QObject):
             line,self.buffer=self.buffer.split(b'\n',1)
             try:data=json.loads(line)
             except ValueError:continue
+            if not isinstance(data,dict):self.cancel();return
             if data.get('event')=='replace':self.cancel();return
             if data.get('event')!='input' or self.sent:continue
             # Hotkeys capture the focused child; native snapshots identify its

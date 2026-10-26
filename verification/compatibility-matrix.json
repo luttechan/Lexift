@@ -1,7 +1,7 @@
 {
   "version": "1.0.4b",
   "source_tests": 484,
-  "native_checks": 112,
+  "native_checks": 128,
   "relocated_runtime_checks": 7,
   "actual_windows": "10.0.26220",
   "actual_architecture": "AMD64",

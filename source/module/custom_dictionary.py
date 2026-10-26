@@ -25,6 +25,8 @@ def validate(entries):
             raise ValueError('키워드는 한글과 -로 64자 이내로 입력하세요.')
         if not text or len(text)>4096 or '\x00' in text or lang not in ('ja','zh','zh_tw','zh_bopomofo'):
             raise ValueError('대치할 텍스트와 언어를 확인하세요.')
+        try:text.encode('utf-16-le')
+        except UnicodeError:raise ValueError('대치할 텍스트와 언어를 확인하세요.')
         identity=(lang,keyword)
         if identity in seen:
             raise ValueError('같은 언어에 동일한 키워드가 있습니다.')

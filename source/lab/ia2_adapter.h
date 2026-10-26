@@ -188,7 +188,8 @@ static bool prepareIa2Replacement(IAccessible* focused,const Ia2Snapshot& snapsh
     Ia2Snapshot fresh;
     return focused && readIa2Object(focused,fresh) && sameIa2(snapshot,fresh);
 }
-static bool replaceIa2(const Ia2Snapshot& snapshot,const std::wstring& replacement) {
+static bool replaceIa2(const Ia2Snapshot& snapshot,const std::wstring& replacement,ULONGLONG deadline=0) {
+    if(deadline && GetTickCount64()>=deadline)return false;
     BSTR text=SysAllocStringLen(replacement.data(),(UINT)replacement.size());
     if(!text)return false;
     HRESULT hr=snapshot.editable->replaceText(snapshot.start,snapshot.end,&text);
@@ -200,7 +201,8 @@ static bool replaceIa2(const Ia2Snapshot& snapshot,const std::wstring& replaceme
     auto prefix=snapshot.before.substr(0,snapshot.before.size()-snapshot.token.size());
     auto expected=prefix+replacement+snapshot.after;
     LONG begin=snapshot.start-(LONG)prefix.size();bool caretRequested=false;
-    ULONGLONG deadline=GetTickCount64()+180;HWND foreground=GetForegroundWindow();
+    if(!deadline)deadline=GetTickCount64()+180;
+    HWND foreground=GetForegroundWindow();
     do {
         if(GetForegroundWindow()!=foreground)return false;
         VARIANT state;VariantInit(&state);

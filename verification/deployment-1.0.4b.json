@@ -10,10 +10,10 @@
     "settings",
     "tones"
   ],
-  "zip_sha256": "38d80b2e36c1b525e2bd266370404bb5d49312c7e0c7f34c109c70e12295223f",
+  "zip_sha256": "58082f18f4467880d975c6bc22146681177480e46b2fe34633739f6b547acbd5",
   "runtime_files": 322,
   "previous_version_preserved": true,
-  "native_checks": 112,
+  "native_checks": 128,
   "portability_checks": 7,
   "all_apps_verified": false,
   "other_physical_devices_tested": false,

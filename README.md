@@ -25,9 +25,9 @@ Japanese input requires Microsoft Japanese IME.
 
 ## 1.0.4b
 
-Improved text-field compatibility, including decomposed Hangul. Fixed missing candidates and unexpected OFF.
+Improved text-field compatibility. Fixed premature timeouts and truncated custom replacements.
 
-분리 자모 등 입력칸 호환성 개선. 후보창 미표시 및 자동 OFF 수정.
+입력칸 호환성 개선. 느린 입력창의 확정 실패 및 긴 대치문 잘림 수정.
 
 ## Credits
 

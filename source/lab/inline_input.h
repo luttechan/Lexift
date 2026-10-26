@@ -8,6 +8,7 @@
 #include "ia2_adapter.h"
 #include "editable_policy.h"
 #include "uia_selection.h"
+#include "wire_text.h"
 static DWORD inlineOwnerPid=0;
 
 struct InlineSnapshot {
@@ -269,7 +270,8 @@ static bool inlineSnapshot(IUIAutomation* automation,InlineSnapshot& result) {
     if(!gecko && ia2InlineSnapshot(result))return true;
     return false;
 }
-static bool prepareInlineReplacement(IUIAutomation* automation,const InlineSnapshot& snapshot) {
+static bool prepareInlineReplacement(IUIAutomation* automation,const InlineSnapshot& snapshot,ULONGLONG deadline) {
+    if(GetTickCount64()>=deadline)return false;
     if(GetForegroundWindow()!=snapshot.target) return false;
     if(snapshot.ia2) {
         IAccessible* focused=focusedMsaa(snapshot.target);if(!focused)return false;
@@ -291,7 +293,7 @@ static bool prepareInlineReplacement(IUIAutomation* automation,const InlineSnaps
         }
     }
     if(!pattern)return false;
-    ULONGLONG deadline=GetTickCount64()+180;bool ready=false;
+    bool ready=false;
     do {
         IUIAutomationElement* focused=nullptr;BOOL same=FALSE;
         if(GetForegroundWindow()!=snapshot.target)break;
@@ -339,15 +341,14 @@ static bool refreshInlineSnapshot(IUIAutomation* automation,const InlineSnapshot
     if(before.ia2)return ia2InlineSnapshot(after);
     return uiaInlineSnapshot(automation,after);
 }
-static std::shared_ptr<InlineSnapshot> settleInlineComposition(IUIAutomation* automation,const InlineSnapshot& before) {
+static std::shared_ptr<InlineSnapshot> settleInlineComposition(IUIAutomation* automation,const InlineSnapshot& before,ULONGLONG deadline) {
     // A foreign process does not own this app's HIMC/TSF composition. Let its
     // real Korean IME commit naturally, then remove exactly this added space
     // together with the verified original reading. No caret movement keys.
-    if(GetForegroundWindow()!=before.target)return {};
+    if(GetForegroundWindow()!=before.target || GetTickCount64()>=deadline)return {};
     INPUT keys[2]={};keys[0].type=keys[1].type=INPUT_KEYBOARD;
     keys[0].ki.wVk=keys[1].ki.wVk=VK_SPACE;keys[1].ki.dwFlags=KEYEVENTF_KEYUP;
     if(SendInput(2,keys,sizeof(INPUT))!=2)return {};
-    ULONGLONG deadline=GetTickCount64()+180;
     while(GetTickCount64()<deadline) {
         if(GetForegroundWindow()!=before.target)return {};
         auto after=std::make_shared<InlineSnapshot>();
@@ -355,20 +356,6 @@ static std::shared_ptr<InlineSnapshot> settleInlineComposition(IUIAutomation* au
         Sleep(5);
     }
     return {};
-}
-static std::wstring fromHex(const std::string& text) {
-    std::wstring result;
-    if(text.size()%4 || text.size()>4096) return result;
-    for(size_t i=0;i<text.size();i+=4) {
-        unsigned value=0;
-        for(size_t j=0;j<4;j++) {
-            char c=text[i+j];int digit=c>='0'&&c<='9'?c-'0':c>='a'&&c<='f'?c-'a'+10:-1;
-            if(digit<0) return L"";
-            value=value*16+digit;
-        }
-        result.push_back((wchar_t)value);
-    }
-    return result;
 }
 static void CALLBACK inlineChanged(HWINEVENTHOOK,DWORD event,HWND,LONG,LONG,DWORD,DWORD) {
     // Delivery wakes MsgWaitForMultipleObjects; never query COM in the hook.
@@ -426,6 +413,7 @@ static int runInlineWatcher(DWORD ownerPid=0) {
             char buffer[8192];DWORD got=0;
             if(!ReadFile(input,buffer,std::min<DWORD>(available,sizeof buffer),&got,nullptr)) break;
             incoming.append(buffer,got);
+            if(incoming.size()>131072)break;
             size_t end=0;
             while((end=incoming.find('\n'))!=std::string::npos) {
                 std::string command=incoming.substr(0,end);incoming.erase(0,end+1);
@@ -433,9 +421,12 @@ static int runInlineWatcher(DWORD ownerPid=0) {
                 if(command=="PAUSE 1" || command=="PAUSE 0") {
                     paused=command=="PAUSE 1";observations.clear();previousKey.clear();continue;
                 }
-                unsigned requested=0;char hex[4097]={};
-                if(sscanf(command.c_str(),"REPLACE %u %4096s",&requested,hex)==2) {
-                    auto replacement=fromHex(hex);
+                if(command.compare(0,8,"REPLACE ")==0) {
+                    unsigned requested=0;std::wstring replacement;
+                    if(!parseReplacementCommand(command,requested,replacement)) {
+                        printf("{\"event\":\"replace\",\"serial\":%u,\"success\":false}\n",requested);fflush(stdout);continue;
+                    }
+                    ULONGLONG deadline=GetTickCount64()+1800;
                     InlineSnapshot fresh;
                     auto expected=std::find_if(observations.begin(),observations.end(),[&](const auto& entry){return entry.first==requested;});
                     auto captured=expected!=observations.end()?expected->second:nullptr;
@@ -443,13 +434,13 @@ static int runInlineWatcher(DWORD ownerPid=0) {
                     observations.clear();previousKey.clear();valid=false;
                     if(success) {
                         CommitSpaceScope probe;
-                        auto settled=settleInlineComposition(automation,fresh);
+                        auto settled=settleInlineComposition(automation,fresh,deadline);
                         const InlineSnapshot* selected=settled.get();
-                        success=selected && prepareInlineReplacement(automation,*selected) && GetForegroundWindow()==fresh.target;
+                        success=selected && prepareInlineReplacement(automation,*selected,deadline) && GetForegroundWindow()==fresh.target && GetTickCount64()<deadline;
                         if(success) {
                             HWND direct=fresh.native&&!fresh.edit.scintilla?fresh.edit.control:nullptr;
                             if(selected->ia2) {
-                                success=replaceIa2(*selected->ia2,replacement);
+                                success=replaceIa2(*selected->ia2,replacement,deadline);
                             } else if(direct) {
                                 // One marshalled edit operation on the owner's UI
                                 // thread preserves UTF-16 order and undo history.

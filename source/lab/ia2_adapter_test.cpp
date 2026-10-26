@@ -12,7 +12,7 @@ struct TextProvider : KsAccessible2,KsAccessibleText,KsEditableText,IServiceProv
     ULONG refs=1;LONG state=STATE_SYSTEM_FOCUSED,msaaRole=ROLE_SYSTEM_TEXT,ia2State=0x8,selections=0,begin=0,end=0;
     bool serviceOnly=false,asynchronousSelection=false,ignoreReplacement=false;
     LONG replacementCalls=0;
-    LONG deferredReads=0;bool pendingEdit=false;std::wstring deferredValue;
+    LONG deferredReads=0;DWORD readDelay=0;bool pendingEdit=false;std::wstring deferredValue;
     LONG selectionWrites=0;
     LONG caret=0,reads=0;bool endGeometry=true;
     std::wstring value=L"prefix 고치소-사마 suffix";
@@ -68,7 +68,7 @@ struct TextProvider : KsAccessible2,KsAccessibleText,KsEditableText,IServiceProv
     STUB(get_textAfterOffset,(LONG,int,LONG*,LONG*,BSTR*))
     STUB(get_textAtOffset,(LONG,int,LONG*,LONG*,BSTR*)) STUB(removeSelection,(LONG)) HRESULT STDMETHODCALLTYPE setCaretOffset(LONG n)override{caret=n;return S_OK;}
     HRESULT STDMETHODCALLTYPE setSelection(LONG,LONG a,LONG b)override{selectionWrites++;if(!asynchronousSelection){begin=a;end=b;}return S_OK;}
-    HRESULT STDMETHODCALLTYPE get_nCharacters(LONG* n)override{if(pendingEdit && --deferredReads<=0){value=deferredValue;pendingEdit=false;}*n=(LONG)value.size();return S_OK;}
+    HRESULT STDMETHODCALLTYPE get_nCharacters(LONG* n)override{if(pendingEdit){if(readDelay)Sleep(readDelay);if(--deferredReads<=0){value=deferredValue;pendingEdit=false;}}*n=(LONG)value.size();return S_OK;}
     STUB(scrollSubstringTo,(LONG,LONG,int)) STUB(scrollSubstringToPoint,(LONG,LONG,int,LONG,LONG))
     STUB(get_newText,(KsTextSegment*)) STUB(get_oldText,(KsTextSegment*))
     STUB(copyText,(LONG,LONG)) STUB(deleteText,(LONG,LONG)) STUB(insertText,(LONG,BSTR*))
@@ -163,6 +163,14 @@ int main(){
     {
         TextProvider ancestor;ancestor.state=STATE_SYSTEM_READONLY;Ia2Snapshot snapshot;
         check("unfocused readonly ancestor does not block other backends",!readIa2Object(&ancestor,snapshot) && !snapshot.blocked && ancestor.reads==0);
+    }
+    {
+        TextProvider slow;Ia2Snapshot snapshot;readIa2Object(&slow,snapshot);slow.deferredReads=5;slow.readDelay=50;
+        check("slow provider beyond 180 ms uses the shared budget",replaceIa2(snapshot,L"ご馳走様",GetTickCount64()+1000) && slow.replacementCalls==1);
+    }
+    {
+        TextProvider expired;Ia2Snapshot snapshot;readIa2Object(&expired,snapshot);ULONGLONG deadline=GetTickCount64()+1;Sleep(5);
+        check("expired budget never submits a replacement",!replaceIa2(snapshot,L"ご馳走様",deadline) && expired.replacementCalls==0);
     }
     printf("{\"passed\":%d,\"failed\":%d,\"fixture\":\"IAccessible2 COM provider\",\"firefox_end_to_end\":false}\n",passed,failed);
     return failed?1:0;

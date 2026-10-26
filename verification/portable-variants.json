@@ -87,7 +87,7 @@
         "ㄋㄧ ㄏㄚ ㄨㄛ"
       ],
       "passed": true,
-      "elapsed_ms": 109.985
+      "elapsed_ms": 110.872
     },
     {
       "source": "중궈",
@@ -119,7 +119,7 @@
         "ㄐㄩㄥ ㄍㄨㄛ"
       ],
       "passed": true,
-      "elapsed_ms": 0.68
+      "elapsed_ms": 0.63
     },
     {
       "source": "터우파",
@@ -156,7 +156,7 @@
         "ㄊㄡ ㄆㄚ"
       ],
       "passed": true,
-      "elapsed_ms": 1.116
+      "elapsed_ms": 1.293
     },
     {
       "source": "황허우",
@@ -185,7 +185,7 @@
         "ㄏㄨㄤ ㄏㄜ ㄨ"
       ],
       "passed": true,
-      "elapsed_ms": 0.542
+      "elapsed_ms": 0.561
     },
     {
       "source": "췐",
@@ -217,25 +217,25 @@
         "ㄔㄨㄣ"
       ],
       "passed": true,
-      "elapsed_ms": 0.368
+      "elapsed_ms": 0.317
     }
   ],
   "async_queries": [
     {
       "mode": "zh",
-      "ms": 11.785
+      "ms": 10.763
     },
     {
       "mode": "zh_tw",
-      "ms": 6.564
+      "ms": 6.594
     },
     {
       "mode": "zh_bopomofo",
-      "ms": 3.046
+      "ms": 3.593
     },
     {
       "mode": "zh",
-      "ms": 3.342
+      "ms": 3.261
     }
   ]
 }

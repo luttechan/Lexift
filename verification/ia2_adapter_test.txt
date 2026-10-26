@@ -27,4 +27,6 @@
 {"test":"failed asynchronous edit is not replayed","passed":true}
 {"test":"delayed text cache is confirmed without replay","passed":true}
 {"test":"unfocused readonly ancestor does not block other backends","passed":true}
-{"passed":29,"failed":0,"fixture":"IAccessible2 COM provider","firefox_end_to_end":false}
+{"test":"slow provider beyond 180 ms uses the shared budget","passed":true}
+{"test":"expired budget never submits a replacement","passed":true}
+{"passed":31,"failed":0,"fixture":"IAccessible2 COM provider","firefox_end_to_end":false}

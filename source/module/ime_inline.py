@@ -82,7 +82,7 @@ class InlineMode(QObject):
         self.last_query = None
         self.pending_commit = None
         self._committed_identity = None
-        self.commit_timer=QTimer(self);self.commit_timer.setSingleShot(True);self.commit_timer.setInterval(2500)
+        self.commit_timer=QTimer(self);self.commit_timer.setSingleShot(True);self.commit_timer.setInterval(3500)
         self.commit_timer.timeout.connect(self._commit_timeout)
         self.overlay = None
         self.debounce = QTimer(self)
