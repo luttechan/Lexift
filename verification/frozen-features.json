@@ -25,7 +25,7 @@
     "async_notify_path": true,
     "sound_thread_stopped": true
   },
-  "keyboard_start_ms": 40.29,
-  "startup_heartbeats": 7,
-  "construct_all_pages_ms": 265.66
+  "keyboard_start_ms": 34.48,
+  "startup_heartbeats": 6,
+  "construct_all_pages_ms": 248.42
 }

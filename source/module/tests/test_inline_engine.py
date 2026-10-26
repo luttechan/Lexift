@@ -97,7 +97,8 @@ class InlineEngineTests(unittest.TestCase):
                '오-키이':'大きい','오네-상':'お姉さん','쯔키':'月',
                '와타시와가쿠세이데스':'私は学生です','코-죠-':'工場',
                '고치소-사마':'ご馳走様','니혼고오벤쿄-시마스':'日本語を勉強します',
-               '도쿄에이키마스':'東京へ行きます','미카즈키':'三日月'}
+               '도쿄에이키마스':'東京へ行きます','미카즈키':'三日月',
+               '\u110b\u116a\u1110\u1161\u1109\u1175':'私'}
         try:
             for source,expected in cases.items():
                 with self.subTest(source=source):
@@ -105,6 +106,7 @@ class InlineEngineTests(unittest.TestCase):
                     self.assertTrue(wait_until(lambda:failures or any(not r.get('partial') for r in responses),12))
                     self.assertFalse(failures)
                     final=responses[-1];self.assertIn(expected,final['candidates'])
+                    self.assertEqual(final['source'],source)
                     self.assertEqual(final['queried_readings'],len(final['kana_variants']))
                     self.assertEqual(len(final['candidates']),len(final['readings']))
                     self.assertTrue(all(reading in final['kana_variants'] for reading in final['readings']))

@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "native_checks": 104,
+  "native_checks": 112,
   "checks": [
     {
       "name": "native_edit_test",
@@ -17,7 +17,7 @@
     },
     {
       "name": "ia2_adapter_test",
-      "passed": 28,
+      "passed": 29,
       "failed": 0,
       "fixture": "IAccessible2 COM provider",
       "firefox_end_to_end": false
@@ -29,7 +29,7 @@
     },
     {
       "name": "uia_selection_test",
-      "passed": 9,
+      "passed": 16,
       "failed": 0
     }
   ]

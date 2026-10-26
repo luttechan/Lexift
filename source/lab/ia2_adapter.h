@@ -126,7 +126,7 @@ static bool readIa2Object(IAccessible* object,Ia2Snapshot& result) {
     auto self=ia2Self();VARIANT state,role;VariantInit(&state);VariantInit(&role);
     HRESULT stateHR=object->get_accState(self,&state),roleHR=object->get_accRole(self,&role);
     bool valid=SUCCEEDED(stateHR) && state.vt==VT_I4 && (state.lVal&STATE_SYSTEM_FOCUSED);
-    result.blocked=state.vt==VT_I4 && (state.lVal&(STATE_SYSTEM_PROTECTED|STATE_SYSTEM_READONLY|STATE_SYSTEM_UNAVAILABLE));
+    result.blocked=valid && (state.lVal&(STATE_SYSTEM_PROTECTED|STATE_SYSTEM_READONLY|STATE_SYSTEM_UNAVAILABLE));
     bool textRole=SUCCEEDED(roleHR) && role.vt==VT_I4 &&
         (role.lVal==ROLE_SYSTEM_TEXT || role.lVal==ROLE_SYSTEM_DOCUMENT);
     VariantClear(&state);VariantClear(&role);

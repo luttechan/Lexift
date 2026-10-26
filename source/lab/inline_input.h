@@ -104,26 +104,27 @@ static bool uiaInlineSnapshot(IUIAutomation* automation,InlineSnapshot& result) 
             value->Release();
         }
     }
+    bool explicitReadOnly=readOnly.vt==VT_BOOL && readOnly.boolVal==VARIANT_TRUE;
     bool locked=!editableTextRange(type,readOnly,writableValue);
     VariantClear(&readOnly);
-    if(locked) {result.blocked=true;caret->Release();result.reason=7;return false;}
+    if(locked) {result.blocked=explicitReadOnly;caret->Release();result.reason=7;return false;}
     IUIAutomationTextRange* preceding=nullptr;caret->Clone(&preceding);
     if(!preceding) {caret->Release();result.reason=8;return false;}
     int moved=0;preceding->MoveEndpointByUnit(TextPatternRangeEndpoint_Start,TextUnit_Character,-256,&moved);
     BSTR content=nullptr;preceding->GetText(1024,&content);
     std::wstring prefix=content?std::wstring(content,SysStringLen(content)):L"";
-    SysFreeString(content);preceding->Release();
+    SysFreeString(content);
     size_t start=prefix.size();
     if(inlineCommitSpace && start && prefix[start-1]==L' ')--start;
     while(start && hangulCharacter(prefix[start-1])) start--;
     result.token=prefix.substr(start);
     result.prefix=prefix;
-    if(result.token.empty() || result.token.size()>200+(inlineCommitSpace?1:0)) {caret->Release();result.reason=9;return false;}
-    result.range=caret;
-    caret->MoveEndpointByUnit(TextPatternRangeEndpoint_Start,TextUnit_Character,-(int)result.token.size(),&moved);
-    BSTR verify=nullptr;caret->GetText(256,&verify);
-    std::wstring actual=verify?std::wstring(verify,SysStringLen(verify)):L"";SysFreeString(verify);
-    if(actual!=result.token) {result.reason=10;return false;}
+    if(result.token.empty() || result.token.size()>200+(inlineCommitSpace?1:0)) {preceding->Release();caret->Release();result.reason=9;return false;}
+    IUIAutomationTextRange* matched=nullptr;
+    bool matchedSuffix=findUiaSuffix(preceding,caret,result.token,&matched);
+    preceding->Release();caret->Release();
+    if(!matchedSuffix){result.reason=10;return false;}
+    result.range=caret=matched;
     bool positioned=false;
     SAFEARRAY* bounds=nullptr;caret->GetBoundingRectangles(&bounds);
     if(bounds) {

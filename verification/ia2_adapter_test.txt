@@ -26,4 +26,5 @@
 {"test":"acknowledged edit without changed text is not success","passed":true}
 {"test":"failed asynchronous edit is not replayed","passed":true}
 {"test":"delayed text cache is confirmed without replay","passed":true}
-{"passed":28,"failed":0,"fixture":"IAccessible2 COM provider","firefox_end_to_end":false}
+{"test":"unfocused readonly ancestor does not block other backends","passed":true}
+{"passed":29,"failed":0,"fixture":"IAccessible2 COM provider","firefox_end_to_end":false}

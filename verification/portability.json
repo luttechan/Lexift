@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "windows": "10.0.26220",
+  "architecture": "AMD64",
+  "relocated_unicode_path": true,
+  "development_path_removed": true,
+  "pe_files": 123,
+  "pe_architectures": [
+    "0x8664"
+  ],
+  "missing_dependencies": [],
+  "checks": [
+    {
+      "check": "runtime",
+      "passed": true
+    },
+    {
+      "check": "ime",
+      "passed": true
+    },
+    {
+      "check": "chinese",
+      "passed": true
+    },
+    {
+      "check": "features",
+      "passed": true
+    },
+    {
+      "check": "settings",
+      "passed": true
+    },
+    {
+      "check": "tones",
+      "passed": true
+    },
+    {
+      "check": "variants",
+      "passed": true
+    }
+  ],
+  "other_physical_devices_tested": false
+}

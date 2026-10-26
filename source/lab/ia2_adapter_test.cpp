@@ -160,6 +160,10 @@ int main(){
         TextProvider delayed;Ia2Snapshot snapshot;readIa2Object(&delayed,snapshot);delayed.deferredReads=3;
         check("delayed text cache is confirmed without replay",replaceIa2(snapshot,L"ご馳走様") && delayed.replacementCalls==1 && delayed.value==L"prefix ご馳走様 suffix");
     }
+    {
+        TextProvider ancestor;ancestor.state=STATE_SYSTEM_READONLY;Ia2Snapshot snapshot;
+        check("unfocused readonly ancestor does not block other backends",!readIa2Object(&ancestor,snapshot) && !snapshot.blocked && ancestor.reads==0);
+    }
     printf("{\"passed\":%d,\"failed\":%d,\"fixture\":\"IAccessible2 COM provider\",\"firefox_end_to_end\":false}\n",passed,failed);
     return failed?1:0;
 }
