@@ -17,7 +17,7 @@ from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QDialog, QLabel, QProgressBar, QPushButton, QVBoxLayout
 
 from i18n import tr, text_font_family, error_text, language, source_key
-from update_core import UpdateCancelled, UpdateError, version_number, updater_path
+from update_core import UpdateCancelled, UpdateError, version_key, updater_path
 from update_network import isolated_check as latest_release, isolated_download
 from update_apply import cache_root, plain_tree
 
@@ -189,7 +189,7 @@ class UpdateManager(QObject):
         self.busy = False
         if self.cancel_event.is_set() or self.controller._stopping:
             return
-        remote, current = version_number(release.version), version_number(self.version)
+        remote, current = version_key(release.version), version_key(self.version)
         if remote <= current:
             if not self.automatic:
                 self._result(release.version, tr('최신 버전입니다.') if remote == current

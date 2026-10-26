@@ -91,6 +91,13 @@ class InlineMode(QObject):
         self.debounce.timeout.connect(self._search)
         self.focus_guard=QTimer(self);self.focus_guard.setInterval(30)
         self.focus_guard.timeout.connect(self._check_focus)
+        self.watcher_retry=QTimer(self);self.watcher_retry.setSingleShot(True)
+        self.watcher_retry.timeout.connect(self._start_watcher)
+        self.query_retry=QTimer(self);self.query_retry.setSingleShot(True)
+        self.query_retry.timeout.connect(self._restore_query)
+        self.watcher_health=QTimer(self);self.watcher_health.setSingleShot(True)
+        self.watcher_health.setInterval(8000);self.watcher_health.timeout.connect(self._watcher_unresponsive)
+        self._watcher_attempts=0;self._query_attempts=0;self._reported_errors=set()
 
     def _build(self):
         self.overlay = CandidateFrame()
@@ -129,8 +136,7 @@ class InlineMode(QObject):
                 self.reading.setText(self.snapshot['source']+'  →  '+readings[row])
 
     def _commit_timeout(self):
-        if self.watcher:self.watcher.kill()
-        self._engine_failed('입력 확정 응답이 지연되어 변환을 중단했습니다.')
+        self._engine_failed('입력 연결을 다시 시도합니다.')
 
     def _painted(self):
         if self._paint_source is not None:
@@ -161,12 +167,41 @@ class InlineMode(QObject):
                 client.request('와타시')
 
     def _client_failed(self, name, client, message):
-        if self.engines.get(name) is client:
-            self.engines.pop(name,None)
+        if self.engines.get(name) is not client:return
+        self.engines.pop(name,None)
+        client.stop()
         if client is self.query:
-            self._engine_failed(message)
-        else:
-            client.stop()
+            self.query=None
+            if self.enabled:
+                self._report_recovery(message)
+                self._query_attempts+=1
+                self.query_retry.start(min(30000,500*2**min(self._query_attempts,6)))
+
+    def _restore_query(self):
+        if not self.enabled:return
+        self.prepare(self.language)
+        self.query=self.engines.get('ja' if self.language=='ja' else 'zh')
+        self._search()
+
+    def _report_recovery(self,message):
+        if message not in self._reported_errors:
+            self._reported_errors.add(message);self.failed.emit(message)
+
+    def _start_watcher(self):
+        if not self.enabled or self.watcher:return
+        process=self.watcher=QProcess(self);self.buffer=b''
+        process.setProgram(str(host_path()));process.setArguments(['--watch-input','--owner-pid',str(os.getpid())])
+        process.readyReadStandardOutput.connect(lambda:self._read(process))
+        process.finished.connect(lambda:self._watcher_stopped(process))
+        process.errorOccurred.connect(lambda error:self._watcher_error(process,error))
+        process.started.connect(lambda:self._watcher_started(process))
+        process.start();self.watcher_health.start()
+
+    def _watcher_started(self,process):
+        if process is self.watcher and self.paused:process.write(b'PAUSE 1\n')
+
+    def _watcher_unresponsive(self):
+        self._engine_failed('입력 연결을 다시 시도합니다.')
 
     def shutdown(self):
         self.close()
@@ -209,15 +244,12 @@ class InlineMode(QObject):
             if self.overlay is None:
                 self._build()
             self.enabled=True; self.snapshot={}; self.buffer=b''; self.dismissed=None
+            self._reported_errors.clear();self._watcher_attempts=0;self._query_attempts=0
             self.focus_guard.start()
-            process=self.watcher=QProcess(self)
-            process.setProgram(str(host_path())); process.setArguments(['--watch-input','--owner-pid',str(os.getpid())])
-            process.readyReadStandardOutput.connect(lambda:self._read(process))
-            process.finished.connect(lambda:self._watcher_stopped(process))
-            process.errorOccurred.connect(lambda error:self._watcher_error(process,error))
-            process.start()
+            self._start_watcher()
             self.prepare(language)
-            self.query=self.engines['ja' if language=='ja' else 'zh']
+            self.query=self.engines.get('ja' if language=='ja' else 'zh')
+            if self.query is None:self.query_retry.start(1000)
         return self.enabled
 
     def visible(self):
@@ -241,6 +273,7 @@ class InlineMode(QObject):
             self.debounce.start()
 
     def close(self):
+        self.watcher_retry.stop();self.query_retry.stop();self.watcher_health.stop()
         self.idle_release.start()
         guarded=self.pending_commit is not None
         self.pending_commit=None;self._committed_identity=None;self.commit_timer.stop()
@@ -279,10 +312,19 @@ class InlineMode(QObject):
     def _watcher_error(self, process, error):
         if process is self.watcher and error==QProcess.ProcessError.FailedToStart:
             self._engine_failed('입력 감지 엔진을 시작하지 못했습니다.')
+            process.deleteLater()
 
     def _engine_failed(self, message):
         if self.enabled:
-            self.close();self.failed.emit(message)
+            # Preserve ON, discard stale work and never replay a commit.
+            self.commit_timer.stop();self.pending_commit=None;self._committed_identity=None
+            self.snapshot={};self.dismissed=None;self.debounce.stop();self._hide()
+            self.visibility_changed.emit(False);self.watcher_health.stop()
+            process=self.watcher;self.watcher=None
+            if process:process.kill()
+            self._report_recovery(message)
+            self._watcher_attempts+=1
+            self.watcher_retry.start(min(30000,250*2**min(self._watcher_attempts,7)))
 
     def _check_focus(self):
         if self.visible():
@@ -294,6 +336,7 @@ class InlineMode(QObject):
         if process is not self.watcher:
             return
         self.buffer+=bytes(process.readAllStandardOutput())
+        self.watcher_health.start()
         latest=None
         while b'\n' in self.buffer:
             line,self.buffer=self.buffer.split(b'\n',1)
@@ -301,7 +344,9 @@ class InlineMode(QObject):
                 data=json.loads(line.decode('utf-8'))
             except (ValueError,UnicodeError):
                 continue
+            if data.get('event')=='heartbeat':continue
             if data.get('event')=='input':
+                if data.get('source'):self._watcher_attempts=0
                 latest=data
             elif data.get('event')=='replace':
                 if not self.pending_commit or data.get('serial')!=self.pending_commit['serial']:
@@ -349,6 +394,7 @@ class InlineMode(QObject):
         if client is not self.query or not self.enabled:
             return
         if self.language!='ja' and data.get('output_mode','zh')!=self.language:return
+        self._query_attempts=0
         self.last_query={'data':data}
         text=data.get('source','')
         if self.language=='ja' and data.get('candidates'):

@@ -19,7 +19,7 @@ class QueryClient(QObject):
         self.process.readyReadStandardOutput.connect(self._read)
         self.process.errorOccurred.connect(self._error)
         self.process.finished.connect(self._finished)
-        self.timer=QTimer(self);self.timer.setSingleShot(True);self.timer.setInterval(5000)
+        self.timer=QTimer(self);self.timer.setSingleShot(True);self.timer.setInterval(15000)
         self.timer.timeout.connect(lambda:self._fail('일본어 IME 응답 시간이 초과되었습니다.'))
         self.buffer=b'';self.ready=False;self.closed=False;self.serial=0;self.pending=None
 

@@ -48,14 +48,17 @@ class UpdateCancelled(UpdateError):
 def version_number(value: str) -> tuple[int, int, int]:
     if not isinstance(value, str):
         raise UpdateError("Invalid version")
-    match = re.fullmatch(r"(?:v)?(\d{1,6})\.(\d{1,6})\.(\d{1,6})", value)
+    match = re.fullmatch(r"(?:v)?(\d{1,6})\.(\d{1,6})\.(\d{1,6})(?:b)?", value)
     if match:
         return tuple(map(int, match.groups()))
     raise UpdateError("Unsupported release version: " + value[:80])
 
 
 def version_text(value: str) -> str:
-    return ".".join(map(str, version_number(value)))
+    return ".".join(map(str, version_number(value)))+('b' if value.endswith('b') else '')
+
+def version_key(value: str) -> tuple[int,int,int,int]:
+    return (*version_number(value),0 if value.endswith('b') else 1)
 
 
 def safe_url(url: str) -> str:
@@ -94,7 +97,7 @@ def parse_release(data: object) -> Release:
     if not isinstance(data, dict) or data.get("draft") is not False or data.get("prerelease") is not False:
         raise UpdateError("Not a stable published release")
     tag = data.get("tag_name", "")
-    if not isinstance(tag, str) or not re.fullmatch(r"v\d{1,6}\.\d{1,6}\.\d{1,6}", tag):
+    if not isinstance(tag, str) or not re.fullmatch(r"v\d{1,6}\.\d{1,6}\.\d{1,6}b?", tag):
         raise UpdateError("Release tag must use vMAJOR.MINOR.PATCH")
     version = version_text(tag)
     page = data.get("html_url", "")

@@ -6,6 +6,7 @@
 #include <memory>
 #include "native_edit_adapter.h"
 #include "ia2_adapter.h"
+#include "editable_policy.h"
 static DWORD inlineOwnerPid=0;
 
 struct InlineSnapshot {
@@ -28,6 +29,7 @@ static bool hangulCharacter(wchar_t c) {
         (c>=0x1100 && c<=0x11ff) || c==L'-' || c==L'ー';
 }
 static bool uiaInlineSnapshot(IUIAutomation* automation,InlineSnapshot& result) {
+    if(!automation){result.reason=15;return false;}
     result.target=GetForegroundWindow();
     DWORD pid=0;GetWindowThreadProcessId(result.target,&pid);
     if(!pid || pid==GetCurrentProcessId() || pid==inlineOwnerPid) {result.reason=1;return false;}
@@ -41,7 +43,7 @@ static bool uiaInlineSnapshot(IUIAutomation* automation,InlineSnapshot& result) 
         IUIAutomationElement* ancestor=element;ancestor->AddRef();bool belongs=false;
         for(int depth=0;walker && ancestor && depth<32;depth++) {
             UIA_HWND native=nullptr;ancestor->get_CurrentNativeWindowHandle(&native);
-            if((HWND)native==result.target) {belongs=true;break;}
+            if((HWND)native==result.target || (native && GetAncestor((HWND)native,GA_ROOT)==result.target)) {belongs=true;break;}
             IUIAutomationElement* parent=nullptr;walker->GetParentElement(ancestor,&parent);
             ancestor->Release();ancestor=parent;
         }
@@ -91,9 +93,17 @@ static bool uiaInlineSnapshot(IUIAutomation* automation,InlineSnapshot& result) 
     if(!collapsed) {caret->Release();result.reason=6;return false;}
     VARIANT readOnly;VariantInit(&readOnly);
     caret->GetAttributeValue(UIA_IsReadOnlyAttributeId,&readOnly);
-    bool editable=readOnly.vt==VT_BOOL && readOnly.boolVal==VARIANT_FALSE;
-    bool locked=(readOnly.vt==VT_BOOL && readOnly.boolVal==VARIANT_TRUE) ||
-        ((type!=UIA_EditControlTypeId && type!=UIA_DocumentControlTypeId) && !editable);
+    bool writableValue=false;
+    if(readOnly.vt!=VT_BOOL && type!=UIA_EditControlTypeId && type!=UIA_DocumentControlTypeId) {
+        // Autocomplete/search/address controls can expose ComboBox/Custom,
+        // with editability on ValuePattern instead of the text attribute.
+        IUIAutomationValuePattern* value=nullptr;BOOL valueReadOnly=TRUE;
+        if(SUCCEEDED(element->GetCurrentPatternAs(UIA_ValuePatternId,__uuidof(IUIAutomationValuePattern),(void**)&value)) && value) {
+            writableValue=SUCCEEDED(value->get_CurrentIsReadOnly(&valueReadOnly)) && !valueReadOnly;
+            value->Release();
+        }
+    }
+    bool locked=!editableTextRange(type,readOnly,writableValue);
     VariantClear(&readOnly);
     if(locked) {result.blocked=true;caret->Release();result.reason=7;return false;}
     IUIAutomationTextRange* preceding=nullptr;caret->Clone(&preceding);
@@ -354,10 +364,11 @@ static int runInlineWatcher(DWORD ownerPid=0) {
     HRESULT initialized=CoInitializeEx(nullptr,COINIT_APARTMENTTHREADED);
     IUIAutomation* automation=nullptr;
     const CLSID automationClass={0xff48dba4,0x60ef,0x4201,{0xaa,0x87,0x54,0x10,0x3e,0xef,0x59,0x4e}};
-    HRESULT hr=CoCreateInstance(automationClass,nullptr,CLSCTX_INPROC_SERVER,__uuidof(IUIAutomation),(void**)&automation);
-    if(FAILED(hr)||!automation) return 6;
+    const CLSID boundedClass={0xe22ad333,0xb25f,0x460c,{0x83,0xd0,0x05,0x81,0x10,0x73,0x95,0xc9}};
+    HRESULT hr=CoCreateInstance(boundedClass,nullptr,CLSCTX_INPROC_SERVER,__uuidof(IUIAutomation),(void**)&automation);
+    if(FAILED(hr)||!automation)hr=CoCreateInstance(automationClass,nullptr,CLSCTX_INPROC_SERVER,__uuidof(IUIAutomation),(void**)&automation);
     IUIAutomation2* bounded=nullptr;
-    if(SUCCEEDED(automation->QueryInterface(__uuidof(IUIAutomation2),(void**)&bounded)) && bounded) {
+    if(automation && SUCCEEDED(automation->QueryInterface(__uuidof(IUIAutomation2),(void**)&bounded)) && bounded) {
         bounded->put_ConnectionTimeout(500);bounded->put_TransactionTimeout(500);bounded->Release();
     }
     HANDLE input=GetStdHandle(STD_INPUT_HANDLE);
@@ -365,10 +376,12 @@ static int runInlineWatcher(DWORD ownerPid=0) {
     std::wstring previousKey;
     unsigned serial=0;
     std::deque<std::pair<unsigned,std::shared_ptr<InlineSnapshot>>> observations;
-    bool running=true,paused=false;
+    bool running=true,paused=false;ULONGLONG heartbeat=0;
     HWINEVENTHOOK changeHook=SetWinEventHook(EVENT_OBJECT_VALUECHANGE,EVENT_OBJECT_TEXTSELECTIONCHANGED,nullptr,inlineChanged,0,0,WINEVENT_OUTOFCONTEXT|WINEVENT_SKIPOWNPROCESS);
     HWINEVENTHOOK focusHook=SetWinEventHook(EVENT_OBJECT_FOCUS,EVENT_OBJECT_FOCUS,nullptr,inlineChanged,0,0,WINEVENT_OUTOFCONTEXT|WINEVENT_SKIPOWNPROCESS);
     while(running) {
+        ULONGLONG now=GetTickCount64();
+        if(now-heartbeat>=1000){printf("{\"event\":\"heartbeat\",\"uia\":%s}\n",automation?"true":"false");fflush(stdout);heartbeat=now;}
         auto observed=std::make_shared<InlineSnapshot>();
         InlineSnapshot& snapshot=*observed;
         bool valid=!paused && inlineSnapshot(automation,snapshot);
@@ -443,5 +456,5 @@ static int runInlineWatcher(DWORD ownerPid=0) {
     }
     if(changeHook)UnhookWinEvent(changeHook);
     if(focusHook)UnhookWinEvent(focusHook);
-    observations.clear();clearIa2FocusCache();automation->Release();if(SUCCEEDED(initialized)) CoUninitialize();return 0;
+    observations.clear();clearIa2FocusCache();if(automation)automation->Release();if(SUCCEEDED(initialized)) CoUninitialize();return 0;
 }

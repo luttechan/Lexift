@@ -1,5 +1,6 @@
 """Conversion settings and dictionary strings, in the catalog's eight languages."""
 ROWS={
+'입력 연결을 다시 시도합니다.':('Reconnecting input.','入力接続を再試行します。','正在重新连接输入。','正在重新連線輸入。','Reconnexion de la saisie.','Reconectando la entrada.','Повторное подключение ввода.','Eingabe wird erneut verbunden.'),
 '한–중 번체':('Korean–Traditional Chinese','韓国語→繁体字','韩文→繁体中文','韓文→繁體中文','Coréen–chinois traditionnel','Coreano–chino tradicional','Корейский → традиционный китайский','Koreanisch–traditionelles Chinesisch'),
 '주음부호':('Bopomofo','注音符号','注音符号','注音符號','Bopomofo','Bopomofo','Чжуинь','Zhuyin'),
 '한–중 번체·주음':('Traditional Chinese / Bopomofo','繁体字・注音符号','繁体中文 / 注音符号','繁體中文 / 注音符號','Chinois traditionnel / bopomofo','Chino tradicional / bopomofo','Традиционный китайский / чжуинь','Traditionelles Chinesisch / Zhuyin'),

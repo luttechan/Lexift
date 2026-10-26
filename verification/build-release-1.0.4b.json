@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "version": "1.0.4b",
+  "source_tests": 480,
+  "frozen_checks": [
+    "runtime",
+    "ime",
+    "chinese",
+    "features",
+    "settings",
+    "tones"
+  ],
+  "zip_sha256": "473bed68c357feb63588334f5513acd82666ebad1fb4401d374bbe1e9fbcd9b0",
+  "runtime_files": 322,
+  "previous_version_preserved": true
+}

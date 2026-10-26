@@ -27,7 +27,7 @@ class MigrationTests(unittest.TestCase):
             self.assertFalse(migrate_preferences(new,old))
             self.assertEqual(new.value('general/ui_language'),'ja');self.assertEqual(old.value('general/ui_language'),'ko')
     def test_new_release_namespace_and_executable_are_consistent(self):
-        self.assertEqual(app.PRODUCT,'Lexift');self.assertEqual(app.VERSION,'1.0.3')
+        self.assertEqual(app.PRODUCT,'Lexift');self.assertEqual(app.VERSION,'1.0.4b')
         self.assertEqual(updates.REPOSITORY,'luttechan/Lexift')
         self.assertEqual(updates.API_URL,'https://api.github.com/repos/luttechan/Lexift/releases/latest')
         self.assertEqual(updates.MODULE_ENTRIES,('Lexift.exe','module'))

@@ -49,7 +49,7 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "1.0.3"
+VERSION = "1.0.4b"
 ORGANIZATION = "LuteTools"
 PRODUCT = "Lexift"
 SELECTION_KEYS = "1234567890ABCDE"
@@ -1771,8 +1771,8 @@ class LexiftController(QObject):
     def _conversion_failed(self,message):
         translated=tr(message)
         if translated==message and language()!='ko':
-            translated=tr('발음 변환을 중단했습니다. 한글 입력 상태와 입력기 설치를 확인하세요.')
-        self.tray.showMessage('Lexift / '+tr('발음 변환 OFF'),translated,QSystemTrayIcon.MessageIcon.Warning,4000)
+            translated=tr('입력 연결을 다시 시도합니다.')
+        self.tray.showMessage('Lexift',translated,QSystemTrayIcon.MessageIcon.Warning,4000)
 
     def _prepare_engines(self):
         # No background dictionary loading when conversion is off.

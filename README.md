@@ -2,7 +2,7 @@
 
 Switch input languages and type Japanese or Chinese phonetically in Hangul.
 
-[Download](https://luttechan.github.io/lexift/) / [English](https://luttechan.github.io/lexift/guide/1.0.3/en.html) / [한국어](https://luttechan.github.io/lexift/guide/1.0.3/ko.html) / [日本語](https://luttechan.github.io/lexift/guide/1.0.3/ja.html) / [简体中文](https://luttechan.github.io/lexift/guide/1.0.3/zh_CN.html) / [繁體中文](https://luttechan.github.io/lexift/guide/1.0.3/zh_TW.html)
+[Download](https://luttechan.github.io/lexift/) / [English](https://luttechan.github.io/lexift/guide/1.0.4b/en.html) / [한국어](https://luttechan.github.io/lexift/guide/1.0.4b/ko.html) / [日本語](https://luttechan.github.io/lexift/guide/1.0.4b/ja.html) / [简体中文](https://luttechan.github.io/lexift/guide/1.0.4b/zh_CN.html) / [繁體中文](https://luttechan.github.io/lexift/guide/1.0.4b/zh_TW.html)
 
 | Shortcut | Action |
 |---|---|
@@ -23,11 +23,11 @@ Japanese input requires Microsoft Japanese IME.
 
 성조는 설정에서 켠 뒤 영문으로 입력합니다. `ke` + Caps + 3 → `kě`.
 
-## 1.0.3
+## 1.0.4b
 
-Fixed menu lag and memory leaks. Added keypad tone shortcuts.
+Fixed missing conversion candidates and unexpected OFF. Input engines now reconnect after an error.
 
-메뉴 지연 및 메모리 누수 수정. 숫자패드 성조 지원.
+후보창 미표시 및 자동 OFF 수정. 입력 오류 발생 시 자동 재연결.
 
 ## Credits
 
