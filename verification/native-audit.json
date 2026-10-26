@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "native_checks": 104,
+  "checks": [
+    {
+      "name": "native_edit_test",
+      "passed": 48,
+      "failed": 0,
+      "cross_process": true
+    },
+    {
+      "name": "scintilla_test",
+      "passed": 10,
+      "failed": 0,
+      "cross_process": true,
+      "cross_bitness": true
+    },
+    {
+      "name": "ia2_adapter_test",
+      "passed": 28,
+      "failed": 0,
+      "fixture": "IAccessible2 COM provider",
+      "firefox_end_to_end": false
+    },
+    {
+      "name": "editable_policy_test",
+      "passed": 9,
+      "failed": 0
+    },
+    {
+      "name": "uia_selection_test",
+      "passed": 9,
+      "failed": 0
+    }
+  ]
+}

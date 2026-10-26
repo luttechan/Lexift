@@ -25,9 +25,9 @@ Japanese input requires Microsoft Japanese IME.
 
 ## 1.0.4b
 
-Fixed missing conversion candidates and unexpected OFF. Input engines now reconnect after an error.
+Fixed missing candidates, unexpected OFF and search-field confirmation. Input engines reconnect after an error.
 
-후보창 미표시 및 자동 OFF 수정. 입력 오류 발생 시 자동 재연결.
+후보창 미표시, 자동 OFF 및 검색창 확정 오류 수정. 입력 오류 시 자동 재연결.
 
 ## Credits
 

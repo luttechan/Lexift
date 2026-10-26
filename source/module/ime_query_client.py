@@ -55,6 +55,8 @@ class QueryClient(QObject):
                 data=json.loads(line.decode('utf-8'))
             except (ValueError,UnicodeError):
                 self._fail('일본어 IME 응답을 읽지 못했습니다.');return
+            if not isinstance(data,dict):
+                self._fail('일본어 IME 응답을 읽지 못했습니다.');return
             if self.closed:
                 continue
             if data.get('event')=='ready':

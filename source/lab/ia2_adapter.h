@@ -192,6 +192,32 @@ static bool replaceIa2(const Ia2Snapshot& snapshot,const std::wstring& replaceme
     BSTR text=SysAllocStringLen(replacement.data(),(UINT)replacement.size());
     if(!text)return false;
     HRESULT hr=snapshot.editable->replaceText(snapshot.start,snapshot.end,&text);
-    if(SUCCEEDED(hr))snapshot.text->setCaretOffset(snapshot.start+(LONG)replacement.size());
-    SysFreeString(text);return SUCCEEDED(hr);
+    SysFreeString(text);if(FAILED(hr))return false;
+    // IA2 can acknowledge queued edits before text/caret caches are updated.
+    // Confirm the actual bounded context, and never submit replacement twice.
+    LONG caret=snapshot.start+(LONG)replacement.size();
+    LONG length=snapshot.length-(snapshot.end-snapshot.start)+(LONG)replacement.size();
+    auto prefix=snapshot.before.substr(0,snapshot.before.size()-snapshot.token.size());
+    auto expected=prefix+replacement+snapshot.after;
+    LONG begin=snapshot.start-(LONG)prefix.size();bool caretRequested=false;
+    ULONGLONG deadline=GetTickCount64()+180;HWND foreground=GetForegroundWindow();
+    do {
+        if(GetForegroundWindow()!=foreground)return false;
+        VARIANT state;VariantInit(&state);
+        bool focused=SUCCEEDED(snapshot.accessible->get_accState(ia2Self(),&state)) && state.vt==VT_I4 &&
+            (state.lVal&STATE_SYSTEM_FOCUSED) && !(state.lVal&(STATE_SYSTEM_PROTECTED|STATE_SYSTEM_READONLY|STATE_SYSTEM_UNAVAILABLE));
+        VariantClear(&state);if(!focused)return false;
+        LONG count=-1,position=-1;std::wstring actual;
+        if(SUCCEEDED(snapshot.text->get_nCharacters(&count)) && count==length &&
+           ia2Substring(snapshot.text,begin,begin+(LONG)expected.size(),actual) && actual==expected) {
+            if(!caretRequested) {
+                if(FAILED(snapshot.text->setCaretOffset(caret)))return false;
+                caretRequested=true;
+            }
+            if(snapshot.text->get_caretOffset(&position)==S_OK && position==caret)return true;
+        }
+        if(GetTickCount64()>=deadline)break;
+        Sleep(5);
+    } while(true);
+    return false;
 }

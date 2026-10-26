@@ -1,7 +1,7 @@
 {
   "passed": true,
   "version": "1.0.4b",
-  "source_tests": 480,
+  "source_tests": 484,
   "frozen_checks": [
     "runtime",
     "ime",
@@ -10,7 +10,8 @@
     "settings",
     "tones"
   ],
-  "zip_sha256": "473bed68c357feb63588334f5513acd82666ebad1fb4401d374bbe1e9fbcd9b0",
+  "zip_sha256": "7227f750004231290b2fbe3c78a2cd97a7f479c69390f64e840b4508e50cbb4e",
   "runtime_files": 322,
-  "previous_version_preserved": true
+  "previous_version_preserved": true,
+  "native_checks": 104
 }

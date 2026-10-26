@@ -1,0 +1,29 @@
+{"test":"editable text snapshot","passed":true}
+{"test":"only word before caret","passed":true}
+{"test":"caret on negative-origin monitor","passed":true}
+{"test":"stable identity and range","passed":true}
+{"test":"range verified without selecting","passed":true}
+{"test":"Unicode replacement and caret after text","passed":true}
+{"test":"COM references balanced","passed":true}
+{"test":"blocked field never read","passed":true}
+{"test":"blocked field never read","passed":true}
+{"test":"blocked field never read","passed":true}
+{"test":"unfocused field refused","passed":true}
+{"test":"nonempty selection refused","passed":true}
+{"test":"last character caret fallback","passed":true}
+{"test":"changed suffix invalidates range","passed":true}
+{"test":"different field invalidates range","passed":true}
+{"test":"contenteditable via IA2 editable state","passed":true}
+{"test":"caret browsing document is not editable","passed":true}
+{"test":"IServiceProvider interface discovery","passed":true}
+{"test":"exact IME completion space accepted","passed":true}
+{"test":"space included in verified replacement range","passed":true}
+{"test":"two spaces cannot reuse original range","passed":true}
+{"test":"remote textarea snapshot","passed":true}
+{"test":"remote selection cache is not required","passed":true}
+{"test":"remote textarea replacement preserves surrounding text","passed":true}
+{"test":"stale remote text cannot be prepared for replacement","passed":true}
+{"test":"acknowledged edit without changed text is not success","passed":true}
+{"test":"failed asynchronous edit is not replayed","passed":true}
+{"test":"delayed text cache is confirmed without replay","passed":true}
+{"passed":28,"failed":0,"fixture":"IAccessible2 COM provider","firefox_end_to_end":false}

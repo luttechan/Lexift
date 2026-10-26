@@ -160,11 +160,13 @@ class InlineMode(QObject):
             self.engines[name]=client
             client.result.connect(lambda serial,data,client=client:self._queried(client,data))
             client.failed.connect(lambda message,client=client,name=name:self._client_failed(name,client,message))
-            client.start()
-            if name=='ja':
-                # Load the IME's conversion data with a fixed public reading;
-                # this never watches an input field or displays a candidate.
-                client.request('와타시')
+            try:
+                client.start()
+                if name=='ja':client.request('와타시')
+            except (OSError,RuntimeError):
+                if self.engines.get(name) is client:self.engines.pop(name,None)
+                client.stop()
+                raise
 
     def _client_failed(self, name, client, message):
         if self.engines.get(name) is not client:return
@@ -179,8 +181,14 @@ class InlineMode(QObject):
 
     def _restore_query(self):
         if not self.enabled:return
-        self.prepare(self.language)
+        try:self.prepare(self.language)
+        except (OSError,RuntimeError):
+            self.query=None;self._query_attempts+=1
+            self._report_recovery('입력 연결을 다시 시도합니다.')
+            self.query_retry.start(min(30000,500*2**min(self._query_attempts,6)))
+            return
         self.query=self.engines.get('ja' if self.language=='ja' else 'zh')
+        if self.query is None:self.query_retry.start(1000)
         self._search()
 
     def _report_recovery(self,message):
@@ -247,9 +255,7 @@ class InlineMode(QObject):
             self._reported_errors.clear();self._watcher_attempts=0;self._query_attempts=0
             self.focus_guard.start()
             self._start_watcher()
-            self.prepare(language)
-            self.query=self.engines.get('ja' if language=='ja' else 'zh')
-            if self.query is None:self.query_retry.start(1000)
+            self._restore_query()
         return self.enabled
 
     def visible(self):
@@ -344,6 +350,8 @@ class InlineMode(QObject):
                 data=json.loads(line.decode('utf-8'))
             except (ValueError,UnicodeError):
                 continue
+            if not isinstance(data,dict):
+                self._engine_failed('입력 연결을 다시 시도합니다.');return
             if data.get('event')=='heartbeat':continue
             if data.get('event')=='input':
                 if data.get('source'):self._watcher_attempts=0

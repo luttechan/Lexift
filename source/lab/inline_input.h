@@ -7,6 +7,7 @@
 #include "native_edit_adapter.h"
 #include "ia2_adapter.h"
 #include "editable_policy.h"
+#include "uia_selection.h"
 static DWORD inlineOwnerPid=0;
 
 struct InlineSnapshot {
@@ -279,12 +280,31 @@ static bool prepareInlineReplacement(IUIAutomation* automation,const InlineSnaps
         if(!GetGUIThreadInfo(0,&info) || info.hwndFocus!=snapshot.edit.control || !selectNativeEdit(snapshot.edit))return false;
         return GetGUIThreadInfo(0,&info) && info.hwndFocus==snapshot.edit.control;
     }
-    if(!snapshot.range || !snapshot.element || FAILED(snapshot.range->Select()))return false;
-    IUIAutomationElement* focused=nullptr;BOOL same=FALSE;
-    if(SUCCEEDED(automation->GetFocusedElement(&focused)) && focused) {
-        automation->CompareElements(snapshot.element,focused,&same);focused->Release();
+    if(!automation || !snapshot.range || !snapshot.element || FAILED(snapshot.range->Select()))return false;
+    IUIAutomationTextPattern* pattern=nullptr;
+    snapshot.element->GetCurrentPatternAs(UIA_TextPatternId,__uuidof(IUIAutomationTextPattern),(void**)&pattern);
+    if(!pattern) {
+        IUIAutomationTextPattern2* alternate=nullptr;
+        if(SUCCEEDED(snapshot.element->GetCurrentPatternAs(UIA_TextPattern2Id,__uuidof(IUIAutomationTextPattern2),(void**)&alternate)) && alternate) {
+            alternate->QueryInterface(__uuidof(IUIAutomationTextPattern),(void**)&pattern);alternate->Release();
+        }
     }
-    return same;
+    if(!pattern)return false;
+    ULONGLONG deadline=GetTickCount64()+180;bool ready=false;
+    do {
+        IUIAutomationElement* focused=nullptr;BOOL same=FALSE;
+        if(GetForegroundWindow()!=snapshot.target)break;
+        if(SUCCEEDED(automation->GetFocusedElement(&focused)) && focused) {
+            automation->CompareElements(snapshot.element,focused,&same);focused->Release();
+        }
+        if(!same)break;
+        IUIAutomationTextRangeArray* array=nullptr;pattern->GetSelection(&array);
+        ready=selectedUiaRangeMatches(snapshot.range,array,snapshot.token);
+        if(array)array->Release();
+        if(ready || GetTickCount64()>=deadline)break;
+        Sleep(5);
+    } while(true);
+    pattern->Release();return ready;
 }
 static bool sameInlineLocation(IUIAutomation* automation,const InlineSnapshot& a,const InlineSnapshot& b) {
     if(a.target!=b.target || a.native!=b.native || a.token!=b.token)return false;
@@ -426,9 +446,7 @@ static int runInlineWatcher(DWORD ownerPid=0) {
                         const InlineSnapshot* selected=settled.get();
                         success=selected && prepareInlineReplacement(automation,*selected) && GetForegroundWindow()==fresh.target;
                         if(success) {
-                            GUITHREADINFO focus={sizeof focus};
                             HWND direct=fresh.native&&!fresh.edit.scintilla?fresh.edit.control:nullptr;
-                            if(!direct && GetGUIThreadInfo(0,&focus) && nativeEditClass(focus.hwndFocus))direct=focus.hwndFocus;
                             if(selected->ia2) {
                                 success=replaceIa2(*selected->ia2,replacement);
                             } else if(direct) {

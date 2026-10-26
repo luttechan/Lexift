@@ -46,3 +46,29 @@ class InputRecoveryTests(unittest.TestCase):
         self.assertEqual(update_core.version_text('v1.0.4b'),'1.0.4b')
         self.assertGreater(update_core.version_key('1.0.4b'),update_core.version_key('1.0.3'))
         self.assertGreater(update_core.version_key('1.0.4'),update_core.version_key('1.0.4b'))
+
+    def test_start_exception_does_not_leave_on_without_an_engine_retry(self):
+        with patch.object(self.mode,'prepare',side_effect=OSError('temporarily unavailable')):
+            self.mode._restore_query()
+        self.assertTrue(self.mode.enabled);self.assertIsNone(self.mode.query)
+        self.assertTrue(self.mode.query_retry.isActive())
+
+    def test_failed_start_is_removed_from_the_engine_pool(self):
+        self.mode._build();client=Mock();client.start.side_effect=OSError('blocked')
+        with patch('ime_query_client.QueryClient',return_value=client):
+            self.mode._restore_query()
+        self.assertNotIn('ja',self.mode.engines);client.stop.assert_called_once()
+        self.assertTrue(self.mode.query_retry.isActive())
+        self.mode.overlay.deleteLater()
+
+    def test_invalid_watcher_message_recovers_instead_of_crashing_a_callback(self):
+        process=Mock();self.mode.watcher=process;process.readAllStandardOutput.return_value=b'[]\n'
+        self.mode._read(process)
+        self.assertTrue(self.mode.enabled);self.assertTrue(self.mode.watcher_retry.isActive())
+
+    def test_invalid_query_message_uses_the_recovery_signal(self):
+        from ime_query_client import QueryClient
+        from ime_inline import host_path
+        client=QueryClient(host_path());errors=[];client.failed.connect(errors.append)
+        with patch.object(client.process,'readAllStandardOutput',return_value=b'[]\n'):client._read()
+        self.assertTrue(client.closed);self.assertEqual(len(errors),1)
