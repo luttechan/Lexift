@@ -49,7 +49,7 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "1.0.4b"
+VERSION = "1.0.4"
 ORGANIZATION = "LuteTools"
 PRODUCT = "Lexift"
 SELECTION_KEYS = "1234567890ABCDE"

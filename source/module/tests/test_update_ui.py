@@ -57,6 +57,18 @@ class UpdateUITests(unittest.TestCase):
         self.assertEqual(self.manager.result_dialog.status.text(), '업데이트가 필요합니다.')
         self.assertIsNotNone(self.manager.result_dialog.install_button)
 
+    def test_same_version_with_a_new_build_offers_the_hotfix(self):
+        release=Release('0.7.7',self.release.page,build='a'*64)
+        with patch('update_ui.installed_build',return_value='b'*64):self.manager._checked(release)
+        self.assertEqual(self.manager.result_dialog.status.text(),'업데이트가 필요합니다.')
+        self.assertIsNotNone(self.manager.result_dialog.install_button)
+
+    def test_matching_build_does_not_repeat_the_compatibility_update(self):
+        release=Release('0.7.7',self.release.page,build='a'*64)
+        with patch('update_ui.installed_build',return_value='a'*64):self.manager._checked(release)
+        self.assertEqual(self.manager.result_dialog.status.text(),'최신 버전입니다.')
+        self.assertIsNone(self.manager.result_dialog.install_button)
+
     def test_progress_and_results_do_not_block_other_windows(self):
         self.manager._dialog('Checking')
         self.assertEqual(self.manager.dialog.windowModality(), Qt.WindowModality.NonModal)

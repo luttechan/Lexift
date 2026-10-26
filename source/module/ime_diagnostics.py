@@ -13,7 +13,7 @@ def verify(output):
     qt=QApplication.instance() or QApplication([])
     qt.setQuitOnLastWindowClosed(False)
     client=QueryClient(host_path())
-    words=[('와타시','私'),('와타시','私'),('니혼고','日本語'),('갓코우','学校'),
+    words=[('야마토','大和'),('와타시','私'),('와타시','私'),('니혼고','日本語'),('갓코우','学校'),
            ('쿄우','今日'),('코-히-','コーヒー'),('모노즈쿠리','ものづくり'),
            ('치지마리마스','縮まります'),('오-키이','大きい'),
            ('와타시와가쿠세이데스','私は学生です'),('미카즈키','三日月'),
@@ -21,7 +21,7 @@ def verify(output):
            ('주-스','ジュース'),('파이루','ファイル'),
            ('바이올린','バイオリン'),('듀엣토','デュエット'),
            ('쓰나미','津波'),('마쓰모토','松本'),('지바','千葉')]
-    results={'version':'1.0.4b','queries':[],'passed':False}
+    results={'version':'1.0.4','queries':[],'passed':False}
     Path(output).write_text(json.dumps(results),encoding='utf-8')
     started=time.perf_counter();request_started=started
     def receive(serial,data):

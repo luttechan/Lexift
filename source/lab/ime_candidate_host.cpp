@@ -45,6 +45,7 @@ static std::wstring feeding;
 static int feedStep=0;
 static bool feedingActive=false;
 static ITfThreadMgrEx* tm;
+static TfClientId queryClientId=0;
 static ITfUIElementMgr* ui;
 static ITfSource* source;
 static DWORD cookie = TF_INVALID_COOKIE;
@@ -321,6 +322,46 @@ static void finish() {
     if(!passed) actionsOK=false;
     DestroyWindow(windowHandle);
 }
+class CompositionReader : public ITfEditSession {
+    LONG refs=1;ITfContext* context;
+public:
+    std::wstring text;
+    CompositionReader(ITfContext* value):context(value){context->AddRef();}
+    ~CompositionReader(){context->Release();}
+    HRESULT STDMETHODCALLTYPE QueryInterface(REFIID iid,void** out)override{
+        if(!out)return E_POINTER;*out=nullptr;
+        if(IsEqualIID(iid,IID_IUnknown)||IsEqualIID(iid,__uuidof(ITfEditSession))){*out=this;AddRef();return S_OK;}return E_NOINTERFACE;
+    }
+    ULONG STDMETHODCALLTYPE AddRef()override{return InterlockedIncrement(&refs);}
+    ULONG STDMETHODCALLTYPE Release()override{LONG n=InterlockedDecrement(&refs);if(!n)delete this;return n;}
+    HRESULT STDMETHODCALLTYPE DoEditSession(TfEditCookie cookie)override{
+        ITfContextComposition* compositions=nullptr;IEnumITfCompositionView* items=nullptr;ITfCompositionView* composition=nullptr;ITfRange* range=nullptr;ULONG fetched=0;
+        if(SUCCEEDED(context->QueryInterface(__uuidof(ITfContextComposition),(void**)&compositions)) && compositions){
+            if(SUCCEEDED(compositions->EnumCompositions(&items)) && items && items->Next(1,&composition,&fetched)==S_OK && composition){
+                if(SUCCEEDED(composition->GetRange(&range)) && range){
+                    wchar_t buffer[4096]={};ULONG count=0;
+                    if(SUCCEEDED(range->GetText(cookie,0,buffer,4095,&count)) && count<4095)text.assign(buffer,count);
+                    range->Release();
+                }
+                composition->Release();
+            }
+            if(items)items->Release();compositions->Release();
+        }
+        return S_OK;
+    }
+};
+static std::wstring tsfCompositionText(){
+    if(!tm || !queryClientId)return L"";
+    ITfDocumentMgr* document=nullptr;ITfContext* context=nullptr;ITfContextView* view=nullptr;HWND hwnd=nullptr;
+    if(FAILED(tm->GetFocus(&document)) || !document)return L"";
+    document->GetTop(&context);document->Release();if(!context)return L"";
+    if(SUCCEEDED(context->GetActiveView(&view)) && view){view->GetWnd(&hwnd);view->Release();}
+    if(!hwnd || (hwnd!=editor && GetAncestor(hwnd,GA_ROOT)!=windowHandle)){context->Release();return L"";}
+    auto session=new CompositionReader(context);HRESULT result=E_FAIL;
+    HRESULT requested=context->RequestEditSession(queryClientId,session,TF_ES_SYNC|TF_ES_READ,&result);
+    std::wstring text=SUCCEEDED(requested)&&SUCCEEDED(result)?session->text:L"";
+    session->Release();context->Release();return text;
+}
 static std::vector<std::wstring> wholeCompositionCandidates() {
     HIMC context=ImmGetContext(editor);
     std::wstring composition;std::vector<BYTE> attributes;
@@ -335,6 +376,9 @@ static std::vector<std::wstring> wholeCompositionCandidates() {
             }
         }
         ImmReleaseContext(editor,context);
+    }
+    if(composition.empty() || attributes.size()!=composition.size()) {
+        auto text=tsfCompositionText();if(!text.empty()){composition=text;attributes.clear();}
     }
     std::vector<std::wstring> result;
     // TSF/IMM candidate lists may describe only one clause. Never replace a
@@ -474,9 +518,13 @@ static void tick() {
             gotCandidates=false;queryStrings.clear();activeElement=DWORD(-1);
             queryComposition=queryConverted=false;step=2;return;
         }
-        if((step>=(queryServer?5:12) && gotCandidates && (!queryServer || queryConverted) && GetTickCount()-lastQueryUpdate>=(queryServer?0:60)) || step>=(queryServer?160:100)) {
+        auto complete=queryServer && step>=5?wholeCompositionCandidates():std::vector<std::wstring>{};
+        bool convertedText=false;
+        for(auto& value:complete)if(!value.empty() && value!=queryReadings[queryReadingIndex])convertedText=true;
+        bool serverReady=(step>=5 && convertedText) || (step>=(queryReadingIndex==0?60:25) && gotCandidates && queryConverted) || step>=160;
+        if(queryServer?serverReady:((step>=12 && gotCandidates && GetTickCount()-lastQueryUpdate>=60)||step>=100)) {
             if(queryServer) {
-                for(auto& candidate:wholeCompositionCandidates()) {
+                for(auto& candidate:complete) {
                     if(std::find(mergedCandidates.begin(),mergedCandidates.end(),candidate)==mergedCandidates.end()) {
                         // One prolific reading must not consume the entire
                         // result budget before a later pronunciation is seen.
@@ -631,6 +679,7 @@ static int hostMain(int argc,wchar_t** argv) {
     if(FAILED(result)) {CoUninitialize();return 2;}
     TfClientId client;
     result=tm->ActivateEx(&client,0x4); // TF_TMAE_UIELEMENTENABLEDONLY
+    if(SUCCEEDED(result))queryClientId=client;
     event("activate_uiless",result);
     if(FAILED(result)) {tm->Release();CoUninitialize();return 2;}
     tm->QueryInterface(__uuidof(ITfUIElementMgr),(void**)&ui);

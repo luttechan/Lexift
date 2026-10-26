@@ -38,7 +38,7 @@ def verify(output):
         checks['custom_japanese']=dictionary.merge('ja','스미네',{'kana':'すみね','candidates':['私']})['candidates'][0]=='澄音'
         checks['custom_chinese']=dictionary.merge('zh','니하오',{'kana':'ni hao','candidates':['你好']})['candidates'][0]=='你好呀'
         checks['language_scoping']=dictionary.lookup('zh','스미네') is None
-        checks['branding']=app.PRODUCT=='Lexift' and app.VERSION=='1.0.4b' and update_core.REPOSITORY=='luttechan/Lexift'
+        checks['branding']=app.PRODUCT=='Lexift' and app.VERSION=='1.0.4' and update_core.REPOSITORY=='luttechan/Lexift'
         started=time.perf_counter();window=app.MainWindow(store,[],False)
         window.navigate(2)
         checks['separate_panels']=window.shortcut_modifier.parent() is not window.ime_modifier.parent()

@@ -6,7 +6,7 @@ from native_hooks import library
 def verify(output):
     from compact_dictionary import CompactDictionary
     from chinese_reading import ChineseEngine
-    report=dict(version='1.0.4b',passed=False,checks={})
+    report=dict(version='1.0.4',passed=False,checks={})
     try:
         checks=report['checks']
         examples=(('hao',3,'hǎo'),('liu',2,'liú'),('gui',3,'guǐ'),('nǐhǎo',4,'nǐhào'),('lv',4,'lǜ'),('nü',0,'nü'))

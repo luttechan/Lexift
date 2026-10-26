@@ -1,0 +1,23 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "language": "ja",
+      "source": "\uc57c\ub9c8\ud1a0",
+      "passed": true,
+      "requests": 2,
+      "snapshots": 63,
+      "elapsed_ms": 344
+    },
+    {
+      "language": "zh",
+      "source": "\ub2c8\uce20\ud310\ub7ec\ub9c8",
+      "passed": false,
+      "requests": 403,
+      "snapshots": 404,
+      "elapsed_ms": 4000
+    }
+  ],
+  "legacy": true,
+  "simulated_dictionary_delay_ms": 30
+}

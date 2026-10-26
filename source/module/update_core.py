@@ -91,6 +91,24 @@ class Release:
     asset_name: str = ""
     size: int = 0
     digest: str = ""
+    build: str = ""
+
+
+def payload_build(files: object) -> str:
+    import hashlib
+    if not isinstance(files, dict) or not files or any(
+            not isinstance(name,str) or not isinstance(value,str) or
+            not re.fullmatch(r'[0-9a-f]{64}',value) for name,value in files.items()):
+        return ''
+    return hashlib.sha256(json.dumps(files,sort_keys=True,separators=(',',':')).encode('utf-8')).hexdigest()
+
+
+def installed_build(root: Path) -> str:
+    try:
+        path=manifest_path(root)
+        if path.stat().st_size>512*1024:return ''
+        return payload_build(json.loads(path.read_text(encoding='utf-8')).get('files'))
+    except (OSError,ValueError,AttributeError):return ''
 
 
 def parse_release(data: object) -> Release:
@@ -100,6 +118,10 @@ def parse_release(data: object) -> Release:
     if not isinstance(tag, str) or not re.fullmatch(r"v\d{1,6}\.\d{1,6}\.\d{1,6}b?", tag):
         raise UpdateError("Release tag must use vMAJOR.MINOR.PATCH")
     version = version_text(tag)
+    body=data.get('body') or ''
+    if not isinstance(body,str):raise UpdateError('Invalid release body')
+    build_match=re.search(r'(?m)^<!-- lexift-files-sha256:([0-9a-f]{64}) -->\r?$',body)
+    build=build_match.group(1) if build_match else ''
     page = data.get("html_url", "")
     expected_page = f"https://github.com/{REPOSITORY}/releases/tag/"
     if not isinstance(page, str) or page != expected_page + tag:
@@ -126,9 +148,9 @@ def parse_release(data: object) -> Release:
         if not isinstance(size, int) or not 0 < size <= MAX_DOWNLOAD:
             raise UpdateError("Invalid asset size")
         digest = asset.get("digest") or ""
-        candidates.append((name != modern, Release(version, page, url, name, size, digest)))
+        candidates.append((name != modern, Release(version, page, url, name, size, digest, build)))
     if not candidates:
-        return Release(version, page)
+        return Release(version, page, build=build)
     candidates.sort(key=lambda row: row[0])
     if len(candidates) > 1 and candidates[0][0] == candidates[1][0]:
         raise UpdateError("Ambiguous update assets")

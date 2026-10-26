@@ -379,7 +379,10 @@ class InlineMode(QObject):
                 if text in self.cache:
                     self._show(self.cache[text])
                 else:
-                    if self.dictionary and self.dictionary.lookup(self.language,text):
+                    previous=self.last_query.get('data') if self.last_query else None
+                    if previous and previous.get('source')==text and previous.get('candidates'):
+                        self._show(previous)
+                    elif self.dictionary and self.dictionary.lookup(self.language,text):
                         self._show({'kana':latest.get('kana',text),'candidates':[],'preview':True})
                     elif self.language=='ja' and latest.get('kana'):
                         self._show({'kana':latest['kana'],'candidates':latest.get('kana_variants') or [latest['kana']],
@@ -402,14 +405,16 @@ class InlineMode(QObject):
         if client is not self.query or not self.enabled:
             return
         if self.language!='ja' and data.get('output_mode','zh')!=self.language:return
+        if data.get('error'):
+            self._report_recovery(data['error']);return
         self._query_attempts=0
-        self.last_query={'data':data}
         text=data.get('source','')
         if self.language=='ja' and data.get('candidates'):
             values=list(dict.fromkeys(data['candidates']+data.get('kana_variants',[])))
             by_value=dict(zip(data['candidates'],data.get('readings',[])))
             variants=data.get('kana_variants',[])
             data=dict(data,candidates=values,readings=[by_value.get(v,v if v in variants else data['kana']) for v in values])
+        self.last_query={'data':data}
         if data.get('candidates') or (self.dictionary and self.dictionary.lookup(self.language,text)):
             if not data.get('partial'):
                 if len(self.cache)>=32:
