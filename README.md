@@ -25,9 +25,9 @@ Japanese input requires Microsoft Japanese IME.
 
 ## 1.0.4
 
-Fixed an issue affecting certain CPUs. Please make sure to update to v1.0.4.
+Fixed an issue affecting certain CPUs.
 
-특정 CPU에서 발생하던 오류를 수정했습니다. 반드시 v1.0.4로 업데이트해 주시길 부탁드립니다.
+특정 CPU에서 발생하던 오류를 수정했습니다.
 
 ## Credits
 
