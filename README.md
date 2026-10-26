@@ -25,9 +25,9 @@ Japanese input requires Microsoft Japanese IME.
 
 ## 1.0.4
 
-Fixed update checks from 1.0.3 and missing conversion candidates.
+Fixed update checks, missing candidates, and Japanese engine startup on other PCs.
 
-1.0.3 업데이트 조회 및 한자 후보 누락 수정.
+업데이트 조회, 한자 후보 누락, 다른 PC에서 일본어 엔진이 종료되는 문제 수정.
 
 ## Credits
 

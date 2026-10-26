@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Lexift 1.0.4 — 사용설명서</title>
+    <link rel="stylesheet" href="guide.css">
+    <script src="guide.js" defer>
+    </script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="../../">
+        <img src="assets/lexift-logo.png" alt="Lexift">
+        <span>Docs</span>
+      </a>
+      <label class="search">
+        <input type="search" placeholder="목차 검색" aria-label="목차 검색">
+        <div class="search-results" hidden>
+        </div>
+      </label>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="chapters">☰ 목차</button>
+    </header>
+    <div class="scrim" hidden>
+    </div>
+    <aside id="chapters" class="sidebar">
+      <div class="edition">LEXIFT 1.0.4</div>
+      <nav class="chapter-nav" aria-label="목차">
+        <a href="#overview">01 &nbsp; 개요</a>
+        <a href="#install">02 &nbsp; 설치 및 실행</a>
+        <a href="#switch">03 &nbsp; 입력기 전환</a>
+        <a href="#japanese">04 &nbsp; 일본어 입력</a>
+        <a href="#simplified">05 &nbsp; 중국어 간체</a>
+        <a href="#traditional">06 &nbsp; 번체 및 주음부호</a>
+        <a href="#tones">07 &nbsp; 병음 성조</a>
+        <a href="#settings">08 &nbsp; 환경 설정</a>
+        <a href="#dictionary">09 &nbsp; 사용자 사전</a>
+        <a href="#help">10 &nbsp; 문제 해결</a>
+      </nav>
+      <nav class="languages" aria-label="Language">
+        <a href="ko.html" lang="ko" aria-current="page">한국어</a>
+        <a href="en.html" lang="en">English</a>
+        <a href="ja.html" lang="ja">日本語</a>
+        <a href="zh_CN.html" lang="zh-Hans">简体中文</a>
+        <a href="zh_TW.html" lang="zh-Hant">繁體中文</a>
+      </nav>
+    </aside>
+    <main>
+      <h1>사용설명서</h1>
+
+      <section id="overview">
+        <h2>개요</h2>
+        <p class="lead">입력기 전환과 한글 발음 변환.</p>
+        <p>Windows 10/11, 64비트.</p>
+        <a class="download" href="https://github.com/luttechan/Lexift/releases/tag/v1.0.4">다운로드 1.0.4 ↗</a>
+      </section>
+
+      <section id="install">
+        <h2>설치 및 실행</h2>
+        <p>ZIP 압축 해제 후 Lexift.exe 실행. 사용할 입력기는 Windows에 설치한 뒤 ‘입력기 슬롯’에 등록합니다.</p>
+        <figure style="max-width:880px">
+          <a href="assets/slots-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/slots-ko.png" alt="Lexift slots" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 709 L 327 709" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="309" cy="709" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="709" r="17" fill="#e05c36"/>
+                <text x="1132" y="715" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="switch">
+        <h2>입력기 전환</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>Q</kbd>
+        </div>
+        <p>방향키와 Enter, 또는 번호로 선택합니다.</p>
+        <figure style="max-width:735px">
+          <a href="assets/switch-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:735/303">
+              <img src="assets/switch-ko.png" alt="Lexift switch" width="665" height="303" style="width:90.476190%" loading="lazy">
+              <svg viewBox="0 0 735 303" aria-hidden="true">
+                <path d="M 697 171 L 147 171" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="129" cy="171" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="697" cy="171" r="17" fill="#e05c36"/>
+                <text x="697" y="177" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="japanese">
+        <h2>일본어 입력</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>A</kbd>
+        </div>
+        <p>일본어 발음을 한글로 입력합니다. 와타시 → 私. 다시 누르면 꺼집니다.</p>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-ja-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/330">
+              <img src="assets/candidate-ja-ko.png" alt="Lexift candidate-ja" width="330" height="330" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 330" aria-hidden="true">
+                <path d="M 362 103 L 332 103" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="103" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="103" r="17" fill="#e05c36"/>
+                <text x="362" y="109" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <p class="note">↑↓ 이동 / Space 또는 Enter 확정 / 1~9, 0 번호 선택 / Esc 닫기.</p>
+        <p>변환을 켜면 한글 입력으로 전환됩니다.</p>
+      </section>
+
+      <section id="simplified">
+        <h2>중국어 간체</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>C</kbd>
+        </div>
+        <p>중국어 발음을 한글로 입력합니다. 니하오 → 你好. 다시 누르면 꺼집니다.</p>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-zh-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/330">
+              <img src="assets/candidate-zh-ko.png" alt="Lexift candidate-zh" width="330" height="330" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 330" aria-hidden="true">
+                <path d="M 362 61 L 332 61" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="61" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="61" r="17" fill="#e05c36"/>
+                <text x="362" y="67" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="traditional">
+        <h2>번체 및 주음부호</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>T</kbd>
+        </div>
+        <p>번체 → 주음부호 → 끄기 순으로 전환합니다. 중궈 → 中國 / 니하오 → ㄋㄧ ㄏㄠ. 주음은 성조 없이 표시합니다.</p>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-zh_tw-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/330">
+              <img src="assets/candidate-zh_tw-ko.png" alt="Lexift candidate-zh_tw" width="330" height="330" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 330" aria-hidden="true">
+                <path d="M 362 61 L 332 61" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="61" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="61" r="17" fill="#e05c36"/>
+                <text x="362" y="67" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-zh_bopomofo-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/162">
+              <img src="assets/candidate-zh_bopomofo-ko.png" alt="Lexift candidate-zh_bopomofo" width="330" height="162" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 162" aria-hidden="true">
+                <path d="M 362 61 L 332 61" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="61" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="61" r="17" fill="#e05c36"/>
+                <text x="362" y="67" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="tones">
+        <h2>병음 성조</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>1 / 2 / 3 / 4 / 0</kbd>
+        </div>
+        <p>설정에서 ‘중국어 성조’를 켠 뒤 병음을 영문으로 입력합니다. ke 입력 후 Caps + 3 → kě.</p>
+        <div class="tone-example">mā &nbsp; má &nbsp; mǎ &nbsp; mà &nbsp; ma</div>
+        <p>1~4: 성조 지정 / 0: 성조 해제. 숫자패드도 지원합니다(Num Lock 무관). 후보창에서는 번호 선택이 우선합니다.</p>
+        <figure style="max-width:880px">
+          <a href="assets/tones-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/tones-ko.png" alt="Lexift tones" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 197 L 680 197" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="662" cy="197" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="197" r="17" fill="#e05c36"/>
+                <text x="1132" y="203" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="settings">
+        <h2>환경 설정</h2>
+        <p>체크박스로 기능을 켜고 끕니다. 단축키 변경 후 ‘적용’을 누릅니다. 중복 단축키는 저장되지 않습니다.</p>
+        <figure style="max-width:880px">
+          <a href="assets/settings-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/settings-ko.png" alt="Lexift settings" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 242 L 892 242" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="874" cy="242" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="242" r="17" fill="#e05c36"/>
+                <text x="1132" y="248" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <figure style="max-width:880px">
+          <a href="assets/startup-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/startup-ko.png" alt="Lexift startup" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 432 L 680 432" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="662" cy="432" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="432" r="17" fill="#e05c36"/>
+                <text x="1132" y="438" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <p class="note">‘기본값’을 누르면 모든 설정과 사용자 사전이 초기화됩니다.</p>
+      </section>
+
+      <section id="dictionary">
+        <h2>사용자 사전</h2>
+        <p>후보에 없는 단어를 등록합니다. 스미네 / 澄音 / 한–일처럼 입력하고 저장합니다. 삭제는 각 행 오른쪽 버튼.</p>
+        <figure style="max-width:876px">
+          <a href="assets/dictionary-ko.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:876/260">
+              <img src="assets/dictionary-ko.png" alt="Lexift dictionary" width="806" height="260" style="width:92.009132%" loading="lazy">
+              <svg viewBox="0 0 876 260" aria-hidden="true">
+                <path d="M 838 59 L 781 59" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="763" cy="59" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="838" cy="59" r="17" fill="#e05c36"/>
+                <text x="838" y="65" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="help">
+        <h2>문제 해결</h2>
+        <h3>단축키가 반응하지 않음</h3>
+        <p>트레이에서 Lexift 실행 여부를 확인합니다. 설정에서 해당 기능을 체크하고 ‘적용’을 누릅니다. 다른 프로그램과 키가 겹치면 단축키를 변경합니다.</p>
+        <h3>전환할 언어가 목록에 없음</h3>
+        <p>Windows 설정에서 해당 언어와 입력기를 설치한 뒤 Lexift의 ‘입력기 슬롯’에 등록합니다.</p>
+        <h3>한글을 입력해도 후보가 안 뜸</h3>
+        <p>변환 기능을 켠 뒤 한국어 입력기의 한글 상태에서 입력합니다. 일본어 변환에는 Microsoft 일본어 IME가 필요합니다. 입력기를 새로 설치했다면 Lexift를 다시 실행합니다.</p>
+        <h3>일본어 변환 엔진 오류가 반복됨</h3>
+        <p>최신 ZIP 전체를 새 폴더에 풀어 실행합니다. 계속되면 설정 → 프로그램 정보 → 오류 로그 열기에서 종료 코드를 확인해 제보합니다.</p>
+        <h3>원하는 단어가 후보에 없음</h3>
+        <p>이름이나 고유명사는 사용자 사전에 등록합니다. 일본어 장음은 대시(-)로 입력할 수 있습니다. 예: 코-죠- → こうじょう.</p>
+        <h3>Caps + Q에서 방향키나 Esc가 안 됨</h3>
+        <p>Lexift를 종료하고 최신 ZIP을 새 폴더에 모두 풀어 실행합니다. 실행 파일만 복사하지 말고 module 폴더도 함께 사용합니다.</p>
+        <h3>병음에 성조가 붙지 않음</h3>
+        <p>설정에서 ‘중국어 성조’를 켜고 영문 입력 상태에서 ke를 입력한 뒤 Caps + 3을 누릅니다. 후보창이 열려 있으면 먼저 닫고, 커서는 성조를 붙일 음절 바로 뒤에 둡니다.</p>
+        <h3>특정 프로그램에서만 입력되지 않음</h3>
+        <p>입력칸을 다시 클릭하고 메모장에서도 확인합니다. 관리자 권한 앱에서는 Lexift를 종료한 뒤 같은 권한으로 다시 실행합니다. 비밀번호 등 보안 입력란은 지원하지 않습니다.</p>
+        <p>오류 제보: 사용한 프로그램, Windows 버전, 재현 순서.</p>
+        <a href="https://github.com/luttechan/Lexift/issues">GitHub Issues ↗</a>
+      </section>
+      <footer>Lexift 1.0.4<br>Translation (JP) &amp; QA : 루노</footer>
+    </main>
+  </body>
+</html>

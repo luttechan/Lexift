@@ -54,6 +54,7 @@ static bool nativeUI = false, automatic = false, gotCandidates = false, inputAbo
 static bool useBehavior=false, cancelTest=false, abortCandidate=false;
 static bool queryLive=false;
 static bool queryServer=false,queryActive=false,queryInitialized=false;
+static bool sharedQueryDesktop=false,ignoreLayoutCache=false,tickRunning=false;
 static unsigned queryRetries=0;
 static unsigned queryId=0;
 static std::string queryInput;
@@ -139,6 +140,7 @@ static std::string json(const std::wstring& s) {
 }
 static void event(const char* name, HRESULT status=S_OK) {
     if(logFile) {fprintf(logFile,"{\"event\":\"%s\",\"hr\":\"0x%08lX\",\"tick\":%lu}\n",name,(unsigned long)status,GetTickCount());fflush(logFile);}
+    else if(queryServer) {fprintf(stderr,"%s 0x%08lX\n",name,(unsigned long)status);fflush(stderr);}
 }
 #include "inline_input.h"
 static void snapshot(DWORD id, const char* reason) {
@@ -237,17 +239,41 @@ static std::wstring textOf(HWND field) {
     std::wstring text(length+1,L'\0');
     GetWindowTextW(field,text.data(),length+1);text.resize(length);return text;
 }
+static bool activateProfile(ITfInputProcessorProfiles* profiles,LANGID language) {
+    if(!profiles)return false;
+    HRESULT changed=profiles->ChangeCurrentLanguage(language);event("change_query_language",changed);
+    GUID category={0x34745c63,0xb2f0,0x4784,{0x8b,0x67,0x5e,0x12,0xc8,0x70,0x1a,0x31}},clsid={},profile={};
+    ITfInputProcessorProfileMgr* manager=nullptr;
+    profiles->QueryInterface(__uuidof(ITfInputProcessorProfileMgr),(void**)&manager);
+    auto activate=[&](REFCLSID clsid,REFGUID profile){
+        // Flags zero affects this helper thread only. Never enable a profile
+        // in the registry or switch the user's foreground application's IME.
+        HRESULT result=manager?manager->ActivateProfile(TF_PROFILETYPE_INPUTPROCESSOR,language,clsid,profile,nullptr,0):E_NOINTERFACE;
+        if(result!=S_OK)result=profiles->ActivateLanguageProfile(clsid,language,profile);
+        event("activate_query_profile",result);return result==S_OK;
+    };
+    bool activated=false;
+    if(SUCCEEDED(profiles->GetDefaultLanguageProfile(language,category,&clsid,&profile)))activated=activate(clsid,profile);
+    if(!activated){
+        IEnumTfLanguageProfiles* items=nullptr;
+        if(SUCCEEDED(profiles->EnumLanguageProfiles(language,&items)) && items){
+            TF_LANGUAGEPROFILE value={};ULONG fetched=0;
+            while(items->Next(1,&value,&fetched)==S_OK){
+                BOOL enabled=FALSE;
+                if(!IsEqualGUID(value.catid,category) ||
+                   FAILED(profiles->IsEnabledLanguageProfile(value.clsid,language,value.guidProfile,&enabled)) || !enabled)continue;
+                if(activate(value.clsid,value.guidProfile)){activated=true;break;}
+            }
+            items->Release();
+        }
+    }
+    if(manager)manager->Release();
+    return activated;
+}
 static void activateInputLanguage(UINT language) {
     ITfInputProcessorProfiles* p=nullptr;
     if(SUCCEEDED(CoCreateInstance(profilesCLSID,nullptr,CLSCTX_INPROC_SERVER,__uuidof(ITfInputProcessorProfiles),(void**)&p))) {
-        HRESULT changed=p->ChangeCurrentLanguage((LANGID)language);
-        if(language==lang) event("focused_change_language",changed);
-        GUID cat={0x34745c63,0xb2f0,0x4784,{0x8b,0x67,0x5e,0x12,0xc8,0x70,0x1a,0x31}},clsid={},profile={};
-        HRESULT got=p->GetDefaultLanguageProfile((LANGID)language,cat,&clsid,&profile);
-        if(SUCCEEDED(got)) {
-            HRESULT activated=p->ActivateLanguageProfile(clsid,(LANGID)language,profile);
-            if(language==lang) event("activate_focused_profile",activated);
-        }
+        activateProfile(p,(LANGID)language);
         p->Release();
     }
     HWND field=queryLive?editor:GetFocus();
@@ -422,6 +448,10 @@ static void emitQueryResult(bool partial) {
            queryComposition?"true":"false",queryConverted?"true":"false");fflush(stdout);
 }
 static void tick() {
+    // TSF/IMM calls can pump COM/window messages. A nested WM_TIMER must not
+    // mutate the request/reading vectors used by the outer conversion.
+    if(tickRunning)return;
+    struct TickGuard{TickGuard(){tickRunning=true;}~TickGuard(){tickRunning=false;}} guard;
     // 80 ms per tick; wait for focus/IME initialization before typing.
     step++;
     if(queryLive) {
@@ -440,7 +470,9 @@ static void tick() {
             if(available) {
                 char buffer[8192];DWORD received=0;
                 if(ReadFile(input,buffer,std::min<DWORD>(available,sizeof buffer),&received,nullptr)) queryInput.append(buffer,received);
-                if(queryInput.size()>32768) {DestroyWindow(windowHandle);return;}
+                // A valid 4,096-codepoint request can contain 32,768 hex
+                // digits plus its header. Bound the frame, not the word.
+                if(queryInput.size()>65536) {event("query_frame_overflow",E_INVALIDARG);DestroyWindow(windowHandle);return;}
                 size_t end;
                 while((end=queryInput.find('\n'))!=std::string::npos) {
                     auto command=queryInput.substr(0,end);queryInput.erase(0,end+1);
@@ -451,8 +483,8 @@ static void tick() {
                         if(context){ImmNotifyIME(context,NI_COMPOSITIONSTR,CPS_CANCEL,0);ImmReleaseContext(editor,context);}
                         SetWindowTextW(editor,L"");continue;
                     }
-                    unsigned id=0;char hex[4097]={};
-                    if(sscanf(command.c_str(),"QUERY %u %4096s",&id,hex)==2) {
+                    unsigned id=0;char hex[32769]={};
+                    if(sscanf(command.c_str(),"QUERY %u %32768s",&id,hex)==2) {
                         auto input=fromHex(hex);auto result=reading::convert(input);
                         if(!result.ok()) {
                             queryActive=false;queryCollect=false;queryStrings.clear();
@@ -644,6 +676,8 @@ static int hostMain(int argc,wchar_t** argv) {
         if(!wcscmp(argv[i],L"--auto")) automatic=true;
         else if(!wcscmp(argv[i],L"--query-live") && i+1<argc) {queryLive=true;automatic=true;hangulInput=argv[++i];}
         else if(!wcscmp(argv[i],L"--query-server")) {queryLive=true;queryServer=true;automatic=true;}
+        else if(!wcscmp(argv[i],L"--shared-desktop")) sharedQueryDesktop=true;
+        else if(!wcscmp(argv[i],L"--diagnostic-ignore-layout-cache")) ignoreLayoutCache=true;
         else if(!wcscmp(argv[i],L"--button-test")) buttonTest=true;
         else if(!wcscmp(argv[i],L"--behavior")) useBehavior=true;
         else if(!wcscmp(argv[i],L"--cancel")) cancelTest=true;
@@ -666,13 +700,16 @@ static int hostMain(int argc,wchar_t** argv) {
         // The query document lives on a private, undisplayed desktop. It can
         // own TSF document focus without activating a window in the user's app.
         std::wstring desktopName=L"LexiftIME_"+std::to_wstring(GetCurrentProcessId());
-        HDESK desktop=CreateDesktopW(desktopName.c_str(),nullptr,nullptr,0,GENERIC_ALL,nullptr);
-        if(!desktop || !SetThreadDesktop(desktop)) {
+        HDESK desktop=sharedQueryDesktop?nullptr:CreateDesktopW(desktopName.c_str(),nullptr,nullptr,0,
+            DESKTOP_CREATEWINDOW|DESKTOP_CREATEMENU|DESKTOP_READOBJECTS|DESKTOP_WRITEOBJECTS|DESKTOP_ENUMERATE|DESKTOP_HOOKCONTROL,nullptr);
+        if(!sharedQueryDesktop && (!desktop || !SetThreadDesktop(desktop))) {
+            event("query_desktop_failed",HRESULT_FROM_WIN32(GetLastError()));
             if(desktop) CloseDesktop(desktop);
             return 7;
         }
     }
     HRESULT init=CoInitializeEx(nullptr,COINIT_APARTMENTTHREADED);
+    event("initialize_com",init);
     if(FAILED(init)) return 2;
     HRESULT result=CoCreateInstance(threadCLSID,nullptr,CLSCTX_INPROC_SERVER,__uuidof(ITfThreadMgrEx),(void**)&tm);
     event("thread_manager",result);
@@ -692,13 +729,27 @@ static int hostMain(int argc,wchar_t** argv) {
     CoCreateInstance(profilesCLSID,nullptr,CLSCTX_INPROC_SERVER,__uuidof(ITfInputProcessorProfiles),(void**)&profiles);
     HKL old=GetKeyboardLayout(0);
     LANGID oldLang=0;
-    if(profiles) {profiles->GetCurrentLanguage(&oldLang);event("change_language",profiles->ChangeCurrentLanguage((LANGID)lang));}
-    std::vector<HKL> layouts(GetKeyboardLayoutList(0,nullptr));
-    GetKeyboardLayoutList((int)layouts.size(),layouts.data());
+    if(profiles)profiles->GetCurrentLanguage(&oldLang);
+    bool profileActivated=activateProfile(profiles,(LANGID)lang);
+    int layoutCount=ignoreLayoutCache?0:GetKeyboardLayoutList(0,nullptr);
+    std::vector<HKL> layouts(layoutCount>0?layoutCount:0);
+    int loaded=layouts.empty()?0:GetKeyboardLayoutList((int)layouts.size(),layouts.data());
+    layouts.resize(loaded>0?std::min<size_t>(loaded,layouts.size()):0);
     bool found=false;
     for(auto layout:layouts) if(LOWORD((ULONG_PTR)layout)==lang) {ActivateKeyboardLayout(layout,0);found=true;break;}
+    if(!found){
+        // Ask Windows for the existing Japanese layout without KLF_ACTIVATE,
+        // KLF_REORDER or registry changes. TSF profile activation is preferred.
+        wchar_t klid[9]={};swprintf(klid,9,L"%08x",lang);
+        HKL loadedLayout=LoadKeyboardLayoutW(klid,0);
+        if(loadedLayout && LOWORD((ULONG_PTR)loadedLayout)==lang){ActivateKeyboardLayout(loadedLayout,0);found=true;}
+        event("load_query_layout",found?S_OK:HRESULT_FROM_WIN32(GetLastError()));
+    }
     event(found?"layout_found":"layout_missing",found?S_OK:E_FAIL);
-    if(!found) {if(profiles){if(oldLang)profiles->ChangeCurrentLanguage(oldLang);profiles->Release();} source->UnadviseSink(cookie);source->Release();ui->Release();tm->Deactivate();tm->Release();CoUninitialize();return 3;}
+    // GetKeyboardLayoutList is a cache of loaded HKLs, not the list of
+    // installed TSF profiles. A modern Japanese TIP can work without an HKL
+    // in that cache, especially in a fresh private desktop on another PC.
+    if(!found && !profileActivated) {event("japanese_profile_unavailable",E_FAIL);if(profiles){if(oldLang)profiles->ChangeCurrentLanguage(oldLang);profiles->Release();} source->UnadviseSink(cookie);source->Release();ui->Release();tm->Deactivate();tm->Release();CoUninitialize();return 3;}
     HMODULE rich=LoadLibraryW(L"msftedit.dll");
     WNDCLASSW wc={};wc.lpfnWndProc=proc;wc.hInstance=GetModuleHandleW(nullptr);wc.lpszClassName=L"Lexift08ImeLab";wc.hbrBackground=(HBRUSH)(COLOR_WINDOW+1);wc.hCursor=LoadCursorW(nullptr,IDC_ARROW);
     RegisterClassW(&wc);

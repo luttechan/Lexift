@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Lexift 1.0.4 — 使い方</title>
+    <link rel="stylesheet" href="guide.css">
+    <script src="guide.js" defer>
+    </script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="../../">
+        <img src="assets/lexift-logo.png" alt="Lexift">
+        <span>Docs</span>
+      </a>
+      <label class="search">
+        <input type="search" placeholder="目次を検索" aria-label="目次を検索">
+        <div class="search-results" hidden>
+        </div>
+      </label>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="chapters">☰ 目次</button>
+    </header>
+    <div class="scrim" hidden>
+    </div>
+    <aside id="chapters" class="sidebar">
+      <div class="edition">LEXIFT 1.0.4</div>
+      <nav class="chapter-nav" aria-label="目次">
+        <a href="#overview">01 &nbsp; 概要</a>
+        <a href="#install">02 &nbsp; インストール</a>
+        <a href="#switch">03 &nbsp; 入力言語の切り替え</a>
+        <a href="#japanese">04 &nbsp; 日本語入力</a>
+        <a href="#simplified">05 &nbsp; 簡体字入力</a>
+        <a href="#traditional">06 &nbsp; 繁体字と注音符号</a>
+        <a href="#tones">07 &nbsp; ピンイン声調</a>
+        <a href="#settings">08 &nbsp; 設定</a>
+        <a href="#dictionary">09 &nbsp; ユーザー辞書</a>
+        <a href="#help">10 &nbsp; 問題と対処</a>
+      </nav>
+      <nav class="languages" aria-label="Language">
+        <a href="ko.html" lang="ko">한국어</a>
+        <a href="en.html" lang="en">English</a>
+        <a href="ja.html" lang="ja" aria-current="page">日本語</a>
+        <a href="zh_CN.html" lang="zh-Hans">简体中文</a>
+        <a href="zh_TW.html" lang="zh-Hant">繁體中文</a>
+      </nav>
+    </aside>
+    <main>
+      <h1>使い方</h1>
+
+      <section id="overview">
+        <h2>概要</h2>
+        <p class="lead">言語を切り替え、日本語や中国語をハングルで入力。</p>
+        <p>Windows 10/11、64ビット。</p>
+        <a class="download" href="https://github.com/luttechan/Lexift/releases/tag/v1.0.4">ダウンロード 1.0.4 ↗</a>
+      </section>
+
+      <section id="install">
+        <h2>インストール</h2>
+        <p>ZIP を展開して Lexift.exe を起動。使う言語を Windows に追加し、「入力スロット」に登録します。</p>
+        <figure style="max-width:880px">
+          <a href="assets/slots-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/slots-ja.png" alt="Lexift slots" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 709 L 334 709" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="316" cy="709" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="709" r="17" fill="#e05c36"/>
+                <text x="1132" y="715" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="switch">
+        <h2>入力言語の切り替え</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>Q</kbd>
+        </div>
+        <p>方向キーと Enter、または番号で選択します。</p>
+        <figure style="max-width:735px">
+          <a href="assets/switch-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:735/303">
+              <img src="assets/switch-ja.png" alt="Lexift switch" width="665" height="303" style="width:90.476190%" loading="lazy">
+              <svg viewBox="0 0 735 303" aria-hidden="true">
+                <path d="M 697 171 L 147 171" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="129" cy="171" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="697" cy="171" r="17" fill="#e05c36"/>
+                <text x="697" y="177" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="japanese">
+        <h2>日本語入力</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>A</kbd>
+        </div>
+        <p>日本語の読みをハングルで入力します。와타시 → 私。もう一度押すとオフ。</p>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-ja-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/330">
+              <img src="assets/candidate-ja-ja.png" alt="Lexift candidate-ja" width="330" height="330" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 330" aria-hidden="true">
+                <path d="M 362 103 L 332 103" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="103" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="103" r="17" fill="#e05c36"/>
+                <text x="362" y="109" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <p class="note">↑↓ 移動 / Space または Enter で確定 / 1～9、0 で選択 / Esc で閉じる。</p>
+        <p>変換をオンにするとハングル入力に切り替わります。</p>
+      </section>
+
+      <section id="simplified">
+        <h2>簡体字入力</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>C</kbd>
+        </div>
+        <p>中国語の読みをハングルで入力します。니하오 → 你好。もう一度押すとオフ。</p>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-zh-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/330">
+              <img src="assets/candidate-zh-ja.png" alt="Lexift candidate-zh" width="330" height="330" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 330" aria-hidden="true">
+                <path d="M 362 61 L 332 61" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="61" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="61" r="17" fill="#e05c36"/>
+                <text x="362" y="67" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="traditional">
+        <h2>繁体字と注音符号</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>T</kbd>
+        </div>
+        <p>繁体字 → 注音符号 → オフの順に切り替えます。중궈 → 中國 / 니하오 → ㄋㄧ ㄏㄠ。注音には声調を付けません。</p>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-zh_tw-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/330">
+              <img src="assets/candidate-zh_tw-ja.png" alt="Lexift candidate-zh_tw" width="330" height="330" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 330" aria-hidden="true">
+                <path d="M 362 61 L 332 61" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="61" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="61" r="17" fill="#e05c36"/>
+                <text x="362" y="67" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <figure style="max-width:400px">
+          <a href="assets/candidate-zh_bopomofo-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:400/162">
+              <img src="assets/candidate-zh_bopomofo-ja.png" alt="Lexift candidate-zh_bopomofo" width="330" height="162" style="width:82.500000%" loading="lazy">
+              <svg viewBox="0 0 400 162" aria-hidden="true">
+                <path d="M 362 61 L 332 61" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="314" cy="61" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="362" cy="61" r="17" fill="#e05c36"/>
+                <text x="362" y="67" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="tones">
+        <h2>ピンイン声調</h2>
+        <div class="key-row">
+          <kbd>Caps Lock</kbd>
+          <span>+</span>
+          <kbd>1 / 2 / 3 / 4 / 0</kbd>
+        </div>
+        <p>設定の「ピンイン声調」をオンにして、英字で入力します。ke の後に Caps + 3 を押すと kě。</p>
+        <div class="tone-example">mā &nbsp; má &nbsp; mǎ &nbsp; mà &nbsp; ma</div>
+        <p>1～4：声調を指定 / 0：声調を削除。Num Lock の状態に関係なくテンキーも使えます。候補表示中は番号選択が優先されます。</p>
+        <figure style="max-width:880px">
+          <a href="assets/tones-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/tones-ja.png" alt="Lexift tones" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 197 L 680 197" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="662" cy="197" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="197" r="17" fill="#e05c36"/>
+                <text x="1132" y="203" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="settings">
+        <h2>設定</h2>
+        <p>チェックで機能を有効にします。キーを変更したら「適用」で保存。同じキーは重複して登録できません。</p>
+        <figure style="max-width:880px">
+          <a href="assets/settings-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/settings-ja.png" alt="Lexift settings" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 269 L 892 269" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="874" cy="269" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="269" r="17" fill="#e05c36"/>
+                <text x="1132" y="275" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <figure style="max-width:880px">
+          <a href="assets/startup-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:1170/760">
+              <img src="assets/startup-ja.png" alt="Lexift startup" width="1100" height="760" style="width:94.017094%" loading="lazy">
+              <svg viewBox="0 0 1170 760" aria-hidden="true">
+                <path d="M 1132 432 L 680 432" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="662" cy="432" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="1132" cy="432" r="17" fill="#e05c36"/>
+                <text x="1132" y="438" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+        <p class="note">「初期設定」で設定とユーザー辞書をリセットします。</p>
+      </section>
+
+      <section id="dictionary">
+        <h2>ユーザー辞書</h2>
+        <p>候補にない単語を登録します。キーワード、置換テキスト、言語を入力して保存。例：스미네 / 澄音 / 韓日変換。各行右端のボタンで削除します。</p>
+        <figure style="max-width:876px">
+          <a href="assets/dictionary-ja.png" target="_blank" rel="noopener">
+            <div class="shot" style="aspect-ratio:876/260">
+              <img src="assets/dictionary-ja.png" alt="Lexift dictionary" width="806" height="260" style="width:92.009132%" loading="lazy">
+              <svg viewBox="0 0 876 260" aria-hidden="true">
+                <path d="M 838 59 L 781 59" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="763" cy="59" r="13" fill="none" stroke="#e05c36" stroke-width="3"/>
+                <circle cx="838" cy="59" r="17" fill="#e05c36"/>
+                <text x="838" y="65" text-anchor="middle" fill="white" font-size="18" font-family="sans-serif">1</text>
+              </svg>
+            </div>
+          </a>
+        </figure>
+      </section>
+
+      <section id="help">
+        <h2>問題と対処</h2>
+        <h3>ショートカットが反応しない</h3>
+        <p>通知領域で Lexift が起動しているか確認します。設定で機能を有効にし、「適用」を押します。他のアプリとキーが重なる場合は変更します。</p>
+        <h3>切り替え先の言語がない</h3>
+        <p>Windows の設定で言語と入力方式をインストールし、Lexift の「入力スロット」に登録します。</p>
+        <h3>ハングルを入力しても候補が出ない</h3>
+        <p>変換をオンにし、韓国語入力のハングルモードで入力します。日本語変換には Microsoft 日本語 IME が必要です。入力方式を追加した場合は Lexift を再起動します。</p>
+        <h3>日本語変換エンジンが繰り返し停止する</h3>
+        <p>最新版のZIPを新しいフォルダーに展開して起動します。改善しない場合は、設定 → プログラム情報からエラーログを開き、終了コードを添えて報告してください。</p>
+        <h3>目的の単語が候補にない</h3>
+        <p>名前や固有名詞はユーザー辞書に登録します。日本語の長音はハイフン (-) で入力できます。例：코-죠- → こうじょう。</p>
+        <h3>Caps + Q で方向キーや Esc が効かない</h3>
+        <p>Lexift を終了し、最新版の ZIP を新しいフォルダーにすべて展開して起動します。実行ファイルと module フォルダーを一緒に配置します。</p>
+        <h3>ピンインに声調が付かない</h3>
+        <p>設定でピンイン声調をオンにします。英字入力で ke と入力し、Caps + 3 を押します。候補ウィンドウを閉じ、声調を付ける音節の直後にカーソルを置きます。</p>
+        <h3>特定のアプリで入力できない</h3>
+        <p>入力欄をクリックし直し、メモ帳でも確認します。管理者として起動したアプリでは、Lexift を終了してから管理者として起動し直します。パスワードなどの保護された入力欄には対応していません。</p>
+        <p>不具合報告には、アプリ名、Windows のバージョン、再現手順を記載してください。</p>
+        <a href="https://github.com/luttechan/Lexift/issues">GitHub Issues ↗</a>
+      </section>
+      <footer>Lexift 1.0.4<br>Translation (JP) &amp; QA : 루노</footer>
+    </main>
+  </body>
+</html>

@@ -1,20 +1,42 @@
 {
   "passed": true,
   "version": "1.0.4",
-  "source_tests": 497,
-  "frozen_checks": [
-    "runtime",
-    "ime",
-    "chinese",
-    "features",
-    "settings",
-    "tones"
-  ],
-  "zip_sha256": "08218d9753fcae1985b199f787b321e22dc40066cd2e38e150185f421e63f318",
-  "runtime_files": 322,
-  "previous_version_preserved": true,
-  "build_fingerprint": "71f5c42a4995468ebdd89459dc04c25c53e8eecb38ecd7ee9d342ecaf2f63f4d",
+  "source_tests": 505,
   "native_checks": 128,
+  "frozen_checks": [
+    {
+      "check": "runtime",
+      "passed": true
+    },
+    {
+      "check": "ime",
+      "passed": true
+    },
+    {
+      "check": "chinese",
+      "passed": true
+    },
+    {
+      "check": "features",
+      "passed": true
+    },
+    {
+      "check": "settings",
+      "passed": true
+    },
+    {
+      "check": "tones",
+      "passed": true
+    },
+    {
+      "check": "variants",
+      "passed": true
+    }
+  ],
+  "lifecycle_runs": 8,
+  "other_physical_devices_tested": false,
+  "zip_sha256": "fb1b9f0644e8308d9d39d0825ee63efb408948b8d9a2e67a8df7bc550386d2da",
+  "build_fingerprint": "b8bcc8035ee0815656c46c39008bbf97ec10eb5388ec5ce0724ddd8dbe839f74",
   "deployed": true,
   "root": "G:\\AnkiVoice\\KanaShift\\Lexift v1.0.4"
 }
