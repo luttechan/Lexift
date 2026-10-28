@@ -62,9 +62,15 @@ def version_key(value: str) -> tuple[int,int,int,int]:
 
 
 def safe_url(url: str) -> str:
-    parsed = urllib.parse.urlsplit(url)
+    if not isinstance(url,str) or not url or url!=url.strip() or '\\' in url or any(ord(c)<33 or ord(c)==127 for c in url):
+        raise UpdateError("Untrusted update URL")
+    try:
+        parsed = urllib.parse.urlsplit(url)
+        port=parsed.port
+    except ValueError as error:
+        raise UpdateError("Untrusted update URL") from error
     if (parsed.scheme != "https" or parsed.hostname not in ALLOWED_HOSTS
-            or parsed.username or parsed.password or parsed.port not in (None, 443)
+            or parsed.username or parsed.password or port not in (None, 443)
             or parsed.fragment):
         raise UpdateError("Untrusted update URL")
     return url
@@ -92,6 +98,45 @@ class Release:
     size: int = 0
     digest: str = ""
     build: str = ""
+
+
+def strict_json(value):
+    def invalid_constant(value):raise UpdateError('Invalid JSON numeric constant')
+    def unique(pairs):
+        result={}
+        for key,item in pairs:
+            if key in result:raise UpdateError('Duplicate JSON field')
+            result[key]=item
+        return result
+    try:return json.loads(value,object_pairs_hook=unique,parse_constant=invalid_constant)
+    except (ValueError,RecursionError) as error:raise UpdateError('Invalid update JSON') from error
+
+
+def plain_path(path: Path):
+    path=Path(path).absolute()
+    if os.name=='nt':
+        if len(path.drive)!=2 or path.drive[1]!=':' or any(':' in part for part in path.parts[1:]):
+            raise UpdateError('Update paths must be local filesystem paths')
+        import ctypes
+        if ctypes.windll.kernel32.GetDriveTypeW(str(path.anchor))==4:
+            raise UpdateError('Network update paths are not allowed')
+    for candidate in (path,*path.parents):
+        if candidate.is_symlink() or getattr(candidate,'is_junction',lambda:False)():
+            raise UpdateError('Update path contains a reparse point')
+    return path
+
+
+def validate_release(release: Release):
+    version=version_text(release.version);tag='v'+version
+    names=(f'Lexift-{version}-Windows-x64.zip','Lexift_v'+''.join(version.split('.'))+'.zip')
+    if (release.version!=version or release.asset_name not in names or
+            release.page!=f'https://github.com/{REPOSITORY}/releases/tag/{tag}' or
+            release.asset_url!=f'https://github.com/{REPOSITORY}/releases/download/{tag}/{release.asset_name}' or
+            type(release.size) is not int or not 0<release.size<=MAX_DOWNLOAD or
+            not isinstance(release.digest,str) or not re.fullmatch(r'sha256:[a-fA-F0-9]{64}',release.digest) or
+            not isinstance(release.build,str) or (release.build and not re.fullmatch(r'[a-f0-9]{64}',release.build))):
+        raise UpdateError('Invalid release download metadata')
+    safe_url(release.asset_url)
 
 
 def payload_build(files: object) -> str:
@@ -128,7 +173,9 @@ def parse_release(data: object) -> Release:
         raise UpdateError("Unexpected release repository")
     safe_url(page)
     candidates = []
-    for asset in data.get("assets", []):
+    assets=data.get('assets',[])
+    if not isinstance(assets,list) or len(assets)>100:raise UpdateError('Invalid release assets')
+    for asset in assets:
         if not isinstance(asset, dict):
             continue
         name = asset.get("name", "")
@@ -145,7 +192,7 @@ def parse_release(data: object) -> Release:
         if tail != f"{tag}/{name}":
             raise UpdateError("Asset tag or filename mismatch")
         size = asset.get("size", 0)
-        if not isinstance(size, int) or not 0 < size <= MAX_DOWNLOAD:
+        if type(size) is not int or not 0 < size <= MAX_DOWNLOAD:
             raise UpdateError("Invalid asset size")
         digest = asset.get("digest") or ""
         candidates.append((name != modern, Release(version, page, url, name, size, digest, build)))
@@ -164,7 +211,7 @@ def latest_release() -> Release:
             raw = response.read(2 * 1024 * 1024 + 1)
         if len(raw) > 2 * 1024 * 1024:
             raise UpdateError("Release response is too large")
-        return parse_release(json.loads(raw))
+        return parse_release(strict_json(raw))
     except (OSError, ValueError, urllib.error.URLError) as error:
         raise UpdateError(str(error)) from error
 
@@ -176,12 +223,15 @@ def cancelled(cancel: threading.Event):
 
 def download(release: Release, dest: Path, cancel: threading.Event, progress=lambda value: None):
     import hashlib
+    validate_release(release)
+    plain_path(dest.parent)
     if not re.fullmatch(r"sha256:[0-9a-fA-F]{64}", release.digest):
         raise UpdateError("GitHub SHA-256 digest is missing; automatic installation is unavailable")
     digest = hashlib.sha256()
-    count = 0
+    count = 0;created=False
     try:
         with open_url(release.asset_url) as response, dest.open("xb") as stream:
+            created=True
             while True:
                 cancelled(cancel)
                 block = response.read(256 * 1024)
@@ -197,19 +247,19 @@ def download(release: Release, dest: Path, cancel: threading.Event, progress=lam
         if count != release.size or digest.hexdigest().lower() != release.digest[7:].lower():
             raise UpdateError("Download checksum or size mismatch")
     except Exception:
-        dest.unlink(missing_ok=True)
+        if created:dest.unlink(missing_ok=True)
         raise
 
 
 def safe_relative(value: str) -> PurePosixPath:
-    if not isinstance(value, str) or not value or "\\" in value or "\x00" in value:
+    if not isinstance(value, str) or not value or any(ord(c)<32 or ord(c)==127 or c in '\\<>"|?*' for c in value):
         raise UpdateError("Invalid archive path")
     path = PurePosixPath(value)
     if path.is_absolute() or any(part in ("", ".", "..") for part in value.split("/")):
         raise UpdateError("Archive path traversal")
     for part in path.parts:
         if (":" in part or part.rstrip(" .") != part or len(part) > 240
-                or re.match(r"(?i)^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9])(?:\.|$)", part)):
+                or re.match(r"(?i)^(CON|PRN|AUX|NUL|COM[0-9¹²³]|LPT[0-9¹²³])(?:\.|$)", part)):
             raise UpdateError("Unsafe Windows archive path")
     return path
 
@@ -229,10 +279,12 @@ def file_hash(path: Path) -> str:
 
 
 def validate_payload(root: Path, version: str) -> dict:
+    plain_path(root)
+    plain_path(root/'module')
     manifest = manifest_path(root)
     if manifest.is_symlink() or manifest.stat().st_size > 2 * 1024 * 1024:
         raise UpdateError("Invalid update manifest")
-    data = json.loads(manifest.read_text(encoding="utf-8"))
+    data = strict_json(manifest.read_text(encoding="utf-8"))
     if (not isinstance(data, dict) or data.get("format") != 1 or data.get("product") != "Lexift"
             or data.get("version") != version or data.get("architecture") != "x64"):
         raise UpdateError("Update package version or architecture mismatch")
@@ -276,27 +328,33 @@ def validate_payload(root: Path, version: str) -> dict:
 
 def extract_package(archive: Path, dest: Path, version: str, cancel: threading.Event):
     import zipfile
-    dest.mkdir(exist_ok=False)
+    plain_path(dest)
+    dest.mkdir(mode=0o700,exist_ok=False)
     try:
         with zipfile.ZipFile(archive) as package:
             entries = package.infolist()
             if len(entries) > 6000 or sum(info.file_size for info in entries) > MAX_EXPANDED:
                 raise UpdateError("Archive limits exceeded")
-            paths = set()
+            paths = set();file_paths=set();directory_paths=set()
             for info in entries:
                 cancelled(cancel)
                 name = info.filename.rstrip("/") if info.is_dir() else info.filename
                 path = safe_relative(name)
                 if path.parts[0] != "Lexift" or len(path.parts) < 2 and not info.is_dir():
                     raise UpdateError("Unsupported package layout; a portable update ZIP is required")
-                if info.filename.casefold() in paths or info.flag_bits & 1:
+                folded=path.as_posix().casefold()
+                ancestors={PurePosixPath(*path.parts[:i]).as_posix().casefold() for i in range(1,len(path.parts))}
+                if (folded in paths or info.flag_bits & 1 or ancestors & file_paths or
+                    (not info.is_dir() and folded in directory_paths)):
                     raise UpdateError("Duplicate or encrypted archive entry")
-                paths.add(info.filename.casefold())
+                paths.add(folded);directory_paths.update(ancestors)
                 mode = info.external_attr >> 16
                 if stat.S_ISLNK(mode) or mode & 0o170000 not in (0, stat.S_IFREG, stat.S_IFDIR):
                     raise UpdateError("Special archive entries are forbidden")
                 if info.is_dir():
+                    directory_paths.add(folded)
                     continue
+                file_paths.add(folded)
                 relative = PurePosixPath(*path.parts[1:]).as_posix()
                 if relative != "update-manifest.json" and not runtime_file(relative):
                     raise UpdateError("Unexpected archive file")
@@ -318,6 +376,7 @@ def extract_package(archive: Path, dest: Path, version: str, cancel: threading.E
         validate_payload(payload, version)
         return payload
     except Exception:
+        plain_path(dest)
         shutil.rmtree(dest)
         raise
 

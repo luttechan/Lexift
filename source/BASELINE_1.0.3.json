@@ -1,9 +1,0 @@
-{
-  "version": "1.0.3",
-  "based_on": "1.0.2",
-  "changes": [
-    "menu performance and resource lifetime audit",
-    "keypad tone shortcuts with Num Lock on or off",
-    "tone editing without IME switching"
-  ]
-}

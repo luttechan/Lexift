@@ -17,6 +17,8 @@ def source_version():
 
 
 if __name__ == "__main__":
+    from build_security import verify
+    print('Security baseline:',verify())
     # Exercise the actual frozen Python, Qt DLLs, platform plugin and UI font.
     # Loading archived Python code in the build interpreter cannot verify ABI.
     subprocess.run([str(Path("dist/Lexift/Lexift.exe").resolve()), "--verify-runtime"],

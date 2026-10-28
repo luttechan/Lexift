@@ -750,7 +750,7 @@ static int hostMain(int argc,wchar_t** argv) {
     // installed TSF profiles. A modern Japanese TIP can work without an HKL
     // in that cache, especially in a fresh private desktop on another PC.
     if(!found && !profileActivated) {event("japanese_profile_unavailable",E_FAIL);if(profiles){if(oldLang)profiles->ChangeCurrentLanguage(oldLang);profiles->Release();} source->UnadviseSink(cookie);source->Release();ui->Release();tm->Deactivate();tm->Release();CoUninitialize();return 3;}
-    HMODULE rich=LoadLibraryW(L"msftedit.dll");
+    HMODULE rich=LoadLibraryExW(L"msftedit.dll",nullptr,LOAD_LIBRARY_SEARCH_SYSTEM32);
     WNDCLASSW wc={};wc.lpfnWndProc=proc;wc.hInstance=GetModuleHandleW(nullptr);wc.lpszClassName=L"Lexift08ImeLab";wc.hbrBackground=(HBRUSH)(COLOR_WINDOW+1);wc.hCursor=LoadCursorW(nullptr,IDC_ARROW);
     RegisterClassW(&wc);
     windowHandle=CreateWindowExW(queryLive?WS_EX_NOACTIVATE|WS_EX_TOOLWINDOW:0,wc.lpszClassName,L"Lexift · 한글 발음으로 일본어 입력",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,760,680,nullptr,nullptr,wc.hInstance,nullptr);

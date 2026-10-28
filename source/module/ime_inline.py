@@ -342,6 +342,8 @@ class InlineMode(QObject):
         if process is not self.watcher:
             return
         self.buffer+=bytes(process.readAllStandardOutput())
+        if len(self.buffer)>2*1024*1024:
+            self.buffer=b'';self._engine_failed('입력 연결을 다시 시도합니다.');return
         self.watcher_health.start()
         latest=None
         while b'\n' in self.buffer:

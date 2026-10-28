@@ -7,7 +7,7 @@ from unittest.mock import Mock, patch
 
 from .test_updates import payload
 import update_apply as apply
-from update_core import UpdateError
+from update_core import UpdateError,payload_build,validate_payload
 
 
 class HandoffTests(unittest.TestCase):
@@ -19,11 +19,14 @@ class HandoffTests(unittest.TestCase):
         self.target=payload(self.base/'installed','0.7.7',b'old')
         self.new=payload(self.job/'unpacked'/'Lexift','0.7.8')
         self.data=dict(product='Lexift',nonce=self.job.name,target=str(self.target),
-                       payload=str(self.new),version='0.7.8',parent_pid=123)
+                       payload=str(self.new),version='0.7.8',parent_pid=123,security_format=2,
+                       expected_build=payload_build(validate_payload(self.new,'0.7.8')['files']))
         self.path=self.job/'job.json';self.path.write_text(json.dumps(self.data))
         self.cache_patch=patch.object(apply,'cache_root',return_value=self.cache)
         self.cache_patch.start();self.addCleanup(self.cache_patch.stop)
         self.kernel=Mock();self.kernel.WaitForSingleObject.return_value=0
+        self.elevation_patch=patch.object(apply,'is_elevated',return_value=False)
+        self.elevation_patch.start();self.addCleanup(self.elevation_patch.stop)
 
     def test_job_validation_accepts_only_scoped_staging(self):
         self.assertEqual(apply.load_job(self.path)['version'],'0.7.8')

@@ -11,7 +11,7 @@ import time
 import uuid
 from pathlib import Path
 
-from update_core import MANAGED, UpdateError, validate_payload, runtime_entries
+from update_core import MANAGED, UpdateError, validate_payload, runtime_entries, strict_json, payload_build, plain_path
 from i18n import tr, set_language, SUPPORTED, load_saved_language, error_text
 
 
@@ -20,7 +20,25 @@ class RecoveryError(UpdateError):
 
 
 def cache_root() -> Path:
-    return Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "Lexift" / "updates"
+    return plain_path(Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "Lexift" / "updates")
+
+
+def is_elevated():
+    if sys.platform!='win32':return False
+    from ctypes import wintypes
+    kernel=ctypes.WinDLL('kernel32',use_last_error=True);advapi=ctypes.WinDLL('advapi32',use_last_error=True)
+    kernel.GetCurrentProcess.restype=ctypes.c_void_p
+    kernel.CloseHandle.argtypes=[ctypes.c_void_p]
+    advapi.OpenProcessToken.argtypes=[ctypes.c_void_p,wintypes.DWORD,ctypes.POINTER(ctypes.c_void_p)]
+    advapi.GetTokenInformation.argtypes=[ctypes.c_void_p,wintypes.DWORD,ctypes.c_void_p,wintypes.DWORD,ctypes.POINTER(wintypes.DWORD)]
+    token=ctypes.c_void_p();value=wintypes.DWORD();size=wintypes.DWORD()
+    if not advapi.OpenProcessToken(kernel.GetCurrentProcess(),0x0008,ctypes.byref(token)):
+        raise UpdateError('Cannot verify update process privileges')
+    try:
+        if not advapi.GetTokenInformation(token,20,ctypes.byref(value),ctypes.sizeof(value),ctypes.byref(size)):
+            raise UpdateError('Cannot verify update process privileges')
+        return bool(value.value)
+    finally:kernel.CloseHandle(token)
 
 
 def plain_tree(root: Path):
@@ -33,7 +51,7 @@ def plain_tree(root: Path):
                 raise UpdateError("Runtime contains a reparse point")
 
 
-def load_job(path: Path) -> dict:
+def load_job(path: Path, allow_legacy=False) -> dict:
     path = path.absolute()
     base = cache_root().absolute()
     if path.name != "job.json" or path.parent.parent != base or len(path.parent.name) != 32:
@@ -42,11 +60,13 @@ def load_job(path: Path) -> dict:
     plain_tree(path.parent)
     if path.stat().st_size > 32768:
         raise UpdateError("Update job is too large")
-    job = json.loads(path.read_text(encoding="utf-8"))
-    if job.get("product") != "Lexift" or job.get("nonce") != path.parent.name:
+    job = strict_json(path.read_text(encoding="utf-8"))
+    if not isinstance(job,dict) or job.get("product") != "Lexift" or job.get("nonce") != path.parent.name:
         raise UpdateError("Invalid update job")
+    if any(not isinstance(job.get(name),str) for name in ('target','payload','version')):raise UpdateError('Invalid update job fields')
     target = Path(job["target"])
     payload = Path(job["payload"])
+    plain_path(target)
     if (not target.is_absolute() or target == target.parent
             or payload != path.parent / "unpacked" / "Lexift"
             or not (target / "Lexift.exe").is_file()
@@ -58,11 +78,15 @@ def load_job(path: Path) -> dict:
         candidate = target / name
         if candidate.is_symlink() or getattr(candidate, "is_junction", lambda: False)():
             raise UpdateError("Managed runtime path is a reparse point")
-    validate_payload(payload, job["version"])
+    manifest=validate_payload(payload, job["version"])
+    if job.get('security_format')==2:
+        if job.get('expected_build')!=payload_build(manifest['files']):raise UpdateError('Update payload changed after download')
+    elif not (allow_legacy and 'security_format' not in job):raise UpdateError('Unverified legacy update job')
+    if type(job.get('parent_pid')) is not int or job['parent_pid']<=0:raise UpdateError('Invalid update parent process')
     return job
 
 
-def parent_handle(pid: int):
+def parent_handle(pid: int, expected_image=None):
     if sys.platform != "win32":
         raise UpdateError("Windows only")
     kernel = ctypes.WinDLL("kernel32", use_last_error=True)
@@ -71,9 +95,14 @@ def parent_handle(pid: int):
     kernel.WaitForSingleObject.argtypes = [ctypes.c_void_p, ctypes.c_ulong]
     kernel.WaitForSingleObject.restype = ctypes.c_ulong
     kernel.CloseHandle.argtypes = [ctypes.c_void_p]
-    handle = kernel.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE, no terminate access.
+    handle = kernel.OpenProcess(0x00101000, False, pid)  # SYNCHRONIZE + QUERY_LIMITED_INFORMATION.
     if not handle:
         raise UpdateError("Cannot wait for the running Lexift process")
+    if expected_image is not None:
+        kernel.QueryFullProcessImageNameW.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.c_wchar_p,ctypes.POINTER(ctypes.c_ulong)]
+        size=ctypes.c_ulong(32768);buffer=ctypes.create_unicode_buffer(size.value)
+        if not kernel.QueryFullProcessImageNameW(handle,0,buffer,ctypes.byref(size)) or Path(buffer.value).resolve()!=Path(expected_image).resolve():
+            kernel.CloseHandle(handle);raise UpdateError('Update parent is not the installed Lexift process')
     return kernel, handle
 
 
@@ -86,9 +115,12 @@ def remove_entry(path: Path):
         path.unlink(missing_ok=True)
 
 
-def replace_runtime(payload: Path, target: Path, version: str, verify_start=lambda: None):
+def replace_runtime(payload: Path, target: Path, version: str, verify_start=lambda: None, expected_build=None):
     """Swap complete managed entries. Restore every old entry on any failure."""
-    validate_payload(payload, version)
+    plain_path(target)
+    before=validate_payload(payload, version)
+    expected_build=expected_build or payload_build(before['files'])
+    if payload_build(before['files'])!=expected_build:raise UpdateError('Update payload changed after validation')
     plain_tree(payload)
     plain_tree(target / "_internal")
     plain_tree(target / "module")
@@ -96,12 +128,13 @@ def replace_runtime(payload: Path, target: Path, version: str, verify_start=lamb
     incoming, backup = transaction / "incoming", transaction / "backup"
     if transaction.exists():
         raise UpdateError("Transaction already exists")
-    transaction.mkdir()
+    transaction.mkdir(mode=0o700)
     moved, installed = [], []
     try:
         shutil.copytree(payload, incoming)
-        validate_payload(incoming, version)
-        backup.mkdir()
+        incoming_manifest=validate_payload(incoming, version)
+        if payload_build(incoming_manifest['files'])!=expected_build:raise UpdateError('Update payload changed during copy')
+        backup.mkdir(mode=0o700)
         for name in MANAGED:
             if (target / name).exists():
                 os.replace(target / name, backup / name)
@@ -139,7 +172,7 @@ def mark_ready(version: str):
     index = sys.argv.index("--update-job")
     try:
         path = Path(sys.argv[index + 1])
-        job = load_job(path)
+        job = load_job(path,allow_legacy=True)
         if Path(sys.executable).parent != Path(job["target"]) or job["version"] != version:
             return
         (path.parent / "ready").write_text(job["nonce"], encoding="ascii")
@@ -149,10 +182,11 @@ def mark_ready(version: str):
 
 
 def run_job(path: Path):
+    if is_elevated():raise UpdateError('Automatic installation is unavailable with administrator privileges')
     job = load_job(path)
     if job.get('ui_language') in SUPPORTED:
         set_language(job['ui_language'])
-    kernel, handle = parent_handle(int(job["parent_pid"]))
+    kernel, handle = parent_handle(job["parent_pid"],Path(job['target'])/'Lexift.exe')
     try:
         # Signal only after opening the exact parent process object, preventing
         # PID reuse from ever attaching this update to a different process.
@@ -171,7 +205,8 @@ def run_job(path: Path):
             deadline = time.monotonic() + 60
             ready = path.parent / "ready"
             while time.monotonic() < deadline:
-                if ready.exists() and ready.read_text(encoding="ascii") == job["nonce"]:
+                plain_path(ready)
+                if ready.exists() and ready.stat().st_size<=64 and ready.read_text(encoding="ascii") == job["nonce"]:
                     return
                 if child.poll() is not None:
                     raise UpdateError("New version exited during startup")
@@ -185,7 +220,7 @@ def run_job(path: Path):
             raise
 
     try:
-        replace_runtime(Path(job["payload"]), target, job["version"], restart_and_verify)
+        replace_runtime(Path(job["payload"]), target, job["version"], restart_and_verify,expected_build=job['expected_build'])
     except RecoveryError:
         raise
     except Exception:
@@ -207,18 +242,22 @@ def run_job(path: Path):
 
 def main() -> int:
     load_saved_language()
+    elevated=True
     try:
+        elevated=is_elevated()
+        if elevated:raise UpdateError('Automatic installation is unavailable with administrator privileges')
         if len(sys.argv) != 3 or sys.argv[1] != "--job":
             raise UpdateError("This program is started by Lexift's update menu.")
         run_job(Path(sys.argv[2]).absolute())
         return 0
     except Exception as error:
-        if len(sys.argv) == 3:
+        if len(sys.argv) == 3 and not elevated:
             try:
                 path = Path(sys.argv[2]).absolute()
                 if path.name == "job.json" and path.parent.parent == cache_root().absolute():
+                    plain_tree(path.parent)
                     (path.parent / "error.log").write_text(str(error), encoding="utf-8")
-            except OSError:
+            except (OSError,UpdateError):
                 pass
         if sys.platform == "win32":
             message = (tr('업데이트와 복구에 실패했습니다. 다음 백업 폴더를 보존하세요:\n{path}').format(path=error.backup)

@@ -18,6 +18,18 @@ def get_launcher():
 
 
 class StartupTests(TestCase):
+    def test_invalid_worker_arguments_never_start_the_interactive_app(self):
+        bootstrap=get_launcher()
+        with mock.patch.object(sys,'argv',['Lexift.exe','--hook-worker','1234','visible-secret']),mock.patch.dict(sys.modules,{'app':None}),mock.patch.object(bootstrap,'_report_startup_error') as report:
+            self.assertEqual(bootstrap.main(),2);report.assert_not_called()
+
+    def test_frozen_startup_ignores_external_qt_plugin_paths(self):
+        import os
+        with mock.patch.object(sys,'frozen',True,create=True),mock.patch.object(sys,'argv',['Lexift.exe']),mock.patch.dict(os.environ,{'QT_PLUGIN_PATH':'untrusted','QT_QPA_PLATFORM_PLUGIN_PATH':'untrusted','QML_IMPORT_PATH':'untrusted','QT_QPA_PLATFORM':'untrusted-plugin'}):
+            get_launcher()
+            self.assertNotIn('QT_PLUGIN_PATH',os.environ);self.assertNotIn('QT_QPA_PLATFORM_PLUGIN_PATH',os.environ)
+            self.assertNotIn('QML_IMPORT_PATH',os.environ);self.assertEqual(os.environ['QT_QPA_PLATFORM'],'windows:fontengine=gdi')
+
     def test_ime_diagnostic_bypasses_normal_application_and_returns_its_status(self):
         bootstrap=get_launcher()
         verify=mock.Mock(return_value=7)
@@ -37,9 +49,10 @@ class StartupTests(TestCase):
 
     def test_worker_failures_exit_without_hidden_modal_error_dialogs(self):
         bootstrap = get_launcher()
-        for args,module,name in ((['--hook-worker','1234','token'],'isolated_hotkeys','run_worker'),
+        for args,module,name in ((['--hook-worker','1234'],'isolated_hotkeys','run_worker'),
                                  (['--network-job','network.json'],'update_network','run_network_job')):
             worker=types.SimpleNamespace(**{name:mock.Mock(side_effect=RuntimeError('worker failed'))})
+            if module=='isolated_hotkeys':worker.read_worker_token=mock.Mock(return_value='token')
             with mock.patch.object(sys,'argv',['Lexift.exe',*args]), \
                  mock.patch.dict(sys.modules,{module:worker}), \
                  mock.patch.object(bootstrap,'_report_startup_error') as dialog:
@@ -49,8 +62,8 @@ class StartupTests(TestCase):
     def test_hook_worker_bypasses_app_import_and_returns_worker_status(self):
         bootstrap = get_launcher()
         worker = mock.Mock(return_value=0)
-        with mock.patch.object(sys, 'argv', ['Lexift.exe', '--hook-worker', '1234', 'token']), \
-             mock.patch.dict(sys.modules, {'app': None, 'isolated_hotkeys': types.SimpleNamespace(run_worker=worker)}), \
+        with mock.patch.object(sys, 'argv', ['Lexift.exe', '--hook-worker', '1234']), \
+             mock.patch.dict(sys.modules, {'app': None, 'isolated_hotkeys': types.SimpleNamespace(run_worker=worker,read_worker_token=lambda:'token')}), \
              mock.patch.object(bootstrap, '_report_startup_error') as report:
             self.assertEqual(bootstrap.main(), 0)
         worker.assert_called_once_with('1234', 'token')

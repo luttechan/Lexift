@@ -1,8 +1,8 @@
 {
   "cpu": "baseline",
   "sources": {
-    "keyboard_worker.c": "0bc737aeaf6d466bcdefc5f910d65ffe86858ea06954eab2a06575dcb2c7b59e",
+    "keyboard_worker.c": "07610314f34d9a2c47252374b03abafe71423473ccb79c2a23f82bfc8b6a1b29",
     "native_hooks.c": "27ed14da4bbad34e27e60169a4f2ca6dec7b24ccb6b7287e26c3da8178bdd1e0"
   },
-  "binary_sha256": "358287501cd69b40d8259ebb0a558d65414e234d83b05f800231cf3a068c4230"
+  "binary_sha256": "7ead6a6bfb9904c3fd4a3cb66a92ce64d68a5b4a7f51851235717d98785e46ac"
 }

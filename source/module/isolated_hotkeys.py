@@ -15,7 +15,9 @@ import time
 
 
 def send(stream, value):
-    stream.sendall((json.dumps(value) + '\n').encode('utf-8'))
+    data=(json.dumps(value)+'\n').encode('utf-8')
+    if len(data)>16384:raise ValueError('Hook message exceeds the frame limit')
+    stream.sendall(data)
 
 
 def messages(stream):
@@ -25,11 +27,11 @@ def messages(stream):
         if not block:
             return
         buffered += block
-        if len(buffered) > 16384:
-            raise RuntimeError('Invalid hook message')
         while b'\n' in buffered:
             line, buffered = buffered.split(b'\n', 1)
+            if len(line)>16384:raise ValueError('Invalid hook message')
             yield json.loads(line)
+        if len(buffered)>16384:raise ValueError('Invalid hook message')
 
 
 class HookService:
@@ -56,24 +58,29 @@ class HookService:
         self.close()
         token = secrets.token_hex(32)
         with socket.socket() as listener:
+            if hasattr(socket,'SO_EXCLUSIVEADDRUSE'):
+                listener.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
             listener.bind(('127.0.0.1', 0))
             listener.listen(4)
             listener.settimeout(.25)
-            args = ['--hook-worker', str(listener.getsockname()[1]), token]
+            args = ['--hook-worker', str(listener.getsockname()[1])]
             native=Path(__file__).with_name('lexift_keyboard.exe')
             if native.is_file():
-                command=[str(native),str(listener.getsockname()[1]),token]
+                command=[str(native),str(listener.getsockname()[1])]
             elif getattr(sys, 'frozen', False):
-                command = [sys.executable, *args]
+                raise RuntimeError('Native keyboard worker is missing from the installation')
             else:
                 command = [sys.executable, '-E', '-s', str(Path(__file__).resolve()), *args]
             environment = os.environ.copy()
             environment['PYINSTALLER_RESET_ENVIRONMENT'] = '1'
             self.process = subprocess.Popen(command, env=environment,
-                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                close_fds=True,
                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
             deadline = time.monotonic() + 8
             try:
+                self.process.stdin.write(token.encode('ascii'))
+                self.process.stdin.close()
                 while time.monotonic() < deadline:
                     if self.process.poll() is not None:
                         raise RuntimeError('Keyboard worker could not start')
@@ -84,7 +91,8 @@ class HookService:
                     connection.settimeout(1)
                     try:
                         hello = next(messages(connection))
-                        if hello != {'token': token}:
+                        if (not isinstance(hello,dict) or set(hello)!={'token'} or
+                                not isinstance(hello['token'],str) or not secrets.compare_digest(hello['token'],token)):
                             connection.close()
                             continue
                     except (OSError, ValueError, StopIteration):
@@ -118,7 +126,7 @@ class HookService:
                 if message is None:
                     return
                 send(connection, message)
-        except OSError:
+        except (OSError,ValueError,TypeError):
             self._fail_connection(connection, pending_commands)
             # Wake the worker too; Windows recv() may not return immediately
             # for a local shutdown, so acknowledgements were released above.
@@ -415,7 +423,14 @@ def run_worker(port, token):
     return 0
 
 
+def read_worker_token():
+    token=sys.stdin.buffer.read(65)
+    if len(token)!=64 or any(c not in b'0123456789abcdef' for c in token):
+        raise ValueError('Invalid keyboard worker authentication')
+    return token.decode('ascii')
+
+
 if __name__ == '__main__':
-    if len(sys.argv) != 4 or sys.argv[1] != '--hook-worker':
+    if len(sys.argv) != 3 or sys.argv[1] != '--hook-worker':
         raise SystemExit(2)
-    raise SystemExit(run_worker(sys.argv[2], sys.argv[3]))
+    raise SystemExit(run_worker(sys.argv[2], read_worker_token()))

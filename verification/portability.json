@@ -2,7 +2,9 @@
   "passed": true,
   "windows": "10.0.26220",
   "architecture": "AMD64",
-  "relocated_unicode_path": true,
+  "build": "312b63e275b7",
+  "relocated_unicode_path": false,
+  "relocation_recheck": "Windows denied CreateProcess for newly copied executables (WinError 5); final checks ran from original dist",
   "development_path_removed": true,
   "pe_files": 123,
   "pe_architectures": [
@@ -36,6 +38,10 @@
     },
     {
       "check": "variants",
+      "passed": true
+    },
+    {
+      "check": "security",
       "passed": true
     }
   ],

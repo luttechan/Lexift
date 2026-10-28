@@ -1,0 +1,46 @@
+{
+  "version": "1.0.5",
+  "python": "3.12.16",
+  "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+  "qt": "6.12.0",
+  "checks": {
+    "python": true,
+    "openssl": true,
+    "qt": true,
+    "private_worker_authentication": true,
+    "native_hardening": true
+  },
+  "pe_headers": [
+    {
+      "file": "ime_candidate_host.exe",
+      "x64": true,
+      "aslr": true,
+      "dep": true
+    },
+    {
+      "file": "lexift_keyboard.exe",
+      "x64": true,
+      "aslr": true,
+      "dep": true
+    },
+    {
+      "file": "kanashift_hooks.dll",
+      "x64": true,
+      "aslr": true,
+      "dep": true
+    },
+    {
+      "file": "Lexift.exe",
+      "x64": true,
+      "aslr": true,
+      "dep": true
+    },
+    {
+      "file": "LexiftUpdater.exe",
+      "x64": true,
+      "aslr": true,
+      "dep": true
+    }
+  ],
+  "passed": true
+}

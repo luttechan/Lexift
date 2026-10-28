@@ -20,6 +20,7 @@ os.environ['PATH'] = os.pathsep.join([str(ssl_folder), str(windows_folder / 'Sys
 module_folder = Path(SPECPATH)
 project_folder = module_folder.parent
 import runpy
+runpy.run_path(str(module_folder / 'build_security.py'))['verify']()
 runpy.run_path(str(module_folder / 'native_baseline.py'))['verify'](project_folder)
 
 a = Analysis(

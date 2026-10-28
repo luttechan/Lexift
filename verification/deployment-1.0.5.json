@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "version": "1.0.5",
+  "source_tests": 541,
+  "native_tests": 128,
+  "zip_sha256": "dbb10595b6f6a3ae011751cd5c0553ed1e98f9987b25fa5250f2e72c2155c097",
+  "build_fingerprint": "80e39243a9986aef4aecc7a1f61e04398cc91114299bc1c0b8788c92c324b9a5",
+  "root": "C:\\Users\\Neko4K\\.codex\\.chatgpt-projects\\g-p-6ad526318608819189f710c380e3ed4c\\output\\Lexift v1.0.5",
+  "other_physical_devices_tested": false
+}

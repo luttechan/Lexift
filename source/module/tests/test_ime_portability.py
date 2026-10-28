@@ -51,7 +51,7 @@ class IMEPortabilityTests(unittest.TestCase):
         self.assertTrue(wait_for(lambda:errors or any('大和' in d.get('candidates',[]) for d in responses)))
         self.assertFalse(errors);self.assertNotEqual(first,client.process.processId());client.stop();QTest.qWait(200)
 
-    def test_loaded_hkl_cache_is_not_required_and_shared_host_keeps_user_focus(self):
+    def test_shared_fallback_can_recover_without_changing_user_focus(self):
         user32=ctypes.windll.user32;user32.GetForegroundWindow.restype=ctypes.c_void_p
         user32.GetKeyboardLayout.restype=ctypes.c_void_p
         before=user32.GetForegroundWindow();thread=user32.GetWindowThreadProcessId(ctypes.c_void_p(before),None)

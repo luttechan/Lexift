@@ -126,10 +126,12 @@ static BOOL command(const char *json) {
 }
 int WINAPI wWinMain(HINSTANCE instance,HINSTANCE previous,PWSTR args,int show) {
     int argc=0;wchar_t **argv=CommandLineToArgvW(GetCommandLineW(),&argc);
-    if(!argv || argc!=3) {if(argv)LocalFree(argv);return 2;}
-    wchar_t *end;unsigned long port=wcstoul(argv[1],&end,10);BOOL valid=port>0 && port<=65535 && !*end && wcslen(argv[2])==64;
+    if(!argv || argc!=2) {if(argv)LocalFree(argv);return 2;}
+    wchar_t *end;unsigned long port=wcstoul(argv[1],&end,10);BOOL valid=port>0 && port<=65535 && !*end;
     char token[65]={0};
-    for(int i=0;valid && i<64;i++) {wchar_t c=argv[2][i];valid=(c>='0'&&c<='9')||(c>='a'&&c<='f');token[i]=(char)c;}
+    DWORD received=0;
+    while(valid && received<64){DWORD n=0;if(!ReadFile(GetStdHandle(STD_INPUT_HANDLE),token+received,64-received,&n,NULL)||!n){valid=FALSE;break;}received+=n;}
+    for(int i=0;valid && i<64;i++) {char c=token[i];valid=(c>='0'&&c<='9')||(c>='a'&&c<='f');}
     LocalFree(argv);if(!valid)return 2;
     WSADATA data;if(WSAStartup(MAKEWORD(2,2),&data))return 3;
     channel=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);if(channel==INVALID_SOCKET) {WSACleanup();return 3;}
@@ -139,6 +141,7 @@ int WINAPI wWinMain(HINSTANCE instance,HINSTANCE previous,PWSTR args,int show) {
     DWORD timeout=1000;setsockopt(channel,SOL_SOCKET,SO_SNDTIMEO,(char*)&timeout,sizeof timeout);
     char hello[100];snprintf(hello,sizeof hello,"{\"token\":\"%s\"}\n",token);
     if(!transmit(hello)) {closesocket(channel);WSACleanup();return 4;}
+    SecureZeroMemory(token,sizeof token);SecureZeroMemory(hello,sizeof hello);
     WSAEVENT ready=WSACreateEvent();WSAEventSelect(channel,ready,FD_READ|FD_CLOSE);
     char buffer[16385];size_t used=0;BOOL running=TRUE;MSG message;PeekMessageW(&message,NULL,0,0,PM_NOREMOVE);
     while(running) {

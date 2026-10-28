@@ -49,7 +49,7 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 ORGANIZATION = "LuteTools"
 PRODUCT = "Lexift"
 SELECTION_KEYS = "1234567890ABCDE"
@@ -1467,7 +1467,15 @@ class MainWindow(QWidget):
             self.special_list.addLayout(row)
 
     def _open_log(self):
+        from update_apply import is_elevated
+        from update_core import plain_path,UpdateError
+        try:
+            if is_elevated():
+                QMessageBox.information(self,tr('오류 로그'),tr('로그를 저장하려면 일반 권한으로 실행하세요.'));return
+        except UpdateError:return
         location = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / PRODUCT / "lexift.log"
+        try:plain_path(location)
+        except UpdateError:return
         if location.exists():
             os.startfile(str(location))
         else:
@@ -2657,13 +2665,19 @@ class LanguagePicker(QDialog):
         return self.selector.currentData()
 
 def setup_logging():
-    path = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "Lexift"
-    path.mkdir(parents=True, exist_ok=True)
     root = logging.getLogger()
     root.setLevel(logging.INFO)
     if not root.handlers:
-        handler = RotatingFileHandler(path / "lexift.log", maxBytes=1024*1024,
-                                      backupCount=2, encoding="utf-8")
+        from update_apply import is_elevated
+        from update_core import plain_path,UpdateError
+        handler=logging.NullHandler()
+        try:
+            if not is_elevated():
+                path=plain_path(Path(os.environ.get('LOCALAPPDATA',str(Path.home())))/'Lexift'/'lexift.log')
+                if path.exists() and path.stat().st_nlink>1:raise OSError('Log file has multiple links')
+                path.parent.mkdir(parents=True,exist_ok=True)
+                handler=RotatingFileHandler(path,maxBytes=1024*1024,backupCount=2,encoding='utf-8')
+        except (OSError,ValueError,RuntimeError,UpdateError):pass
         handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
         root.addHandler(handler)
 

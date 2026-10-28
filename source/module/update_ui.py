@@ -203,7 +203,10 @@ class UpdateManager(QObject):
             return
         store.setValue("updates/notified_version", notification)
         packaged = getattr(sys, "frozen", False)
-        can_install = bool(packaged and release.asset_url and
+        from update_apply import is_elevated
+        try:elevated=is_elevated() if packaged else False
+        except UpdateError:elevated=True
+        can_install = bool(packaged and release.asset_url and not elevated and
                            updater_path(Path(sys.executable).parent).is_file())
         def install():
             if self.busy or self.controller._stopping:
@@ -241,16 +244,19 @@ class UpdateManager(QObject):
                     pass
                 probe.unlink()
                 base = cache_root()
-                base.mkdir(parents=True, exist_ok=True)
+                base.mkdir(mode=0o700,parents=True, exist_ok=True)
                 job_dir = base / uuid.uuid4().hex
-                job_dir.mkdir()
+                job_dir.mkdir(mode=0o700)
                 plain_tree(job_dir)
                 payload = isolated_download(release, job_dir, self.cancel_event, self.progress.emit)
                 if self.cancel_event.is_set():
                     raise UpdateCancelled("Cancelled")
                 # The helper runs outside the directory whose DLLs it replaces.
                 shutil.copy2(updater_path(target), job_dir / "LexiftUpdater.exe")
-                job = dict(product="Lexift", nonce=job_dir.name, version=release.version,
+                from update_core import validate_payload,payload_build
+                expected=payload_build(validate_payload(payload,release.version)['files'])
+                if release.build and expected!=release.build:raise UpdateError('Update build does not match the published release')
+                job = dict(product="Lexift", nonce=job_dir.name, version=release.version,security_format=2,expected_build=expected,
                            target=str(target), payload=str(payload), parent_pid=os.getpid())
                 (job_dir / "job.json").write_text(json.dumps(job), encoding="utf-8")
                 self.prepared.emit(job_dir)
@@ -291,13 +297,19 @@ class UpdateManager(QObject):
     def _poll_helper(self):
         try:
             ready = self.job_dir / "helper-ready"
-            if ready.exists() and ready.read_text(encoding="ascii") == self.job_dir.name:
+            from update_core import plain_path
+            plain_path(ready)
+            if ready.exists() and ready.stat().st_size<=64 and ready.read_text(encoding="ascii") == self.job_dir.name:
                 self._close_dialog()
                 self.controller.stop()  # Installation was already confirmed.
                 return
             if self.helper.poll() is not None:
                 detail = self.job_dir / "error.log"
-                raise UpdateError(detail.read_text(encoding="utf-8") if detail.exists() else "Update helper could not start")
+                plain_path(detail)
+                if detail.exists():
+                    with detail.open(encoding='utf-8',errors='replace') as stream:message=stream.read(8000)
+                else:message='Update helper could not start'
+                raise UpdateError(message)
             if time.monotonic() > self._handoff_deadline:
                 # Helper has not claimed the parent; no files have been replaced.
                 self.helper.terminate()

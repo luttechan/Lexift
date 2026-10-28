@@ -125,8 +125,8 @@ class PackageTests(unittest.TestCase):
 
     def test_verified_download_and_checksum_failure(self):
         data=b'example zip'; digest=hashlib.sha256(data).hexdigest()
-        release=core.Release('0.7.8','https://github.com/luttechan/Lexift/releases/latest',
-                             'https://github.com/luttechan/Lexift/releases/download/v0.7.8/test.zip','test.zip',len(data),'sha256:'+digest)
+        release=core.Release('0.7.8','https://github.com/luttechan/Lexift/releases/tag/v0.7.8',
+                             'https://github.com/luttechan/Lexift/releases/download/v0.7.8/Lexift-0.7.8-Windows-x64.zip','Lexift-0.7.8-Windows-x64.zip',len(data),'sha256:'+digest)
         with patch.object(core,'open_url',return_value=io.BytesIO(data)):
             core.download(release,self.root/'good.zip',threading.Event())
         self.assertEqual((self.root/'good.zip').read_bytes(),data)

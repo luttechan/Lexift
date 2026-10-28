@@ -12,6 +12,7 @@ _current_index = -1
 # Stable Korean source keys. Languages per row: English, Japanese, Chinese simplified,
 # Chinese traditional, French, Spanish, Russian, German.
 _ROWS = {
+'로그를 저장하려면 일반 권한으로 실행하세요.': ('Run without administrator privileges to save logs.','ログを保存するには通常の権限で起動してください。','请以普通权限运行以保存日志。','請以一般權限執行以儲存記錄。','Exécutez sans droits administrateur pour enregistrer les journaux.','Ejecute sin permisos de administrador para guardar los registros.','Для сохранения журнала запустите без прав администратора.','Zum Speichern von Protokollen ohne Administratorrechte starten.'),
 '개발자 커피 사주기... ㅎㅎ': ('Buy the developer a coffee... :)','開発者にコーヒーを... ☺','请开发者喝杯咖啡... 哈哈','請開發者喝杯咖啡... 哈哈','Offrir un café au développeur... :)','Invitar al desarrollador a un café... :)','Угостить разработчика кофе... :)','Dem Entwickler einen Kaffee spendieren... :)'),
 '깃허브 둘러보기': ('Explore my GitHub','GitHubを見てみる','逛逛我的 GitHub','逛逛我的 GitHub','Découvrir mon GitHub','Explorar mi GitHub','Посмотреть мой GitHub','Mein GitHub entdecken'),
 '한국어': ('Korean','韓国語','韩语','韓語','Coréen','Coreano','Корейский','Koreanisch'),

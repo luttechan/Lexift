@@ -27,9 +27,11 @@ class QueryClient(QObject):
         self.restart_timer.timeout.connect(self._restart)
         self.buffer=b'';self.ready=False;self.closed=False;self.serial=0;self.pending=None
         self.trace=b'';self.recoveries=0;self.shared_desktop=False
+        self.retry_private=False
 
     def start(self):
         if self.closed:return
+        self.shared_desktop='--shared-desktop' in self.process.arguments()
         self.process.start();self.timer.start()
 
     def _restart(self):
@@ -70,6 +72,8 @@ class QueryClient(QObject):
 
     def _read(self):
         self.buffer+=bytes(self.process.readAllStandardOutput())
+        if len(self.buffer)>16*1024*1024:
+            self.buffer=b'';self._fail('일본어 IME 응답을 읽지 못했습니다.');return
         while b'\n' in self.buffer:
             line,self.buffer=self.buffer.split(b'\n',1)
             try:
@@ -78,11 +82,20 @@ class QueryClient(QObject):
                 self._fail('일본어 IME 응답을 읽지 못했습니다.');return
             if not isinstance(data,dict):
                 self._fail('일본어 IME 응답을 읽지 못했습니다.');return
+            candidates=data.get('candidates',[])
+            if (not isinstance(candidates,list) or len(candidates)>220 or
+                    any(not isinstance(value,str) or len(value)>8192 or '\x00' in value for value in candidates) or
+                    any(not isinstance(data.get(key,''),str) or len(data.get(key,''))>8192 for key in ('source','kana'))):
+                self._fail('일본어 IME 응답을 읽지 못했습니다.');return
             if self.closed:
                 continue
             if data.get('event')=='ready':
                 self.ready=True;self.timer.stop();self._send()
             elif data.get('id')==self.serial:
+                if not data.get('partial') and not candidates and not data.get('error'):
+                    if self.shared_desktop and self.recoveries<2:
+                        self.retry_private=True;self.process.kill();return
+                    self._fail('일본어 IME 후보를 가져오지 못했습니다.');return
                 if data.get('partial'):
                     self.timer.start()
                 else:
@@ -110,7 +123,10 @@ class QueryClient(QObject):
             # Some Windows sessions disallow another desktop or cannot start
             # TSF there. A hidden window on this desktop is the fallback. It
             # never activates a foreground window or sends keyboard input.
-            if not was_ready and not self.shared_desktop:
+            if self.retry_private:
+                self.retry_private=False;self.shared_desktop=False
+                self.process.setArguments(['--query-server'])
+            elif not was_ready and not self.shared_desktop:
                 self.shared_desktop=True
                 self.process.setArguments(['--query-server','--shared-desktop'])
             self.trace=b''

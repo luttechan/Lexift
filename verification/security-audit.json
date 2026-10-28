@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "cpu_target": "x86-64 baseline",
+  "native_binaries": [
+    {
+      "file": "lab/ime_candidate_host.exe",
+      "sha256": "c74dd7c4d4588ac1da0c5c4719a7ba2ab4d7efe81e032b4dea4d27fd29bd0592",
+      "advanced_vector_instructions": 0
+    },
+    {
+      "file": "module/kanashift_hooks.dll",
+      "sha256": "67692a06db494c1427f44b338127442cd4d6105ddea1b9520c053f507961f084",
+      "advanced_vector_instructions": 0
+    },
+    {
+      "file": "module/lexift_keyboard.exe",
+      "sha256": "7ead6a6bfb9904c3fd4a3cb66a92ce64d68a5b4a7f51851235717d98785e46ac",
+      "advanced_vector_instructions": 0
+    }
+  ],
+  "credential_patterns_found": [],
+  "scope": [
+    "update authenticity and extraction",
+    "update privileges and parent identity",
+    "IPC authentication and framing",
+    "native DLL and Qt plugin paths",
+    "password/read-only input guards",
+    "runtime and build dependencies"
+  ],
+  "fixed": [
+    "PyInstaller privileged onefile bootloader advisory GHSA-9fxf-4qw3-ghmr",
+    "outdated Python/OpenSSL security runtimes",
+    "unvalidated serialized download metadata",
+    "elevated automatic installation from user-writable cache",
+    "payload changes during transaction copy",
+    "UNC/reparse-point/Windows-alias update paths",
+    "keyboard worker authentication exposed on command line",
+    "loopback listener takeover and oversized unauthenticated frames",
+    "unbounded or malformed helper responses and status files",
+    "elevated writes to user-controlled log paths"
+  ],
+  "advisories": [
+    "https://github.com/pyinstaller/pyinstaller/security/advisories/GHSA-9fxf-4qw3-ghmr",
+    "https://blog.python.org/2026/10/python-3152-31410-31318-31216-31118/",
+    "https://mirror.openssl-library.org/news/openssl-3.5-notes/"
+  ],
+  "physical_other_devices_tested": false,
+  "external_application_typing_performed": false
+}

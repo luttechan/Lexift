@@ -12,13 +12,16 @@ import threading
 import time
 import uuid
 
-from update_core import Release, UpdateError, UpdateCancelled
+from update_core import Release, UpdateError, UpdateCancelled, strict_json, plain_path, validate_release
 
 
 def write_json(path, value):
-    temporary = path.with_suffix('.tmp')
-    temporary.write_text(json.dumps(value), encoding='utf-8')
-    temporary.replace(path)
+    plain_path(path.parent)
+    temporary=path.with_name('.'+path.name+'.'+uuid.uuid4().hex+'.tmp')
+    try:
+        with temporary.open('x',encoding='utf-8') as stream:json.dump(value,stream)
+        temporary.replace(path)
+    finally:temporary.unlink(missing_ok=True)
 
 
 def worker_command(request):
@@ -33,6 +36,8 @@ def isolated_request(job_dir, operation, cancel, progress=lambda value: None, re
     request = job_dir / 'network.json'
     write_json(request, dict(operation=operation, release=asdict(release) if release else None))
     environment = os.environ.copy()
+    for name in ('SSL_CERT_FILE','SSL_CERT_DIR','REQUESTS_CA_BUNDLE','CURL_CA_BUNDLE'):
+        environment.pop(name,None)
     environment['PYINSTALLER_RESET_ENVIRONMENT'] = '1'
     child = subprocess.Popen(worker_command(request), cwd=job_dir, env=environment,
         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
@@ -57,7 +62,9 @@ def isolated_request(job_dir, operation, cancel, progress=lambda value: None, re
         result_path = job_dir / 'result.json'
         if not result_path.is_file() or result_path.stat().st_size > 32768:
             raise UpdateError('Update worker did not return a result')
-        result = json.loads(result_path.read_text(encoding='utf-8'))
+        plain_path(result_path)
+        result = strict_json(result_path.read_text(encoding='utf-8'))
+        if not isinstance(result,dict):raise UpdateError('Invalid update worker result')
         if child.returncode or 'error' in result:
             raise UpdateError(result.get('error', 'Update worker failed'))
         return result
@@ -70,9 +77,9 @@ def isolated_request(job_dir, operation, cancel, progress=lambda value: None, re
 def isolated_check(cancel):
     from update_apply import cache_root, plain_tree
     base = cache_root()
-    base.mkdir(parents=True, exist_ok=True)
+    base.mkdir(mode=0o700,parents=True, exist_ok=True)
     job_dir = base / uuid.uuid4().hex
-    job_dir.mkdir()
+    job_dir.mkdir(mode=0o700)
     try:
         plain_tree(job_dir)
         return Release(**isolated_request(job_dir, 'check', cancel)['release'])
@@ -97,20 +104,20 @@ def run_network_job(request):
     if request.stat().st_size > 32768:
         raise UpdateError('Network job is too large')
     try:
-        job = json.loads(request.read_text(encoding='utf-8'))
+        job = strict_json(request.read_text(encoding='utf-8'))
+        if not isinstance(job,dict):raise UpdateError('Invalid network job')
         if job['operation'] == 'check':
             result = {'release': asdict(latest_release())}
         elif job['operation'] == 'download':
             release = Release(**job['release'])
+            validate_release(release)
             cancel = threading.Event()
             previous = -1
 
             def report(value):
                 nonlocal previous
                 if value != previous:
-                    temporary = request.parent / 'progress.tmp'
-                    temporary.write_text(str(value), encoding='ascii')
-                    temporary.replace(request.parent / 'progress')
+                    write_json(request.parent/'progress',value)
                     previous = value
 
             archive = request.parent / 'download.zip'
