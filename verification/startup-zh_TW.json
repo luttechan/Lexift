@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "version": "1.0.6",
+  "language": "zh_TW",
+  "platform": "windows",
+  "stages": [
+    {
+      "stage": "imports",
+      "elapsed_ms": 111.1
+    },
+    {
+      "stage": "application",
+      "elapsed_ms": 170.01
+    },
+    {
+      "stage": "fonts",
+      "elapsed_ms": 1586.76
+    },
+    {
+      "stage": "controller",
+      "elapsed_ms": 1689.44
+    },
+    {
+      "stage": "window_created",
+      "elapsed_ms": 4854.87
+    },
+    {
+      "stage": "first_paint",
+      "elapsed_ms": 5136.01
+    }
+  ],
+  "menus": [
+    {
+      "page": 2,
+      "elapsed_ms": 25.63
+    },
+    {
+      "page": 3,
+      "elapsed_ms": 30.8
+    },
+    {
+      "page": 4,
+      "elapsed_ms": 17.88
+    },
+    {
+      "page": 1,
+      "elapsed_ms": 28.37
+    },
+    {
+      "page": 0,
+      "elapsed_ms": 3.42
+    }
+  ],
+  "checks": {
+    "pinyin_glyph": true,
+    "all_pages_ready": true,
+    "frame_rendered": true
+  },
+  "external_input_sent": false,
+  "keyboard_hooks_started": false
+}

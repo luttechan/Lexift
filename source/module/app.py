@@ -35,7 +35,7 @@ from settings_controls import SettingsComboBox
 from native_language_dialog import choose_ui_language, confirm_quit, NativeDialogUnavailable
 from cursor_indicator import CursorIndicator
 from update_ui import UpdateManager
-from update_apply import mark_ready
+from update_apply import schedule_ready as mark_ready
 from ime_windows import (
     IMEError, current_hkl, cycle_windows_language, foreground_target,
     get_target_window, japanese_fallback_key, japanese_matches, japanese_set,
@@ -49,7 +49,7 @@ from layout_profiles import (
     needs_first_run_setup, sanitized_slots, editable_slots, MAX_SLOTS, preferred_mode,
 )
 
-VERSION = "1.0.5"
+VERSION = "1.0.6"
 ORGANIZATION = "LuteTools"
 PRODUCT = "Lexift"
 SELECTION_KEYS = "1234567890ABCDE"
@@ -194,7 +194,7 @@ def apply_text_font(widget, text):
     family = text_font_family(text)
     if widget.property('kanashiftTextFamily') != family:
         widget.setProperty('kanashiftTextFamily', family)
-        if family != "Malgun Gothic" or widget.styleSheet():
+        if family != "Malgun Gothic" or widget.styleSheet() or language() in ('ja','zh_CN','zh_TW'):
             widget.setStyleSheet(f'font-family:"{family}";')
 
 
@@ -1177,7 +1177,12 @@ class MainWindow(QWidget):
         tone_layout.addWidget(self._feature_check("tone"))
         tone_layout.addWidget(label(tr("Caps + 1~4: 성조 지정 / Caps + 0: 성조 해제"),"muted",wrap=True))
         tone_layout.addWidget(label(tr("상단 숫자키와 숫자패드 지원 (Num Lock 무관)"),"muted",wrap=True))
-        tone_layout.addWidget(label(tr("영문으로 병음을 입력한 뒤 단축키를 누르세요. 입력기는 변경하지 않습니다. 예: ke → kě (Caps + 3)."),"muted",wrap=True))
+        tone_layout.addWidget(label(tr("영문 병음 입력 후 단축키를 누르세요. 입력기는 바뀌지 않습니다."),"muted",wrap=True))
+        tone_example=label('ke → kě (Caps + 3)','muted')
+        # The Korean UI font does not contain "ě". Keep this Latin example in
+        # a matching font, avoiding a scan of every installed font at startup.
+        tone_example.setStyleSheet('font-family:"Segoe UI";')
+        tone_layout.addWidget(tone_example)
         sections[3].addWidget(tone_panel);sections[3].addStretch(1)
         self.feature_checks['tone'].toggled.connect(self._validate_shortcuts)
         language_panel = QFrame()
@@ -2001,6 +2006,7 @@ class LexiftController(QObject):
         if show_dashboard:
             self.show_window(0)
             self.qt.processEvents(QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents)
+            logging.info('Startup window visible after %.3fs',time.perf_counter()-getattr(sys,'_lexift_started_at',time.perf_counter()))
         self._start_hook()
         # A manually launched app must never appear to be "not running".
         # Only --background (used for Windows auto-start) may stay in the tray.

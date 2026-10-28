@@ -21,7 +21,7 @@ def verify(output):
            ('주-스','ジュース'),('파이루','ファイル'),
            ('바이올린','バイオリン'),('듀엣토','デュエット'),
            ('쓰나미','津波'),('마쓰모토','松本'),('지바','千葉')]
-    results={'version':'1.0.5','queries':[],'passed':False}
+    results={'version':'1.0.6','queries':[],'passed':False}
     Path(output).write_text(json.dumps(results),encoding='utf-8')
     started=time.perf_counter();request_started=started
     def receive(serial,data):

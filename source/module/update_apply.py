@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import time
+import threading
 import uuid
 from pathlib import Path
 
@@ -168,17 +169,52 @@ def replace_runtime(payload: Path, target: Path, version: str, verify_start=lamb
 def mark_ready(version: str):
     """Acknowledge only a validated job targeting this packaged executable."""
     if "--update-job" not in sys.argv or not getattr(sys, "frozen", False):
-        return
+        return False
     index = sys.argv.index("--update-job")
     try:
         path = Path(sys.argv[index + 1])
         job = load_job(path,allow_legacy=True)
         if Path(sys.executable).parent != Path(job["target"]) or job["version"] != version:
-            return
+            return False
         (path.parent / "ready").write_text(job["nonce"], encoding="ascii")
+        return True
     except Exception:
         # No acknowledgment: the external updater will roll back.
-        return
+        return False
+
+
+_ready_guard = threading.Lock()
+_ready_pending = False
+_ready_done = None
+
+
+def schedule_ready(version: str):
+    """Validate an update acknowledgment off the GUI thread, once per job.
+
+    Full payload/path/hash validation stays in mark_ready. The updater keeps
+    waiting for that result and rolls back if validation or startup fails.
+    """
+    if '--update-job' not in sys.argv or not getattr(sys,'frozen',False):
+        return None
+    global _ready_guard, _ready_pending, _ready_done
+    key=(tuple(sys.argv),version)
+    with _ready_guard:
+        if _ready_pending or _ready_done==key:return None
+        _ready_pending=True
+    def acknowledge():
+        global _ready_pending, _ready_done
+        try:
+            success=mark_ready(version)
+            if success:
+                with _ready_guard:_ready_done=key
+        finally:
+            with _ready_guard:_ready_pending=False
+    worker=threading.Thread(target=acknowledge,daemon=True,name='Lexift-UpdateAck')
+    try:worker.start()
+    except Exception:
+        with _ready_guard:_ready_pending=False
+        raise
+    return worker
 
 
 def run_job(path: Path):

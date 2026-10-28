@@ -259,6 +259,8 @@ def text_font_family(text: str) -> str:
     if not any(0xAC00 <= ord(char) <= 0xD7AF for char in text) and any(
             0x3400 <= ord(char) <= 0x9FFF for char in text):
         return {"zh_CN": "Microsoft YaHei UI", "zh_TW": "Microsoft JhengHei UI"}.get(_current, "Yu Gothic UI")
+    if not any(0xAC00 <= ord(char) <= 0xD7AF for char in text) and any(0x0100 <= ord(char) <= 0x024F for char in text):
+        return "Segoe UI"
     return "Malgun Gothic"
 
 def tr(key: str) -> str:

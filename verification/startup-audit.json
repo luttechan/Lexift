@@ -1,0 +1,169 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "language": "ko",
+      "process_ms": 2715.54,
+      "first_paint_ms": 2235.96,
+      "menus": [
+        {
+          "page": 2,
+          "elapsed_ms": 29.8
+        },
+        {
+          "page": 3,
+          "elapsed_ms": 24.51
+        },
+        {
+          "page": 4,
+          "elapsed_ms": 20.69
+        },
+        {
+          "page": 1,
+          "elapsed_ms": 20.18
+        },
+        {
+          "page": 0,
+          "elapsed_ms": 3.2
+        }
+      ]
+    },
+    {
+      "language": "ko",
+      "process_ms": 2685.16,
+      "first_paint_ms": 2228.35,
+      "menus": [
+        {
+          "page": 2,
+          "elapsed_ms": 26.73
+        },
+        {
+          "page": 3,
+          "elapsed_ms": 22.94
+        },
+        {
+          "page": 4,
+          "elapsed_ms": 19.18
+        },
+        {
+          "page": 1,
+          "elapsed_ms": 20.99
+        },
+        {
+          "page": 0,
+          "elapsed_ms": 3.62
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "process_ms": 2539.8,
+      "first_paint_ms": 2133.7,
+      "menus": [
+        {
+          "page": 2,
+          "elapsed_ms": 14.98
+        },
+        {
+          "page": 3,
+          "elapsed_ms": 13.71
+        },
+        {
+          "page": 4,
+          "elapsed_ms": 20.27
+        },
+        {
+          "page": 1,
+          "elapsed_ms": 13.34
+        },
+        {
+          "page": 0,
+          "elapsed_ms": 2.72
+        }
+      ]
+    },
+    {
+      "language": "ja",
+      "process_ms": 5924.53,
+      "first_paint_ms": 5415.94,
+      "menus": [
+        {
+          "page": 2,
+          "elapsed_ms": 35.22
+        },
+        {
+          "page": 3,
+          "elapsed_ms": 48.14
+        },
+        {
+          "page": 4,
+          "elapsed_ms": 24.71
+        },
+        {
+          "page": 1,
+          "elapsed_ms": 27.11
+        },
+        {
+          "page": 0,
+          "elapsed_ms": 2.98
+        }
+      ]
+    },
+    {
+      "language": "zh_CN",
+      "process_ms": 9267.66,
+      "first_paint_ms": 8741.05,
+      "menus": [
+        {
+          "page": 2,
+          "elapsed_ms": 29.68
+        },
+        {
+          "page": 3,
+          "elapsed_ms": 33.04
+        },
+        {
+          "page": 4,
+          "elapsed_ms": 17.45
+        },
+        {
+          "page": 1,
+          "elapsed_ms": 29.33
+        },
+        {
+          "page": 0,
+          "elapsed_ms": 3.58
+        }
+      ]
+    },
+    {
+      "language": "zh_TW",
+      "process_ms": 5592.2,
+      "first_paint_ms": 5136.01,
+      "menus": [
+        {
+          "page": 2,
+          "elapsed_ms": 25.63
+        },
+        {
+          "page": 3,
+          "elapsed_ms": 30.8
+        },
+        {
+          "page": 4,
+          "elapsed_ms": 17.88
+        },
+        {
+          "page": 1,
+          "elapsed_ms": 28.37
+        },
+        {
+          "page": 0,
+          "elapsed_ms": 3.42
+        }
+      ]
+    }
+  ],
+  "external_input_sent": false,
+  "other_physical_devices_tested": false
+}

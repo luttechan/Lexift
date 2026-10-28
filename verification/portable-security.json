@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "python": "3.12.16",
   "openssl": "OpenSSL 3.5.9 29 Sep 2026",
   "qt": "6.12.0",

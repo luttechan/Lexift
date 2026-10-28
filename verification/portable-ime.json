@@ -1,154 +1,154 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "queries": [
     {
       "source": "야마토",
       "reading": "やまと",
-      "elapsed_ms": 446,
+      "elapsed_ms": 479,
       "candidate_count": 10,
       "passed": true
     },
     {
       "source": "와타시",
       "reading": "わたし",
-      "elapsed_ms": 72,
+      "elapsed_ms": 56,
       "candidate_count": 9,
       "passed": true
     },
     {
       "source": "와타시",
       "reading": "わたし",
-      "elapsed_ms": 63,
+      "elapsed_ms": 65,
       "candidate_count": 9,
       "passed": true
     },
     {
       "source": "니혼고",
       "reading": "にほんご",
-      "elapsed_ms": 174,
+      "elapsed_ms": 197,
       "candidate_count": 13,
       "passed": true
     },
     {
       "source": "갓코우",
       "reading": "がっこう",
-      "elapsed_ms": 107,
+      "elapsed_ms": 112,
       "candidate_count": 17,
       "passed": true
     },
     {
       "source": "쿄우",
       "reading": "きょう",
-      "elapsed_ms": 62,
+      "elapsed_ms": 60,
       "candidate_count": 10,
       "passed": true
     },
     {
       "source": "코-히-",
       "reading": "こーひー",
-      "elapsed_ms": 71,
+      "elapsed_ms": 61,
       "candidate_count": 10,
       "passed": true
     },
     {
       "source": "모노즈쿠리",
       "reading": "ものづくり",
-      "elapsed_ms": 271,
+      "elapsed_ms": 289,
       "candidate_count": 20,
       "passed": true
     },
     {
       "source": "치지마리마스",
       "reading": "ちじまります",
-      "elapsed_ms": 196,
+      "elapsed_ms": 191,
       "candidate_count": 12,
       "passed": true
     },
     {
       "source": "오-키이",
       "reading": "おうきい",
-      "elapsed_ms": 332,
+      "elapsed_ms": 336,
       "candidate_count": 21,
       "passed": true
     },
     {
       "source": "와타시와가쿠세이데스",
       "reading": "わたしわがくせいです",
-      "elapsed_ms": 1121,
+      "elapsed_ms": 1224,
       "candidate_count": 80,
       "passed": true
     },
     {
       "source": "미카즈키",
       "reading": "みかずき",
-      "elapsed_ms": 313,
+      "elapsed_ms": 329,
       "candidate_count": 30,
       "passed": true
     },
     {
       "source": "아리가토-",
       "reading": "ありがとう",
-      "elapsed_ms": 53,
+      "elapsed_ms": 69,
       "candidate_count": 6,
       "passed": true
     },
     {
       "source": "오하요-",
       "reading": "おはよう",
-      "elapsed_ms": 57,
+      "elapsed_ms": 67,
       "candidate_count": 5,
       "passed": true
     },
     {
       "source": "주-스",
       "reading": "ずうす",
-      "elapsed_ms": 717,
+      "elapsed_ms": 714,
       "candidate_count": 53,
       "passed": true
     },
     {
       "source": "파이루",
       "reading": "ぱいる",
-      "elapsed_ms": 117,
+      "elapsed_ms": 100,
       "candidate_count": 16,
       "passed": true
     },
     {
       "source": "바이올린",
       "reading": "ばいおるりん",
-      "elapsed_ms": 1296,
+      "elapsed_ms": 1382,
       "candidate_count": 88,
       "passed": true
     },
     {
       "source": "듀엣토",
       "reading": "でゅえっと",
-      "elapsed_ms": 455,
+      "elapsed_ms": 460,
       "candidate_count": 39,
       "passed": true
     },
     {
       "source": "쓰나미",
       "reading": "すなみ",
-      "elapsed_ms": 101,
+      "elapsed_ms": 121,
       "candidate_count": 15,
       "passed": true
     },
     {
       "source": "마쓰모토",
       "reading": "ますもと",
-      "elapsed_ms": 109,
+      "elapsed_ms": 105,
       "candidate_count": 20,
       "passed": true
     },
     {
       "source": "지바",
       "reading": "じば",
-      "elapsed_ms": 1482,
+      "elapsed_ms": 1503,
       "candidate_count": 36,
       "passed": true
     }
   ],
   "passed": true,
-  "elapsed_ms": 7837
+  "elapsed_ms": 8147
 }

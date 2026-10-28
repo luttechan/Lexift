@@ -10,7 +10,7 @@ from chinese_query_client import ChineseQueryClient
 def verify(output):
     qt=QApplication.instance() or QApplication([])
     qt.setQuitOnLastWindowClosed(False)
-    result={'version':'1.0.5','backend':'offline-pinyin','passed':False,'queries':[]}
+    result={'version':'1.0.6','backend':'offline-pinyin','passed':False,'queries':[]}
     words=[('니츠판','你吃饭'),('니츠판러','你吃饭了'),('니츠판러마','你吃饭了吗'),('니하오','你好'),('셰셰','谢谢'),('씨에씨에','谢谢'),('워아이니','我爱你'),
            ('중궈','中国'),('베이징','北京'),('짜이젠','再见'),('니하오마','你好吗'),
            ('메이관시','没关系'),('진티엔','今天'),('펑요우','朋友')]

@@ -2,7 +2,7 @@
 
 Switch input languages and type Japanese or Chinese phonetically in Hangul.
 
-[Download](https://luttechan.github.io/lexift/) / [English](https://luttechan.github.io/lexift/guide/1.0.5/en.html) / [한국어](https://luttechan.github.io/lexift/guide/1.0.5/ko.html) / [日本語](https://luttechan.github.io/lexift/guide/1.0.5/ja.html) / [简体中文](https://luttechan.github.io/lexift/guide/1.0.5/zh_CN.html) / [繁體中文](https://luttechan.github.io/lexift/guide/1.0.5/zh_TW.html)
+[Download](https://luttechan.github.io/lexift/) / [English](https://luttechan.github.io/lexift/guide/1.0.6/en.html) / [한국어](https://luttechan.github.io/lexift/guide/1.0.6/ko.html) / [日本語](https://luttechan.github.io/lexift/guide/1.0.6/ja.html) / [简体中文](https://luttechan.github.io/lexift/guide/1.0.6/zh_CN.html) / [繁體中文](https://luttechan.github.io/lexift/guide/1.0.6/zh_TW.html)
 
 | Shortcut | Action |
 |---|---|
@@ -23,11 +23,17 @@ Japanese input requires Microsoft Japanese IME.
 
 성조는 설정에서 켠 뒤 영문으로 입력합니다. `ke` + Caps + 3 → `kě`.
 
+## 1.0.6
+
+Fixed slow startup.
+
+초기 실행 지연을 수정했습니다.
+
 ## 1.0.5
 
-Security fixes. Please update to v1.0.5.
+Security fixes.
 
-보안 취약점을 수정했습니다. v1.0.5로 업데이트해 주세요.
+보안 취약점을 수정했습니다.
 
 ## 1.0.4
 
