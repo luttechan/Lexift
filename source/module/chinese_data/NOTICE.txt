@@ -1,8 +1,0 @@
-KanaShift Chinese pronunciation input uses the unmodified Rime pinyin_simp dictionary.
-Source: https://github.com/rime/rime-pinyin-simp
-Copyright Rime contributors. Dictionary derived from the Android Open Source
-Project PinyinIME dictionary, as documented in its source header.
-License: Apache License 2.0 (LICENSE-Apache-2.0.txt in this folder).
-Pinned revision, download URLs and SHA-256 hashes: provenance.json.
-KanaShift reads the original text at runtime; it does not link the Rime engine.
-Candidate ranking and Korean pronunciation conversion are KanaShift code.

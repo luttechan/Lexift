@@ -1,50 +1,42 @@
-# NOW WE ARE LEXIFT.
+# Lexift 1.1
 
-Switch input languages and type Japanese or Chinese phonetically in Hangul.
+한글 발음으로 일본어와 중국어를 입력하는 Windows 도구입니다.
 
-[Download](https://luttechan.github.io/lexift/) / [English](https://luttechan.github.io/lexift/guide/1.0.6/en.html) / [한국어](https://luttechan.github.io/lexift/guide/1.0.6/ko.html) / [日本語](https://luttechan.github.io/lexift/guide/1.0.6/ja.html) / [简体中文](https://luttechan.github.io/lexift/guide/1.0.6/zh_CN.html) / [繁體中文](https://luttechan.github.io/lexift/guide/1.0.6/zh_TW.html)
+[Windows 설치기](https://github.com/luttechan/Lexift/releases/latest) · [공식 사이트 및 사용 설명서](https://luttechan.github.io/lexift/)
 
-| Shortcut | Action |
-|---|---|
-| Caps + Q | Switch input language |
-| Caps + A | Japanese: 와타시 → 私 |
-| Caps + C | Simplified Chinese: 니하오 → 你好 |
-| Caps + T | Traditional → Bopomofo → OFF |
-| Caps + 1–4 / 0 | Set / remove a pinyin tone |
+- 메인 UI와 Caps 언어 선택 메뉴 개편
+- 9개 표시 언어의 문구와 오류 안내 정리
+- Caps Lock 상태 알림 개별 설정
+- 설정 변경 시 편집 중인 사전 유지
+- 단축키 중복 검사, 언어 변경 확인, 사전 개별 삭제
 
-Enable pinyin tones in Settings: `ke` + Caps + 3 → `kě`.
+언어 선택 메뉴, 한일·한중 후보창, 상태 알림은 React와 Tauri로 표시합니다. 트레이는 Tauri의 Windows 메뉴를 사용합니다. 입력 엔진은 네이티브 모듈로 발음과 확정 키를 처리하며, PySide6로 타이머와 자식 프로세스를 관리합니다.
 
-Windows 10/11, 64-bit. Extract the ZIP and run **Lexift.exe**.
-Japanese input requires Microsoft Japanese IME.
+## 소스
 
-## 한국어
+- `src/App.tsx`: 메인 UI
+- `src/Selector.tsx`: Caps 선택 메뉴
+- `src/styles.css`: 공통 디자인과 시스템 테마
+- `src/locales.json`: 표시 문구
+- `engine/module/desktop_messages.py`: 새 번역 원본
+- `src-tauri/src/main.rs`: Windows 호스트와 엔진 연결
+- `engine/bridge.py`: Python 엔진 어댑터
+- `engine/desktop_selector.py`: 선택 메뉴 상태 및 키 처리
 
-단축키로 입력기를 바꾸고, 한글 발음을 일본어와 중국어로 변환합니다.
+## 빌드
 
-성조는 설정에서 켠 뒤 영문으로 입력합니다. `ke` + Caps + 3 → `kě`.
+Zig 0.14.1을 PATH에 추가하거나 KANASHIFT_ZIG에 실행 파일 경로를 지정합니다.
 
-## 1.0.6
+Node.js 22.12 이상, pnpm, Rust MSVC, Visual Studio C++ 빌드 도구가 필요합니다. 엔진 빌드에는 Python 3.12.16 이상, `engine/module/requirements.txt`, PyInstaller 6.22.3 이상이 필요합니다.
 
-Fixed slow startup.
+```powershell
+pnpm install --frozen-lockfile
+python scripts/build_locales.py
+.\build.ps1 -RebuildEngine -Installer
+```
 
-초기 실행 지연을 수정했습니다.
+일반 실행에는 Node.js와 Python 설치가 필요하지 않습니다. Windows 10/11 x64 및 WebView2 Runtime이 필요합니다. 네이티브 모듈은 범용 x86-64 기준을 유지합니다.
 
-## 1.0.5
+`--diagnostic`은 임시 설정을 사용하며 전역 키보드 후크를 설치하지 않습니다. `verification/`에 검사 결과를 보관합니다. 다른 프로그램에 직접 입력하는 호환성 검사는 이 결과에 포함하지 않습니다.
 
-Security fixes.
-
-보안 취약점을 수정했습니다.
-
-## 1.0.4
-
-Fixed an issue affecting certain CPUs.
-
-특정 CPU에서 발생하던 오류를 수정했습니다.
-
-## Credits
-
-Developed by Lutté  
-Translation (JP) & QA : 루노  
-Development assistance: OpenAI ChatGPT (GPT-6 Astra)
-
-[Previous releases](https://github.com/luttechan/Lexift/releases)
+MIT. Translation (JP) & QA: 루노.

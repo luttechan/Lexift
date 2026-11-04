@@ -1,0 +1,7 @@
+{
+  "abi": 6,
+  "target": "x86_64-windows-gnu",
+  "cpu": "baseline",
+  "source_sha256": "5bd6925ac862f9b0e895e4ebcfbed351f2c0dbff38fab8fe1da52baca00c5bd0",
+  "dll_sha256": "2e2a7904131cd9e53f652f7c45d0d89cc0220ebfda5c9aaa161d4b437214c872"
+}

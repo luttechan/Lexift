@@ -1,0 +1,98 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Lexift",
+  "version": "1.1.0",
+  "identifier": "com.luttetools.lexift.desktop",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "splash",
+        "title": "Lexift",
+        "url": "index.html?splash",
+        "width": 520,
+        "height": 350,
+        "center": true,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "backgroundColor": "#F5F5F7"
+      },
+      {
+        "label": "main",
+        "title": "Lexift",
+        "width": 1120,
+        "height": 780,
+        "minWidth": 860,
+        "minHeight": 620,
+        "visible": false,
+        "center": true,
+        "decorations": false,
+        "backgroundColor": "#F5F5F7"
+      },
+      {
+        "label": "selector",
+        "title": "Lexift Input",
+        "url": "index.html?selector",
+        "width": 640,
+        "height": 350,
+        "visible": false,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "focus": false,
+        "focusable": false,
+        "backgroundColor": "#F5F5F7"
+      },
+      {
+        "label": "candidate",
+        "title": "Lexift Candidates",
+        "url": "index.html?candidate",
+        "width": 350,
+        "height": 150,
+        "visible": false,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "focus": false,
+        "focusable": false,
+        "backgroundColor": "#F5F5F7"
+      },
+      {
+        "label": "notice-popup",
+        "title": "Lexift Notice",
+        "url": "index.html?notice-popup",
+        "width": 350,
+        "height": 150,
+        "visible": false,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "focus": false,
+        "focusable": false,
+        "backgroundColor": "#F5F5F7"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src ipc: http://ipc.localhost; object-src 'none'; base-uri 'self'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": false,
+    "icon": [
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "../engine-dist/": "engine/"
+    }
+  }
+}

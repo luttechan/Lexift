@@ -1,0 +1,11 @@
+node_modules/
+dist/
+engine-dist/
+engine-build/
+src-tauri/target/
+engine/module/__pycache__/
+verification/*.png
+verification/*.log
+verification/webview-*/
+portable/
+**/__pycache__/
