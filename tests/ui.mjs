@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const {chromium}=await import(pathToFileURL(join(process.env.USERPROFILE,'.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs')).href);
 const catalog=JSON.parse(await readFile(join(root,'src/locales.json'),'utf8'));
-const dist=join(root,'dist');const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.ttf':'font/ttf','.woff2':'font/woff2','.png':'image/png'};
+const dist=join(root,'dist');const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.ttf':'font/ttf','.woff2':'font/woff2','.png':'image/png','.svg':'image/svg+xml'};
 const server=createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');const path=resolve(dist,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));if(!path.startsWith(dist+sep))throw Error();const data=await readFile(path);res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream'});res.end(data)}catch{res.writeHead(404);res.end()}});
 await new Promise(done=>server.listen(0,'127.0.0.1',done));const url=`http://127.0.0.1:${server.address().port}`;
 await mkdir(join(root,'verification'),{recursive:true});
@@ -69,5 +69,10 @@ try{
   await page.setViewportSize({width:390,height:844});await button('홈').click();check('Compact viewport has no overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await capture('home-compact');
   await page.setViewportSize({width:680,height:300});await page.goto(url+'/?selector&preview=1');await page.locator('.selector-tile').first().waitFor();await page.locator('.selector-tile').nth(1).click();check('React selector renders and updates selection',await page.locator('.selector-tile').nth(1).getAttribute('aria-pressed')==='true');await capture('selector-dark');await page.emulateMedia({colorScheme:'light'});await capture('selector-light');
   await page.setViewportSize({width:520,height:350});await page.goto(url+'/?splash&preview=1');await page.evaluate(()=>document.fonts.ready);check('Local handwritten font loads',await page.evaluate(()=>document.fonts.check('36px Allura')));await capture('splash-light');await page.emulateMedia({colorScheme:'dark'});await capture('splash-dark');
+  await page.setViewportSize({width:300,height:70});await page.goto(url+'/?notice-popup&preview=1');
+  await page.locator('.notice-icon svg').waitFor();
+  check('Caps state is still visible with an icon',await page.getByRole('status').getByText('Caps Lock ON').isVisible());
+  check('Notice animation respects reduced motion',await page.emulateMedia({reducedMotion:'reduce'}).then(()=>page.locator('.notice-popup').evaluate(element=>getComputedStyle(element).animationName==='none')));
+  await capture('notice-dark');
   check('No frontend exceptions',errors.length===0);await writeFile(join(root,'verification/ui.json'),JSON.stringify({passed:true,checks,errors},null,2));console.log(JSON.stringify({passed:true,checks:checks.length}));
 }finally{await browser.close();server.close()}

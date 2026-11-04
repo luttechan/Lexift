@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { listen } from '@tauri-apps/api/event';
+import { ArrowRightLeft, Bell, CaseUpper } from 'lucide-react';
 import { host, native, preview } from './bridge';
 
 type PopupFrame = {
@@ -19,9 +20,12 @@ const sample: PopupFrame = {
   visible: true, revision: 1, source: '와타시', values: ['私','わたし','ワタシ','わたくし'], // i18n-sample
   readings: ['わたし','わたし','ワタシ','わたくし'], row: 0, hint: '1–9 / 0 확정 / ↑↓ 이동 / Space / Enter',
 };
+const noticeSample: PopupFrame = {
+  visible: true, revision: 1, kind: 'caps', text: 'Caps Lock  ON',
+};
 
 export function Popup({candidate}:{candidate:boolean}) {
-  const [frame,setFrame]=useState<PopupFrame|null>(preview&&candidate?sample:null);
+  const [frame,setFrame]=useState<PopupFrame|null>(preview?(candidate?sample:noticeSample):null);
   const selected=useRef<HTMLButtonElement>(null);
   useEffect(()=>{
     let disposed=false;
@@ -43,15 +47,16 @@ export function Popup({candidate}:{candidate:boolean}) {
 
   if(!frame?.visible)return null;
   if(!candidate){
-    const content=<>{frame.title&&<strong>{frame.title}</strong>}<span>{frame.text}</span></>;
+    const Icon=frame.kind==='caps'?CaseUpper:frame.kind==='cursor'?ArrowRightLeft:Bell;
+    const content=<><span className="notice-icon" aria-hidden="true"><Icon size={19}/></span><span className="notice-copy">{frame.title&&<strong>{frame.title}</strong>}<span>{frame.text}</span></span></>;
     return frame.kind==='notification'?
-      <button className="notice-popup" onClick={()=>void host('engine_command',{action:'tray_action',payload:{name:'main'}}).catch(()=>{})}>{content}</button>:
-      <div className="notice-popup" role="status">{content}</div>;
+      <button key={frame.revision} className="notice-popup" onClick={()=>void host('engine_command',{action:'tray_action',payload:{name:'main'}}).catch(()=>{})}>{content}</button>:
+      <div key={frame.revision} className="notice-popup" role="status">{content}</div>;
   }
 
   return <section className="candidate-popup" aria-label="Lexift">
     <header>
-      <span className="candidate-brand">LEXIFT</span>
+      <span className="candidate-brand"><img src="/lexift-icon.svg" width="18" height="18" alt="Lexift"/></span>
       <div className="candidate-reading" title={frame.source}>{frame.source} <span>→</span> {frame.readings?.[frame.row??0]}</div>
     </header>
     <div className="candidate-list" role="listbox">

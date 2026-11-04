@@ -1641,7 +1641,6 @@ class LexiftController(QObject):
         self._ime_toast = None
         self.caps_indicator=CapsLockIndicator(self)
         self.caps_indicator.set_enabled(self.store.value("general/caps_notice",True,type=bool))
-        self.caps_indicator.changed.connect(lambda _:self._sound())
         self.qt.aboutToQuit.connect(self.caps_indicator.stop)
         layouts = available_layouts()
         raw = self.store.value("profiles/slots_json", "", str)

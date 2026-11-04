@@ -415,7 +415,7 @@ fn restart_engine(app: tauri::AppHandle, engine: tauri::State<'_, Arc<Engine>>) 
 #[tauri::command]
 fn open_external(destination: String) -> Result<(), String> {
     let url = match destination.as_str() {
-        "github" => "https://github.com/luttechan/Lexift", "manual" => "https://luttechan.github.io/lexift/guide/1.0.6/ko.html",
+        "github" => "https://github.com/luttechan/Lexift", "manual" => "https://luttechan.github.io/lexift/guide/1.1.0/ko.html",
         "website" => "https://luttechan.github.io/lexift/", "releases" => "https://github.com/luttechan/Lexift/releases/latest",
         "paypal" => "https://www.paypal.com/ncp/payment/XKVWYK7U2EAB4", _ => return Err("허용되지 않은 주소입니다.".into()) };
     #[link(name="shell32")]

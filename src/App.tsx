@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { listen } from '@tauri-apps/api/event';
-import { ArrowDown, ArrowUp, ArrowUpRight, BookOpen, Check, ChevronRight, Globe2, Keyboard, LayoutDashboard, LoaderCircle, Minus, Plus, Power, Settings2, Square, Trash2, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, Bell, BookOpen, Check, ChevronRight, Globe2, Keyboard, LayoutDashboard, LoaderCircle, Minus, Plus, Power, Settings2, Square, Trash2, X } from 'lucide-react';
 import { bindingLabel, command, host, native, preview } from './bridge';
 import { I18n, useT } from './i18n';
 import { Selector } from './Selector';
@@ -29,7 +29,7 @@ function Confirm({title,description,accept,cancel,confirm}:{title:string;descrip
 }
 export function Splash({message,error,retry}:{message?:string;error?:string;retry?:()=>void}) {
   const t=useT();
-  return <div className="splash" data-tauri-drag-region><div className="splash-glow"/><div className="splash-brand"><img src="/lexift-logo.png" alt="Lexift" draggable={false}/><p className="handwriting">Shift the Way You Learn.</p></div><div className="splash-status" role="status">{error?<><span className="error-text">{t(error)}</span><div className="splash-error-actions">{retry&&<Button secondary onClick={retry}>{t('다시 연결')}</Button>}{native&&<Button secondary onClick={()=>void host('quit_app')}>{t('종료')}</Button>}</div></>:<><LoaderCircle className="spinning" size={15}/><span>{t(message||'입력 환경 준비 중')}</span></>}</div><span className="splash-caption">LUTTÉ LAURENT</span></div>;
+  return <div className="splash" data-tauri-drag-region><div className="splash-glow"/><div className="splash-brand"><img className="splash-mark" src="/lexift-icon.svg" alt="Lexift" draggable={false}/><p className="handwriting">Shift the Way You Learn.</p></div><div className="splash-status" role="status">{error?<><span className="error-text">{t(error)}</span><div className="splash-error-actions">{retry&&<Button secondary onClick={retry}>{t('다시 연결')}</Button>}{native&&<Button secondary onClick={()=>void host('quit_app')}>{t('종료')}</Button>}</div></>:<><LoaderCircle className="spinning" size={15}/><span>{t(message||'입력 환경 준비 중')}</span></>}</div><span className="splash-caption">LUTTÉ LAURENT</span></div>;
 }
 
 export default function App() {
@@ -72,18 +72,27 @@ function Desktop({changeLocale}:{changeLocale:(value:string)=>void}) {
   if(splash||!state)return <Splash error={error} retry={()=>void boot(true)}/>;
   const status=state.diagnostic?'진단 모드':error||state.status==='error'?'연결 오류':!state.enabled?'일시 정지':state.firstRun?'입력 언어 등록 필요':state.running?'사용 준비 완료':state.status==='starting'?'연결 중':'입력 기능 중지';
   return <div className="app-shell">
-    <aside className="sidebar"><div className="sidebar-brand" data-tauri-drag-region><img src="/lexift-logo.png" alt="Lexift" draggable={false}/><span>1.1</span></div><nav aria-label={t('메뉴')}>{navigation.map(([target,label,Icon])=><button key={target} className={page===target?'active':''} aria-current={page===target?'page':undefined} aria-label={t(label)} title={t(label)} onClick={()=>setPage(target)}><Icon size={19}/><span>{t(label)}</span></button>)}</nav><div className="sidebar-bottom"><span className={`connection-dot ${state.running?'ready':''}`}/>{preview?t('미리보기'):t(status)}<small>Lexift {state.version}</small></div></aside>
-    <div className="workspace"><header className="titlebar" data-tauri-drag-region><span data-tauri-drag-region>{t(navigation.find(([target])=>target===page)![1])}</span><div className="window-actions"><button aria-label={t('최소화')} onClick={()=>void host('window_action',{action:'minimize'})}><Minus size={16}/></button><button aria-label={t('최대화')} onClick={()=>void host('window_action',{action:'maximize'})}><Square size={12}/></button><button aria-label={t('알림 영역으로 닫기')} onClick={()=>void host('window_action',{action:'close'})}><X size={17}/></button></div></header>
+    <aside className="sidebar"><div className="sidebar-brand" data-tauri-drag-region><img src="/lexift-icon.svg" alt="" draggable={false}/><strong>Lexift</strong><span>1.1</span></div><nav aria-label={t('메뉴')}>{navigation.map(([target,label,Icon])=><button key={target} className={page===target?'active':''} aria-current={page===target?'page':undefined} aria-label={t(label)} title={t(label)} onClick={()=>setPage(target)}><Icon size={19}/><span>{t(label)}</span></button>)}</nav><div className="sidebar-bottom"><span className={`connection-dot ${state.running?'ready':''}`}/>{preview?t('미리보기'):t(status)}<small>Lexift {state.version}</small></div></aside>
+    <div className="workspace"><header className="titlebar" data-tauri-drag-region><span className="breadcrumb" data-tauri-drag-region><strong>Lexift</strong><span aria-hidden="true">/</span>{t(navigation.find(([target])=>target===page)![1])}</span><div className="window-actions"><button aria-label={t('최소화')} onClick={()=>void host('window_action',{action:'minimize'})}><Minus size={16}/></button><button aria-label={t('최대화')} onClick={()=>void host('window_action',{action:'maximize'})}><Square size={12}/></button><button aria-label={t('알림 영역으로 닫기')} onClick={()=>void host('window_action',{action:'close'})}><X size={17}/></button></div></header>
       <main className="main-content">
         {preview&&<div className="preview-banner">{t('미리보기에서는 실제 설정을 변경하지 않습니다.')}</div>}
         {error&&<div className="error-banner" role="alert"><span>{t(error)}</span><button onClick={()=>void boot(true)}>{t('다시 연결')}</button></div>}
         <div hidden={page!=='dashboard'}>
-          <Heading title={t('익숙한 입력, 더 넓은 언어.')} description={t('언어 전환부터 발음 변환까지, 키보드 하나로.')}/>
-          <section className="runtime-card"><div className={`runtime-icon ${state.enabled?'enabled':''}`}><Power size={27}/></div><div className="runtime-copy"><h2>Lexift <span>{state.enabled?'ON':'OFF'}</span></h2><p>{t(status)}</p></div><Toggle checked={state.enabled} label={t('Lexift 사용')} disabled={busy} onChange={enabled=>void run('set_enabled',{enabled})}/></section>
+          <section className="dashboard-hero">
+            <div><span className="dashboard-kicker">LEXIFT / DESKTOP</span><Heading title={t('익숙한 입력, 더 넓은 언어.')} description={t('언어 전환부터 발음 변환까지, 키보드 하나로.')}/></div>
+            <div className="dashboard-glyphs" aria-hidden="true"><span lang="ko">한</span><span lang="ja">あ</span><span lang="zh-Hant">語</span></div>
+          </section>
           {state.firstRun&&<div className="setup-banner"><Globe2 size={22}/><span>{t('사용할 입력 언어를 먼저 등록하세요.')}</span><Button onClick={()=>setPage('slots')}>{t('입력기 추가')}</Button></div>}
+          <div className="dashboard-grid">
+            <section className="dashboard-features">
           <div className="section-title"><h2>{t('기능')}</h2><button onClick={()=>setPage('shortcuts')}>{t('단축키 설정')}<ChevronRight size={16}/></button></div>
           <div className="feature-grid">{(['selector','ja','zh','zh_tw'] as BindingName[]).map((name,index)=><section className="feature-card" key={name}><div className="feature-top"><span className={`feature-symbol symbol-${index}`}>{['Aa','あ','简','繁'][index]}</span><Toggle checked={state.features[name]} label={t(names[name])} disabled={busy} onChange={enabled=>void run('set_feature',{name,enabled})}/></div><h3>{t(names[name])}</h3><Shortcut binding={state.shortcuts[name]}/></section>)}</div>
+            </section>
+            <section className="dashboard-side">
+          <section className="runtime-card"><div className={`runtime-icon ${state.enabled?'enabled':''}`}><Power size={27}/></div><div className="runtime-copy"><h2>Lexift <span>{state.enabled?'ON':'OFF'}</span></h2><p>{t(status)}</p></div><Toggle checked={state.enabled} label={t('Lexift 사용')} disabled={busy} onChange={enabled=>void run('set_enabled',{enabled})}/></section>
           <div className="section-title"><h2>{t('입력 언어')}</h2><button onClick={()=>setPage('slots')}>{t('편집')}<ChevronRight size={16}/></button></div><div className="slot-chips">{state.slots.map((slot,index)=><div key={index}><kbd>{'1234567890ABCDE'[index]}</kbd><div><strong>{slot.name}</strong><small>{state.layouts.find(layout=>layout.hkl===slot.hkl)?.tag}</small></div></div>)}</div>
+            </section>
+          </div>
           <p className="home-caption">Shift the Way You Learn.</p>
         </div>
         <div hidden={page!=='slots'}><Slots key={`slots-${resetKey}`} state={state} run={run} busy={busy}/></div>
@@ -93,7 +102,7 @@ function Desktop({changeLocale}:{changeLocale:(value:string)=>void}) {
         <div hidden={page!=='about'}><Heading title={t('프로그램 정보')}/><section className="about-brand panel"><img src="/lexift-logo.png" alt="Lexift"/><p className="handwriting">Shift the Way You Learn.</p><span>Lexift {state.version}</span></section><section className="panel credit-panel"><h2>{t('고마운 분')}</h2><div className="setting-row"><span>Translation (JP) & QA</span><strong>루노</strong></div><p className="muted">© 2026 Lutté Laurent</p></section><div className="link-grid">{[['manual','사용설명서'],['github','GitHub'],['paypal','개발 후원']].map(([destination,label])=><button key={destination} onClick={()=>external(destination)}>{t(label)}<ArrowUpRight size={18}/></button>)}</div><div className="about-bottom"><Button secondary disabled={busy} onClick={()=>void(async()=>{if(!native){setNotice(t('미리보기에서는 실제 설정을 변경하지 않습니다.'));return}setBusy(true);try{const result=await host('engine_command',{action:'check_update',payload:{}}) as {version:string};setNotice(t('최신 버전: {version}',{version:result.version}))}catch(problem){setNotice(String(problem))}finally{setBusy(false)}})()}>{t('업데이트 확인')}</Button><button className="quit-link" onClick={()=>setConfirmation('quit')}>{t('종료')}</button></div></div>
       </main><footer className="statusbar"><span>{t(status)}</span><button onClick={()=>external('manual')}>{t('사용설명서')}<ArrowUpRight size={13}/></button></footer>
     </div>
-    {notice&&<div className="toast" role="status"><span>{t(notice)}</span><button aria-label={t('알림 닫기')} onClick={()=>setNotice('')}><X size={16}/></button></div>}
+    {notice&&<div className="toast" role="status"><Bell size={17} aria-hidden="true"/><span>{t(notice)}</span><button aria-label={t('알림 닫기')} onClick={()=>setNotice('')}><X size={16}/></button></div>}
     {confirmation&&<Confirm title={t(confirmation==='quit'?'Lexift를 종료할까요?':'기본값으로 되돌릴까요?')} description={t(confirmation==='quit'?'입력기 전환과 발음 변환이 중지됩니다.':'단축키, 입력 언어와 사전을 초기화합니다.')} accept={t(confirmation==='quit'?'종료':'기본값')} cancel={()=>setConfirmation(null)} confirm={()=>{if(confirmation==='quit')void host('quit_app');else void run('reset_defaults',{confirmed:true}).then(ok=>{if(ok)setResetKey(value=>value+1)});setConfirmation(null)}}/>}
     {languageChoice&&<Confirm title={t('표시 언어 변경')} description={t('표시 언어를 {language}로 바꿀까요?',{language:displayLanguageName(state,languageChoice)})} accept={t('변경')} cancel={()=>setLanguageChoice('')} confirm={()=>{void run('set_general',{language:languageChoice});setLanguageChoice('')}}/>}
   </div>;

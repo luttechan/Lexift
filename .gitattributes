@@ -2,3 +2,4 @@ app/** -text
 release/** -text
 source/module/chinese_data/** -text
 *.sqlite3 binary
+engine/module/chinese_data/*.yaml -text
