@@ -2,10 +2,10 @@
 DATA = '''
 홈|Home|ホーム|主页|首頁|Accueil|Inicio|Главная|Start
 입력 언어|Input languages|入力言語|输入语言|輸入語言|Langues de saisie|Idiomas de entrada|Языки ввода|Eingabesprachen
-언어 전환|Switch language|言語切替|切换语言|切換語言|Changer de langue|Cambiar idioma|Смена языка|Sprache wechseln
+언어 전환|Switch input language|入力言語の切り替え|切换输入语言|切換輸入語言|Changer de langue de saisie|Cambiar idioma de entrada|Сменить язык ввода|Eingabesprache wechseln
 한일 변환|Korean to Japanese|韓国語から日本語|韩语转日语|韓語轉日語|Coréen vers japonais|Coreano a japonés|Корейский → японский|Koreanisch → Japanisch
 한중 변환|Korean to Chinese|韓国語から中国語|韩语转中文|韓語轉中文|Coréen vers chinois|Coreano a chino|Корейский → китайский|Koreanisch → Chinesisch
-번체 / 주음부호|Traditional / Zhuyin|繁体字 / 注音|繁体 / 注音|繁體 / 注音|Traditionnel / zhuyin|Tradicional / zhuyin|Традиционные / чжуинь|Traditionell / Zhuyin
+번체 / 주음부호|Traditional / Zhuyin|繁体字 / 注音|繁体 / 注音|繁體 / 注音|Chinois traditionnel / zhuyin|Chino tradicional / zhuyin|Традиционный китайский / чжуинь|Traditionelles Chinesisch / Zhuyin
 병음 성조|Pinyin tones|ピンイン声調|拼音声调|拼音聲調|Tons du pinyin|Tonos del pinyin|Тоны пиньинь|Pinyin-Töne
 Caps Lock 상태 알림|Caps Lock indicator|Caps Lock 状態表示|Caps Lock 状态提示|Caps Lock 狀態提示|Indicateur Verr. Maj|Indicador de Bloq Mayús|Индикатор Caps Lock|Feststelltasten-Anzeige
 Lexift 사용|Enable Lexift|Lexift を有効にする|启用 Lexift|啟用 Lexift|Activer Lexift|Activar Lexift|Включить Lexift|Lexift aktivieren
@@ -44,14 +44,14 @@ Windows 입력기를 등록하고 표시 순서를 정하세요.|Add Windows inp
 연결 중|Connecting|接続中|正在连接|正在連線|Connexion en cours|Conectando|Подключение|Verbindung wird hergestellt
 예시|Example|例|示例|範例|Exemple|Ejemplo|Пример|Beispiel
 위로|Move up|上へ|上移|上移|Monter|Subir|Вверх|Nach oben
-익숙한 입력, 더 넓은 언어.|Your keyboard. More languages.|いつもの入力で、もっと多くの言語へ。|熟悉的输入，更多的语言。|熟悉的輸入，更多的語言。|Votre clavier. Plus de langues.|Tu teclado. Más idiomas.|Привычный ввод. Больше языков.|Vertraute Tastatur. Mehr Sprachen.
+입력은 그대로.|Same keyboard.|入力はそのまま。|照常输入。|照常輸入。|Le même clavier.|El mismo teclado.|Та же клавиатура.|Dieselbe Tastatur.
 일시 정지|Paused|一時停止中|已暂停|已暫停|En pause|En pausa|Приостановлено|Pausiert
 입력 기능 중지|Input features stopped|入力機能停止中|输入功能已停止|輸入功能已停止|Fonctions de saisie arrêtées|Funciones de entrada detenidas|Функции ввода остановлены|Eingabefunktionen angehalten
 입력 모드|Input mode|入力モード|输入模式|輸入模式|Mode de saisie|Modo de entrada|Режим ввода|Eingabemodus
 입력 언어 등록 필요|Add an input language|入力言語を追加してください|请添加输入语言|請新增輸入語言|Ajoutez une langue de saisie|Añade un idioma de entrada|Добавьте язык ввода|Eingabesprache hinzufügen
 입력 환경 준비 중|Preparing your input tools|入力環境を準備中|正在准备输入环境|正在準備輸入環境|Préparation de la saisie|Preparando la entrada|Подготовка ввода|Eingabe wird vorbereitet
 입력기 전환과 발음 변환이 중지됩니다.|Language switching and phonetic conversion will stop.|言語切替と発音変換を停止します。|语言切换和发音转换将停止。|語言切換及發音轉換將停止。|Le changement de langue et la conversion phonétique seront arrêtés.|Se detendrán el cambio de idioma y la conversión fonética.|Переключение языков и преобразование произношения прекратятся.|Sprachwechsel und Lautumwandlung werden angehalten.
-입력기 추가|Add input|入力方式を追加|添加输入法|新增輸入法|Ajouter une saisie|Añadir entrada|Добавить ввод|Eingabe hinzufügen
+입력기 추가|Add input method|入力方式を追加|添加输入法|新增輸入法|Ajouter une méthode de saisie|Añadir método de entrada|Добавить метод ввода|Eingabemethode hinzufügen
 자주 쓰는 이름이나 표현을 원하는 표기로 등록하세요.|Save names and phrases with the spelling you prefer.|よく使う名前や表現を、好みの表記で登録できます。|为常用名称或表达保存指定写法。|為常用名稱或詞句儲存指定寫法。|Enregistrez vos noms et expressions avec l’écriture de votre choix.|Guarda nombres y expresiones con la escritura que prefieras.|Сохраняйте имена и выражения с нужным написанием.|Namen und Ausdrücke in der gewünschten Schreibweise speichern.
 저장|Save|保存|保存|儲存|Enregistrer|Guardar|Сохранить|Speichern
 저장하지 않은 변경사항이 있습니다.|You have unsaved changes.|未保存の変更があります。|有未保存的更改。|有尚未儲存的變更。|Des modifications ne sont pas enregistrées.|Hay cambios sin guardar.|Есть несохранённые изменения.|Es gibt ungespeicherte Änderungen.

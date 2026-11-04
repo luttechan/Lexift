@@ -1,7 +1,9 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, type ReactNode } from 'react';
 import catalog from './locales.json';
 const Locale=createContext('ko');
-export function I18n({language,children}:{language:string;children:ReactNode}) {return <Locale.Provider value={language}>{children}</Locale.Provider>}
+export function I18n({language,children}:{language:string;children:ReactNode}) {
+  useEffect(()=>{document.documentElement.lang=language.replace('_','-')},[language]);
+  return <Locale.Provider value={language}>{children}</Locale.Provider>}
 export function useT() {
   const language=useContext(Locale);
   return (key:string,values:Record<string,string|number>={})=>{

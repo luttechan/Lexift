@@ -79,7 +79,7 @@ function Desktop({changeLocale}:{changeLocale:(value:string)=>void}) {
         {error&&<div className="error-banner" role="alert"><span>{t(error)}</span><button onClick={()=>void boot(true)}>{t('다시 연결')}</button></div>}
         <div hidden={page!=='dashboard'}>
           <section className="dashboard-hero">
-            <div><span className="dashboard-kicker">LEXIFT / DESKTOP</span><Heading title={t('익숙한 입력, 더 넓은 언어.')} description={t('언어 전환부터 발음 변환까지, 키보드 하나로.')}/></div>
+            <div><span className="dashboard-kicker">LEXIFT / DESKTOP</span><Heading title={t('입력은 그대로.')} description={t('언어 전환부터 발음 변환까지, 키보드 하나로.')}/></div>
             <div className="dashboard-glyphs" aria-hidden="true"><span lang="ko">한</span><span lang="ja">あ</span><span lang="zh-Hant">語</span></div>
           </section>
           {state.firstRun&&<div className="setup-banner"><Globe2 size={22}/><span>{t('사용할 입력 언어를 먼저 등록하세요.')}</span><Button onClick={()=>setPage('slots')}>{t('입력기 추가')}</Button></div>}

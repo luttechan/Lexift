@@ -20,7 +20,7 @@ async function contrast(selector){const value=await page.locator(selector).first
   let parent=element,bg='';while(parent){const color=getComputedStyle(parent).backgroundColor;if(rgb(color)[3]!==0){bg=color;break}parent=parent.parentElement}const a=l(bg),b=l(getComputedStyle(element).color);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)
 });check(`Readable contrast ${selector}: ${value.toFixed(2)}`,value>=4.5)}
 try{
-  await page.goto(url+'/?preview=1');await page.getByRole('heading',{name:'익숙한 입력, 더 넓은 언어.'}).waitFor();await page.evaluate(()=>document.fonts.ready);
+  await page.goto(url+'/?preview=1');await page.getByRole('heading',{name:'입력은 그대로.'}).waitFor();await page.evaluate(()=>document.fonts.ready);
   check('Preview cannot write real settings',await page.getByText('미리보기에서는 실제 설정을 변경하지 않습니다.').isVisible());await capture('home-light');
   await button('단축키').click();await page.getByLabel('한일 변환 키',{exact:true}).selectOption('Q');check('Conflict blocks apply',await page.locator('.shortcut-editor').nth(1).getByRole('button',{name:'적용'}).isDisabled());
   await page.getByLabel('한일 변환 키',{exact:true}).selectOption('F9');await page.locator('.shortcut-editor').nth(1).getByRole('button',{name:'적용'}).click();
@@ -59,7 +59,7 @@ try{
     if(next==='en'){await page.keyboard.press('Escape');check('Language confirmation cancels correctly',await page.getByRole('combobox').inputValue()==='ko');await page.getByRole('combobox').selectOption(next)}
     await page.getByRole('dialog').getByRole('button',{name:catalog[language]['변경'],exact:true}).click();language=next;
     await button(catalog[language]['홈']).waitFor();await button(catalog[language]['홈']).click();
-    check(`Localized heading ${language}`,await page.getByRole('heading',{name:catalog[language]['익숙한 입력, 더 넓은 언어.'],exact:true}).isVisible());
+    check(`Localized heading ${language}`,await page.getByRole('heading',{name:catalog[language]['입력은 그대로.'],exact:true}).isVisible());
     if(['en','ja','de'].includes(language))await capture(`home-${language}`);
     await page.setViewportSize({width:860,height:700});check(`No overflow in ${language}`,await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await button(catalog[language]['단축키']).click();check(`Localized shortcut labels ${language}`,await page.getByRole('heading',{name:catalog[language]['한일 변환'],exact:true}).isVisible());

@@ -22,7 +22,7 @@ try {
   let page;
   for(let n=0;n<150;n++){page=context.pages().find(p=>p.url().includes('tauri.localhost')&&!new URL(p.url()).search);if(page)break;await new Promise(done=>setTimeout(done,100));}
   assert(page,`Main WebView not found: ${context.pages().map(p=>p.url()).join(',')}`);
-  await page.getByRole('heading',{name:'익숙한 입력, 더 넓은 언어.',exact:true}).waitFor({timeout:25000});
+  await page.getByRole('heading',{name:'입력은 그대로.',exact:true}).waitFor({timeout:25000});
   const firstReadyMs=Math.round(performance.now()-started);
   const rpc=(action,payload={})=>page.evaluate(({action,payload})=>window.__TAURI_INTERNALS__.invoke('engine_command',{action,payload}),{action,payload});
   const nativeVisibility=async(visible)=>{

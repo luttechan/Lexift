@@ -20,9 +20,9 @@ missing=sorted(keys-base.keys())
 if missing:
     print(json.dumps(missing,ensure_ascii=False,indent=2));sys.exit(1)
 languages=['en','ja','zh_CN','zh_TW','fr','es','ru','de']
-catalog={'ko':{key:key for key in keys}}
+catalog={'ko':{key:key for key in sorted(keys)}}
 for index,code in enumerate(languages):
-    catalog[code]={key:base[key][index] for key in keys}
+    catalog[code]={key:base[key][index] for key in sorted(keys)}
     assert all(catalog[code].values()),code
     for key in keys:assert set(re.findall(r'\{\w+\}',key))==set(re.findall(r'\{\w+\}',catalog[code][key])),(code,key)
 (root/'src/locales.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2),encoding='utf-8')
