@@ -4,7 +4,7 @@ import type { Snapshot } from './types';
 export const native = isTauri();
 export const preview = !native && new URLSearchParams(location.search).has('preview');
 const seed: Snapshot = {
-  version: '1.1.0', connected: false, diagnostic: true, status: 'ready', error: '', enabled: true, running: false, firstRun: false, language: 'ko',
+  version: '1.2.0', connected: false, diagnostic: true, status: 'ready', error: '', enabled: true, running: false, firstRun: false, language: 'ko',
   features: {selector:true,ja:true,zh:true,zh_tw:true,tone:false},
   shortcuts: {selector:{mode:'caps',key:'Q'},ja:{mode:'caps',key:'A'},zh:{mode:'caps',key:'C'},zh_tw:{mode:'caps',key:'T'}},
   slots: [{hkl:'ko',mode:'ko_hangul',name:'한국어'},{hkl:'en',mode:'default',name:'English'},{hkl:'ja',mode:'ja_hiragana',name:'日本語'}],

@@ -579,6 +579,14 @@ static int runInlineWatcher(DWORD ownerPid=0) {
                 lastRawToken=raw;
             } else if(anchored && restrictInlineSuffix(snapshot,baseline->token)) {
                 lastRawToken=raw;
+            } else if(!valid && baseline && !paused && !snapshot.blocked &&
+                      snapshot.target==baseline->target && !typingModifierDown() &&
+                      boundary==typingBoundary() && GetTickCount64()-lastTypingStroke<=500) {
+                // UIA can briefly lose its text range while the IME commits a
+                // syllable. Do not reclassify the whole typed phrase as old text.
+                // No candidate or replacement is allowed from this invalid read.
+                // The next valid read must pass the original anchor checks.
+                valid=false;
             } else {
                 baseline=valid?observed:nullptr;
                 baselineStrokes=strokes;

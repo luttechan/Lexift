@@ -3,6 +3,8 @@ $ErrorActionPreference = 'Stop'
 $savedPath = $env:PATH
 $savedPythonPath = $env:PYTHONPATH
 $savedUtf8 = $env:PYTHONUTF8
+$savedCargoHome = $env:CARGO_HOME
+$savedRustupHome = $env:RUSTUP_HOME
 $workspace = Split-Path $PSScriptRoot -Parent
 $runtime = Join-Path $env:USERPROFILE '.cache\codex-runtimes\codex-primary-runtime\dependencies'
 Push-Location $PSScriptRoot
@@ -25,10 +27,9 @@ try {
         $env:PYTHONPATH = $paths -join ';'
         $zig = $env:KANASHIFT_ZIG
         if (!$zig) { $zig = (Get-Command zig -ErrorAction SilentlyContinue).Source }
-        if (!(Test-Path 'engine\lab\ime_candidate_host.exe')) {
-            if (!$zig) { throw 'Set KANASHIFT_ZIG to zig.exe (0.14.1).' }
-            & .\engine\lab\build.ps1 -Zig $zig
-        }
+        if (!$zig) { throw 'Set KANASHIFT_ZIG to zig.exe (0.14.1).' }
+        & .\engine\lab\build.ps1 -Zig $zig
+        if ($LASTEXITCODE -ne 0) { throw 'IME host build failed' }
         foreach ($builder in @('build_native_hooks.py', 'build_keyboard_worker.py')) {
             & $python (Join-Path 'engine\module' $builder)
             if ($LASTEXITCODE -ne 0) { throw 'Native engine build failed' }
@@ -48,12 +49,20 @@ try {
     & $python scripts\package.py
     if ($LASTEXITCODE -ne 0) { throw 'Packaging failed' }
     if ($Installer) {
-        pnpm exec tauri bundle --bundles nsis
+        $localRust = Join-Path $workspace '.lexift-tools'
+        if (Test-Path (Join-Path $localRust 'cargo/bin/cargo.exe')) {
+            $env:CARGO_HOME = Join-Path $localRust 'cargo'
+            $env:RUSTUP_HOME = Join-Path $localRust 'rustup'
+            $env:PATH = (Join-Path $localRust 'cargo/bin') + ';' + $env:PATH
+        }
+        pnpm exec tauri bundle --bundles nsis --target x86_64-pc-windows-msvc
         if ($LASTEXITCODE -ne 0) { throw 'Windows installer build failed' }
     }
 } finally {
     $env:PATH = $savedPath
     $env:PYTHONPATH = $savedPythonPath
     $env:PYTHONUTF8 = $savedUtf8
+    $env:CARGO_HOME = $savedCargoHome
+    $env:RUSTUP_HOME = $savedRustupHome
     Pop-Location
 }

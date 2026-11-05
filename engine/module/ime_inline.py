@@ -92,7 +92,7 @@ class InlineMode(QObject):
         self.presentation_timer=QTimer(self)
         self.presentation_timer.setSingleShot(True)
         self.presentation_timer.setInterval(800)
-        self.presentation_timer.timeout.connect(self._hide)
+        self.presentation_timer.timeout.connect(self._retry_presentation)
         self.debounce = QTimer(self)
         self.debounce.setSingleShot(True); self.debounce.setInterval(0)
         self.debounce.setTimerType(Qt.TimerType.PreciseTimer)
@@ -528,7 +528,7 @@ class InlineMode(QObject):
         alternatives=data.get('reading_alternatives',{})
         row=values.index(selected) if selected in values else 0
         self.desktop_revision+=1
-        if self.desktop_visible:
+        if self.desktop_visible and self._shown_identity!=identity:
             self.desktop_visible=False
             self.visibility_changed.emit(False)
         self._shown_identity=identity
@@ -542,6 +542,19 @@ class InlineMode(QObject):
             hint=tr('Lexift / 한자 후보 준비 중…') if data.get('preview') and not data.get('custom')
                  else tr('1–9 / 0 확정 / ↑↓ 이동 / Space / Enter'))
         self.desktop_present(self.desktop_frame)
+        self._presentation_retries=0
+        self.presentation_timer.start()
+
+    def _retry_presentation(self):
+        frame=self.desktop_frame
+        if not frame or not frame.get("visible"):
+            return
+        retries=getattr(self,"_presentation_retries",0)
+        if retries>=2:
+            self._hide()
+            return
+        self._presentation_retries=retries+1
+        self.desktop_present(frame)
         self.presentation_timer.start()
 
     def desktop_ack(self,revision):

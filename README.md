@@ -1,14 +1,12 @@
-# Lexift 1.1
+# Lexift 1.2
 
 한글 발음으로 일본어와 중국어를 입력하는 Windows 도구입니다.
 
 [Windows 설치기](https://github.com/luttechan/Lexift/releases/latest) · [공식 사이트 및 사용 설명서](https://luttechan.github.io/lexift/)
 
-- 메인 UI와 Caps 언어 선택 메뉴 개편
-- 9개 표시 언어의 문구와 오류 안내 정리
-- Caps Lock 상태 알림 개별 설정
-- 설정 변경 시 편집 중인 사전 유지
-- 단축키 중복 검사, 언어 변경 확인, 사전 개별 삭제
+- 일본어 입력 중 후보창이 사라지는 경로 개선
+- 단축키 등록 실패 알림 추가
+- IME 엔진 재빌드 누락 수정
 
 언어 선택 메뉴, 한일·한중 후보창, 상태 알림은 React와 Tauri로 표시합니다. 트레이는 Tauri의 Windows 메뉴를 사용합니다. 입력 엔진은 네이티브 모듈로 발음과 확정 키를 처리하며, PySide6로 타이머와 자식 프로세스를 관리합니다.
 

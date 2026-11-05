@@ -86,8 +86,8 @@ def main():
     class Dialogs:
         @staticmethod
         def warning(parent,title,text,*unused):
-            if handling_request:raise UserError(str(text))
             notices.show(text,'notification','corner',4000,title)
+            if handling_request:raise UserError(str(text))
         critical=warning
         @staticmethod
         def information(parent,title,text,*unused):

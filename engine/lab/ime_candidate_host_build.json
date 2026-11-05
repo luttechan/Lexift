@@ -1,5 +1,5 @@
 {
-  "binary_sha256": "e5c8eca69e1a32880fb5994ed30b6472f6a0851b162e725baee792c5a6706021",
+  "binary_sha256": "563e5b3f24dd9eb1777aca0ecb5d81a6d8149991dc7bb41f65757d1a8d770461",
   "target": "x86_64-windows-gnu",
   "cpu": "baseline"
 }
