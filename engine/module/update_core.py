@@ -79,14 +79,24 @@ def safe_url(url: str) -> str:
 def open_url(url: str):
     # TLS/HTTP machinery is needed only in the isolated network job, not while
     # painting the dashboard or handling a keyboard shortcut.
+    # urllib silently omits HTTPSHandler when ssl cannot be imported. Build
+    # it explicitly so frozen-runtime failures cannot become "unknown url".
     import urllib.request
+    try:
+        import ssl
+        context = ssl.create_default_context()
+        https = urllib.request.HTTPSHandler(context=context)
+    except (ImportError, OSError, AttributeError) as error:
+        import logging
+        logging.exception("Updater HTTPS initialization failed")
+        raise UpdateError("업데이트 보안 연결을 초기화하지 못했습니다. 공식 사이트에서 최신 설치기를 받아주세요.") from error
     class SafeRedirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
             safe_url(newurl)
             return super().redirect_request(req, fp, code, msg, headers, newurl)
     request = urllib.request.Request(safe_url(url), headers={
         "User-Agent": "Lexift-Updater", "Accept": "application/vnd.github+json"})
-    return urllib.request.build_opener(SafeRedirect()).open(request, timeout=15)
+    return urllib.request.build_opener(https, SafeRedirect()).open(request, timeout=15)
 
 
 @dataclass(frozen=True)

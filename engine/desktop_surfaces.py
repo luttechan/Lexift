@@ -15,11 +15,13 @@ class Notices(QObject):
         self.timer.timeout.connect(self.hide)
 
     def show(self,text,kind,placement,duration,title=''):
+        duration=max(500,min(int(duration),10000))
+        self.timer.stop()
         self.revision+=1
         self.kind=kind
         self.publish('notice-popup',dict(visible=True,revision=self.revision,text=str(text),
-                                        title=str(title),placement=placement,kind=kind))
-        self.timer.start(max(500,min(int(duration),10000)))
+                                        title=str(title),placement=placement,kind=kind,duration=duration))
+        self.timer.start(duration)
 
     def hide(self,kind=None):
         if self.kind is None or (kind is not None and self.kind!=kind):

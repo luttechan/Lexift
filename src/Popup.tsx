@@ -31,7 +31,7 @@ export function Popup({candidate}:{candidate:boolean}) {
     let disposed=false;
     let cleanup:(()=>void)|undefined;
     if(native)void(async()=>{
-      const unlisten=await listen<PopupFrame>('engine-popup',event=>{if(!disposed)setFrame(event.payload)});
+      const unlisten=await listen<PopupFrame>('engine-popup',event=>{if(!disposed)setFrame(current=>current && current.revision>event.payload.revision?current:event.payload)});
       if(disposed){unlisten();return;}
       cleanup=unlisten;
       const snapshot=await host('popup_snapshot') as PopupFrame;

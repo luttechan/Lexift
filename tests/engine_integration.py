@@ -45,7 +45,7 @@ try:
  assert request('get_state')['dictionary']==entries[:1]
  layout=state['layouts'][0];slots=[dict(hkl=layout['hkl'],mode=layout['modes'][0]['value'],name='검증 입력기')]
  state=request('save_slots',dict(slots=slots));assert state['slots']==slots and not state['firstRun']
- assert state['version']=='1.2.0' and state['selectorRenderer']=='tauri'
+ assert state['version']=='1.2.1' and state['selectorRenderer']=='tauri'
  state=request('set_general',dict(capsNotice=False));assert state['general']['capsNotice'] is False
  state=request('set_enabled',dict(enabled=False))
  state=request('set_enabled',dict(enabled=True));assert state['general']['capsNotice'] is False

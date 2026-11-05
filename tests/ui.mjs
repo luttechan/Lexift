@@ -73,6 +73,11 @@ try{
   await page.locator('.notice-icon svg').waitFor();
   check('Caps state is still visible with an icon',await page.getByRole('status').getByText('Caps Lock ON').isVisible());
   check('Notice animation respects reduced motion',await page.emulateMedia({reducedMotion:'reduce'}).then(()=>page.locator('.notice-popup').evaluate(element=>getComputedStyle(element).animationName==='none')));
+  for(const scheme of ['light','dark']) {
+    await page.emulateMedia({colorScheme:scheme});
+    check(`Notice has no border or shadow ${scheme}`,await page.locator('.notice-popup').evaluate(element=>{const style=getComputedStyle(element);return style.borderTopWidth==='0px'&&style.boxShadow==='none'}));
+    check(`Notice window is transparent ${scheme}`,await page.evaluate(()=>getComputedStyle(document.body).backgroundColor==='rgba(0, 0, 0, 0)'));
+  }
   await capture('notice-dark');
   check('No frontend exceptions',errors.length===0);await writeFile(join(root,'verification/ui.json'),JSON.stringify({passed:true,checks,errors},null,2));console.log(JSON.stringify({passed:true,checks:checks.length}));
 }finally{await browser.close();server.close()}

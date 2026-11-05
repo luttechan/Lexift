@@ -33,7 +33,7 @@ a = Analysis(
            (str(module_folder / 'chinese_data'), 'chinese_data'),
            (str(module_folder / 'IAccessible2-LICENSE.txt'), '.'),*tls_datas,*opencc_datas,
            (str(module_folder / 'OpenCC-LICENSE.txt'),'.')],
-    hiddenimports=opencc_hidden,
+    hiddenimports=[*opencc_hidden, 'ssl', '_ssl', 'http.client', 'urllib.request'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

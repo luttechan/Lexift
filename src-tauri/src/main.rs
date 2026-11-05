@@ -155,7 +155,33 @@ impl Engine {
                         let frame=message["data"].clone();
                         engine.popups.lock().unwrap().insert(label,frame.clone());
                         if frame["visible"]!=true {hide_surface(&app,label);}
-                        let _=app.emit_to(label,"engine-popup",frame);
+                        let _=app.emit_to(label,"engine-popup",frame.clone());
+                        if label=="notice-popup" && frame["visible"]==true {
+                            // Expire natively even if the engine or WebView is busy.
+                            // Compare the complete frame so a replaced notice survives
+                            // an older timer, including an engine generation restart.
+                            let handle=app.clone();
+                            let shared=Arc::clone(&engine);
+                            let generation=engine.generation.load(Ordering::SeqCst);
+                            let duration=frame["duration"].as_u64().unwrap_or(4000).clamp(500,10000);
+                            tauri::async_runtime::spawn(async move {
+                                tokio::time::sleep(Duration::from_millis(duration)).await;
+                                let expired={
+                                    let mut frames=shared.popups.lock().unwrap();
+                                    if shared.generation.load(Ordering::SeqCst)!=generation || frames.get(label)!=Some(&frame) {None}
+                                    else {
+                                        let mut hidden=frame.clone();
+                                        hidden["visible"]=json!(false);
+                                        frames.insert(label,hidden.clone());
+                                        Some(hidden)
+                                    }
+                                };
+                                if let Some(hidden)=expired {
+                                    hide_surface(&handle,label);
+                                    let _=handle.emit_to(label,"engine-popup",hidden);
+                                }
+                            });
+                        }
                     }
                     if event=="tray" { update_tray(&app,message["data"].clone()); }
                     if event=="hide-main" { if let Some(window)=app.get_webview_window("main"){let _=window.hide();} }
@@ -431,6 +457,10 @@ fn quit_app(app: tauri::AppHandle, engine: tauri::State<'_, Arc<Engine>>) { engi
 fn main() {
     #[allow(unused_mut)]
     let mut context = tauri::generate_context!();
+    // Keep diagnostics isolated from the user's running application.
+    if std::env::args().any(|arg| arg == "--diagnostic") {
+        context.config_mut().identifier.push_str(".diagnostic");
+    }
     // Test-only CDP access is compiled out of optimized delivery builds.
     #[cfg(debug_assertions)]
     if std::env::args().any(|arg| arg == "--diagnostic") {

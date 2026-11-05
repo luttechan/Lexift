@@ -23,7 +23,7 @@ shutil.copy2(root / 'LICENSE', output / 'LICENSE.txt')
     'engine 폴더를 함께 유지하세요. 기존 설정과 사전을 사용합니다.\n'
     'Windows 10/11 x64, Microsoft Edge WebView2 Runtime 필요.\n'
     '메인 UI 이전본이며 후보창과 입력 엔진은 기존 구현을 유지합니다.\n'
-    'Lexift 1.2.0 로컬 개발본입니다.\n', encoding='utf-8')
+    'Lexift 1.2.1 로컬 개발본입니다.\n', encoding='utf-8')
 licenses = output / 'licenses'
 licenses.mkdir()
 for pattern in ('*-OFL.txt', '*-LICENSE.txt'):
